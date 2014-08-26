@@ -10,6 +10,6 @@
 		var ac = inp_account.val();
 		var pw = inp_password.val();
 		var t = slt_type.val();
-		console.log( ac, pw, t );
+		window.api.registerUser( ac, pw, t);
 	}
 })();

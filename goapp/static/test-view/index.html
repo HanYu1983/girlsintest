@@ -9,12 +9,21 @@
 		<input id="inp_password" />
 		<label>type</label>
 		<select id="slt_type">
-			<option>show girl</option>
-			<option>factory</option>
+			<option value="0">show girl</option>
+			<option value="1">factory</option>
 		</select>
-		<button id="btn_register">register</button>
+		<button id='btn_register'>register</button>
+		
+		<form action="../../test">
+			<input name="cmd"/>
+			<select name="slt_type">
+				<option value="0">show girl</option>
+				<option value="1">factory</option>
+			</select>
+			<input type="submit"/>
+		</form>
 	</body>
 	<script>
-		vic.utils.includeJS([ 'lib/jquery-1.11.1.min.js', 'js/index.js' ]);
+		vic.utils.includeJS([ 'lib/jquery-1.11.1.min.js', 'js/api.js', 'js/index.js' ]);
 	</script>
 </html>

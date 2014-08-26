@@ -76,3 +76,23 @@ vic.utils.inherit = function(from, fields) {
 	return proto;
 }
 
+vic.utils.toURL = function( url, data, method, onComplete ){
+	$.ajax({
+		url: url,
+		data: data,
+		type: method,
+		dataType: 'json',
+		success: function(msg){
+			console.log( msg );
+			if( msg.Error != undefined ){
+				
+			}
+			if( onComplete != undefined )	onComplete( msg );
+		},
+		error:function(xhr, ajaxOptions, thrownError){ 
+			alert(xhr.status); 
+			alert(thrownError); 
+		}
+	});
+}
+

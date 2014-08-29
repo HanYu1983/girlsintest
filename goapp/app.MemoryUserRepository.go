@@ -34,3 +34,7 @@ func (r *MemoryUserRepository) Keys()(keys []string){
     }
     return
 }
+
+func (r *MemoryUserRepository) Verify(account string, password string) bool {
+    return true
+}

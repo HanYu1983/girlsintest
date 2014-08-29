@@ -11,19 +11,23 @@ import (
 type ActionMap map[string]interface{}
 
 type DefaultResult struct {
-    Error string
+    Success bool
+    Info interface{}
 }
 
-func FrontControl(w http.ResponseWriter, r *http.Request, action ActionMap){
+func FrontControl(
+    w http.ResponseWriter,
+    r *http.Request,
+    action ActionMap){
     defer func(){
         if x:= recover(); x != nil{
-            errmsg, _ := json.Marshal(DefaultResult{Error:x.(string)})
+            errmsg, _ := json.Marshal(DefaultResult{Info:x.(string)})
             fmt.Fprintf(w, "%s", errmsg)
         }
     }()
     r.ParseForm()
     cmd := GetCommand(r, "nocmd")
-    result := Call(action, cmd, r)[0]
+    result := Call(action, cmd, w, r)[0]
     formatResult := result.Interface()
     js, _ := json.Marshal(formatResult)
     fmt.Fprintf(w, "%s",  js)
@@ -50,6 +54,10 @@ func PanicWhen(cond bool, msg string){
     if cond { panic(msg) }
 }
 
+func VerifyMethod(r *http.Request, method string){
+    PanicWhen(r.Method != method, "method must be "+method+"!")
+}
+
 func VerifyParam(r *http.Request, name string, fn func([]string)(bool, string)){
     param := r.Form[name]
     success, errmsg := fn(param)
@@ -74,5 +82,16 @@ func ParamInRange(min int, max int) func([]string) (bool, string){
         } else {
             return false, errmsg
         }
+    }
+}
+
+func CompositeAction(
+        before func(w http.ResponseWriter, r *http.Request),
+        origin func(w http.ResponseWriter, r *http.Request)interface{},
+    ) func(w http.ResponseWriter, r *http.Request)interface{} {
+    
+    return func(w http.ResponseWriter, r *http.Request)interface{}{
+        before(w, r)
+        return origin(w, r)
     }
 }

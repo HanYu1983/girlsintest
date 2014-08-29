@@ -10,14 +10,7 @@ const(
     user = iota
 )
 
-type UserManagerResult struct{
-    Message string
-    Info interface{}
-}
-
-func RegisterUser(r *http.Request) interface{} {
-    //PanicWhen(r.Method != "POST", "must post!")
-    //PanicWhen(len(r.Form["account"])==0, "no account")
+func RegisterUser(w http.ResponseWriter, r *http.Request) interface{} {
     VerifyParam(r, "account", ParamNotNil())
     VerifyParam(r, "password", ParamNotNil())
     VerifyParam(r, "type", ParamInRange(0, 1))
@@ -33,10 +26,10 @@ func RegisterUser(r *http.Request) interface{} {
     repository := GetUserRepository()
     repository.Create(user)
     
-    return UserManagerResult{Info:user}
+    return DefaultResult{Success: true, Info:user}
 }
 
-func QueryUser(r *http.Request) interface{} {
+func QueryUser(w http.ResponseWriter, r *http.Request) interface{} {
     queryKey := "all"
     if r.Form["key"] != nil {
         queryKey = r.Form["key"][0]
@@ -45,8 +38,8 @@ func QueryUser(r *http.Request) interface{} {
     repository := GetUserRepository()
     
     if queryKey == "all" {
-        return UserManagerResult{Info:repository.Keys()}
+        return DefaultResult{Success: true, Info:repository.Keys()}
     }else{
-        return UserManagerResult{Info:repository.Read(queryKey)}
+        return DefaultResult{Success: true, Info:repository.Read(queryKey)}
     }
 }

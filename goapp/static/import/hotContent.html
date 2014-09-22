@@ -1,0 +1,67 @@
+<style>
+.main{
+	width:400px;
+	height:250px;
+	position:relative;
+	left:50%;
+	top:100px;
+	margin-left:-200px;
+	background-color:black;
+}
+</style>
+hot page
+<div class="main">
+	<div class="con_ifame">
+		<iframe id="3diframe" width="400" height="320"></iframe>
+	</div>
+</div>
+<script src="lib/sketchfab-iframe.js"></script>
+<script>
+window.view = window.view || {};
+(function(){
+	function v_hot(){
+		var iframeWindow = $('#3diframe')[0];
+		
+		return {
+			get3dIframe:function(){
+				return iframeWindow;
+			}
+		}
+	}
+	window.view.v_hot = v_hot;
+})();
+window.controller = window.controller || {};
+(function(){
+	function c_hot(){
+		var sketchfabModule = window['sketchfab-iframe'];
+		var moduleVersion = sketchfabModule.version;
+		var Sketchfab = sketchfabModule.Sketchfab;
+		var Q = sketchfabModule.Q;
+		var urlid = "bb79930ee30944378ec957dcc6bed42d";
+		var view = window.view.v_hot();
+		var iframeWindow = view.get3dIframe();
+		var options = {
+			autospin:.3,
+			ui_controls:0,
+			ui_infos:0,
+			"nocamera": 1,
+			"autostart": 1,
+			"transparent": 0,
+			"controls": 0,
+			"watermark":0,
+			"desc_button":0,
+			"stop_button":0
+		};
+
+		var api = new Sketchfab(iframeWindow);
+		Q.when(api.load(urlid, options)).then(function(data) {
+			console.log( data );
+			api.start();
+		}).fail( function(error) {
+			console.log( error );
+		});
+	}
+	window.controller.c_hot = c_hot;
+})();
+window.controller.c_hot();
+</script>

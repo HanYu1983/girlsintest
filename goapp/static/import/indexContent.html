@@ -1,0 +1,112 @@
+<style>
+.con_ifame{
+	position:relative;
+	width:400px;
+	height:320px;
+	left:50%;
+	margin-left:-150px;
+	cursor:pointer
+}
+.btn_main{
+	width:400px;
+	height:60px;
+	background-color:red;
+	cursor:pointer
+}
+
+</style>
+index page
+<div class="con_ifame">
+	<iframe id="3diframe" width="400" height="320"></iframe>
+	<div id="btn_main" class="btn_main">
+</div>
+
+	
+</div>
+<script src="lib/sketchfab-iframe.js"></script>
+<script>
+window.view = window.view || {};
+(function(){
+	function v_indexContent(){
+		var btn_main = $('#btn_main' );
+		var iframeWindow = $('#3diframe')[0];
+		
+		return {
+			onBtnMainClick:function( fn ){
+				btn_main.click( fn );
+			},
+			get3dIframe:function(){
+				return iframeWindow;
+			}
+		}
+	}
+	window.view.v_indexContent = v_indexContent;
+})();
+
+window.controller = window.controller || {};
+(function(){
+	
+	function c_indexContent(){
+		var sketchfabModule = window['sketchfab-iframe'];
+		var moduleVersion = sketchfabModule.version;
+		var Sketchfab = sketchfabModule.Sketchfab;
+		var Q = sketchfabModule.Q;
+		var urlid = "bb79930ee30944378ec957dcc6bed42d";
+		var view = window.view.v_indexContent();
+		var iframeWindow = view.get3dIframe();
+		var options = {
+			autospin:.3,
+			ui_controls:0,
+			ui_infos:0,
+			"nocamera": 1,
+			"autostart": 1,
+			"transparent": 0,
+			"controls": 0,
+			"watermark":0,
+			"desc_button":0,
+			"stop_button":0
+		};
+
+		var api = new Sketchfab(iframeWindow);
+		Q.when(api.load(urlid, options)).then(function(data) {
+			console.log( data );
+			api.start();
+		}).fail( function(error) {
+			console.log( error );
+		});
+		
+		view.onBtnMainClick( function(){
+			window.location.href = 'hot.html';
+		});
+	}
+	window.controller.c_indexContent = c_indexContent;
+})();
+</script>
+<!--
+<script>
+window.view = window.view || {};
+(function(){
+	function v_indexContent(){
+		var btn_main = $('#btn_main' );
+		
+		return {
+			onBtnMainClick:function( fn ){
+				btn_main.click( fn );
+			}
+		}
+	}
+	window.view.v_indexContent = v_indexContent;
+})();
+
+window.controller = window.controller || {};
+(function(){
+	function c_indexContent(){
+		v = window.view.v_indexContent();
+		v.onBtnMainClick( function(){
+			window.location.href = 'hot.html';
+		});
+	}
+	window.controller.c_indexContent = c_indexContent;
+})();
+</script>
+-->

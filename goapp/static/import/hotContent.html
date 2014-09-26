@@ -1,67 +1,82 @@
 <style>
-.main{
-	width:400px;
-	height:250px;
+.flowLeft{
+	float:left;
+}
+.outline{
+	outline:#000 solid 1px;
+}
+.mc_hotContentRoot{
 	position:relative;
+	width:800px;
+	height:100%;
 	left:50%;
-	top:100px;
-	margin-left:-200px;
-	background-color:black;
+	margin-left:-400px;
+	padding:10px;
+}
+.mc_hotContentRoot .mc_hotImageContainer{
+	width:300px;
+	height:400px;
+}
+.mc_hotContentRoot .txt_hotDetail{
+	width:400px;
+	height:400px;
+	padding:10px;
+}
+.txt_hotDescribe{
+	position:relative;
+	top:30px;
+}
+.mc_arrowContainer{
+	position:absolute;
+	width:100%;
+	top:50%;
+}
+.mc_arrowContainer .btn_prev{
+	position:absolute;
+	left:100px;
+}
+.mc_arrowContainer .btn_next{
+	position:absolute;
+	right:100px;
 }
 </style>
 hot page
-<div class="main">
-	<div class="con_ifame">
-		<iframe id="3diframe" width="400" height="320"></iframe>
+<div class="mc_arrowContainer">
+	<div>
+		<button class="btn_prev">上一則</button>
+	</div>
+	<div>
+		<button class="btn_next">下一則</button>
 	</div>
 </div>
-<script src="lib/sketchfab-iframe.js"></script>
+<div class="outline mc_hotContentRoot">
+	<div class="outline flowLeft mc_hotImageContainer">
+	</div>
+	<div class="flowLeft txt_hotDetail">
+		<div>
+			<div class="txt_hotTitle">
+				時尚變3d?…挺有趣的
+			</div>
+			<div class="txt_hotDescribe">
+				這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 window.view = window.view || {};
 (function(){
 	function v_hot(){
-		var iframeWindow = $('#3diframe')[0];
 		
-		return {
-			get3dIframe:function(){
-				return iframeWindow;
-			}
-		}
 	}
 	window.view.v_hot = v_hot;
 })();
 window.controller = window.controller || {};
 (function(){
 	function c_hot(){
-		var sketchfabModule = window['sketchfab-iframe'];
-		var moduleVersion = sketchfabModule.version;
-		var Sketchfab = sketchfabModule.Sketchfab;
-		var Q = sketchfabModule.Q;
-		var urlid = "bb79930ee30944378ec957dcc6bed42d";
-		var view = window.view.v_hot();
-		var iframeWindow = view.get3dIframe();
-		var options = {
-			autospin:.3,
-			ui_controls:0,
-			ui_infos:0,
-			"nocamera": 1,
-			"autostart": 1,
-			"transparent": 0,
-			"controls": 0,
-			"watermark":0,
-			"desc_button":0,
-			"stop_button":0
-		};
-
-		var api = new Sketchfab(iframeWindow);
-		Q.when(api.load(urlid, options)).then(function(data) {
-			console.log( data );
-			api.start();
-		}).fail( function(error) {
-			console.log( error );
-		});
+		
 	}
 	window.controller.c_hot = c_hot;
 })();
-window.controller.c_hot();
 </script>

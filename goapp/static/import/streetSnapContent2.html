@@ -16,7 +16,6 @@
 .mc_head{
 	width:800px;
 	height:200px;
-	margin-top:50px;
 }
 .mc_sliderContainer{
 	width:800px;
@@ -24,7 +23,10 @@
 }
 .mc_items{
 	width:800px;
-	height:600px;
+}
+.mc_item{
+	width:800px;
+	height:100px;
 }
 .mc_iframeContainer{
 	position:absolute;
@@ -46,7 +48,7 @@
 }
 .mc_forOver{
 	width:100%;
-	height:100%;
+	height:300px;
 	position:absolute;
 }
 .mc_cover{
@@ -56,29 +58,31 @@
 	height:200px;
 	background-image:url( 'images/fakeModel.jpg' );
 }
+.mc_footer{
+	width:800px;
+	height:200px;
+}
 </style>
 <div class='mc_container'>
 	<div class='outline mc_head'>
 	這裡是標題
 	</div>
 	<div class='outline mc_sliderContainer'>
-	這裡是三個轉轉轉
+	這裡是轉轉轉
 		<div id='mc_forOver' class='mc_forOver'></div>
 		<div class='outline mc_iframeContainer mc_iframeContainerA'>
 			<iframe id='iframe_modelA' width='200px' height='200px'></iframe>
 			<div id='mc_coverA' class='mc_cover'></div>
 		</div>
-		<div class='outline mc_iframeContainer mc_iframeContainerB'>
-			<iframe id='iframe_modelB' width='200px' height='200px'></iframe>
-			<div id='mc_coverB' class='mc_cover'></div>
-		</div>
-		<div class='outline mc_iframeContainer mc_iframeContainerC'>
-			<iframe id='iframe_modelC' width='200px' height='200px'></iframe>
-			<div id='mc_coverC' class='mc_cover'></div>
+	</div>
+	<div id='mc_items' class='outline mc_items'>
+	這裡是舊資料，往下捲動畫面才會開始load圖片
+		<div id='mc_itemForClone' style='display:none' class='outline mc_item'>
+			<button id='btn_detail'>detail</button>
 		</div>
 	</div>
-	<div class='outline mc_items'>
-	這裡是舊資料
+	<div class='outline mc_footer'>
+	往下滾動可以看更舊的
 	</div>
 </div>
 <div id='mc_fakeloading' class='mc_fakeloading'>loading...</div>
@@ -87,31 +91,15 @@ window.view = window.view || {};
 (function(){
 	function v_streetSnapContent(){
 		var iframe_modelA = $('#iframe_modelA' );
-		var iframe_modelB = $('#iframe_modelB' );
-		var iframe_modelC = $('#iframe_modelC' );
 		var mc_coverA = $('#mc_coverA' );
-		var mc_coverB = $('#mc_coverB' );
-		var mc_coverC = $('#mc_coverC' );
 		var mc_forOver = $('#mc_forOver' );
 		var mc_loading = $('#mc_fakeloading' );
 		return {
 			getIframeASource:function( src ){
 				return iframe_modelA;
 			},
-			getIframeBSource:function( src ){
-				return iframe_modelB;
-			},
-			getIframeCSource:function( src ){
-				return iframe_modelC;
-			},
 			getCoverA:function(){
 				return mc_coverA;
-			},
-			getCoverB:function(){
-				return mc_coverB;
-			},
-			getCoverC:function(){
-				return mc_coverC;
 			},
 			getForOver:function(){
 				return mc_forOver;
@@ -133,20 +121,18 @@ window.controller = window.controller || {};
 		var Sketchfab = sketchfabModule.Sketchfab;
 		var view = window.view.v_streetSnapContent();
 		//local test
-		var ary_urlids = [ 'bb79930ee30944378ec957dcc6bed42d', '8a264df3a2f245c09f1ce92ec22849b0', 'bb79930ee30944378ec957dcc6bed42d' ];
+		//var ary_urlids = [ 'bb79930ee30944378ec957dcc6bed42d', 'bb79930ee30944378ec957dcc6bed42d', 'bb79930ee30944378ec957dcc6bed42d' ];
+		var ary_urlids = [ 'bb79930ee30944378ec957dcc6bed42d'];
 		var ary_iframes = [
-			view.getIframeASource(),
-			view.getIframeBSource(),
-			view.getIframeCSource()
+			view.getIframeASource()
 		];
 		var ary_cover = [
-			view.getCoverA(),
-			view.getCoverB(),
-			view.getCoverC()
+			view.getCoverA()
 		];
 		var ary_api = [];
 		var mc_forOver = view.getForOver();
 		var mc_loading = view.getLoading();
+		
 		var options = {
 			autospin:.3,
 			ui_controls:0,
@@ -171,8 +157,10 @@ window.controller = window.controller || {};
 		var completeCount = 0;
 		function addListener( data ){
 			completeCount++;
-			if( completeCount < 3 )	return;
+			if( completeCount < ary_urlids.length )	return;
 			mc_loading.fadeOut( 500 );
+			//ary_api[0].start();
+			
 			for( var i = 0; i < ary_cover.length; ++i ){
 				ary_cover[i].mouseover( function(){
 					var cover = $( this );
@@ -192,10 +180,37 @@ window.controller = window.controller || {};
 				});
 			}
 		}
+	}
+	
+	var ary_floor = [];
+	var mc_items = $('#mc_items' );
+	var mc_itemForClone = $('#mc_itemForClone' );
+	genOne( 0 );
+	genOne( 1 );
+	genOne( 2 );
+	window.onscroll = function( e ){
+		var id = Math.floor(window.pageYOffset / 100 );
+		console.log( 'id', id );
+		console.log( 'ary_floor.length', ary_floor.length );
 		
-		window.onscroll = function( e ){
-			console.log( window.pageYOffset);
+		if( ary_floor.length < id ){
+			genOne( id - 1 );
 		}
+	}
+	function genOne( id ){
+		console.log( 'genOne' );
+		var item = mc_itemForClone.clone( true );
+		item.attr( 'id', 'mc_item_' + id );
+		item.css( 'display', '' );
+		item.find( '#btn_detail' ).click( onDetailClick );
+		item.html( id );
+		ary_floor.push( item );
+		mc_items.append( item );
+	}
+	function onDetailClick(){
+		var pid = $(this ).parent().attr( 'id' );
+		var toId = pid.substring( 'mc_item_'.length, pid.length );
+		console.log( toId );
 	}
 	window.controller.c_streetSnapContent = c_streetSnapContent;
 })();

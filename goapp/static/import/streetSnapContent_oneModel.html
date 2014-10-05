@@ -68,14 +68,6 @@
 			<iframe id='iframe_modelA' width='200px' height='200px'></iframe>
 			<div id='mc_coverA' class='mc_cover'></div>
 		</div>
-		<div class='outline mc_iframeContainer mc_iframeContainerB'>
-			<iframe id='iframe_modelB' width='200px' height='200px'></iframe>
-			<div id='mc_coverB' class='mc_cover'></div>
-		</div>
-		<div class='outline mc_iframeContainer mc_iframeContainerC'>
-			<iframe id='iframe_modelC' width='200px' height='200px'></iframe>
-			<div id='mc_coverC' class='mc_cover'></div>
-		</div>
 	</div>
 	<div class='outline mc_items'>
 	這裡是舊資料
@@ -87,31 +79,15 @@ window.view = window.view || {};
 (function(){
 	function v_streetSnapContent(){
 		var iframe_modelA = $('#iframe_modelA' );
-		var iframe_modelB = $('#iframe_modelB' );
-		var iframe_modelC = $('#iframe_modelC' );
 		var mc_coverA = $('#mc_coverA' );
-		var mc_coverB = $('#mc_coverB' );
-		var mc_coverC = $('#mc_coverC' );
 		var mc_forOver = $('#mc_forOver' );
 		var mc_loading = $('#mc_fakeloading' );
 		return {
 			getIframeASource:function( src ){
 				return iframe_modelA;
 			},
-			getIframeBSource:function( src ){
-				return iframe_modelB;
-			},
-			getIframeCSource:function( src ){
-				return iframe_modelC;
-			},
 			getCoverA:function(){
 				return mc_coverA;
-			},
-			getCoverB:function(){
-				return mc_coverB;
-			},
-			getCoverC:function(){
-				return mc_coverC;
 			},
 			getForOver:function(){
 				return mc_forOver;
@@ -133,16 +109,13 @@ window.controller = window.controller || {};
 		var Sketchfab = sketchfabModule.Sketchfab;
 		var view = window.view.v_streetSnapContent();
 		//local test
-		var ary_urlids = [ 'bb79930ee30944378ec957dcc6bed42d', '8a264df3a2f245c09f1ce92ec22849b0', 'bb79930ee30944378ec957dcc6bed42d' ];
+		//var ary_urlids = [ 'bb79930ee30944378ec957dcc6bed42d', 'bb79930ee30944378ec957dcc6bed42d', 'bb79930ee30944378ec957dcc6bed42d' ];
+		var ary_urlids = [ 'bb79930ee30944378ec957dcc6bed42d'];
 		var ary_iframes = [
-			view.getIframeASource(),
-			view.getIframeBSource(),
-			view.getIframeCSource()
+			view.getIframeASource()
 		];
 		var ary_cover = [
-			view.getCoverA(),
-			view.getCoverB(),
-			view.getCoverC()
+			view.getCoverA()
 		];
 		var ary_api = [];
 		var mc_forOver = view.getForOver();
@@ -171,8 +144,10 @@ window.controller = window.controller || {};
 		var completeCount = 0;
 		function addListener( data ){
 			completeCount++;
-			if( completeCount < 3 )	return;
+			if( completeCount < ary_urlids.length )	return;
 			mc_loading.fadeOut( 500 );
+			//ary_api[0].start();
+			
 			for( var i = 0; i < ary_cover.length; ++i ){
 				ary_cover[i].mouseover( function(){
 					var cover = $( this );
@@ -187,16 +162,16 @@ window.controller = window.controller || {};
 					mc_forOver.mouseover( function(){
 						mc_forOver.off( 'mouseover' );
 						for( var k in ary_cover )	ary_cover[k].fadeIn( 500 );
-						//api.stop();
+					//	api.stop();
 					});
 				});
 			}
 		}
-		
-		window.onscroll = function( e ){
-			console.log( window.pageYOffset);
-		}
 	}
+	window.onscroll = function( e ){
+		console.log( window.pageYOffset);
+	}
+	
 	window.controller.c_streetSnapContent = c_streetSnapContent;
 })();
 </script>

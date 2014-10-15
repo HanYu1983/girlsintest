@@ -24,8 +24,8 @@ func RegisterUser(sys tool.ISystem) interface{} {
         Type: int(loginType),
     }
     
-    repository := GetUserRepository()
-    repository.Create(user)
+    repository := GetApp().GetUserRepository()
+    repository.Create(sys, user)
     
     return tool.DefaultResult{Success: true, Info:user}
 }
@@ -33,15 +33,17 @@ func RegisterUser(sys tool.ISystem) interface{} {
 func QueryUser(sys tool.ISystem) interface{} {
 	r := sys.GetRequest()
     queryKey := "all"
+	
     if r.Form["key"] != nil {
         queryKey = r.Form["key"][0]
     }
-    
-    repository := GetUserRepository()
-    
+	
+	repository := GetApp().GetUserRepository()
+	
     if queryKey == "all" {
-        return tool.DefaultResult{Success: true, Info:repository.Keys()}
+        return tool.DefaultResult{Success: true, Info:repository.GetAll(sys)}
     }else{
-        return tool.DefaultResult{Success: true, Info:repository.Read(queryKey)}
+		key, _ := strconv.ParseInt(r.Form["key"][0], 10, 0)
+        return tool.DefaultResult{Success: true, Info:repository.Read(sys, key)}
     }
 }

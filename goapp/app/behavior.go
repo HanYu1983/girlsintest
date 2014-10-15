@@ -2,23 +2,18 @@ package app
 
 import (
     "time"
-    "net/http"
 	"lib/tool"
 )
 
 type User struct {
+	Key int64
     Account string
     Password string
     Type int
 }
 
 type IUserRepository interface {
-    Create(user User)
-    Update(id string, user User)
-    Read(id string)(user User)
-    Delete(id string)
-    Keys()(keys []string)
-    
+    tool.IRepository
     Verify(account string, password string) bool
 }
 
@@ -33,16 +28,12 @@ type ISessionManager interface {
     SetSession(session SimpleSession)
 }
 
-var repository IUserRepository = IUserRepository(&MemoryUserRepository{Users:map[string]User{}})
-
-func GetUserRepository() IUserRepository{
-    return repository
+type IApp interface {
+	GetUserRepository() IUserRepository
+	GetSessionManager() ISessionManager
+	GetCookieManager() tool.ICookieManager
 }
 
-func GetSessionManager() ISessionManager{
-    return nil
-}
-
-func GetCookieManager(w http.ResponseWriter, r *http.Request) tool.ICookieManager{
-    return tool.ICookieManager(&tool.SimpleCookieManager{HttpRequest: r, ResponseWriter: w})
+func GetApp() IApp{
+	return app
 }

@@ -6,18 +6,18 @@ import (
 
 
 func VerifyUserLogin(sys tool.ISystem){
-    cookieManager := GetCookieManager(sys.GetResponse(), sys.GetRequest())
-    hasValue, _ := cookieManager.GetValue()
+    cookieManager := GetApp().GetCookieManager()
+    hasValue, _ := cookieManager.GetValue(sys)
     notLogin := hasValue == false
     tool.PanicWhen( notLogin, "didn't login")
 }
 
 func Login(sys tool.ISystem)interface{}{
     r := sys.GetRequest()
-    userRepository := GetUserRepository()
-    cookieManager := GetCookieManager(sys.GetResponse(), r)
+    userRepository := GetApp().GetUserRepository()
+    cookieManager := GetApp().GetCookieManager()
     
-    hasValue, _ := cookieManager.GetValue()
+    hasValue, _ := cookieManager.GetValue(sys)
     if hasValue {
         return tool.DefaultResult{Success: true, Info: "already login"}
     }
@@ -30,20 +30,18 @@ func Login(sys tool.ISystem)interface{}{
     
     verifyOk := userRepository.Verify(account, pwd)
     if verifyOk {
-        cookieManager.SetValue("user login")
+        cookieManager.SetValue(sys, "user login")
         return tool.DefaultResult{Success: true}
     }
     return tool.DefaultResult{Success: false, Info:"incorrect password"}
 }
 
 func Logout(sys tool.ISystem)interface{}{
-	r := sys.GetRequest()
-	w := sys.GetResponse()
-    cookieManager := GetCookieManager(w, r)
+    cookieManager := GetApp().GetCookieManager()
     
-    hasValue, _ := cookieManager.GetValue()
+    hasValue, _ := cookieManager.GetValue(sys)
     if hasValue {
-        cookieManager.Clear()
+        cookieManager.Clear(sys)
         return tool.DefaultResult{Success: true}
     }else{
         return tool.DefaultResult{}

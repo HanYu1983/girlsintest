@@ -1,5 +1,5 @@
 package app
-
+/*
 import (
     "strconv"
 )
@@ -9,7 +9,7 @@ type MemoryUserRepository struct {
     Users map[string]User
 }
 
-func (r *MemoryUserRepository) Create(user User){
+func (r *MemoryUserRepository) Create(user interface{}) int64{
     r.Users["User"+strconv.Itoa(r.idcounter)] = user
     r.idcounter = r.idcounter+1
 }
@@ -38,3 +38,4 @@ func (r *MemoryUserRepository) Keys()(keys []string){
 func (r *MemoryUserRepository) Verify(account string, password string) bool {
     return true
 }
+*/

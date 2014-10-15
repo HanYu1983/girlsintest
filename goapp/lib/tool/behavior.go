@@ -5,17 +5,17 @@ import (
 )
 
 type IRepository interface {
-    Create(po interface{}) int64
-    Update(key int64, po interface{})
-    Read(key int64) interface{}
-    Delete(key int64)
-    GetAll() []interface{}
+    Create(sys ISystem, po interface{}) int64
+    Update(sys ISystem, key int64, po interface{})
+    Read(sys ISystem, key int64) interface{}
+    Delete(sys ISystem, key int64)
+    GetAll(sys ISystem) []interface{}
 }
 
 type ICookieManager interface {
-    GetValue()(bool, string)
-    SetValue(v string)
-    Clear()
+    GetValue(sys ISystem)(bool, string)
+    SetValue(sys ISystem, v string)
+    Clear(sys ISystem)
 }
 
 type ILogger interface {

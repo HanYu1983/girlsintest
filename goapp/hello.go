@@ -8,19 +8,14 @@ import (
 )
 
 func init() {
-    FrontControl := func(w http.ResponseWriter, r *http.Request){
-        tool.FrontControl(w, r,
-            tool.ActionMap{
-                "RegisterUser":app.RegisterUser,
-                "QueryUser":app.QueryUser,
-                "Login":app.Login,
-                "Logout":app.Logout,
-            },
-        )
-    }
-    
+	actions := tool.ActionMap{
+		"RegisterUser":app.RegisterUser,
+		"QueryUser":app.QueryUser,
+		"Login":app.Login,
+		"Logout":app.Logout,
+	}
     http.HandleFunc("/", handler)
-    http.HandleFunc("/test", FrontControl)
+    http.HandleFunc("/test", tool.FrontControllerWith(actions))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {

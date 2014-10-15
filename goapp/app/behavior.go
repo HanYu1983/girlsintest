@@ -33,12 +33,6 @@ type ISessionManager interface {
     SetSession(session SimpleSession)
 }
 
-type ICookieManager interface {
-    GetValue()(bool, string)
-    SetValue(v string)
-    Clear()
-}
-
 var repository IUserRepository = IUserRepository(&MemoryUserRepository{Users:map[string]User{}})
 
 func GetUserRepository() IUserRepository{
@@ -49,6 +43,6 @@ func GetSessionManager() ISessionManager{
     return nil
 }
 
-func GetCookieManager(w http.ResponseWriter, r *http.Request) ICookieManager{
-    return ICookieManager(&tool.SimpleCookieManager{HttpRequest: r, ResponseWriter: w})
+func GetCookieManager(w http.ResponseWriter, r *http.Request) tool.ICookieManager{
+    return tool.ICookieManager(&tool.SimpleCookieManager{HttpRequest: r, ResponseWriter: w})
 }

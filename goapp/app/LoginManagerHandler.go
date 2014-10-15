@@ -14,7 +14,7 @@ func VerifyUserLogin(sys tool.ISystem){
 
 func Login(sys tool.ISystem)interface{}{
     r := sys.GetRequest()
-    userRepository := GetApp().GetUserRepository()
+    userRepository := GetApp().GetUserDAO()
     cookieManager := GetApp().GetCookieManager()
     
     hasValue, _ := cookieManager.GetValue(sys)

@@ -18,13 +18,13 @@ func RegisterUser(sys tool.ISystem) interface{} {
     
     loginType, _ := strconv.ParseInt(r.Form["type"][0], 10, 0)
     
-    user := User{
+    user := UserEntity{
         Account: r.Form["account"][0], 
         Password: r.Form["password"][0], 
         Type: int(loginType),
     }
     
-    repository := GetApp().GetUserRepository()
+    repository := GetApp().GetUserDAO()
     repository.Create(sys, user)
     
     return tool.DefaultResult{Success: true, Info:user}
@@ -38,7 +38,7 @@ func QueryUser(sys tool.ISystem) interface{} {
         queryKey = r.Form["key"][0]
     }
 	
-	repository := GetApp().GetUserRepository()
+	repository := GetApp().GetUserDAO()
 	
     if queryKey == "all" {
         return tool.DefaultResult{Success: true, Info:repository.GetAll(sys)}

@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-type IRepository interface {
+type IDataAccessObject interface {
     Create(sys ISystem, po interface{}) int64
     Update(sys ISystem, key int64, po interface{})
     Read(sys ISystem, key int64) interface{}

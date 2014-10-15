@@ -5,15 +5,15 @@ import (
 	"lib/tool"
 )
 
-type User struct {
+type UserEntity struct {
 	Key int64
     Account string
     Password string
     Type int
 }
 
-type IUserRepository interface {
-    tool.IRepository
+type IUserDAO interface {
+    tool.IDataAccessObject
     Verify(account string, password string) bool
 }
 
@@ -29,7 +29,7 @@ type ISessionManager interface {
 }
 
 type IApp interface {
-	GetUserRepository() IUserRepository
+	GetUserDAO() IUserDAO
 	GetSessionManager() ISessionManager
 	GetCookieManager() tool.ICookieManager
 }

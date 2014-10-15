@@ -1,4 +1,4 @@
-package hello
+package tool
 
 import (
     "fmt"
@@ -15,6 +15,16 @@ type DefaultResult struct {
     Info interface{}
 }
 
+func Success(info interface{}) DefaultResult {
+    return DefaultResult{Success:true, Info: info}
+}
+
+func NotSuccess(info interface{}) DefaultResult {
+    return DefaultResult{Info: info}
+}
+
+var CustomView = DefaultResult{Info:"__custom_view__"}
+
 func FrontControl(
     w http.ResponseWriter,
     r *http.Request,
@@ -25,12 +35,19 @@ func FrontControl(
             fmt.Fprintf(w, "%s", errmsg)
         }
     }()
+	var sys ISystem
+	sys = AppEngineSystem{Request: r, Response: w}
     r.ParseForm()
     cmd := GetCommand(r, "nocmd")
-    result := Call(action, cmd, w, r)[0]
-    formatResult := result.Interface()
-    js, _ := json.Marshal(formatResult)
-    fmt.Fprintf(w, "%s",  js)
+    result := Call(action, cmd, sys)[0]
+    formatResult := result.Interface().(DefaultResult)
+    if formatResult == CustomView {
+        // nothing todo
+    }else{
+        js, _ := json.Marshal(formatResult)
+        w.Header().Set("Content-Type", "application/json")
+        fmt.Fprintf(w, "%s",  js)
+    }
 }
 
 func GetCommand(r *http.Request, defcmd string)(cmd string){
@@ -48,6 +65,12 @@ func Call(m ActionMap, name string, params ... interface{}) (result []reflect.Va
     }
     result = f.Call(in)
     return
+}
+
+func FrontControllerWith(action ActionMap) func(w http.ResponseWriter, r *http.Request){
+	return func(w http.ResponseWriter, r *http.Request){
+		FrontControl(w, r, action)
+	}
 }
 
 func PanicWhen(cond bool, msg string){

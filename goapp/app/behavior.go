@@ -1,8 +1,9 @@
-package hello
+package app
 
 import (
     "time"
     "net/http"
+	"lib/tool"
 )
 
 type User struct {
@@ -48,6 +49,6 @@ func GetSessionManager() ISessionManager{
     return nil
 }
 
-func GetCookieManager(w *http.ResponseWriter, r *http.Request) ICookieManager{
-    return ICookieManager(&SimpleCookieManager{HttpRequest: r, ResponseWriter: w})
+func GetCookieManager(w http.ResponseWriter, r *http.Request) ICookieManager{
+    return ICookieManager(&tool.SimpleCookieManager{HttpRequest: r, ResponseWriter: w})
 }

@@ -1,8 +1,8 @@
-package hello
+package app
 
 import (
-    "net/http"
     "strconv"
+	"lib/tool"
 )
 
 const(
@@ -10,10 +10,11 @@ const(
     user = iota
 )
 
-func RegisterUser(w http.ResponseWriter, r *http.Request) interface{} {
-    VerifyParam(r, "account", ParamNotNil())
-    VerifyParam(r, "password", ParamNotNil())
-    VerifyParam(r, "type", ParamInRange(0, 1))
+func RegisterUser(sys tool.ISystem) interface{} {
+	r := sys.GetRequest()
+    tool.VerifyParam(r, "account", tool.ParamNotNil())
+    tool.VerifyParam(r, "password", tool.ParamNotNil())
+    tool.VerifyParam(r, "type", tool.ParamInRange(0, 1))
     
     loginType, _ := strconv.ParseInt(r.Form["type"][0], 10, 0)
     
@@ -26,10 +27,11 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) interface{} {
     repository := GetUserRepository()
     repository.Create(user)
     
-    return DefaultResult{Success: true, Info:user}
+    return tool.DefaultResult{Success: true, Info:user}
 }
 
-func QueryUser(w http.ResponseWriter, r *http.Request) interface{} {
+func QueryUser(sys tool.ISystem) interface{} {
+	r := sys.GetRequest()
     queryKey := "all"
     if r.Form["key"] != nil {
         queryKey = r.Form["key"][0]
@@ -38,8 +40,8 @@ func QueryUser(w http.ResponseWriter, r *http.Request) interface{} {
     repository := GetUserRepository()
     
     if queryKey == "all" {
-        return DefaultResult{Success: true, Info:repository.Keys()}
+        return tool.DefaultResult{Success: true, Info:repository.Keys()}
     }else{
-        return DefaultResult{Success: true, Info:repository.Read(queryKey)}
+        return tool.DefaultResult{Success: true, Info:repository.Read(queryKey)}
     }
 }

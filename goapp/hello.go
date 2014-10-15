@@ -3,19 +3,18 @@ package hello
 import (
     "fmt"
     "net/http"
+	"lib/tool"
+	"app"
 )
 
 func init() {
-    RegisterUser := CompositeAction(VerfiyPost, RegisterUser)
-    Login := CompositeAction(VerfiyPost, Login)
-    
     FrontControl := func(w http.ResponseWriter, r *http.Request){
-        FrontControl(w, r,
-            ActionMap{
-                "RegisterUser":RegisterUser,
-                "QueryUser":QueryUser,
-                "Login":Login,
-                "Logout":Logout,
+        tool.FrontControl(w, r,
+            tool.ActionMap{
+                "RegisterUser":app.RegisterUser,
+                "QueryUser":app.QueryUser,
+                "Login":app.Login,
+                "Logout":app.Logout,
             },
         )
     }
@@ -26,8 +25,4 @@ func init() {
 
 func handler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprint(w, "Hello, world!")
-}
-
-func VerfiyPost(w http.ResponseWriter, r *http.Request) {
-    VerifyMethod(r, "POST")
 }

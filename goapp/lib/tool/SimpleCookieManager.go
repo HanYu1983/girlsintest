@@ -1,4 +1,4 @@
-package hello
+package tool
 
 import (
     "net/http"
@@ -7,7 +7,7 @@ import (
 
 type SimpleCookieManager struct {
     HttpRequest *http.Request
-    ResponseWriter *http.ResponseWriter
+    ResponseWriter http.ResponseWriter
 }
 
 var defaultCookieName = "__SimpleCookieManager__"
@@ -21,10 +21,10 @@ func (mgr *SimpleCookieManager) SetValue(value string) {
     expiration := time.Now()
     expiration = expiration.AddDate(0, 0, 1)
     cookie := http.Cookie{Name: defaultCookieName, Value: value, Expires: expiration}
-    http.SetCookie(*mgr.ResponseWriter, &cookie)
+    http.SetCookie(mgr.ResponseWriter, &cookie)
 }
 
 func (mgr *SimpleCookieManager) Clear(){
     cookie := http.Cookie{Name: defaultCookieName, Path: "/", MaxAge: -1}
-    http.SetCookie(*mgr.ResponseWriter, &cookie)
+    http.SetCookie(mgr.ResponseWriter, &cookie)
 }

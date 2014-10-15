@@ -3,31 +3,30 @@ package hello
 import (
     "fmt"
     "net/http"
+	"lib/tool"
+	"app"
+	"app/test"
 )
 
 func init() {
-    RegisterUser := CompositeAction(VerfiyPost, RegisterUser)
-    Login := CompositeAction(VerfiyPost, Login)
-    
-    FrontControl := func(w http.ResponseWriter, r *http.Request){
-        FrontControl(w, r,
-            ActionMap{
-                "RegisterUser":RegisterUser,
-                "QueryUser":QueryUser,
-                "Login":Login,
-                "Logout":Logout,
-            },
-        )
-    }
-    
+	actions := tool.ActionMap{
+		"RegisterUser":app.RegisterUser,
+		"QueryUser":app.QueryUser,
+		"Login":app.Login,
+		"Logout":app.Logout,
+		
+		"CreateStreetModel": app.CreateStreetModel,
+		"QueryStreetModel": app.QueryStreetModel,
+	}
+	testActions := tool.ActionMap{
+		"TestShowImage": test.TestShowImage,
+		"TestBase64": test.TestBase64,
+	}
     http.HandleFunc("/", handler)
-    http.HandleFunc("/test", FrontControl)
+    http.HandleFunc("/Func", tool.FrontControllerWith(actions))
+	http.HandleFunc("/Test", tool.FrontControllerWith(testActions))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprint(w, "Hello, world!")
-}
-
-func VerfiyPost(w http.ResponseWriter, r *http.Request) {
-    VerifyMethod(r, "POST")
 }

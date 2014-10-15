@@ -25,14 +25,22 @@ func NotSuccess(info interface{}) DefaultResult {
 
 var CustomView = DefaultResult{Info:"__custom_view__"}
 
-func FrontControl(
+func FrontController(
     w http.ResponseWriter,
     r *http.Request,
     action ActionMap){
     defer func(){
         if x:= recover(); x != nil{
-            errmsg, _ := json.Marshal(DefaultResult{Info:x.(string)})
-            fmt.Fprintf(w, "%s", errmsg)
+			w.Header().Set("Content-Type", "application/json")
+			switch x.(type){
+				case string:
+					errmsg, _ := json.Marshal(DefaultResult{Info:x.(string)})
+					fmt.Fprintf(w, "%s", errmsg)
+				break
+				default:
+					fmt.Fprintf(w, "{'Success':false, Info:'%s'}", x)
+				break
+			}
         }
     }()
 	var sys ISystem
@@ -69,7 +77,7 @@ func Call(m ActionMap, name string, params ... interface{}) (result []reflect.Va
 
 func FrontControllerWith(action ActionMap) func(w http.ResponseWriter, r *http.Request){
 	return func(w http.ResponseWriter, r *http.Request){
-		FrontControl(w, r, action)
+		FrontController(w, r, action)
 	}
 }
 
@@ -105,16 +113,5 @@ func ParamInRange(min int, max int) func([]string) (bool, string){
         } else {
             return false, errmsg
         }
-    }
-}
-
-func CompositeAction(
-        before func(w http.ResponseWriter, r *http.Request),
-        origin func(w http.ResponseWriter, r *http.Request)interface{},
-    ) func(w http.ResponseWriter, r *http.Request)interface{} {
-    
-    return func(w http.ResponseWriter, r *http.Request)interface{}{
-        before(w, r)
-        return origin(w, r)
     }
 }

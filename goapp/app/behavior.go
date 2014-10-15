@@ -17,6 +17,20 @@ type IUserDAO interface {
     Verify(account string, password string) bool
 }
 
+type StreetModelEntity struct {
+	Key int64
+	Caption string
+	Description string
+	ModelKey string
+	Photo1 string
+	Photo2 string
+	UploadTime time.Time
+}
+
+type IStreetModelDAO interface {
+	tool.IDataAccessObject
+}
+
 type SimpleSession struct {
     Name string
     Expires time.Time
@@ -30,6 +44,7 @@ type ISessionManager interface {
 
 type IApp interface {
 	GetUserDAO() IUserDAO
+	GetStreetModelDAO() IStreetModelDAO
 	GetSessionManager() ISessionManager
 	GetCookieManager() tool.ICookieManager
 }

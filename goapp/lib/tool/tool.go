@@ -14,25 +14,25 @@ func Str2Int64(str string) int64{
 	return ret
 }
 
-func templateWithFile(key string, path string) *template.Template{
+func TemplateWithFile(key string, path string) *template.Template{
     t := template.New(key)
     var err error
-    t, err = t.Parse(stringWithFile(path))
+    t, err = t.Parse(StringWithFile(path))
     if err != nil {
         panic( err.Error() )
     }
     return t
 }
 
-func stringWithFile(path string) string {
-    lines, err := readLines( path )
+func StringWithFile(path string) string {
+    lines, err := ReadLines( path )
     if err != nil {
         panic( err.Error() )
     }
     return strings.Join( lines, "" )
 }
 
-func readLines(path string) ([]string, error) {
+func ReadLines(path string) ([]string, error) {
   file, err := os.Open(path)
   if err != nil {
     return nil, err

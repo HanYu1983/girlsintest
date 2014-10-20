@@ -23,15 +23,24 @@ func UpdateStreetModel(sys tool.ISystem) interface{} {
 	}
 	
 	dao := GetApp().GetStreetModelDAO()
-	isUpdate := len(r.Form["key"]) > 0
+	isUpdate := len(r.Form["Key"]) > 0
+	
+	var ret interface{}
 	
 	if isUpdate {
-		key, _ := strconv.ParseInt( r.Form["key"][0], 10, 0 )
+		key, _ := strconv.ParseInt( r.Form["Key"][0], 10, 0 )
 		dao.Update(sys, dao.GetKey(sys, key, nil), entity)
-		return tool.Success(entity)
+		ret = entity
 	}else{
 		key := dao.Create(sys, dao.NewKey(sys, nil), entity)
-		return tool.Success(key)
+		ret = key
+	}
+	
+	isRedirect := len(r.Form["redirect"]) > 0
+	if isRedirect {
+		return tool.Redirect(r.Form["redirect"][0])
+	}else{
+		return tool.Success(ret)
 	}
 }
 
@@ -53,11 +62,17 @@ func AddPhotoToStreetModel(sys tool.ISystem) interface{}{
 	parentKey := streetModelDAO.GetKey(sys, mk, nil)
 	
 	for _, base64str := range r.Form["Base64"] {
-		entity := PhotoEntity{Date: time.Now(), Base64:base64str}
+		entity := PhotoEntity{Date: time.Now(), Base64:[]byte(base64str)}
 		key := photoDAO.NewKey(sys, parentKey)
 		photoDAO.Create(sys, key, entity)
 	}
-	return tool.Success(parentKey.IntID())
+	
+	isRedirect := len(r.Form["redirect"]) > 0
+	if isRedirect {
+		return tool.Redirect(r.Form["redirect"][0])
+	}else{
+		return tool.Success(parentKey.IntID())
+	}
 }
 
 func QueryPhotoWithStreetModel(sys tool.ISystem) interface{}{
@@ -100,5 +115,44 @@ func DeletePhotoWithStreetModel(sys tool.ISystem) interface{}{
 	photoKey := photoDAO.GetKey(sys, pk, parentKey)
 	
 	photoDAO.Delete(sys, photoKey)
-	return tool.Success(nil)
+
+	isRedirect := len(r.Form["redirect"]) > 0
+	if isRedirect {
+		return tool.Redirect(r.Form["redirect"][0])
+	}else{
+		return tool.Success(parentKey.IntID())
+	}
+}
+
+func QueryStreetModelPage(sys tool.ISystem)interface{}{
+	streetModelDao := GetApp().GetStreetModelDAO()
+	model := map[string]interface{}{
+		"StreetModels":streetModelDao.ReadAll(sys, streetModelDao.NewQuery(sys)),
+	}
+	w := sys.GetResponse()
+	w.Header().Set("Content-Type", "text/html")
+    tool.TemplateWithFile("QueryStreetModel", "app/tmpl/QueryStreetModel.html").Execute(w, model)
+    return tool.CustomView
+}
+
+func EditStreetModelPage(sys tool.ISystem)interface{}{
+	r := sys.GetRequest()
+	w := sys.GetResponse()
+
+	tool.VerifyParam(r, "Key", tool.ParamNotNil())
+	mk := tool.Str2Int64( r.Form["Key"][0] )
+	
+	streetModelDAO := GetApp().GetStreetModelDAO()
+	photoDAO := GetApp().GetPhotoDAO()
+	
+	parentKey := streetModelDAO.GetKey(sys, mk, nil)
+	allPhotoQuery := photoDAO.NewQuery(sys).Ancestor(parentKey)
+	
+	model := map[string]interface{}{
+		"StreetModelKey":mk,
+		"PhotoList":photoDAO.ReadAll(sys, allPhotoQuery),
+	}
+	w.Header().Set("Content-Type", "text/html")
+    tool.TemplateWithFile("EditStreetModel", "app/tmpl/EditStreetModel.html").Execute(w, model)
+    return tool.CustomView
 }

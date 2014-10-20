@@ -22,16 +22,18 @@ func (r *PhotoDAO) Init(){
 		err = datastore.GetMulti(ctx, keys, entities)
 		for idx, entity := range entities {
 			entity.Key = keys[idx].IntID()
+			entity.Base64Str = string(entity.Base64)
 			ret = append(ret, entity)
 		}
 		return
 	}
 	r.GetAllFn = func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error ) {
-		var cards []PhotoEntity
-		keys, err = q.GetAll(ctx, &cards)
-		for idx, card := range cards {
-			card.Key = keys[idx].IntID()
-			ret = append(ret, card)
+		var entities []PhotoEntity
+		keys, err = q.GetAll(ctx, &entities)
+		for idx, entity := range entities {
+			entity.Key = keys[idx].IntID()
+			entity.Base64Str = string(entity.Base64)
+			ret = append(ret, entity)
 		}
 		return
 	}

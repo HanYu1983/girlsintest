@@ -31,7 +31,8 @@ type IStreetModelDAO interface {
 
 type PhotoEntity struct {
 	Key int64
-	Base64 string
+	Base64 []byte
+	Base64Str string
 	Date time.Time
 }
 

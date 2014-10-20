@@ -25,8 +25,13 @@ func init() {
 		"TestShowImage": test.TestShowImage,
 		"TestBase64": test.TestBase64,
 	}
+	pageActions := tool.ActionMap{
+		"QueryStreetModelPage": app.QueryStreetModelPage,
+		"EditStreetModelPage": app.EditStreetModelPage,
+	}
     http.HandleFunc("/", handler)
     http.HandleFunc("/Func", tool.FrontControllerWith(actions))
+	http.HandleFunc("/Page", tool.FrontControllerWith(pageActions))
 	http.HandleFunc("/Test", tool.FrontControllerWith(testActions))
 }
 

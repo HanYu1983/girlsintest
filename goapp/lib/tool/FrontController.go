@@ -12,18 +12,23 @@ type ActionMap map[string]interface{}
 
 type DefaultResult struct {
     Success bool
+	Code int
     Info interface{}
 }
 
 func Success(info interface{}) DefaultResult {
-    return DefaultResult{Success:true, Info: info}
+    return DefaultResult{Success:true, Info: info, Code: 0}
 }
 
 func NotSuccess(info interface{}) DefaultResult {
-    return DefaultResult{Info: info}
+    return DefaultResult{Info: info, Code: 0}
 }
 
-var CustomView = DefaultResult{Info:"__custom_view__"}
+func Redirect(url string) DefaultResult {
+    return DefaultResult{Info: url, Code: -1}
+}
+
+var CustomView = DefaultResult{Info:"__custom_view__", Code: 0}
 
 func FrontController(
     w http.ResponseWriter,
@@ -51,7 +56,10 @@ func FrontController(
     formatResult := result.Interface().(DefaultResult)
     if formatResult == CustomView {
         // nothing todo
-    }else{
+	}else if formatResult.Code == -1 {
+		url := formatResult.Info.(string)
+		http.Redirect(w, r, url, 302)
+	}else{
         js, _ := json.Marshal(formatResult)
         w.Header().Set("Content-Type", "application/json")
         fmt.Fprintf(w, "%s",  js)

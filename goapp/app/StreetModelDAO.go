@@ -28,6 +28,7 @@ func (r *StreetModelDAO) Init(){
 	}
 	r.GetAllFn = func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error ) {
 		var cards []StreetModelEntity
+		q = q.Order("-Date")
 		keys, err = q.GetAll(ctx, &cards)
 		for idx, card := range cards {
 			card.Key = keys[idx].IntID()

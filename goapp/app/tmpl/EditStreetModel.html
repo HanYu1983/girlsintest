@@ -3,13 +3,16 @@
 		<title>Street Models</title>
 	</head>
 	<body>
+		<h1><a href='Page?cmd=Admin'>Admin</a></h1>
+		
+		<a href='http://www.base64-image.de/' target=_blank>base64 converter</a><br>
 		{{ $streetModelKey := .StreetModelKey }}
 		<form name=addPhoto action=Func>
 			<input type=hidden name=cmd value=AddPhotoToStreetModel>
 			<input type=hidden name=StreetModelKey value={{ $streetModelKey }}>
 			<input type=hidden name=redirect value='Page?cmd=EditStreetModelPage&Key={{ $streetModelKey }}'>
-			<textarea name=Base64>base64</textarea>
-			<td><input type=submit value=Add></td>
+			<textarea name=Base64 placeholder='base64 string'></textarea>
+			<td><input type=submit value='+'></td>
 		</form>
 			
 		<table border=1px>

@@ -17,7 +17,9 @@ func init() {
 		
 		"UpdateStreetModel": app.UpdateStreetModel,
 		"QueryStreetModel": app.QueryStreetModel,
-		"AddPhotoToStreetModel":app.AddPhotoToStreetModel,
+		"AddPhotoToStreetModel": app.AddPhotoToStreetModel,
+		"QueryPhotoWithStreetModel": app.QueryPhotoWithStreetModel,
+		"DeletePhotoWithStreetModel": app.DeletePhotoWithStreetModel,
 	}
 	testActions := tool.ActionMap{
 		"TestShowImage": test.TestShowImage,

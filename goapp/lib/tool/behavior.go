@@ -8,11 +8,14 @@ import (
 type IDataAccessObject interface {
 	NewKey(sys ISystem, parent *datastore.Key) *datastore.Key 
 	GetKey(sys ISystem, key int64, parent *datastore.Key) *datastore.Key
+	NewQuery(sys ISystem) *datastore.Query
+	
     Create(sys ISystem, key *datastore.Key, po interface{}) *datastore.Key
     Update(sys ISystem, key *datastore.Key, po interface{})
     Read(sys ISystem, key *datastore.Key) interface{}
+	ReadMulti(sys ISystem, key []*datastore.Key) []interface{}
+	ReadAll(sys ISystem, query *datastore.Query) []interface{}
     Delete(sys ISystem, key *datastore.Key)
-    GetAll(sys ISystem) []interface{}
 }
 
 type ICookieManager interface {

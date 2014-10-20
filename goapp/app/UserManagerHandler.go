@@ -41,7 +41,7 @@ func QueryUser(sys tool.ISystem) interface{} {
 	dao := GetApp().GetUserDAO()
 	
     if queryKey == "all" {
-        return tool.DefaultResult{Success: true, Info:dao.GetAll(sys)}
+        return tool.DefaultResult{Success: true, Info:dao.ReadAll(sys, dao.NewQuery(sys))}
     }else{
 		key, _ := strconv.ParseInt(r.Form["key"][0], 10, 0)
         return tool.DefaultResult{Success: true, Info:dao.Read(sys, dao.GetKey(sys, key, nil))}

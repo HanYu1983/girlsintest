@@ -22,12 +22,22 @@ type StreetModelEntity struct {
 	Caption string
 	Description string
 	ModelKey string
-	Photo1 string
-	Photo2 string
-	UploadTime time.Time
+	Date time.Time
 }
 
 type IStreetModelDAO interface {
+	tool.IDataAccessObject
+}
+
+type PhotoEntity struct {
+	Key int64
+	StreetModelKey int64
+	Where string
+	Base64 string
+	Date time.Time
+}
+
+type IPhotoDAO interface {
 	tool.IDataAccessObject
 }
 
@@ -45,6 +55,7 @@ type ISessionManager interface {
 type IApp interface {
 	GetUserDAO() IUserDAO
 	GetStreetModelDAO() IStreetModelDAO
+	GetPhotoDAO() IPhotoDAO
 	GetSessionManager() ISessionManager
 	GetCookieManager() tool.ICookieManager
 }

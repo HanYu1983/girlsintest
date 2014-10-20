@@ -5,7 +5,14 @@ import (
     "bufio"
     "strings"
     "html/template"
+	"strconv"
 )
+
+func Str2Int64(str string) int64{
+	ret, err := strconv.ParseInt(str, 10, 0)
+	if err != nil { panic(err.Error()) }
+	return ret
+}
 
 func templateWithFile(key string, path string) *template.Template{
     t := template.New(key)

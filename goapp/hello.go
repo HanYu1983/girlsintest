@@ -15,8 +15,9 @@ func init() {
 		"Login":app.Login,
 		"Logout":app.Logout,
 		
-		"CreateStreetModel": app.CreateStreetModel,
+		"UpdateStreetModel": app.UpdateStreetModel,
 		"QueryStreetModel": app.QueryStreetModel,
+		"AddPhotoToStreetModel":app.AddPhotoToStreetModel,
 	}
 	testActions := tool.ActionMap{
 		"TestShowImage": test.TestShowImage,

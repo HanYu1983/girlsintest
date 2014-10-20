@@ -24,8 +24,8 @@ func RegisterUser(sys tool.ISystem) interface{} {
         Type: int(loginType),
     }
     
-    repository := GetApp().GetUserDAO()
-    repository.Create(sys, user)
+    dao := GetApp().GetUserDAO()
+    dao.Create(sys, dao.NewKey(sys, nil), user)
     
     return tool.DefaultResult{Success: true, Info:user}
 }
@@ -38,12 +38,12 @@ func QueryUser(sys tool.ISystem) interface{} {
         queryKey = r.Form["key"][0]
     }
 	
-	repository := GetApp().GetUserDAO()
+	dao := GetApp().GetUserDAO()
 	
     if queryKey == "all" {
-        return tool.DefaultResult{Success: true, Info:repository.GetAll(sys)}
+        return tool.DefaultResult{Success: true, Info:dao.GetAll(sys)}
     }else{
 		key, _ := strconv.ParseInt(r.Form["key"][0], 10, 0)
-        return tool.DefaultResult{Success: true, Info:repository.Read(sys, key)}
+        return tool.DefaultResult{Success: true, Info:dao.Read(sys, dao.GetKey(sys, key, nil))}
     }
 }

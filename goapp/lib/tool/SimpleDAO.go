@@ -12,34 +12,40 @@ type SimpleDAO struct {
     GetAllFn func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error )
 }
 
-func (cr *SimpleDAO) Create(sys ISystem, po interface{}) int64 {
-    c := appengine.NewContext(sys.GetRequest())
-    key := datastore.NewIncompleteKey(c, cr.Kind, nil)    
+func (cr *SimpleDAO) NewKey(sys ISystem, parent *datastore.Key) *datastore.Key {
+	c := appengine.NewContext(sys.GetRequest())
+	return datastore.NewIncompleteKey(c, cr.Kind, parent) 
+}
+
+func (cr *SimpleDAO) GetKey(sys ISystem, key int64, parent *datastore.Key) *datastore.Key{
+	c := appengine.NewContext(sys.GetRequest())
+	return datastore.NewKey(c, cr.Kind, "", key, parent) 
+}
+
+func (cr *SimpleDAO) Create(sys ISystem, key *datastore.Key, po interface{}) *datastore.Key {
+    c := appengine.NewContext(sys.GetRequest())  
     retkey, err := cr.PutFn(c, key, po)
     if err != nil {
         panic(err.Error())
     }
-    return retkey.IntID()
+    return retkey
 }
 
-func (cr *SimpleDAO) Update(sys ISystem, key int64, po interface{}){
+func (cr *SimpleDAO) Update(sys ISystem, key *datastore.Key, po interface{}){
     c := appengine.NewContext(sys.GetRequest())
-    pKey := datastore.NewKey(c, cr.Kind, "", key, nil)
-    cr.PutFn(c, pKey, po)
+    cr.PutFn(c, key, po)
 }
-func (cr *SimpleDAO) Read(sys ISystem, key int64) interface{}{
+func (cr *SimpleDAO) Read(sys ISystem, key *datastore.Key) interface{}{
     c := appengine.NewContext(sys.GetRequest())
-    pKey := datastore.NewKey(c, cr.Kind, "", key, nil)
-    ret, err := cr.GetFn(c, pKey)
+    ret, err := cr.GetFn(c, key)
     if err != nil {
         panic(err.Error())
     }
     return ret
 }
-func (cr *SimpleDAO) Delete(sys ISystem, key int64){
+func (cr *SimpleDAO) Delete(sys ISystem, key *datastore.Key){
     c := appengine.NewContext(sys.GetRequest())
-    pKey := datastore.NewKey(c, cr.Kind, "", key, nil)
-    err := datastore.Delete(c, pKey)
+    err := datastore.Delete(c, key)
     if err != nil {
         panic(err.Error())
     }

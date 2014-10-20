@@ -2,13 +2,16 @@ package tool
 
 import (
 	"net/http"
+	"appengine/datastore"
 )
 
 type IDataAccessObject interface {
-    Create(sys ISystem, po interface{}) int64
-    Update(sys ISystem, key int64, po interface{})
-    Read(sys ISystem, key int64) interface{}
-    Delete(sys ISystem, key int64)
+	NewKey(sys ISystem, parent *datastore.Key) *datastore.Key 
+	GetKey(sys ISystem, key int64, parent *datastore.Key) *datastore.Key
+    Create(sys ISystem, key *datastore.Key, po interface{}) *datastore.Key
+    Update(sys ISystem, key *datastore.Key, po interface{})
+    Read(sys ISystem, key *datastore.Key) interface{}
+    Delete(sys ISystem, key *datastore.Key)
     GetAll(sys ISystem) []interface{}
 }
 

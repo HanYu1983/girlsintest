@@ -14,11 +14,13 @@ type SimpleApp struct{
 	CookieManager tool.SimpleCookieManager
 	UserDAO UserDAO
 	StreetModelDAO StreetModelDAO
+	PhotoDAO PhotoDAO
 }
 
 func (app *SimpleApp) Init(){
 	app.UserDAO.Init()
 	app.StreetModelDAO.Init()
+	app.PhotoDAO.Init()
 }
 
 func (app *SimpleApp) GetUserDAO() IUserDAO{
@@ -27,6 +29,10 @@ func (app *SimpleApp) GetUserDAO() IUserDAO{
 
 func (app *SimpleApp) GetStreetModelDAO() IStreetModelDAO{
 	return &app.StreetModelDAO
+}
+
+func (app *SimpleApp) GetPhotoDAO() IPhotoDAO{
+	return &app.PhotoDAO
 }
 
 func (app *SimpleApp) GetSessionManager() ISessionManager{

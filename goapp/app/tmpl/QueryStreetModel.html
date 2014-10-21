@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>Street Models</title>
+	</head>
+	<body>
+		<h1><a href='Page?cmd=Admin'>Admin</a></h1>
+		<table border=1px>
+			<tr>
+				<td></td>
+				<td>Key</td>
+				<td>Caption</td>
+				<td>Description</td>
+				<td>ModelKey</td>
+				<td>Date</td>
+				<td></td>
+			</tr>
+			
+			<form name=addModel action='Func'>
+				<input type=hidden name=cmd value=UpdateStreetModel>
+				<input type=hidden name=redirect value='Page?cmd=QueryStreetModelPage'>
+				<input type=submit value=Add>
+			</form>
+			
+			{{ range .StreetModels }}
+			<tr>
+				<td><a href='Page?cmd=EditStreetModelPage&Key={{ .Key }}'><button>Edit</button></a></td>
+				
+				<form name=updateModel action='Func'>
+					<input type=hidden name=cmd value=UpdateStreetModel>
+					<input type=hidden name=redirect value='Page?cmd=QueryStreetModelPage'>
+					<input type=hidden name=Key value={{ .Key }}>
+					<td>{{ .Key }}</td>
+					<td><input name=Caption value={{ .Caption }}></td>
+					<td><input name=Description value={{ .Description }}></td>
+					<td><input name=ModelKey value={{ .ModelKey }}></td>
+					<td>{{ .Date }}</td>
+					<td><input type=submit value=Update></td>
+				</form>
+			</tr>
+			{{ end }}
+		</table>
+		
+	</body>
+</html>

@@ -4,7 +4,9 @@ runtime: go
 api_version: go1
 
 handlers:
-- url: /static
+- url: /angular-test
+  static_dir: static2
+- url: /
   static_dir: static
-- url: /.*
+- url: /goapp/.*
   script: _go_app

@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title>angular test</title>
+		<script src="js/lib/jquery-1.7.2.js"></script>
+		<script src="js/lib/sketchfab-iframe.js"></script>
+		<script src='js/lib/angular.min.js'></script>
+		<script>app = {}</script>
+		<script src='js/view.streetSnap.js'></script>
+		<script src='js/controller.streetSnap.js'></script>
+		<script src='js/angularApp.js'></script>
+	</head>
+	<body>
+		<style>
+			#mainFrame {
+				border: 1px solid red
+			}
+		</style>
+		<div id='mainFrame' ng-app='app'>
+			<menu></menu>
+			<div ng-view></div>
+		</div>
+	</body>
+</html>

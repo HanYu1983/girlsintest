@@ -31,9 +31,9 @@ func init() {
 		"EditStreetModelPage": app.EditStreetModelPage,
 	}
     http.HandleFunc("/", handler)
-    http.HandleFunc("/Func", tool.FrontControllerWith(actions))
-	http.HandleFunc("/Page", tool.FrontControllerWith(pageActions))
-	http.HandleFunc("/Test", tool.FrontControllerWith(testActions))
+    http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions))
+	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions))
+	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions))
 }
 func AdminPage(sys tool.ISystem)interface{}{
 	w := sys.GetResponse()

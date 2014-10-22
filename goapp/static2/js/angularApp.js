@@ -1,25 +1,71 @@
-
-(function(){
-
+﻿(function(){
 	var angularApp = angular.module('app', [])
 	angularApp.config(['$routeProvider', function($routeProvider){
 		$routeProvider.
+			when('/index', {
+				templateUrl: 'indexContent.html'
+			}).
 			when('/street', {
-				templateUrl: 'street.html',
+				templateUrl: 'streetSnapContent.html'
+			}).
+			when('/hot', {
+				templateUrl: 'hotContent.html'
+			}).
+			when('/model', {
+				templateUrl: 'modelContent.html'
 			}).
 			otherwise({
-				redirectTo: '/'
+				redirectTo: '/index'
 			});
 	}]);
 	
-	angularApp.directive('menu', function(){
+	angularApp.directive('indexcontent', function(){
 		return {
 			restrict: 'E',
-			templateUrl: 'menu.html',
+			templateUrl: 'indexContent.directive.html',
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
-			
+				var view = app.view.v_indexContent(element)
+				app.controller.c_indexContent(view)
+			}
+		};
+	});
+	
+	angularApp.directive('navbar', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'navbar.directive.html',
+			replace: true
+		};
+	});
+	
+	angularApp.directive('hotcontent', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'hotContent.directive.html',
+			replace: true,
+			link : function(scope, element, attrs) {
+				
+			},
+			controller: function($scope){
+				$scope.title = '時尚變3d?…挺有趣的'
+				$scope.description = '這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容'
+				$scope.currentPage = 0
+				
+				function update(){
+					$scope.title = $scope.currentPage + ':title'
+					$scope.description = $scope.currentPage + ':description'
+				}
+				
+				$scope.prevPage = function(){
+					$scope.currentPage = $scope.currentPage - 1
+					update()
+				}
+				$scope.nextPage = function(){
+					$scope.currentPage = $scope.currentPage + 1
+					update()
+				}
 			}
 		};
 	});
@@ -27,7 +73,7 @@
 	angularApp.directive('streetsnap', function(){
 		return {
 			restrict: 'E',
-			templateUrl: 'streetSnapContent.html',
+			templateUrl: 'streetSnapContent.directive.html',
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
@@ -37,6 +83,18 @@
 		};
 	});
 
+	
+	angularApp.directive('modelcontent', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'modelContent.directive.html',
+			replace: true,
+			transclude: true,
+			link : function(scope, element, attrs) {
+				
+			}
+		};
+	});
 })();
 
 

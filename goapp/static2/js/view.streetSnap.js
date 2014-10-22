@@ -42,4 +42,4 @@ app.view = app.view || {};
 	}
 	
 	pkg.v_streetSnapContent = v_streetSnapContent
-})()
+})();

@@ -19,6 +19,16 @@
 			});
 	}]);
 	
+	angularApp.controller('globalController', function($scope){
+		var mc_loading = $('#mc_loading' );
+		$scope.openLoading = function(){
+			mc_loading.fadeIn( 300 );
+		}
+		$scope.closeLoading = function(){
+			mc_loading.fadeOut( 300 );
+		}
+	});
+	
 	angularApp.directive('indexcontent', function(){
 		return {
 			restrict: 'E',
@@ -27,6 +37,7 @@
 			transclude: true,
 			link : function(scope, element, attrs) {
 				var view = app.view.v_indexContent(element)
+				view.scope = scope;
 				app.controller.c_indexContent(view)
 			}
 		};
@@ -52,7 +63,11 @@
 		return {
 			restrict: 'E',
 			templateUrl: 'navbar.directive.html',
-			replace: true
+			replace: true,
+			link:function( scope, element, attrs ){
+				var view = app.view.v_navbar( element );
+				app.controller.c_navbar( view );
+			}
 		};
 	});
 	

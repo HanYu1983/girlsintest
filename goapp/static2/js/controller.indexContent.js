@@ -48,7 +48,7 @@ app.controller = app.controller || {};
 		function addListener( data ){
 			completeCount++;
 			if( completeCount < 3 )	return;
-			mc_loading.fadeOut( 300 );
+			view.scope.closeLoading();
 			for( var i = 0; i < ary_cover.length; ++i ){
 				ary_cover[i].mouseover( function(){
 					var cover = $( this );

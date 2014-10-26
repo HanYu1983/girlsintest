@@ -6,66 +6,77 @@
 		<script src="js/lib/perfect-scrollbar-0.5.1/src/perfect-scrollbar.js"></script>
 		<script src="js/lib/sketchfab-iframe.js"></script>
 		<script src='js/lib/angular.min.js'></script>
+		<script src='js/lib/underscore.js'></script>
 		<script>app = {}</script>
 		<script src='js/utils.js'></script>
+		<script src='js/view.navbar.js'></script>
 		<script src='js/view.indexContent.js'></script>
 		<script src='js/view.streetSnap.js'></script>
+		<script src='js/controller.navbar.js'></script>
 		<script src='js/controller.indexContent.js'></script>
 		<script src='js/controller.streetSnap.js'></script>
 		<script src='js/angularApp.js' charset="utf-8" type="text/javascript"></script>
+		<link href='css/reset.css' rel='stylesheet' type='text/css'/>
 	</head>
 	<body>
 		<style>
-			.root{
-				position:relative;
-			}
-			.mc_mainRoot{
-				position:relative;
-				width:960px;
-				left:50%;
-				margin-left:-480px;
-			}
-			.mc_content{
-				position:absolute;
-				width:100%;
-				height:100%;
-				top:0;
-				left:0;
-				//background-image:url(images/marcjacobs-website.jpg);
-			}
+		.root{
+			position:relative;
+		}
+		.mc_mainRoot{
+			position:absolute;
+			width:960px;
+			left:50%;
+			margin-left:-480px;
+		}
+		.mc_content{
+			position:absolute;
+			width:100%;
+			height:100%;
+			top:0;
+			left:0;
+			//background-image:url(images/marcjacobs-website.jpg);
+		}
+		
+		.mc_headbarRoot{
+			position:fixed;
+		}
+		.mc_headbar{
 			
-			.mc_headbarRoot{
-				position:fixed;
-			}
-			.mc_headbar{
-				
-			}
-			.mc_navbarRoot{
-				position:fixed;
-				width:0;
-				height:0;
-			}
-			.mc_navbar{
-				position:relative;
-				width:120px;
-				top:105px;
-				left:800px;
-			}
-			.mc_footbarRoot{
-				position:fixed;
-				bottom:0px;
-			}
-			.mc_footbar{
-				
-			}
-			.mc_backgroundRoot{
-				position:fixed;
-				width:960px;
-				height:100%;
-				background-image:url('images/index/background.jpg' );
-			}
+		}
+		.mc_navbarRoot{
+			position:fixed;
+			width:0;
+			height:0;
+		}
+		.mc_navbar{
+			position:relative;
+			width:120px;
+			top:105px;
+			left:800px;
+		}
+		.mc_footbarRoot{
+			position:fixed;
+			bottom:0px;
+		}
+		.mc_footbar{
+			
+		}
+		.mc_backgroundRoot{
+			position:fixed;
+			width:960px;
+			height:100%;
+			background-image:url('images/index/background.jpg' );
+		}
+		.mc_loading{
+			position:relative;
+			width:100%;
+			height:100%;
+			background-color:black;
+			opacity:.5;
+		}
 		</style>
-		<div id='mainFrame' class='root' ng-app='app'>
+		<div id='mainFrame' class='root' ng-app='app' ng-controller='globalController'>
 			<div class='mc_mainRoot'>
 				<div class='mc_backgroundRoot'></div>
 				<div class='mc_content' ng-view></div>
@@ -80,6 +91,7 @@
 					<footbar class='mc_footbar'></div>
 				</div>
 			</div>
+			<div id='mc_loading' class='mc_loading'></div>
 		</div>
 	</body>
 </html>

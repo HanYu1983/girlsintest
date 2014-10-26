@@ -5,6 +5,7 @@ app.controller = app.controller || {};
 	var pkg = app.controller
 
 	function c_indexContent(view){
+		console.log( 'c_indexContentc_indexContent' );
 		//import sketchfab lib
 		var sketchfabModule = window['sketchfab-iframe'];
 		var Sketchfab = sketchfabModule.Sketchfab;

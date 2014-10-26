@@ -22,7 +22,9 @@
 	<body>
 		<style>
 		.root{
-			position:relative;
+			position:absolute;
+			width:100%;
+			height:100%;
 		}
 		.mc_mainRoot{
 			position:absolute;
@@ -32,9 +34,17 @@
 		.mc_centerRoot{
 			position:absolute;
 			width:960px;
+			height:100%;
 			left:50%;
 			top:0;
 			margin-left:-480px;
+		}
+		.mc_centerBackground{
+			position:absolute;
+			width:100%;
+			height:100%;
+			background-color:black;
+			opacity:.3;
 		}
 		.mc_content{
 			position:absolute;
@@ -75,24 +85,25 @@
 			height:100%;
 			background-color:black;
 			opacity:.5;
-			display:none;
+			//display:none;
 		}
 		</style>
 		<div id='mainFrame' class='root' ng-app='app' ng-controller='globalController'>
 			<div class='mc_mainRoot'>
 				<div class='mc_backgroundRoot'></div>
 				<div class='mc_centerRoot'>
-				<div class='mc_content' ng-view></div>
-				
-				<div class='mc_headbarRoot'>
-					<headbar class='mc_headbar'></headbar>
-				</div>
-				<div class='mc_navbarRoot'>
-					<navbar class='mc_navbar'></navbar>
-				</div>
-				<div class='mc_footbarRoot'>
-					<footbar class='mc_footbar'></div>
-				</div>
+					<div class='mc_centerBackground'></div>
+					<div class='mc_content' ng-view></div>
+					
+					<div class='mc_headbarRoot'>
+						<headbar class='mc_headbar'></headbar>
+					</div>
+					<div class='mc_navbarRoot'>
+						<navbar class='mc_navbar'></navbar>
+					</div>
+					<div class='mc_footbarRoot'>
+						<footbar class='mc_footbar'></div>
+					</div>
 				</div>
 			</div>
 			<div id='mc_loading' class='mc_loading'></div>

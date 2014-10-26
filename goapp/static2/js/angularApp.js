@@ -39,11 +39,11 @@
 			transclude: true,
 			link : function(scope, element, attrs) {
 				console.log( 'directive' );
-				/*
+				
 				var view = app.view.v_indexContent(element)
 				view.scope = scope;
 				app.controller.c_indexContent(view)
-				*/
+				
 			}
 		};
 	});

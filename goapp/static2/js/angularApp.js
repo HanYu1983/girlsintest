@@ -32,6 +32,22 @@
 		};
 	});
 	
+	angularApp.directive( 'headbar', function(){
+		return{
+			restrict: 'E',
+			templateUrl:'headbar.directive.html',
+			replace:true
+		};
+	});
+	
+	angularApp.directive( 'footbar', function(){
+		return{
+			restrict:'E',
+			templateUrl:'footbar.directive.html',
+			replace:true
+		}
+	});
+	
 	angularApp.directive('navbar', function(){
 		return {
 			restrict: 'E',

@@ -1,24 +1,96 @@
 <div>
 	<style>
-	.con_ifame{
+	.mc_indexContentRoot{
 		position:relative;
-		width:400px;
-		height:320px;
-		left:50%;
-		margin-left:-150px;
-		cursor:pointer
+		width:860px;
 	}
-	.btn_main{
-		width:400px;
-		height:60px;
-		background-color:red;
-		cursor:pointer
+	.mc_iframeSection{
+		position:relative;
+		width:860px;
+		height:230px;
+	}
+	.mc_iframes{
+		position:relative;
+		left:77px;
+		top:20px;
+	}
+	.mc_iframeFloat{
+		float:left;
+	}
+	.mc_forOver{
+		width:2000px;
+		height:1000px;
+		position:fixed;
+		top:0px;
+		left:0px;
+	}
+	.mc_cover{
+		position:relative;
+		width:200px;
+		height:230px;
+		margin-top:-230px;
+		background-color:blue;
+	}
+	.mc_logoSection{
+		width:860px;
+		height:265px;
+	}
+	.mc_bigLogo{
+		position:absolute;
+		left:240px;
+		top:100px;
+	}
+	.mc_textUnderBigLogo{
+		position:absolute;
+		left:293px;
+		top:200px;
+	}
+	.mc_threeIframeBackground{
+		position:absolute;
+		left:52px;
+	}
+	.iframeFloat{
+		position:absolute;
+		float:left;
+	}
+	.iframeLeftB{
+		left:231px;
+	}
+	.iframeLeftC{
+		left:463px;
 	}
 	</style>
-	
-	index page
-	<div class="con_ifame">
-		<iframe id="3diframe" width="400" height="320"></iframe>
-		<div id="btn_main" class="btn_main">
+	<div class='mc_indexContentRoot'>
+		<div class='mc_logoSection'>
+			<div class='mc_bigLogo'><img src='images/index/bigLogo.png'/></div>
+			<div class='mc_textUnderBigLogo'><img src='images/index/textUnderBigLogo.png'/></div>
+		</div>
+		<div class="mc_iframeSection">
+			<div class='mc_threeIframeBackground'>
+				<img src='images/index/threeIframe.png'/>
+			</div>
+			<div id='mc_iframes' class="mc_iframes">
+				<div id='mc_forOver' class='mc_forOver'></div>
+				<div class='iframeFloat iframeLeftA'>
+					<div class='outline mc_iframeContainer mc_iframeContainerA'>
+						<iframe id='iframe_modelA' width='200px' height='230px'></iframe>
+						<div id='mc_coverA' class='mc_cover'></div>
+					</div>
+				</div>
+				<div class='iframeFloat iframeLeftB'>
+					<div class='outline mc_iframeContainer mc_iframeContainerB'>
+						<iframe id='iframe_modelB' width='200px' height='230px'></iframe>
+						<div id='mc_coverB' class='mc_cover'></div>
+					</div>
+				</div>
+				<div class='iframeFloat iframeLeftC'>
+					<div class='outline mc_iframeContainer mc_iframeContainerC'>
+						<iframe id='iframe_modelC' width='200px' height='230px'></iframe>
+						<div id='mc_coverC' class='mc_cover'></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 </div>

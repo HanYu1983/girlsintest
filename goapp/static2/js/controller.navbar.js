@@ -70,19 +70,19 @@ app.controller = app.controller || {};
 			var btnSelf = $( this );
 			switch( btnSelf.attr( 'id' ) ){
 				case ary_btns[0].attr( 'id' ):
-					window.location.href = '#hot';
+					window.location.href = '#/hot';
 					break;
 				case ary_btns[1].attr( 'id' ):
-					window.location.href = '#model';
+					window.location.href = '#/model';
 					break;
 				case ary_btns[2].attr( 'id' ):
-					window.location.href = '#event';
+					window.location.href = '#/event';
 					break;
 				case ary_btns[3].attr( 'id' ):
-					window.location.href = '#street';
+					window.location.href = '#/street';
 					break;
 				case ary_btns[4].attr( 'id' ):
-					window.location.href = '#news';
+					window.location.href = '#/news';
 					break;
 			}
 		}

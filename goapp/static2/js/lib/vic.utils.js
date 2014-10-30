@@ -131,29 +131,9 @@ vic.utils.resizeWebViewport = function( targetWidth ){
 	viewport.setAttribute('content', 'width=640, initial-scale='+result+',maximum-scale='+result+', user-scalable=1');
 }
 
-//can also use below
-//<link rel="import" href="http://ad.arcww.com.tw/VicDemo/jstest/import/testImportPart.html" onload="handleLoad(event)" onerror="handleError(event)">
-vic.utils.importHTML = function( url, onCompleteEvent ){
-	var link = document.createElement('link');
-	link.rel = 'import';
-	link.href = url;
-	link.onload = handleLoad;
-	link.onerror = handleError;
-	document.head.appendChild(link);
-	
-	function handleLoad(e) {
-		onCompleteEvent( document.querySelector( 'link[rel="import"]').import );
-	}
-	
-	function handleError(e) {
-		console.log('Error loading import: ' + e.target.href);
-	}
-}
-
 vic.utils.importList = function( ary_list, callback, completeCallback ){
 	var id = 0;
 	(function doNext(){
-		console.log( ary_list.length );
 		if( ary_list.length > 0 ){
 			var nowurl = ary_list.shift();
 			$.get( nowurl ,function(data){
@@ -163,3 +143,36 @@ vic.utils.importList = function( ary_list, callback, completeCallback ){
 		}else completeCallback();
 	})();
 }
+
+/*
+require jquery.flash.js
+vic.utils.sIFR( $('h3' ), 'resource/jfr.swf', ['* { color: #ff0000; }', 'a:hover { text-decoration: underline }'] );
+css: [
+	'* { color: #ff0000; }',
+	'a { color: #0099CC; text-decoration: none; }',
+	'a:hover { text-decoration: underline; }'
+].join(' ')
+*/
+vic.utils.sIFR = function( $dom, fontPath, ary_cssstr ){
+	$dom.flash(
+		{ 
+			src: fontPath, 
+			flashvars: { 
+				css: ary_cssstr.join(' ')
+			}
+		},
+		{ version: 7 },
+		function(htmlOptions) {
+			htmlOptions.flashvars.txt = this.innerHTML;
+			this.innerHTML = '<div>'+this.innerHTML+'</div>';
+			var $alt = $(this.firstChild);
+			htmlOptions.height = $alt.height();
+			htmlOptions.width = $alt.width();
+			$alt.addClass('alt');
+			$(this)
+				.addClass('flash-replaced')
+				.prepend($.fn.flash.transform(htmlOptions));	
+		}
+	);
+}
+	

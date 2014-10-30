@@ -23,6 +23,7 @@ type StreetModelEntity struct {
 	Description string
 	ModelKey string
 	Date time.Time
+	Tag string
 }
 
 type IStreetModelDAO interface {

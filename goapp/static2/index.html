@@ -51,27 +51,29 @@
 		}
 		.mc_headbarRoot{
 			position:fixed;
+			width:100%;
 		}
 		.mc_headbar{
-			
+			width:100%;
+			height:60px;
 		}
 		.mc_navbarRoot{
 			position:fixed;
-			width:0;
-			height:0;
+			right:16px;
+			top:105px;
 		}
 		.mc_navbar{
-			position:relative;
-			width:120px;
-			top:105px;
-			left:800px;
+		
 		}
 		.mc_footbarRoot{
 			position:fixed;
+			width:100%;
+			height:46px;
 			bottom:0px;
 		}
 		.mc_footbar{
-			
+			width:100%;
+			height:100%;
 		}
 		.mc_backgroundRoot{
 			position:fixed;
@@ -85,27 +87,28 @@
 			height:100%;
 			background-color:black;
 			opacity:.5;
-			//display:none;
 		}
 		</style>
 		<div id='mainFrame' class='root' ng-app='app' ng-controller='globalController'>
 			<div class='mc_mainRoot'>
 				<div class='mc_backgroundRoot'></div>
 				<div class='mc_centerRoot'>
+					<!--
 					<div class='mc_centerBackground'></div>
+					-->
 					<div class='mc_content' ng-view></div>
-					
-					<div class='mc_headbarRoot'>
-						<headbar class='mc_headbar'></headbar>
-					</div>
-					<div class='mc_navbarRoot'>
-						<navbar class='mc_navbar'></navbar>
-					</div>
-					<div class='mc_footbarRoot'>
-						<footbar class='mc_footbar'></div>
-					</div>
+				</div>
+				<div class='mc_headbarRoot'>
+					<headbar class='mc_headbar'></headbar>
+				</div>
+				<div class='mc_footbarRoot'>
+					<footbar class='mc_footbar'>
+				</div>
+				<div class='mc_navbarRoot'>
+					<navbar class='mc_navbar'></navbar>
 				</div>
 			</div>
+		</div>
 			<div id='mc_loading' class='mc_loading'></div>
 		</div>
 	</body>

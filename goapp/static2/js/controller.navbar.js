@@ -11,33 +11,58 @@ app.controller = app.controller || {};
 			view.getBtnNews()
 		];
 		
-		_.map( ary_btns, function( btn ){
-			btn.mouseover( onBtnMouseOver );
-			btn.mouseout( onBtnMouseOut );
-			btn.click( onBtnMouseClick );
-		});
-		console.log( 'addEventListener' );
+		
+		
 		var events = view.scope.events;
 		events.addEventListener( 'jumpPageEvent', function( event ){
-			console.log( 'jumpPageEvent' );
-			/*
+			_.map( ary_btns, function( btn ){ offQueryListener( btn ); });
+			
 			switch( event.getData() ){
+				case 'index':
+					btnNormalStatu( ary_btns[0] );
+					btnNormalStatu( ary_btns[1] );
+					btnNormalStatu( ary_btns[2] );
+					btnNormalStatu( ary_btns[3] );
+					btnNormalStatu( ary_btns[4] );
+					break;
+				case 'news':
+					btnNormalStatu( ary_btns[0] );
+					btnNormalStatu( ary_btns[1] );
+					btnNormalStatu( ary_btns[2] );
+					btnNormalStatu( ary_btns[3] );
+					btnOverStatu( ary_btns[4] );
+					break;
+				case 'events':
+					btnNormalStatu( ary_btns[0] );
+					btnNormalStatu( ary_btns[1] );
+					btnOverStatu( ary_btns[2] );
+					btnNormalStatu( ary_btns[3] );
+					btnNormalStatu( ary_btns[4] );
+					break;
 				case 'street':
-					btnNormalStatu( view.getBtnCelebrity() );
-					btnOverStatu( view.getBtnStreetSnap() );
+					btnNormalStatu( ary_btns[0] );
+					btnNormalStatu( ary_btns[1] );
+					btnNormalStatu( ary_btns[2] );
+					btnOverStatu( ary_btns[3] );
+					btnNormalStatu( ary_btns[4] );
 					break;
 				case 'model':
-					btnOverStatu( view.getBtnModel() );
-					btnNormalStatu( view.getBtnCelebrity() );
+					btnNormalStatu( ary_btns[0] );
+					btnOverStatu( ary_btns[1] );
+					btnNormalStatu( ary_btns[2] );
+					btnNormalStatu( ary_btns[3] );
+					btnNormalStatu( ary_btns[4] );
 					break;
 				case 'hot':
-					btnOverStatu( view.getBtnCelebrity() );
-					btnNormalStatu( view.getBtnModel() );
-			}*/
+					btnOverStatu( ary_btns[0] );
+					btnNormalStatu( ary_btns[1] );
+					btnNormalStatu( ary_btns[2] );
+					btnNormalStatu( ary_btns[3] );
+					btnNormalStatu( ary_btns[4] );
+			}
 		});
 		
 		function btnNormalStatu( query ){
-			console.log( 'normal' );
 			query.find( '.navbarBtnOver' ).animate( {width:'0px'}, 300 );
 			query.mouseover( onBtnMouseOver );
 			query.mouseout( onBtnMouseOut );
@@ -47,10 +72,14 @@ app.controller = app.controller || {};
 		
 		function btnOverStatu( query ){
 			query.find( '.navbarBtnOver' ).css( 'width', '120px' );
+			offQueryListener( query );
+		}
+		
+		function offQueryListener( query ){
 			query.off( 'mouseover' );
 			query.off( 'mouseout' );
 			query.off( 'click' );
-			query.css( 'cursor', '' );
+			query.css( 'cursor', 'auto' );
 		}
 		
 		function onBtnMouseOver(){
@@ -66,7 +95,6 @@ app.controller = app.controller || {};
 		}
 		
 		function onBtnMouseClick(){
-			console.log( 'onBtnMouseClick' );
 			var btnSelf = $( this );
 			switch( btnSelf.attr( 'id' ) ){
 				case ary_btns[0].attr( 'id' ):

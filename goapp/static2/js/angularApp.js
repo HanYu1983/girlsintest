@@ -44,6 +44,7 @@
 				view.scope = scope;
 				app.controller.c_indexContent(view)
 				
+				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'index' ));
 			}
 		};
 	});
@@ -55,11 +56,9 @@
 			templateUrl: 'hotContent.directive.html',
 			replace: true,
 			link : function(scope, element, attrs) {
-				console.log( 'directive-hotcontent' );
-				//scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'hot' ));
+				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'hot' ));
 			},
 			controller: function($scope){
-				/*
 				$scope.title = '時尚變3d?…挺有趣的'
 				$scope.description = '這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容這是內容'
 				$scope.currentPage = 0
@@ -77,7 +76,6 @@
 					$scope.currentPage = $scope.currentPage + 1
 					update()
 				}
-				*/
 			}
 		};
 	});

@@ -31,11 +31,16 @@
 	.mc_photosBorder{
 		width:100%;
 	}
+	.mc_photoSide{
+		padding:3px;
+		top:-4px;
+		left:4px;
+		position:relative;
+	}
 	.mc_photo{
 		padding:3px;
-		width:107px;
-		top:10px;
-		left:14px;
+		top:6px;
+		left:40px;
 		position:relative;
 	}
 	.mc_streetSnapContentRoot p{
@@ -43,8 +48,8 @@
 	}
 	.mc_3dIframeBorderLine{
 		position:absolute;
-		padding-top:20px;
-		padding-left:30px;
+		padding-top:14px;
+		padding-left:37px;
 	}
 	.mc_3dIframeHear{
 		padding-top:30px;
@@ -52,19 +57,47 @@
 	}
 	.mc_proBorder{
 		width:100%;
-		height:120px;
+		height:103px;
 	}
 	.mc_proback{
-		width:340px;
-		height:100px;
+		width:306px;
+		height:83px;
 		background-color:white;
 		opacity:.3;
-		margin-top:18px;
-		margin-left:5px;
+		margin-top:13px;
+		margin-left:28px;
+		position:absolute;
+	}
+	.txt_proContent{
+		color:white;
+		margin-top:13px;
+		margin-left:28px;
+		position:absolute;
+		padding:5px;
+	}
+	.mc_stylePictureBorder{
+		height:302px;
 		float:left;
+	}
+	.mc_detailPhotoBorder{
+		height:302px;
+	}
+	.mc_stylePicture{
+		margin-left:28px;
+	}
+	.mc_modelDetailBorder{
+		width:100%;
+		height:200px;
+	}
+	.mc_modelInviteBorder{
+		width:100%;
+		height:200px;
 	}
 	</style>
 	<div class='mc_streetSnapContentRoot'>
+	<!--
+		<img style='opacity:.5;position:absolute;top:65px;left:4px;' src='images/streetSnap/Streetsnap_layout.jpg'/>
+		-->
 		<div class='mc_titleBorder'>
 			<p>dddd</p>
 		</div>
@@ -76,12 +109,18 @@
 			</div>
 			<div class='mc_describeBorder'>
 				<div class='mc_proBorder'>
-					
 					<div class='mc_proback'/>
-					<div>aabb</div>
+					<div class='txt_proContent'>aabb</div>
+				</div>
+				<div class='mc_stylePictureBorder'>
+					<img class='mc_stylePicture' src='images/streetSnap/test2.jpg'/>
+				</div>
+				<div class='mc_detailPhotoBorder'>
+					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
 				</div>
 			</div>
-			
 		</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_photosBorder'>
@@ -97,9 +136,20 @@
 			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
 			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
 			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<div style='width:720px;height:40px'></div>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<div style='width:720px;height:20px'></div>
 		</div>
 		<p>Model資料</p>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_modelDetailBorder'>
+			
+		</div>
+		<p>Model訪談</p>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_modelInviteBorder'>
+			
+		</div>
 	</div>
 </div>

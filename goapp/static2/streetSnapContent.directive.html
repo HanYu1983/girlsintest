@@ -1,88 +1,155 @@
 ﻿<div>
 	<style>
-	.mc_container{
+	.mc_streetSnapContentRoot{
 		position:relative;
-		width:800px;
-		left:50%;
-		margin-left:-400px;
+		width:720px;
+		left:115px;
 	}
-	.mc_fakeloading{
-		position:absolute;
-		top:0;
+	.mc_titleBorder{
 		width:100%;
-		height:100%;
-		background-color:blue;
-		font-size:50px;
+		height:110px;
 	}
-	.mc_head{
-		width:800px;
-		height:200px;
-		margin-top:50px;
-	}
-	.mc_sliderContainer{
-		width:800px;
-		height:300px;
-	}
-	.mc_items{
-		width:800px;
-		height:600px;
-	}
-	.mc_iframeContainer{
-		position:absolute;
-		width:200px;
-		height:200px;
-	}
-	.mc_iframeContainerA{
-		left:50%;
-		margin-left:-100px;
-		margin-top:30px;
-	}
-	.mc_iframeContainerB{
-		left:50px;
-		margin-top:30px;
-	}
-	.mc_iframeContainerC{
-		right:50px;
-		margin-top:30px;
-	}
-	.mc_forOver{
-		width:100%;
-		height:100%;
-		position:absolute;
-	}
-	.mc_cover{
+	.mc_line{
 		position:relative;
-		margin-top:-200px;
-		width:200px;
+		width:97%;
+		left:17px;
+	}
+	.mc_photoBorder{
+		width:100%;
+		height:420px;
+	}
+	.mc_3dIframeBorder{
+		width:360px;
+		height:100%;
+		float:left;
+	}
+	.mc_describeBorder{
+		width:360px;
+		height:100%;
+		float:left;
+	}
+	.mc_photosBorder{
+		width:100%;
+	}
+	.mc_photoSide{
+		padding:3px;
+		top:-4px;
+		left:4px;
+		position:relative;
+	}
+	.mc_photo{
+		padding:3px;
+		top:6px;
+		left:40px;
+		position:relative;
+	}
+	.mc_streetSnapContentRoot p{
+		color:white;
+	}
+	.mc_3dIframeBorderLine{
+		position:absolute;
+		padding-top:14px;
+		padding-left:37px;
+	}
+	.mc_3dIframeHear{
+		padding-top:30px;
+		padding-left:310px;
+	}
+	.mc_proBorder{
+		width:100%;
+		height:103px;
+	}
+	.mc_proback{
+		width:306px;
+		height:83px;
+		background-color:white;
+		opacity:.3;
+		margin-top:13px;
+		margin-left:28px;
+		position:absolute;
+	}
+	.txt_proContent{
+		color:white;
+		margin-top:13px;
+		margin-left:28px;
+		position:absolute;
+		padding:5px;
+	}
+	.mc_stylePictureBorder{
+		height:302px;
+		float:left;
+	}
+	.mc_detailPhotoBorder{
+		height:302px;
+	}
+	.mc_stylePicture{
+		margin-left:28px;
+	}
+	.mc_modelDetailBorder{
+		width:100%;
 		height:200px;
-		background-color:blue;
+	}
+	.mc_modelInviteBorder{
+		width:100%;
+		height:200px;
 	}
 	</style>
-	<div class='mc_container'>
-		<div class='outline mc_head'>
-		這裡是標題
+	<div class='mc_streetSnapContentRoot'>
+	<!--
+		<img style='opacity:.5;position:absolute;top:65px;left:4px;' src='images/streetSnap/Streetsnap_layout.jpg'/>
+		-->
+		<div class='mc_titleBorder'>
+			<p>dddd</p>
 		</div>
-		<div class='outline mc_sliderContainer'>
-		這裡是三個轉轉轉
-			<!--
-			<div id='mc_forOver' class='mc_forOver'></div>
-			<div class='outline mc_iframeContainer mc_iframeContainerA'>
-				<iframe id='iframe_modelA' width='200px' height='200px'></iframe>
-				<div id='mc_coverA' class='mc_cover'></div>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_photoBorder'>
+			<div class='mc_3dIframeBorder'>
+				<img class='mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
+				<img class='mc_3dIframeHear' src='images/streetSnap/pinkHeart.png'/>
 			</div>
-			<div class='outline mc_iframeContainer mc_iframeContainerB'>
-				<iframe id='iframe_modelB' width='200px' height='200px'></iframe>
-				<div id='mc_coverB' class='mc_cover'></div>
+			<div class='mc_describeBorder'>
+				<div class='mc_proBorder'>
+					<div class='mc_proback'/>
+					<div class='txt_proContent'>aabb</div>
+				</div>
+				<div class='mc_stylePictureBorder'>
+					<img class='mc_stylePicture' src='images/streetSnap/test2.jpg'/>
+				</div>
+				<div class='mc_detailPhotoBorder'>
+					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+				</div>
 			</div>
-			<div class='outline mc_iframeContainer mc_iframeContainerC'>
-				<iframe id='iframe_modelC' width='200px' height='200px'></iframe>
-				<div id='mc_coverC' class='mc_cover'></div>
-			</div>
-			-->
 		</div>
-		<div class='outline mc_items'>
-		這裡是舊資料
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_photosBorder'>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<div style='width:720px;height:20px'></div>
+		</div>
+		<p>Model資料</p>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_modelDetailBorder'>
+			
+		</div>
+		<p>Model訪談</p>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_modelInviteBorder'>
+			
 		</div>
 	</div>
-	<div id='mc_fakeloading' class='mc_fakeloading'>loading...</div>
 </div>

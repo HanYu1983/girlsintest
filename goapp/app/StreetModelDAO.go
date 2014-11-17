@@ -17,14 +17,24 @@ func (r *StreetModelDAO) Init(){
 		return  datastore.Put(ctx, key, &card)
 	}
 	r.GetFn = func(ctx appengine.Context, keys []*datastore.Key) (ret []interface{}, err error) {
-		var entities []StreetModelEntity
-		entities = make([]StreetModelEntity, len(keys))
-		err = datastore.GetMulti(ctx, keys, &entities)
-		for idx, entity := range entities {
-			entity.Key = keys[idx].IntID()
-			ret = append(ret, entity)
+		isSingle := len(keys) <= 1
+		if isSingle {
+			entity := StreetModelEntity{}
+			err = datastore.Get(ctx, keys[0], &entity)
+			entity.Key = keys[0].IntID()
+			ret = append( ret, entity )
+			return
+			
+		} else {
+			var entities []StreetModelEntity
+			entities = make([]StreetModelEntity, len(keys))
+			err = datastore.GetMulti(ctx, keys, &entities)
+			for idx, entity := range entities {
+				entity.Key = keys[idx].IntID()
+				ret = append(ret, entity)
+			}
+			return
 		}
-		return
 	}
 	r.GetAllFn = func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error ) {
 		var cards []StreetModelEntity

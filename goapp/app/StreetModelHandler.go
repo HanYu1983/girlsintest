@@ -4,6 +4,7 @@ import (
     "strconv"
 	"lib/tool"
 	"time"
+	_ "appengine"
 	"appengine/datastore"
 )
 
@@ -36,7 +37,7 @@ func UpdateStreetModel(sys tool.ISystem) interface{} {
 		ret = entity
 	}else{
 		key := dao.Create(sys, dao.NewKey(sys, nil), entity)
-		ret = key
+		ret = key.IntID()
 	}
 	
 	isRedirect := len(r.Form["redirect"]) > 0
@@ -48,8 +49,14 @@ func UpdateStreetModel(sys tool.ISystem) interface{} {
 }
 
 func QueryStreetModel(sys tool.ISystem) interface{} {
+	r := sys.GetRequest()
 	dao := GetApp().GetStreetModelDAO()
-	return tool.Success(dao.ReadAll(sys, dao.NewQuery(sys)))
+	if len(r.Form["Key"]) > 0 {
+		key64 := tool.Str2Int64(r.Form["Key"][0])
+		return tool.Success(dao.Read(sys, dao.GetKey(sys, key64, nil)))
+	}else{
+		return tool.Success(dao.ReadAll(sys, dao.NewQuery(sys)))
+	}
 }
 
 func AddPhotoToStreetModel(sys tool.ISystem) interface{}{

@@ -1,0 +1,41 @@
+<script>app = {}</script>
+<script src="js/lib/jquery-1.7.2.js"></script>
+<script src='js/app.api.js'></script>
+<script>
+var host = 'http://localhost:8080/'
+var api = app.api.apiWithHost(host);
+
+
+
+(function($){
+	
+	// 查單筆
+	$.when(api.queryStreetModel({Key:5067649092419584}))
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	// 查多筆
+	$.when(api.queryStreetModel({}))
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	// 新增一筆
+	$.when(api.createStreetModel( { Caption:"caption", ModelKey: "modelKey", Description: "Description", Tag: "Tag" } ))
+		.fail( function(err){ console.log(err) } )
+		.then( function(data){
+			console.log(data)
+			
+	// 修改指定資料
+			var key = data.Info
+			return api.updateStreetModel( {  Key: key, Caption:"xxx", ModelKey: "xxx", Description: "xxx", Tag: "xx" } )
+		})
+		.then( function(data){
+			console.log(data)
+		})
+		.fail( function( err ){
+			console.log( err )
+		})
+		
+})(jQuery)
+
+</script>

@@ -17,15 +17,25 @@ func (r *PhotoDAO) Init(){
 		return  datastore.Put(ctx, key, &card)
 	}
 	r.GetFn = func(ctx appengine.Context, keys []*datastore.Key) (ret []interface{}, err error) {
-		var entities []PhotoEntity
-		entities = make([]PhotoEntity, len(keys))
-		err = datastore.GetMulti(ctx, keys, entities)
-		for idx, entity := range entities {
-			entity.Key = keys[idx].IntID()
-			entity.Base64Str = string(entity.Base64)
-			ret = append(ret, entity)
+		isSingle := len(keys) <= 1
+		if isSingle {
+			entity := PhotoEntity{}
+			err = datastore.Get(ctx, keys[0], &entity)
+			entity.Key = keys[0].IntID()
+			ret = append( ret, entity )
+			return
+			
+		} else {
+			var entities []PhotoEntity
+			entities = make([]PhotoEntity, len(keys))
+			err = datastore.GetMulti(ctx, keys, entities)
+			for idx, entity := range entities {
+				entity.Key = keys[idx].IntID()
+				entity.Base64Str = string(entity.Base64)
+				ret = append(ret, entity)
+			}
+			return
 		}
-		return
 	}
 	r.GetAllFn = func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error ) {
 		var entities []PhotoEntity

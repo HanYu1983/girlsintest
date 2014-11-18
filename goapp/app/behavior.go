@@ -33,7 +33,7 @@ type IStreetModelDAO interface {
 type PhotoEntity struct {
 	Key int64
 	Base64 []byte
-	Base64Str string
+	Base64Str string	//存的同樣是base64, 只是轉成字串的型式, 會在取值時做輸換, 節省空間
 	Date time.Time
 }
 

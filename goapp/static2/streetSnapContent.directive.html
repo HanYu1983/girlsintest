@@ -36,23 +36,32 @@
 		top:-4px;
 		left:4px;
 		position:relative;
+		cursor:pointer;
 	}
 	.mc_photo{
 		padding:3px;
 		top:6px;
 		left:40px;
 		position:relative;
+		cursor:pointer;
 	}
 	.mc_streetSnapContentRoot p{
 		color:white;
+	}
+	.iframe_3dIframe{
+		position:absolute;
+		padding-top:14px;
+		padding-left:37px;
 	}
 	.mc_3dIframeBorderLine{
 		position:absolute;
 		padding-top:14px;
 		padding-left:37px;
+		pointer-events:none;
 	}
-	.mc_3dIframeHear{
-		padding-top:30px;
+	.mc_3dIframeHeart{
+		position:absolute;
+		padding-top:56px;
 		padding-left:310px;
 	}
 	.mc_proBorder{
@@ -93,19 +102,49 @@
 		width:100%;
 		height:200px;
 	}
+	.mc_silderModel{
+		width:80px;
+		height:400px;
+		position:absolute;
+		top:105px;
+		left:-80px;
+	}
+	.mc_photoSmallSide{
+		padding:3px;
+		width:50px;
+		cursor:pointer;
+	}
+	.mc_arrowBase{
+		margin-left:10px;
+		padding-bottom:5px;
+		padding-top:5px;
+		cursor:pointer;
+	}
 	</style>
 	<div class='mc_streetSnapContentRoot'>
-	<!--
+		<!--
 		<img style='opacity:.5;position:absolute;top:65px;left:4px;' src='images/streetSnap/Streetsnap_layout.jpg'/>
 		-->
+		<div class='mc_silderModel'>
+			<img class='mc_arrowBase' src='images/streetSnap/upArrow.png'/>
+			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<img class='mc_arrowBase' src='images/streetSnap/downArrow.png'/>
+		</div>
 		<div class='mc_titleBorder'>
 			<p>dddd</p>
 		</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_photoBorder'>
 			<div class='mc_3dIframeBorder'>
+				<iframe id='iframe_3dIframe' class='iframe_3dIframe' width='323px' height='379px'></iframe>
 				<img class='mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
-				<img class='mc_3dIframeHear' src='images/streetSnap/pinkHeart.png'/>
+				<img class='mc_3dIframeHeart' src='images/streetSnap/pinkHeart.png'/>
 			</div>
 			<div class='mc_describeBorder'>
 				<div class='mc_proBorder'>

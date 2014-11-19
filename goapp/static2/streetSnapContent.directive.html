@@ -45,8 +45,23 @@
 		position:relative;
 		cursor:pointer;
 	}
-	.mc_streetSnapContentRoot p{
+	.textBase{
 		color:white;
+		font-family:'Microsoft JhengHei'
+	}
+	.text_title{
+		top:80px;
+		left:20px;
+		position:absolute;
+	}
+	.text_date{
+		top:80px;
+		right:10px;
+		float:right;
+		position:absolute;
+	}
+	.txt_modelDetail{
+		padding:10px;
 	}
 	.iframe_3dIframe{
 		position:absolute;
@@ -127,17 +142,13 @@
 		-->
 		<div class='mc_silderModel'>
 			<img class='mc_arrowBase' src='images/streetSnap/upArrow.png'/>
-			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>
+			<div id='mc_photoContainer'>
+			</div>
 			<img class='mc_arrowBase' src='images/streetSnap/downArrow.png'/>
 		</div>
 		<div class='mc_titleBorder'>
-			<p>dddd</p>
+			<div id='txt_title' class='textBase text_title'></div>
+			<div id='txt_date' class='textBase text_date'></div>
 		</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_photoBorder'>
@@ -149,7 +160,7 @@
 			<div class='mc_describeBorder'>
 				<div class='mc_proBorder'>
 					<div class='mc_proback'/>
-					<div class='txt_proContent'>aabb</div>
+					<div id='txt_proContent' class='textBase txt_proContent'>aabb</div>
 				</div>
 				<div class='mc_stylePictureBorder'>
 					<img class='mc_stylePicture' src='images/streetSnap/test2.jpg'/>
@@ -180,12 +191,12 @@
 			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
 			<div style='width:720px;height:20px'></div>
 		</div>
-		<p>Model資料</p>
+		<div class='textBase'>Model資料</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_modelDetailBorder'>
-			
+			<div id='txt_modelDetail' class='textBase txt_modelDetail'></div>
 		</div>
-		<p>Model訪談</p>
+		<div class='textBase'>Model訪談</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_modelInviteBorder'>
 			

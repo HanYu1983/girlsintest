@@ -2,12 +2,54 @@ var app = app || {};
 app.controller = app.controller || {};
 
 (function(){
-	var pkg = app.controller
+	var pkg = app.controller;
 
 	function c_streetSnapContent(view){
+		var host = 'http://localhost:8080/';
+		var query = app.api.partial( app.api.query, host );
+		var pid = 0;
 		
+		loadAllModelData( function( datas ){
+			generateModels(datas); 
+			generateOneModel( datas[pid] );
+		});
 		
+		function generateModels( datas ){
+			datas.forEach( view.pushOneModelToList );
+		}
+		
+		function generateOneModel( data ){
+			var caption = data.Caption;
+			var date = data.Date;
+			var desc = data.Description;
+			var key = data.Key;
+			var modelKey = data.ModelKey;
+			view.setTitle( caption );
+			view.setDate( date );
+			view.setModelDetail( desc );
+			view.setIframeData( modelKey );
+			generateOneModelPhoto( key );
+		}
+		
+		function generateOneModelPhoto( key ){
+			loadModelPhotoById( key, function( datas ){
+				console.log( datas );
+			});
+		}
+
+		function loadAllModelData( callback ){
+			$.when( query( app.api.QueryStreetModel,{} ) ).done( function(data){ 	
+				if( data.Success )	callback( data.Info ); 
+			} ).fail( function(err){ console.log(err) } );
+		}
+		
+		function loadModelPhotoById( key, callback ){
+			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key} ) )
+					.done( function(data){ callback( data ); } )
+					.fail( function(err){ console.log(err) } );
+		}
 		//import sketchfab lib
+		/*
 		var sketchfabModule = window['sketchfab-iframe'];
 		var Sketchfab = sketchfabModule.Sketchfab;
 		
@@ -35,6 +77,7 @@ app.controller = app.controller || {};
 		function addListener( data ){
 			//iframeApi.start();
 		}
+		*/
 	}
 	
 	pkg.c_streetSnapContent = c_streetSnapContent

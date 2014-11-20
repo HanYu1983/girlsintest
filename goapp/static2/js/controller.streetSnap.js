@@ -5,7 +5,8 @@ app.controller = app.controller || {};
 	var pkg = app.controller;
 
 	function c_streetSnapContent(view){
-		var host = 'http://localhost:8080/';
+		//var host = 'http://localhost:8080/';
+		var host = 'http://test-girlsin3d.appspot.com/';
 		var query = app.api.partial( app.api.query, host );
 		var pid = 0;
 		

@@ -12,6 +12,8 @@ app.view = app.view || {};
 		var txt_modelDetail = elem.find( '#txt_modelDetail' );
 		var txt_modelInvite = elem.find( '#txt_modelInvite' );
 		var mc_photoContainer = elem.find( '#mc_photoContainer' );
+		var mc_photoContainer2 = elem.find( '#mc_photoContainer2' );
+		var mc_photoContainer3 = elem.find( '#mc_photoContainer3' );
 		return {
 			get3dIframe:function(){
 				return iframe_3dIframe;
@@ -19,6 +21,17 @@ app.view = app.view || {};
 			pushOneModelToList:function(){
 				var imgquery = $("<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>" );
 				mc_photoContainer.append( imgquery );
+			},
+			pushOnePictureToList:function( base64 ){
+				if( mc_photoContainer2.children().length >= 3 )	return;
+				var tostr = 'data:image/png;base64,' + base64;
+				var imgquery = $("<img class='mc_photoSide' src='" + tostr + "'/>" );
+				mc_photoContainer2.append( imgquery );
+			},
+			pushOnePictureToPhotoList:function( base64 ){
+				var tostr = 'data:image/png;base64,' + base64;
+				var imgquery = $("<img class='mc_photo' src='" + tostr + "'/>" );
+				mc_photoContainer3.append( imgquery );
 			},
 			setTitle:function( title ){
 				txt_title.html( title );

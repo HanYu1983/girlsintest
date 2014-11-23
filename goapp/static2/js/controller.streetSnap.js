@@ -14,7 +14,10 @@ app.controller = app.controller || {};
 		});
 		
 		function generateModels( datas ){
-			datas.forEach( view.pushOneModelToList );
+			datas.forEach( function( data ){
+				console.log( data );
+				//view.pushOneModelToList( data.Base64Str );
+			} );
 		}
 		
 		function generateOneModel( data ){
@@ -36,7 +39,10 @@ app.controller = app.controller || {};
 		
 		function generateOneModelPhoto( key ){
 			loadModelPhotoById( key, function( datas ){
-				console.log( datas );
+				datas.forEach( function( data ){
+					view.pushOnePictureToList( data.Base64Str );
+					view.pushOnePictureToPhotoList( data.Base64Str );
+				});
 			});
 		}
 
@@ -48,7 +54,7 @@ app.controller = app.controller || {};
 		
 		function loadModelPhotoById( key, callback ){
 			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key} ) )
-					.done( function(data){ callback( data ); } )
+					.done( function(data){ callback( data.Info ); } )
 					.fail( function(err){ console.log(err) } );
 		}
 		//import sketchfab lib

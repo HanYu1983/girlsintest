@@ -20,6 +20,7 @@ func init() {
 		"AddPhotoToStreetModel": handler.AddPhotoToStreetModel,
 		"QueryPhotoWithStreetModel": handler.QueryPhotoWithStreetModel,
 		"DeletePhotoWithStreetModel": handler.DeletePhotoWithStreetModel,
+		"UpdatePhotoWithStreetModel": handler.UpdatePhotoWithStreetModel,
 	}
 	testActions := tool.ActionMap{
 		"TestShowImage": test.TestShowImage,

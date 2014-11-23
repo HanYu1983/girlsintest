@@ -27,6 +27,13 @@ func QueryPhotoWithStreetModel(sys tool.ISystem) interface{}{
 	}else{
 		query := photoDAO.NewQuery(sys).Ancestor(parentKey)
 		
+		hasBelong := len( r.Form["Belong"] ) > 0
+		if hasBelong {
+			tool.Verify( tool.ParamShouldBeInt( r, "Belong") )
+			belongKey := tool.Str2Int64( r.Form["Belong"][0] )
+			query = query.Filter( "Belong =", belongKey )
+		}
+		
 		hasLimit := len(r.Form["Limit"]) > 0
 		if hasLimit {
 			limit := tool.Str2Int64(r.Form["Limit"][0])

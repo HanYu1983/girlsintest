@@ -2,27 +2,61 @@ var app = app || {};
 app.controller = app.controller || {};
 
 (function(){
-	var pkg = app.controller
+	var pkg = app.controller;
 
 	function c_streetSnapContent(view){
+		//var host = 'http://localhost:8080/';
+		var host = 'http://test-girlsin3d.appspot.com/';
+		var query = app.api.partial( app.api.query, host );
+		var pid = 0;
+		
+		loadAllModelData( function( datas ){
+			generateModels(datas); 
+			generateOneModel( datas[pid] );
+		});
+		
+		function generateModels( datas ){
+			datas.forEach( view.pushOneModelToList );
+		}
+		
+		function generateOneModel( data ){
+			var caption = data.Caption;
+			var date = data.Date;
+			var desc = data.Description;
+			var key = data.Key;
+			var modelKey = data.ModelKey;
+			view.setTitle( caption );
+			view.setDate( date );
+			view.setModelDetail( desc );
+			view.setIframeData( modelKey );
+			generateOneModelPhoto( key );
+		}
+		
+		function generateOneModelPhoto( key ){
+			loadModelPhotoById( key, function( datas ){
+				console.log( datas );
+			});
+		}
+
+		function loadAllModelData( callback ){
+			$.when( query( app.api.QueryStreetModel,{} ) ).done( function(data){ 	
+				if( data.Success )	callback( data.Info ); 
+			} ).fail( function(err){ console.log(err) } );
+		}
+		
+		function loadModelPhotoById( key, callback ){
+			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key} ) )
+					.done( function(data){ callback( data ); } )
+					.fail( function(err){ console.log(err) } );
+		}
 		//import sketchfab lib
+		/*
 		var sketchfabModule = window['sketchfab-iframe'];
 		var Sketchfab = sketchfabModule.Sketchfab;
-		//local test
-		var ary_urlids = [ 'bb79930ee30944378ec957dcc6bed42d', 'bb79930ee30944378ec957dcc6bed42d', 'bb79930ee30944378ec957dcc6bed42d' ];
-		var ary_iframes = [
-			view.getIframeASource(),
-			view.getIframeBSource(),
-			view.getIframeCSource()
-		];
-		var ary_cover = [
-			view.getCoverA(),
-			view.getCoverB(),
-			view.getCoverC()
-		];
-		var ary_api = [];
-		var mc_forOver = view.getForOver();
-		var mc_loading = view.getLoading();
+		
+		var sid = 'bb79930ee30944378ec957dcc6bed42d';
+		var iframe_3dIframe = view.get3dIframe();
+		console.log( 'iframe_3dIframe', iframe_3dIframe);
 		var options = {
 			autospin:.3,
 			ui_controls:0,
@@ -36,38 +70,15 @@ app.controller = app.controller || {};
 			stop_button:0
 		};
 		
-		for( var i = 0; i < ary_urlids.length; ++i ){
-			var api = new Sketchfab( ary_iframes[i][0] );
-			sketchfabModule.Q.when( api.load( ary_urlids[i], options )).then( addListener ).fail( function( error ){
-				alert( error );
-			});
-			ary_api.push( api );
-		}
+		var iframeApi = new Sketchfab( iframe_3dIframe[0] );
+		sketchfabModule.Q.when( iframeApi.load( sid, options )).then( addListener ).fail( function( error ){
+			alert( error );
+		});
 		
-		var completeCount = 0;
 		function addListener( data ){
-			completeCount++;
-			if( completeCount < 3 )	return;
-			mc_loading.fadeOut( 500 );
-			for( var i = 0; i < ary_cover.length; ++i ){
-				ary_cover[i].mouseover( function(){
-					var cover = $( this );
-					var api;
-					cover.fadeOut( 500 );
-					switch( cover.attr( 'id' )){
-						case 'mc_coverA':	api = ary_api[0];break;
-						case 'mc_coverB':	api = ary_api[1];break;
-						case 'mc_coverC':	api = ary_api[2];break;
-					}
-					api.start();
-					mc_forOver.mouseover( function(){
-						mc_forOver.off( 'mouseover' );
-						for( var k in ary_cover )	ary_cover[k].fadeIn( 500 );
-						api.stop();
-					});
-				});
-			}
+			//iframeApi.start();
 		}
+		*/
 	}
 	
 	pkg.c_streetSnapContent = c_streetSnapContent

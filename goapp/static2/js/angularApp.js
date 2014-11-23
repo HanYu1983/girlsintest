@@ -89,7 +89,6 @@
 			link : function(scope, element, attrs) {
 				var view = app.view.v_streetSnapContent(element)
 				app.controller.c_streetSnapContent(view)
-				
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
 			}
 		};

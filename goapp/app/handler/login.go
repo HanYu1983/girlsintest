@@ -16,8 +16,8 @@ func Login(sys tool.ISystem)interface{}{
         return tool.DefaultResult{Success: true, Info: "already login"}
     }
     
-    tool.VerifyParam(r, "account", tool.ParamNotNil())
-    tool.VerifyParam(r, "password", tool.ParamNotNil())
+	tool.Verify( tool.ParamShouldExist( r, "account") )
+	tool.Verify( tool.ParamShouldExist( r, "password") )
     
     account := r.Form["account"][0]
     pwd := r.Form["password"][0]

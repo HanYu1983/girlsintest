@@ -8,11 +8,11 @@ import (
 
 
 func RegisterUser(sys tool.ISystem) interface{} {
+	tool.Verify( tool.ParamShouldExist( sys.GetRequest(), "account") )
+	tool.Verify( tool.ParamShouldExist( sys.GetRequest(), "password") )
+	tool.Verify( tool.ParamShouldInRange( sys.GetRequest(), "type", 0, 1) )
+	
 	r := sys.GetRequest()
-    tool.VerifyParam(r, "account", tool.ParamNotNil())
-    tool.VerifyParam(r, "password", tool.ParamNotNil())
-    tool.VerifyParam(r, "type", tool.ParamInRange(0, 1))
-    
     loginType, _ := strconv.ParseInt(r.Form["type"][0], 10, 0)
     
     user := app.UserEntity{

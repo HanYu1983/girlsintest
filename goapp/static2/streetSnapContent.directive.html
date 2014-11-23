@@ -146,6 +146,11 @@
 		padding-bottom:5px;
 		padding-top:5px;
 		cursor:pointer;
+		display:none;
+	}
+	.mc_downArrow{
+		position:relative;
+		left:-3px;
 	}
 	</style>
 	<div class='mc_streetSnapContentRoot'>
@@ -153,10 +158,10 @@
 		<img style='opacity:.5;position:absolute;top:65px;left:4px;' src='images/streetSnap/Streetsnap_layout.jpg'/>
 		-->
 		<div class='mc_silderModel'>
-			<img class='mc_arrowBase' src='images/streetSnap/upArrow.png'/>
+			<img id='mc_upArrow' class='mc_arrowBase' src='images/streetSnap/upArrow.png'/>
 			<div id='mc_photoContainer'>
 			</div>
-			<img class='mc_arrowBase' src='images/streetSnap/downArrow.png'/>
+			<img id='mc_downArrow' class='mc_arrowBase mc_downArrow' src='images/streetSnap/downArrow.png'/>
 		</div>
 		<div class='mc_titleBorder'>
 			<div id='txt_title' class='textBase text_title'></div>

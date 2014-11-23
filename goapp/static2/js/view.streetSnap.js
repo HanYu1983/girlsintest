@@ -14,9 +14,20 @@ app.view = app.view || {};
 		var mc_photoContainer = elem.find( '#mc_photoContainer' );
 		var mc_photoContainer2 = elem.find( '#mc_photoContainer2' );
 		var mc_photoContainer3 = elem.find( '#mc_photoContainer3' );
+		var mc_upArrow = elem.find( '#mc_upArrow' );
+		var mc_downArrow = elem.find( '#mc_downArrow' );
 		return {
 			get3dIframe:function(){
 				return iframe_3dIframe;
+			},
+			showArrow:function( show ){
+				if( show ){
+					mc_upArrow.show();
+					mc_downArrow.show();
+				}else{
+					mc_upArrow.hide();
+					mc_downArrow.hide();
+				}
 			},
 			pushOneModelToList:function( base64 ){
 				var tostr = 'data:image/png;base64,' + base64;

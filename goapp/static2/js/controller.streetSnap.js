@@ -14,8 +14,8 @@ app.controller = app.controller || {};
 		});
 		
 		function generateModels( datas ){
+			if( datas.length > 6 )	view.showArrow( true );
 			datas.forEach( function( data ){
-				//console.log( data );
 				loadModelMainPhoto( data.Key, function( _data ){
 					view.pushOneModelToList( _data[0].Base64Str );
 				});

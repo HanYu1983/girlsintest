@@ -44,8 +44,8 @@
 			position:fixed;
 			width:960px;
 			height:100%;
-			background-color:black;
-			opacity:.0;
+			background-color:#333333;
+			opacity:1;
 		}
 		.mc_content{
 			position:absolute;
@@ -80,11 +80,35 @@
 			position:fixed;
 			width:100%;
 			height:100%;
+		}
+		.mc_backgroundBack{
+			position:absolute;
+			width:100%;
+			height:100%;
 			background: -webkit-linear-gradient(#555555, #000000); /* For Safari 5.1 to 6.0 */
 			background: -o-linear-gradient(#555555, #000000); /* For Opera 11.1 to 12.0 */
 			background: -moz-linear-gradient(#555555, #000000); /* For Firefox 3.6 to 15 */
 			background: linear-gradient(#555555, #000000); /* Standard syntax */
 			//background-image:url('images/index/background3.jpg' );
+		}
+		.mc_backgroundPattern{
+			position:absolute;
+			width:100%;
+			height:100%;
+			background-image:url('images/index/patterm.png' );
+		}
+		.mc_fadeOutTop{
+			position:absolute;
+			width:100%;
+			height:300px;
+			background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0)); /* Standard syntax */
+		}
+		.mc_fadeOutBottom{
+			position:absolute;
+			width:100%;
+			height:300px;
+			top:-250px;
+			background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)); /* Standard syntax */
 		}
 		.mc_loading{
 			position:relative;
@@ -96,7 +120,11 @@
 		</style>
 		<div id='mainFrame' class='root' ng-app='app' ng-controller='globalController'>
 			<div class='mc_mainRoot'>
-				<div class='mc_backgroundRoot'></div>
+				<div class='mc_backgroundRoot'>
+					<div class='mc_backgroundBack'></div>
+					<div class='mc_backgroundPattern'></div>
+					<div class='mc_fadeOutTop'></div>
+				</div>
 				<div class='mc_centerRoot'>
 					<div class='mc_centerBackground'></div>
 					<div class='mc_content' ng-view></div>
@@ -105,6 +133,7 @@
 					<headbar class='mc_headbar'></headbar>
 				</div>
 				<div class='mc_footbarRoot'>
+					<div class='mc_fadeOutBottom'></div>
 					<footbar class='mc_footbar'>
 				</div>
 				<div class='mc_navbarRoot'>

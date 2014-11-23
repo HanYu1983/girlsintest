@@ -26,6 +26,13 @@ func QueryPhotoWithStreetModel(sys tool.ISystem) interface{}{
 		return tool.Success(photoDAO.ReadMulti(sys, keys))
 	}else{
 		query := photoDAO.NewQuery(sys).Ancestor(parentKey)
+		
+		hasLimit := len(r.Form["Limit"]) > 0
+		if hasLimit {
+			limit := tool.Str2Int64(r.Form["Limit"][0])
+			query = query.Limit( int(limit) )
+		}
+		
 		ret := photoDAO.ReadAll(sys, query)
 		return tool.Success(ret)
 	}

@@ -20,6 +20,18 @@
 			{{ range .PhotoList }}
 			<tr>
 				<td>Key:{{ .Key }}</td>
+				<td>
+					
+					<form name=updatePhotoBelong action=Func>
+						<input name=Belong value={{ .Belong }}>
+						<input type=hidden name=cmd value=UpdatePhotoWithStreetModel>
+						<input type=hidden name=StreetModelKey value={{ $streetModelKey }}>
+						<input type=hidden name=PhotoKey value={{ .Key }}>
+						<input type=hidden name=redirect value='Page?cmd=EditStreetModelPage&Key={{ $streetModelKey }}'>
+						<input type=submit value=belong>
+					</form>
+					
+				</td>
 				<td><img src='data:image/png;base64,{{ .Base64Str }}'></td>
 				<td>Date:{{ .Date }}</td>
 				<td>

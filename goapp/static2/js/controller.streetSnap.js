@@ -10,12 +10,15 @@ app.controller = app.controller || {};
 		
 		loadAllModelData( function( datas ){
 			generateModels(datas); 
-			generateOneModel( datas[pid] );
+			//generateOneModel( datas[pid] );
 		});
 		
 		function generateModels( datas ){
 			datas.forEach( function( data ){
 				console.log( data );
+				loadModelMainPhoto( data.Key, function( _data ){
+					console.log( _data );
+				});
 				//view.pushOneModelToList( data.Base64Str );
 			} );
 		}
@@ -54,6 +57,12 @@ app.controller = app.controller || {};
 		
 		function loadModelPhotoById( key, callback ){
 			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key} ) )
+					.done( function(data){ callback( data.Info ); } )
+					.fail( function(err){ console.log(err) } );
+		}
+		
+		function loadModelMainPhoto( key, callback ){
+			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key, Limit:1 } ) )
 					.done( function(data){ callback( data.Info ); } )
 					.fail( function(err){ console.log(err) } );
 		}

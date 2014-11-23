@@ -61,7 +61,7 @@ app.controller = app.controller || {};
 		}
 		
 		function loadModelMainPhoto( key, callback ){
-			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key, Limit:1 } ) )
+			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key, Belong:0 } ) )
 					.done( function(data){ callback( data.Info ); } )
 					.fail( function(err){ console.log(err) } );
 		}

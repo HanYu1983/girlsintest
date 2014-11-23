@@ -8,7 +8,7 @@
 		
 		<a href='http://www.base64-image.de/' target=_blank>base64 converter</a><br>
 		{{ $streetModelKey := .StreetModelKey }}
-		<form name=addPhoto action=Func>
+		<form name=addPhoto action=Func method=post>
 			<input type=hidden name=cmd value=AddPhotoToStreetModel>
 			<input type=hidden name=StreetModelKey value={{ $streetModelKey }}>
 			<input type=hidden name=redirect value='Page?cmd=EditStreetModelPage&Key={{ $streetModelKey }}'>

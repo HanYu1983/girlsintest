@@ -5,7 +5,7 @@ import (
     "net/http"
     "reflect"
     "encoding/json"
-    "strconv"
+    _ "strconv"
 )
 
 type ActionMap map[string]interface{}
@@ -91,35 +91,4 @@ func FrontControllerWith(action ActionMap) func(w http.ResponseWriter, r *http.R
 
 func PanicWhen(cond bool, msg string){
     if cond { panic(msg) }
-}
-
-func VerifyMethod(r *http.Request, method string){
-    PanicWhen(r.Method != method, "method must be "+method+"!")
-}
-
-func VerifyParam(r *http.Request, name string, fn func([]string)(bool, string)){
-    param := r.Form[name]
-    success, errmsg := fn(param)
-    PanicWhen( success == false, "parameter["+name+"] not right, "+errmsg )
-}
-
-func ParamNotNil() func([]string)(bool, string){
-    return func(paramlist []string) (bool, string){
-        return len(paramlist) > 0, "value should not be null"
-    }
-}
-
-func ParamInRange(min int, max int) func([]string) (bool, string){
-    return func(paramlist []string) (bool, string){
-        success, errmsg := ParamNotNil()(paramlist)
-        if success == false { return false, errmsg }
-        
-        value, err := strconv.ParseInt(paramlist[0], 10, 0)
-        errmsg = "value should be ["+strconv.Itoa(min)+"-"+strconv.Itoa(max)+"]"
-        if err == nil {
-            return int(value) >= min && int(value) <= max, errmsg
-        } else {
-            return false, errmsg
-        }
-    }
 }

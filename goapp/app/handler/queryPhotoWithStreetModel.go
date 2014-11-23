@@ -8,7 +8,7 @@ import (
 
 func QueryPhotoWithStreetModel(sys tool.ISystem) interface{}{
 	r := sys.GetRequest()
-	tool.VerifyParam(r, "StreetModelKey", tool.ParamNotNil())
+	tool.Verify( tool.ParamShouldExist( r, "StreetModelKey") )
 	
 	mk := tool.Str2Int64( r.Form["StreetModelKey"][0] )
 	

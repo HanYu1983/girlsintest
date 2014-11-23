@@ -7,8 +7,9 @@ import (
 
 func DeletePhotoWithStreetModel(sys tool.ISystem) interface{}{
 	r := sys.GetRequest()
-	tool.VerifyParam(r, "StreetModelKey", tool.ParamNotNil())
-	tool.VerifyParam(r, "PhotoKey", tool.ParamNotNil())
+	
+	tool.Verify( tool.ParamShouldExist( r, "StreetModelKey") )
+	tool.Verify( tool.ParamShouldExist( r, "PhotoKey") )
 	
 	mk := tool.Str2Int64( r.Form["StreetModelKey"][0] )
 	pk := tool.Str2Int64( r.Form["PhotoKey"][0] )

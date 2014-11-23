@@ -9,7 +9,8 @@ func EditStreetModelPage(sys tool.ISystem)interface{}{
 	r := sys.GetRequest()
 	w := sys.GetResponse()
 
-	tool.VerifyParam(r, "Key", tool.ParamNotNil())
+	tool.Verify( tool.ParamShouldExist( r, "Key") )
+	
 	mk := tool.Str2Int64( r.Form["Key"][0] )
 	
 	streetModelDAO := app.GetApp().GetStreetModelDAO()

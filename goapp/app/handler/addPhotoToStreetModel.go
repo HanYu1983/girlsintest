@@ -9,8 +9,8 @@ import (
 
 func AddPhotoToStreetModel(sys tool.ISystem) interface{}{
 	r := sys.GetRequest()
-	tool.VerifyParam(r, "StreetModelKey", tool.ParamNotNil())
-	tool.VerifyParam(r, "Base64", tool.ParamNotNil())
+	tool.Verify( tool.ParamShouldExist( r, "StreetModelKey") )
+	tool.Verify( tool.ParamShouldExist( r, "Base64") )
 	
 	mk := tool.Str2Int64( r.Form["StreetModelKey"][0] )
 	

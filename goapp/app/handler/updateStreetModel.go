@@ -25,6 +25,17 @@ func UpdateStreetModel(sys tool.ISystem) interface{} {
 	if len(r.Form["Tag"]) > 0 {
 		entity.Tag = r.Form["Tag"][0]
 	}
+	if len(r.Form["Talk"]) > 0 {
+		entity.Talk = r.Form["Talk"][0]
+	}
+	if len(r.Form["Comment"]) > 0 {
+		entity.Comment = r.Form["Comment"][0]
+	}
+	if len(r.Form["Available"]) > 0 {
+		entity.Available = true
+	}else{
+		entity.Available = false
+	}
 	
 	dao := app.GetApp().GetStreetModelDAO()
 	isUpdate := len(r.Form["Key"]) > 0

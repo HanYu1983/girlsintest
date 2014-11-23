@@ -8,9 +8,12 @@
 			<tr>
 				<td></td>
 				<td>Key</td>
+				<td>Available</td>
 				<td>Caption</td>
 				<td>Description</td>
 				<td>ModelKey</td>
+				<td>Talk</td>
+				<td>Comment</td>
 				<td>Tag</td>
 				<td>Date</td>
 				<td></td>
@@ -31,9 +34,12 @@
 					<input type=hidden name=redirect value='Page?cmd=QueryStreetModelPage'>
 					<input type=hidden name=Key value={{ .Key }}>
 					<td>{{ .Key }}</td>
+					<td><input type=checkbox name=Available {{if .Available}}checked{{end}}>   </td>
 					<td><input name=Caption value={{ .Caption }}></td>
 					<td><input name=Description value={{ .Description }}></td>
 					<td><input name=ModelKey value={{ .ModelKey }}></td>
+					<td><input name=Talk value={{ .Talk }}></td>
+					<td><input name=Comment value={{ .Comment }}></td>
 					<td><input name=Tag value={{ .Tag }}></td>
 					<td>{{ .Date }}</td>
 					<td><input type=submit value=Update></td>

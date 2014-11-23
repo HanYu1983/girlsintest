@@ -20,10 +20,13 @@ type IUserDAO interface {
 type StreetModelEntity struct {
 	Key int64
 	Caption string
-	Description string
+	Description string	//資料
+	Talk string 		//訪談
+	Comment string		//評論
 	ModelKey string
 	Date time.Time
 	Tag string
+	Available bool
 }
 
 type IStreetModelDAO interface {
@@ -32,6 +35,7 @@ type IStreetModelDAO interface {
 
 type PhotoEntity struct {
 	Key int64
+	Priority int
 	Base64 []byte
 	Base64Str string	//存的同樣是base64, 只是轉成字串的型式, 會在取值時做輸換, 節省空間
 	Date time.Time

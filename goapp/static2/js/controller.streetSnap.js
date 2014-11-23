@@ -10,16 +10,15 @@ app.controller = app.controller || {};
 		
 		loadAllModelData( function( datas ){
 			generateModels(datas); 
-			//generateOneModel( datas[pid] );
+			generateOneModel( datas[pid] );
 		});
 		
 		function generateModels( datas ){
 			datas.forEach( function( data ){
-				console.log( data );
+				//console.log( data );
 				loadModelMainPhoto( data.Key, function( _data ){
-					console.log( _data );
+					view.pushOneModelToList( _data[0].Base64Str );
 				});
-				//view.pushOneModelToList( data.Base64Str );
 			} );
 		}
 		

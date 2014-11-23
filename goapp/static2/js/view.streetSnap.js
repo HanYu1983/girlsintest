@@ -18,8 +18,9 @@ app.view = app.view || {};
 			get3dIframe:function(){
 				return iframe_3dIframe;
 			},
-			pushOneModelToList:function(){
-				var imgquery = $("<img class='mc_photoSmallSide' src='images/streetSnap/test1.jpg'/>" );
+			pushOneModelToList:function( base64 ){
+				var tostr = 'data:image/png;base64,' + base64;
+				var imgquery = $("<img class='mc_photoSmallSide' src='" + tostr + "'/>" );
 				mc_photoContainer.append( imgquery );
 			},
 			pushOnePictureToList:function( base64 ){

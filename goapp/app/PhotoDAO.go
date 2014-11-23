@@ -40,6 +40,7 @@ func (r *PhotoDAO) Init(){
 	r.GetAllFn = func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error ) {
 		var entities []PhotoEntity
 		keys, err = q.GetAll(ctx, &entities)
+		ret = []interface{}{}
 		for idx, entity := range entities {
 			entity.Key = keys[idx].IntID()
 			entity.Base64Str = string(entity.Base64)

@@ -40,6 +40,7 @@ func (r *StreetModelDAO) Init(){
 		var cards []StreetModelEntity
 		q = q.Order("-Date")
 		keys, err = q.GetAll(ctx, &cards)
+		ret = []interface{}{}
 		for idx, card := range cards {
 			card.Key = keys[idx].IntID()
 			ret = append(ret, card)

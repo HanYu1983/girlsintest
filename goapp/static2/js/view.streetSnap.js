@@ -10,6 +10,7 @@ app.view = app.view || {};
 		var txt_date = elem.find( '#txt_date' );
 		var txt_proContent = elem.find( '#txt_proContent' );
 		var txt_modelDetail = elem.find( '#txt_modelDetail' );
+		var txt_modelInvite = elem.find( '#txt_modelInvite' );
 		var mc_photoContainer = elem.find( '#mc_photoContainer' );
 		return {
 			get3dIframe:function(){
@@ -30,6 +31,9 @@ app.view = app.view || {};
 			},
 			setModelDetail:function( detail ){
 				txt_modelDetail.html( detail );
+			},
+			setModelInvite:function( invite ){
+				txt_modelInvite.html( invite );
 			},
 			setIframeData:function( modelkey ){
 				iframe_3dIframe.attr( 'src', 'https://sketchfab.com/models/' + modelkey + '/embed' );

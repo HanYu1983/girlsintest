@@ -5,9 +5,7 @@ app.controller = app.controller || {};
 	var pkg = app.controller;
 
 	function c_streetSnapContent(view){
-		//var host = 'http://localhost:8080/';
-		var host = 'http://test-girlsin3d.appspot.com/';
-		var query = app.api.partial( app.api.query, host );
+		var query = app.api.partial( app.api.query, '../' );
 		var pid = 0;
 		
 		loadAllModelData( function( datas ){
@@ -24,10 +22,14 @@ app.controller = app.controller || {};
 			var date = data.Date;
 			var desc = data.Description;
 			var key = data.Key;
+			var talk = data.Talk;
+			var comment = data.Comment;
 			var modelKey = data.ModelKey;
 			view.setTitle( caption );
 			view.setDate( date );
 			view.setModelDetail( desc );
+			view.setModelInvite( talk );
+			view.setJudge( comment );
 			view.setIframeData( modelKey );
 			generateOneModelPhoto( key );
 		}

@@ -1,21 +1,15 @@
-package app
+package handler
 
 import (
 	"lib/tool"
+	"app"
 )
 
 
-func VerifyUserLogin(sys tool.ISystem){
-    cookieManager := GetApp().GetCookieManager()
-    hasValue, _ := cookieManager.GetValue(sys)
-    notLogin := hasValue == false
-    tool.PanicWhen( notLogin, "didn't login")
-}
-
 func Login(sys tool.ISystem)interface{}{
     r := sys.GetRequest()
-    userRepository := GetApp().GetUserDAO()
-    cookieManager := GetApp().GetCookieManager()
+    userRepository := app.GetApp().GetUserDAO()
+    cookieManager := app.GetApp().GetCookieManager()
     
     hasValue, _ := cookieManager.GetValue(sys)
     if hasValue {
@@ -34,16 +28,4 @@ func Login(sys tool.ISystem)interface{}{
         return tool.DefaultResult{Success: true}
     }
     return tool.DefaultResult{Success: false, Info:"incorrect password"}
-}
-
-func Logout(sys tool.ISystem)interface{}{
-    cookieManager := GetApp().GetCookieManager()
-    
-    hasValue, _ := cookieManager.GetValue(sys)
-    if hasValue {
-        cookieManager.Clear(sys)
-        return tool.DefaultResult{Success: true}
-    }else{
-        return tool.DefaultResult{}
-    }
 }

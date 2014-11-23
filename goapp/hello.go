@@ -4,22 +4,22 @@ import (
     "fmt"
     "net/http"
 	"lib/tool"
-	"app"
 	"app/test"
+	"app/handler"
 )
 
 func init() {
 	actions := tool.ActionMap{
-		"RegisterUser":app.RegisterUser,
-		"QueryUser":app.QueryUser,
-		"Login":app.Login,
-		"Logout":app.Logout,
+		"RegisterUser":handler.RegisterUser,
+		"QueryUser":handler.QueryUser,
+		"Login":handler.Login,
+		"Logout":handler.Logout,
 		
-		"UpdateStreetModel": app.UpdateStreetModel,
-		"QueryStreetModel": app.QueryStreetModel,
-		"AddPhotoToStreetModel": app.AddPhotoToStreetModel,
-		"QueryPhotoWithStreetModel": app.QueryPhotoWithStreetModel,
-		"DeletePhotoWithStreetModel": app.DeletePhotoWithStreetModel,
+		"UpdateStreetModel": handler.UpdateStreetModel,
+		"QueryStreetModel": handler.QueryStreetModel,
+		"AddPhotoToStreetModel": handler.AddPhotoToStreetModel,
+		"QueryPhotoWithStreetModel": handler.QueryPhotoWithStreetModel,
+		"DeletePhotoWithStreetModel": handler.DeletePhotoWithStreetModel,
 	}
 	testActions := tool.ActionMap{
 		"TestShowImage": test.TestShowImage,
@@ -27,10 +27,10 @@ func init() {
 	}
 	pageActions := tool.ActionMap{
 		"Admin": AdminPage,
-		"QueryStreetModelPage": app.QueryStreetModelPage,
-		"EditStreetModelPage": app.EditStreetModelPage,
+		"QueryStreetModelPage": handler.QueryStreetModelPage,
+		"EditStreetModelPage": handler.EditStreetModelPage,
 	}
-    http.HandleFunc("/", handler)
+    http.HandleFunc("/", DefaultHandler)
     http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions))
 	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions))
 	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions))
@@ -42,6 +42,6 @@ func AdminPage(sys tool.ISystem)interface{}{
 	return tool.CustomView
 }
 		
-func handler(w http.ResponseWriter, r *http.Request) {
+func DefaultHandler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprint(w, "Hello, world!")
 }

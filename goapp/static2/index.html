@@ -40,15 +40,9 @@
 			top:0;
 			margin-left:-480px;
 		}
-		.mc_centerBackground{
-			position:fixed;
-			width:960px;
-			height:100%;
-			background-color:#333333;
-			opacity:1;
-		}
 		.mc_content{
 			position:absolute;
+			height:100%;
 		}
 		.mc_headbarRoot{
 			position:fixed;
@@ -126,7 +120,9 @@
 					<div class='mc_fadeOutTop'></div>
 				</div>
 				<div class='mc_centerRoot'>
+					<!--
 					<div class='mc_centerBackground'></div>
+					-->
 					<div class='mc_content' ng-view></div>
 				</div>
 				<div class='mc_headbarRoot'>

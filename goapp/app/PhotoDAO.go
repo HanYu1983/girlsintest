@@ -39,6 +39,7 @@ func (r *PhotoDAO) Init(){
 	}
 	r.GetAllFn = func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error ) {
 		var entities []PhotoEntity
+		q = q.Order("Priority")
 		keys, err = q.GetAll(ctx, &entities)
 		ret = []interface{}{}
 		for idx, entity := range entities {

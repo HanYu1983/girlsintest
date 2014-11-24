@@ -7,22 +7,75 @@ app.controller = app.controller || {};
 	function c_streetSnapContent(view){
 		var query = app.api.partial( app.api.query, '../' );
 		var pid = 0;
+		var modelDatas;
+		
+		view.getEvent().on( 'onPhotoSmallSideClick', function( event, id ){
+			pid = id;
+			generateOneModel( modelDatas[pid] );
+		});
 		
 		loadAllModelData( function( datas ){
-			generateModels(datas); 
-			generateOneModel( datas[pid] );
+			modelDatas = datas;
+			generateModels( modelDatas ); 
+			generateOneModel( modelDatas[pid] );
 		});
 		
 		function generateModels( datas ){
 			if( datas.length > 6 )	view.showArrow( true );
-			datas.forEach( function( data ){
-				loadModelMainPhoto( data.Key, function( _data ){
-					view.pushOneModelToList( _data[0].Base64Str );
-				});
-			} );
+			getPhotosByEveryModelAndThen( startToPush );
+			
+			//要按照順序把圖片load下來
+			function getPhotosByEveryModelAndThen( callback ){
+				var count = 0;
+				var retary = [];
+				for( var i = 0; i < datas.length; ++i ){
+					var fatchData = (function(idx){
+						return function( _data ){
+							retary[idx] = _data;
+							if( ++count >= datas.length )	callback( retary );
+						}
+					})( i );
+					loadModelMainPhoto( datas[i].Key, fatchData );
+				}
+			}
+			
+			function startToPush( retary ){
+				for( var i = 0; i < retary.length; ++i ){
+					view.pushOneModelToList( i, retary[i][0].Base64Str );
+				}
+			}
 		}
 		
+		/*
+		function cache( data, fn ){
+			return function(){
+				var key = arguments[0]
+				if data[key]
+					return data[key]
+				fn.apply( null, arguments )
+			}
+		}
+		
+		function getPhoto( key, url ){
+			//call back
+		}
+		
+		getPhoto = cache( {}, getPhoto )
+		getPhoto();
+		*/
+		/*
+		function getPhoto( key, url ){
+			return cache( key, url )
+		}
+		var datas;
+		
+		function cache( url ){
+			if( datas[key] )	return datas[key];
+			
+		}
+		*/
 		function generateOneModel( data ){
+			
 			var caption = data.Caption;
 			var date = data.Date;
 			var desc = data.Description;
@@ -30,14 +83,17 @@ app.controller = app.controller || {};
 			var talk = data.Talk;
 			var comment = data.Comment;
 			var modelKey = data.ModelKey;
+			view.clearData();
 			view.setTitle( caption );
 			view.setDate( date );
 			view.setModelDetail( desc );
 			view.setModelInvite( talk );
 			view.setJudge( comment );
-			setSketchfab( modelKey );
+			
+			//for dynamic iframe
+			//setSketchfab( modelKey );
 			//for static iframe
-			//view.setIframeData( modelKey );
+			view.setIframeData( modelKey );
 			generateOneModelPhoto( key );
 		}
 		

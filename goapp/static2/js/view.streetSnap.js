@@ -16,6 +16,7 @@ app.view = app.view || {};
 		var mc_photoContainer3 = elem.find( '#mc_photoContainer3' );
 		var mc_upArrow = elem.find( '#mc_upArrow' );
 		var mc_downArrow = elem.find( '#mc_downArrow' );
+		var event = $('<div></div>' );
 		return {
 			get3dIframe:function(){
 				return iframe_3dIframe;
@@ -29,9 +30,12 @@ app.view = app.view || {};
 					mc_downArrow.hide();
 				}
 			},
-			pushOneModelToList:function( base64 ){
+			pushOneModelToList:function( index, base64 ){
 				var tostr = 'data:image/png;base64,' + base64;
-				var imgquery = $("<img class='mc_photoSmallSide' src='" + tostr + "'/>" );
+				var imgquery = $("<img class='mc_photoSmallSide' id='iframe_" + index + "' src='" + tostr + "'/>" );
+				imgquery.click( function(){
+					event.trigger( 'onPhotoSmallSideClick', this.id.substr( 'iframe_'.length, this.id.length ));
+				});
 				mc_photoContainer.append( imgquery );
 			},
 			pushOnePictureToList:function( base64 ){
@@ -62,7 +66,14 @@ app.view = app.view || {};
 			},
 			setIframeData:function( modelkey ){
 				iframe_3dIframe.attr( 'src', 'https://sketchfab.com/models/' + modelkey + '/embed' );
-			}
+			},
+			clearData:function(){
+				mc_photoContainer2.empty();
+				mc_photoContainer3.empty();
+			},
+			getEvent:function(){
+				return event;
+			}	
 		}
 	}
 	

@@ -5,7 +5,7 @@ app.controller = app.controller || {};
 	var pkg = app.controller;
 
 	function c_streetSnapContent(view){
-		
+		view.scope.openLoading();
 		
 		var query = app.api.partial( app.api.query, '../' );
 		var pid = 0;
@@ -16,12 +16,17 @@ app.controller = app.controller || {};
 			generateOneModel( modelDatas[pid] );
 		});
 		
+		view.getEvent().on( 'onPhotoSmallClick', function( event, key ){
+			console.log( key );
+		});
+		
 		loadAllModelData( function( datas ){
 			modelDatas = datas;
 			generateModels( modelDatas ); 
 			generateOneModel( modelDatas[pid] );
 		});
 		
+		//讀取大頭貼
 		function generateModels( datas ){
 			if( datas.length > 6 )	view.showArrow( true );
 			getPhotosByEveryModelAndThen( startToPush );
@@ -48,34 +53,7 @@ app.controller = app.controller || {};
 			}
 		}
 		
-		/*
-		function cache( data, fn ){
-			return function(){
-				var key = arguments[0]
-				if data[key]
-					return data[key]
-				fn.apply( null, arguments )
-			}
-		}
-		
-		function getPhoto( key, url ){
-			//call back
-		}
-		
-		getPhoto = cache( {}, getPhoto )
-		getPhoto();
-		*/
-		/*
-		function getPhoto( key, url ){
-			return cache( key, url )
-		}
-		var datas;
-		
-		function cache( url ){
-			if( datas[key] )	return datas[key];
-			
-		}
-		*/
+		//顯示當前模特
 		function generateOneModel( data ){
 			view.scope.openLoading();
 			
@@ -92,42 +70,44 @@ app.controller = app.controller || {};
 			view.setModelDetail( desc );
 			view.setModelInvite( talk );
 			view.setJudge( comment );
-			
-			//for dynamic iframe
-			//setSketchfab( modelKey );
-			//for static iframe
 			view.setIframeData( modelKey );
 			generateOneModelPhoto( key );
 		}
 		
+		//產生當前模特的照片
 		function generateOneModelPhoto( key ){
 			loadModelPhotoById( key, function( datas ){
 				datas.forEach( function( data ){
-					view.pushOnePictureToList( data.Base64Str );
-					view.pushOnePictureToPhotoList( data.Base64Str );
+					console.log( data );
+					view.pushOnePictureToList( data.Key, data.Base64Str );
+					view.pushOnePictureToPhotoList( data.Key, data.Base64Str );
 				});
 				view.scope.closeLoading();
 			});
 		}
-
+		
+		//讀取所有模特
 		function loadAllModelData( callback ){
 			$.when( query( app.api.QueryStreetModel,{} ) ).done( function(data){ 	
 				if( data.Success )	callback( data.Info ); 
 			} ).fail( function(err){ console.log(err) } );
 		}
 		
+		//讀取模特的所有照片
 		function loadModelPhotoById( key, callback ){
 			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key} ) )
 					.done( function(data){ callback( data.Info ); } )
 					.fail( function(err){ console.log(err) } );
 		}
 		
+		//讀取指定所屬的照片
 		function loadModelMainPhoto( key, callback ){
 			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key, Belong:0 } ) )
 					.done( function(data){ callback( data.Info ); } )
 					.fail( function(err){ console.log(err) } );
 		}
 		
+		//產生轉轉轉
 		function setSketchfab( sid ){
 			var sketchfabModule = window['sketchfab-iframe'];
 			var Sketchfab = sketchfabModule.Sketchfab;
@@ -149,12 +129,37 @@ app.controller = app.controller || {};
 			sketchfabModule.Q.when( iframeApi.load( sid, options )).fail( function( error ){
 				alert( error );
 			});
-			/*
-			function addListener( data ){
-				iframeApi.start();
-			}*/
 		}
 	}
 	
 	pkg.c_streetSnapContent = c_streetSnapContent
 })()
+
+/*
+function cache( data, fn ){
+	return function(){
+		var key = arguments[0]
+		if data[key]
+			return data[key]
+		fn.apply( null, arguments )
+	}
+}
+
+function getPhoto( key, url ){
+	//call back
+}
+
+getPhoto = cache( {}, getPhoto )
+getPhoto();
+*/
+/*
+function getPhoto( key, url ){
+	return cache( key, url )
+}
+var datas;
+
+function cache( url ){
+	if( datas[key] )	return datas[key];
+	
+}
+*/

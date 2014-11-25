@@ -6,6 +6,7 @@ app.controller = app.controller || {};
 
 	function c_indexContent(view){
 		//import sketchfab lib
+		view.scope.openLoading();
 		
 		var sketchfabModule = window['sketchfab-iframe'];
 		var Sketchfab = sketchfabModule.Sketchfab;

@@ -41,7 +41,6 @@
 				var view = app.view.v_indexContent(element)
 				view.scope = scope;
 				app.controller.c_indexContent(view)
-				
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'index' ));
 			}
 		};

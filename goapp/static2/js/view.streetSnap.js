@@ -30,6 +30,7 @@ app.view = app.view || {};
 					mc_downArrow.hide();
 				}
 			},
+			//新增照片到模特大頭貼區
 			pushOneModelToList:function( index, base64 ){
 				var tostr = 'data:image/png;base64,' + base64;
 				var imgquery = $("<img class='mc_photoSmallSide' id='iframe_" + index + "' src='" + tostr + "'/>" );
@@ -38,15 +39,23 @@ app.view = app.view || {};
 				});
 				mc_photoContainer.append( imgquery );
 			},
-			pushOnePictureToList:function( base64 ){
+			//新增照片到特寫區
+			pushOnePictureToList:function( key, base64 ){
 				if( mc_photoContainer2.children().length >= 3 )	return;
 				var tostr = 'data:image/png;base64,' + base64;
-				var imgquery = $("<img class='mc_photoSide' src='" + tostr + "'/>" );
+				var imgquery = $("<img class='mc_photoSide' id='mc_photo_" + key + "' src='" + tostr + "'/>" );
+				imgquery.click( function(){
+					event.trigger( 'onPhotoSmallClick', this.id.substr( 'mc_photo_'.length, this.id.length ));
+				});
 				mc_photoContainer2.append( imgquery );
 			},
-			pushOnePictureToPhotoList:function( base64 ){
+			//新增照片到個人照片區
+			pushOnePictureToPhotoList:function( key, base64 ){
 				var tostr = 'data:image/png;base64,' + base64;
-				var imgquery = $("<img class='mc_photo' src='" + tostr + "'/>" );
+				var imgquery = $("<img class='mc_photo' id='mc_photo_" + key + "' src='" + tostr + "'/>" );
+				imgquery.click( function(){
+					event.trigger( 'onPhotoSmallClick', this.id.substr( 'mc_photo_'.length, this.id.length ));
+				});
 				mc_photoContainer3.append( imgquery );
 			},
 			setTitle:function( title ){
@@ -65,7 +74,8 @@ app.view = app.view || {};
 				txt_modelInvite.html( invite );
 			},
 			setIframeData:function( modelkey ){
-				iframe_3dIframe.attr( 'src', 'https://sketchfab.com/models/' + modelkey + '/embed' );
+			//	iframe_3dIframe.attr( 'src', 'https://sketchfab.com/models/' + modelkey + '/embed' );
+				iframe_3dIframe.attr( 'src', 'http://sketchfab.com/embed/' + modelkey + '?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=1&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0' );
 			},
 			clearData:function(){
 				mc_photoContainer2.empty();

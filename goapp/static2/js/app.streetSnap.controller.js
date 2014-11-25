@@ -16,6 +16,7 @@ app.streetSnap = app.streetSnap || {};
 		
 		view.getEvent().on( 'onPhotoSmallClick', function( event, key ){
 			console.log( key );
+			view.scope.openBigPhoto( key );
 		});
 		
 		loadAllModelData( function( datas ){
@@ -68,8 +69,10 @@ app.streetSnap = app.streetSnap || {};
 			view.setModelDetail( desc );
 			view.setModelInvite( talk );
 			view.setJudge( comment );
-			view.setIframeData( modelKey );
+			view.setIframeData( modelKey, 0 );
 			generateOneModelPhoto( key );
+			
+			view.scope.closeLoading();
 		}
 		
 		//產生當前模特的照片

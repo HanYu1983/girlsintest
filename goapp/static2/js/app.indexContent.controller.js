@@ -2,8 +2,10 @@ var app = app || {};
 app.indexContent = app.indexContent || {};
 (function(){
 	function c_indexContent(view){
-		view.scope.openLoading();
+		view.scope.closeLoading();
+		view.setIframeData( 'bb79930ee30944378ec957dcc6bed42d' );
 		
+		/*
 		var sketchfabModule = window['sketchfab-iframe'];
 		var Sketchfab = sketchfabModule.Sketchfab;
 		var sid = 'bb79930ee30944378ec957dcc6bed42d';
@@ -30,6 +32,7 @@ app.indexContent = app.indexContent || {};
 		function addListener( data ){
 			view.scope.closeLoading();
 		}
+		*/
 	}
 	
 	app.indexContent.controller = c_indexContent;

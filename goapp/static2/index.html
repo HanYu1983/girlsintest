@@ -2,20 +2,11 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>angular test</title>
+		<link href='css/basic.css' rel='stylesheet' type='text/css'/>
 		<link href='css/reset.css' rel='stylesheet' type='text/css'/>
 	</head>
 	<body>
 		<style>
-		.root{
-			position:absolute;
-			width:100%;
-			height:100%;
-		}
-		.mc_mainRoot{
-			position:absolute;
-			width:100%;
-			height:100%;
-		}
 		.mc_centerRoot{
 			position:absolute;
 			width:960px;
@@ -23,10 +14,6 @@
 			left:50%;
 			top:0;
 			margin-left:-480px;
-		}
-		.mc_content{
-			position:absolute;
-			height:100%;
 		}
 		.mc_headbarRoot{
 			position:fixed;
@@ -91,15 +78,22 @@
 			pointer-events:none;
 		}
 		.mc_loading{
-			position:absolute;
+			position:fixed;
+			top:0;
+			left:0;
 			width:100%;
 			height:100%;
 			background-color:black;
 			opacity:.7;
 		}
+		.mc_bigPhotoRoot{
+			width:100%;
+			height:100%;
+			
+		}
 		</style>
-		<div id='mainFrame' class='root' ng-app='app' ng-controller='globalController'>
-			<div class='mc_mainRoot'>
+		<div id='mainFrame' class='basic_fullScreen' ng-app='app' ng-controller='globalController'>
+			<div class='basic_fullScreen'>
 				<div class='mc_backgroundRoot'>
 					<div class='mc_backgroundBack'></div>
 					<div class='mc_backgroundPattern'></div>
@@ -109,7 +103,7 @@
 					<!--
 					<div class='mc_centerBackground'></div>
 					-->
-					<div class='mc_content' ng-view></div>
+					<div class='basic_fullScreen' ng-view></div>
 				</div>
 				<div class='mc_headbarRoot'>
 					<headbar class='mc_headbar'></headbar>
@@ -122,8 +116,10 @@
 					<navbar class='mc_navbar'></navbar>
 				</div>
 			</div>
+			<div id='mc_bigPhotoRoot' class='mc_bigPhotoRoot'>
+			</div>
+			<div id='mc_loading' class='mc_loading'></div>
 		</div>
-		<div id='mc_loading' class='mc_loading'></div>
 	</body>
 	<script src="js/lib/jquery-1.7.2.js"></script>
 	<script src='js/lib/jquery.waitforimages.js'></script>
@@ -135,6 +131,8 @@
 	<script>app = {}</script>
 	<script src='js/app.api.js'></script>
 	<script src='js/app.utils.js'></script>
+	<script src='js/app.bigPhoto.view.js'></script>
+	<script src='js/app.bigPhoto.controller.js'></script>
 	<script src='js/app.navbar.view.js'></script>
 	<script src='js/app.navbar.controller.js'></script>
 	<script src='js/app.indexContent.view.js'></script>

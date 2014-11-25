@@ -73,9 +73,8 @@ app.streetSnap = app.streetSnap || {};
 			setModelInvite:function( invite ){
 				txt_modelInvite.html( invite );
 			},
-			setIframeData:function( modelkey ){
-			//	iframe_3dIframe.attr( 'src', 'https://sketchfab.com/models/' + modelkey + '/embed' );
-				iframe_3dIframe.attr( 'src', 'http://sketchfab.com/embed/' + modelkey + '?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=1&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0' );
+			setIframeData:function( modelkey, autostart ){
+				iframe_3dIframe.attr( 'src', 'http://sketchfab.com/embed/' + modelkey + '?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0' );
 			},
 			clearData:function(){
 				mc_photoContainer2.empty();

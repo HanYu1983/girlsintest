@@ -24,10 +24,10 @@
 		var events = new vic.events.EventDispatcher();
 		$scope.events = events;
 		$scope.openLoading = function(){
-			mc_loading.fadeIn( 300 );
+			mc_loading.fadeIn( 500 );
 		}
 		$scope.closeLoading = function(){
-			mc_loading.fadeOut( 300 );
+			mc_loading.fadeOut( 500 );
 		}
 	});
 	
@@ -38,8 +38,6 @@
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
-				console.log( 'directive' );
-				
 				var view = app.view.v_indexContent(element)
 				view.scope = scope;
 				app.controller.c_indexContent(view)
@@ -87,8 +85,9 @@
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
-				var view = app.view.v_streetSnapContent(element)
-				app.controller.c_streetSnapContent(view)
+				var view = app.view.v_streetSnapContent(element);
+				view.scope = scope;
+				app.controller.c_streetSnapContent(view);
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
 			}
 		};

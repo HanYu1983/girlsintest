@@ -5,6 +5,8 @@ app.controller = app.controller || {};
 	var pkg = app.controller;
 
 	function c_streetSnapContent(view){
+		
+		
 		var query = app.api.partial( app.api.query, '../' );
 		var pid = 0;
 		var modelDatas;
@@ -75,6 +77,7 @@ app.controller = app.controller || {};
 		}
 		*/
 		function generateOneModel( data ){
+			view.scope.openLoading();
 			
 			var caption = data.Caption;
 			var date = data.Date;
@@ -103,6 +106,7 @@ app.controller = app.controller || {};
 					view.pushOnePictureToList( data.Base64Str );
 					view.pushOnePictureToPhotoList( data.Base64Str );
 				});
+				view.scope.closeLoading();
 			});
 		}
 

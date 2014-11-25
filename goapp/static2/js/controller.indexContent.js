@@ -9,16 +9,15 @@ app.controller = app.controller || {};
 		
 		var sketchfabModule = window['sketchfab-iframe'];
 		var Sketchfab = sketchfabModule.Sketchfab;
-		
 		var sid = 'bb79930ee30944378ec957dcc6bed42d';
 		var iframe_3dIframe = view.get3dIframe();
-		console.log( 'iframe_3dIframe', iframe_3dIframe);
+		
 		var options = {
 			autospin:.3,
 			ui_controls:0,
 			ui_infos:0,
 			nocamera: 1,
-			autostart: 0,
+			autostart: 1,
 			transparent: 0,
 			controls: 0,
 			watermark:0,
@@ -32,7 +31,7 @@ app.controller = app.controller || {};
 		});
 		
 		function addListener( data ){
-			iframeApi.start();
+			view.scope.closeLoading();
 		}
 		
 		//import sketchfab lib

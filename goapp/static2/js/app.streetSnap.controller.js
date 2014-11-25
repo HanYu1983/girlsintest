@@ -1,9 +1,7 @@
 var app = app || {};
-app.controller = app.controller || {};
+app.streetSnap = app.streetSnap || {};
 
 (function(){
-	var pkg = app.controller;
-
 	function c_streetSnapContent(view){
 		view.scope.openLoading();
 		
@@ -132,7 +130,7 @@ app.controller = app.controller || {};
 		}
 	}
 	
-	pkg.c_streetSnapContent = c_streetSnapContent
+	app.streetSnap.controller = c_streetSnapContent;
 })()
 
 /*

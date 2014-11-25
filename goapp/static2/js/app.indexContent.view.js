@@ -1,8 +1,6 @@
 var app = app || {};
-app.view = app.view || {};
+app.indexContent = app.indexContent || {};
 (function(){
-	var pkg = app.view
-	
 	function v_indexContent(elem){
 		var iframe_3dIframe = elem.find( '#iframe_3dIframe' );
 		return {
@@ -11,6 +9,6 @@ app.view = app.view || {};
 			}
 		}
 	}
-	pkg.v_indexContent = v_indexContent
+	app.indexContent.view = v_indexContent;
 })();
 

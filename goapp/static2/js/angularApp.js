@@ -38,9 +38,9 @@
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
-				var view = app.view.v_indexContent(element)
+				var view = app.indexContent.view(element)
 				view.scope = scope;
-				app.controller.c_indexContent(view)
+				app.indexContent.controller(view)
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'index' ));
 			}
 		};
@@ -84,9 +84,9 @@
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
-				var view = app.view.v_streetSnapContent(element);
+				var view = app.streetSnap.view(element);
 				view.scope = scope;
-				app.controller.c_streetSnapContent(view);
+				app.streetSnap.controller(view);
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
 			}
 		};
@@ -128,9 +128,9 @@
 			templateUrl: 'navbar.directive.html',
 			replace: true,
 			link:function( scope, element, attrs ){
-				var view = app.view.v_navbar( element );
+				var view = app.navbar.view( element );
 				view.scope = scope;
-				app.controller.c_navbar( view );
+				app.navbar.controller( view );
 			}
 		};
 	});

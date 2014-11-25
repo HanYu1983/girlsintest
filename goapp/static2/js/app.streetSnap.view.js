@@ -1,5 +1,5 @@
 var app = app || {};
-app.view = app.view || {};
+app.streetSnap = app.streetSnap || {};
 
 (function(){
 	var pkg = app.view
@@ -87,5 +87,5 @@ app.view = app.view || {};
 		}
 	}
 	
-	pkg.v_streetSnapContent = v_streetSnapContent
+	app.streetSnap.view = v_streetSnapContent;
 })();

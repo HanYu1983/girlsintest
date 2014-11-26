@@ -25,6 +25,7 @@ type StreetModelEntity struct {
 	Comment string		//評論
 	ModelKey string
 	Date time.Time
+	DateUnix int64
 	Tag string
 	Available bool
 }

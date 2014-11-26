@@ -22,6 +22,7 @@ func (r *StreetModelDAO) Init(){
 			entity := StreetModelEntity{}
 			err = datastore.Get(ctx, keys[0], &entity)
 			entity.Key = keys[0].IntID()
+			entity.DateUnix = entity.Date.Unix()
 			ret = append( ret, entity )
 			return
 			
@@ -31,19 +32,21 @@ func (r *StreetModelDAO) Init(){
 			err = datastore.GetMulti(ctx, keys, &entities)
 			for idx, entity := range entities {
 				entity.Key = keys[idx].IntID()
+				entity.DateUnix = entity.Date.Unix()
 				ret = append(ret, entity)
 			}
 			return
 		}
 	}
 	r.GetAllFn = func(ctx appengine.Context, q *datastore.Query) (ret []interface{}, keys []*datastore.Key, err error ) {
-		var cards []StreetModelEntity
+		var entities []StreetModelEntity
 		q = q.Order("-Date")
-		keys, err = q.GetAll(ctx, &cards)
+		keys, err = q.GetAll(ctx, &entities)
 		ret = []interface{}{}
-		for idx, card := range cards {
-			card.Key = keys[idx].IntID()
-			ret = append(ret, card)
+		for idx, entity := range entities {
+			entity.Key = keys[idx].IntID()
+			entity.DateUnix = entity.Date.Unix()
+			ret = append(ret, entity)
 		}
 		return
 	}

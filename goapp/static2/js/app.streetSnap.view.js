@@ -61,8 +61,9 @@ app.streetSnap = app.streetSnap || {};
 			setTitle:function( title ){
 				txt_title.html( title );
 			},
-			setDate:function( date ){
-				txt_date.html( date );
+			setDate:function( unixtime ){
+				var date = new Date( unixtime * 1000 );
+				txt_date.html( date.getFullYear() + '/' + date.getMonth() + '/' + date.getHours() );
 			},
 			setJudge:function( judge ){
 				txt_proContent.html( judge );

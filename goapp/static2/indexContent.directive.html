@@ -8,6 +8,13 @@
 	.mc_bigLogo{
 		float:left;
 	}
+	.mc_iframeBack{
+		position:absolute;
+		width:323px;
+		height:379px;
+		background-color:black;
+		opacity:.6;
+	}
 	.iframe_3dIframe{
 		position:absolute;
 	}
@@ -20,6 +27,12 @@
 	.mc_3dIframeBorderLine{
 		position:absolute;
 		pointer-events:none;
+	}
+	.mc_mainSection .mc_3dicon{
+		position:absolute;
+		padding-left:16px;
+		padding-top:325px;
+		width:40px;
 	}
 	.mc_backgroundBigLine{
 		position:absolute;
@@ -40,8 +53,10 @@
 		<div class='mc_mainSection'>
 			<img class='mc_bigLogo' src='images/index/big_LOGO.png'/>
 			<div class='mc_3dIframeBorder'>
+				<div class='mc_iframeBack'></div>
 				<iframe id='iframe_3dIframe' class='iframe_3dIframe' width='323px' height='379px'></iframe>
 				<img class='mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
+				<img class='mc_3dicon' src='images/streetSnap/3D_ICON.png'/>
 				<!--
 				<img class='mc_3dIframeHeart' src='images/streetSnap/pinkHeart.png'/>
 				-->

@@ -18,7 +18,8 @@ app.streetSnap = app.streetSnap || {};
 			view.scope.openLoading();
 			loadModelMainPhoto( modelDatas[pid].Key, key, function( result ){
 				view.scope.closeLoading();
-				if( result.length == 0 )	throw ( key + '並沒有所屬的相片' );
+				//if( result.length == 0 )	throw ( key + '並沒有所屬的相片' );
+				if( result.length == 0 )	alert ( key + '並沒有所屬的相片' );
 				view.scope.openBigPhoto( result[0].Base64Str );
 			});
 		});
@@ -41,7 +42,6 @@ app.streetSnap = app.streetSnap || {};
 				for( var i = 0; i < datas.length; ++i ){
 					var fatchData = (function(idx){
 						return function( _data ){
-							console.log( _data );
 							retary[idx] = _data;
 							if( ++count >= datas.length )	callback( retary );
 						}
@@ -63,15 +63,15 @@ app.streetSnap = app.streetSnap || {};
 			
 			var caption = data.Caption;
 			var date = data.Date;
+			var dateUnix = data.DateUnix;
 			var desc = data.Description;
 			var key = data.Key;
 			var talk = data.Talk;
 			var comment = data.Comment;
 			var modelKey = data.ModelKey;
-			console.log( data );
 			view.clearData();
 			view.setTitle( caption );
-			view.setDate( date );
+			view.setDate( dateUnix );
 			view.setModelDetail( desc );
 			view.setModelInvite( talk );
 			view.setJudge( comment );

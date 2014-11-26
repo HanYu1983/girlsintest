@@ -41,11 +41,12 @@ app.streetSnap = app.streetSnap || {};
 				for( var i = 0; i < datas.length; ++i ){
 					var fatchData = (function(idx){
 						return function( _data ){
+							console.log( _data );
 							retary[idx] = _data;
 							if( ++count >= datas.length )	callback( retary );
 						}
 					})( i );
-					loadModelMainPhoto( datas[i].Key, 0, fatchData );
+					loadModelMainPhoto( datas[i].Key, app.config.getTypeCode( app.config.MODEL_HEAD ), fatchData );
 				}
 			}
 			
@@ -76,17 +77,23 @@ app.streetSnap = app.streetSnap || {};
 			view.setJudge( comment );
 			view.setIframeData( modelKey, 0 );
 			generateOneModelPhoto( key );
-			
-			view.scope.closeLoading();
 		}
 		
 		//產生當前模特的照片
 		function generateOneModelPhoto( key ){
 			loadModelPhotoById( key, function( datas ){
 				datas.forEach( function( data ){
-					if( data.Belong != 0 )	return;
-					view.pushOnePictureToList( data.Key, data.Base64Str );
-					view.pushOnePictureToPhotoList( data.Key, data.Base64Str );
+					switch( app.config.typeMapping[ data.Belong ] ){
+						case app.config.MODEL_HEAD:
+						case app.config.MODEL_STYLE:
+							break;
+						case app.config.MODEL_SIDE:
+							view.pushOnePictureToList( data.Key, data.Base64Str );
+							break;
+						case app.config.MODEL_NORMAL:
+							view.pushOnePictureToPhotoList( data.Key, data.Base64Str );
+							break;
+					}
 				});
 				view.scope.closeLoading();
 			});

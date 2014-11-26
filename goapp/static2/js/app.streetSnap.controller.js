@@ -15,8 +15,12 @@ app.streetSnap = app.streetSnap || {};
 		});
 		
 		view.getEvent().on( 'onPhotoSmallClick', function( event, key ){
-			console.log( key );
-			view.scope.openBigPhoto( key );
+			view.scope.openLoading();
+			loadModelMainPhoto( modelDatas[pid].Key, key, function( result ){
+				view.scope.closeLoading();
+				if( result.length == 0 )	throw ( key + '並沒有所屬的相片' );
+				view.scope.openBigPhoto( result[0].Base64Str );
+			});
 		});
 		
 		loadAllModelData( function( datas ){
@@ -41,7 +45,7 @@ app.streetSnap = app.streetSnap || {};
 							if( ++count >= datas.length )	callback( retary );
 						}
 					})( i );
-					loadModelMainPhoto( datas[i].Key, fatchData );
+					loadModelMainPhoto( datas[i].Key, 0, fatchData );
 				}
 			}
 			
@@ -63,6 +67,7 @@ app.streetSnap = app.streetSnap || {};
 			var talk = data.Talk;
 			var comment = data.Comment;
 			var modelKey = data.ModelKey;
+			console.log( data );
 			view.clearData();
 			view.setTitle( caption );
 			view.setDate( date );
@@ -79,7 +84,7 @@ app.streetSnap = app.streetSnap || {};
 		function generateOneModelPhoto( key ){
 			loadModelPhotoById( key, function( datas ){
 				datas.forEach( function( data ){
-					console.log( data );
+					if( data.Belong != 0 )	return;
 					view.pushOnePictureToList( data.Key, data.Base64Str );
 					view.pushOnePictureToPhotoList( data.Key, data.Base64Str );
 				});
@@ -102,8 +107,8 @@ app.streetSnap = app.streetSnap || {};
 		}
 		
 		//讀取指定所屬的照片
-		function loadModelMainPhoto( key, callback ){
-			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key, Belong:0 } ) )
+		function loadModelMainPhoto( key, belong, callback ){
+			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key, Belong:belong } ) )
 					.done( function(data){ callback( data.Info ); } )
 					.fail( function(err){ console.log(err) } );
 		}

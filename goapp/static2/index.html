@@ -89,7 +89,30 @@
 		.mc_bigPhotoRoot{
 			width:100%;
 			height:100%;
-			
+		}
+		.mc_bigPhotoBack{
+			position:fixed;
+			left:0;
+			top:0;
+			width:100%;
+			height:100%;
+			background-color:black;
+			opacity:.7;
+		}
+		.mc_bigPhotoFixPosition{
+			position:fixed;
+			width:100%;
+			height:100%;
+			left:0;
+			top:0;
+		}
+		.img_photo{
+			position:relative;
+			margin:auto;
+			width:auto;
+			display:block;
+			top:100px;
+			outline:white solid 10px;
 		}
 		</style>
 		<div id='mainFrame' class='basic_fullScreen' ng-app='app' ng-controller='globalController'>
@@ -116,7 +139,11 @@
 					<navbar class='mc_navbar'></navbar>
 				</div>
 			</div>
-			<div id='mc_bigPhotoRoot' class='mc_bigPhotoRoot'>
+			<div id='mc_bigPhotoRoot' style='display:none' class='mc_bigPhotoRoot'>
+				<div class='mc_bigPhotoBack'></div>
+				<div class='mc_bigPhotoFixPosition'>
+					<img id='img_photo' class='img_photo'/>
+				</div>
 			</div>
 			<div id='mc_loading' class='mc_loading'></div>
 		</div>

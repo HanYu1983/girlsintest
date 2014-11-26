@@ -33,9 +33,9 @@ app.streetSnap = app.streetSnap || {};
 			//新增照片到模特大頭貼區
 			pushOneModelToList:function( index, base64 ){
 				var tostr = 'data:image/png;base64,' + base64;
-				var imgquery = $("<img class='mc_photoSmallSide' id='iframe_" + index + "' src='" + tostr + "'/>" );
+				var imgquery = $("<img class='mc_photoSmallSide' id='mc_modelphoto_" + index + "' src='" + tostr + "'/>" );
 				imgquery.click( function(){
-					event.trigger( 'onPhotoSmallSideClick', this.id.substr( 'iframe_'.length, this.id.length ));
+					event.trigger( 'onPhotoSmallSideClick', this.id.substr( 'mc_modelphoto_'.length, this.id.length ));
 				});
 				mc_photoContainer.append( imgquery );
 			},

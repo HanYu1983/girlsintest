@@ -21,13 +21,21 @@
 	
 	angularApp.controller('globalController', function($scope){
 		var mc_loading = $('#mc_loading' );
+		var bigPhotoObj = app.bigPhoto.controller( app.bigPhoto.view( $('#mc_bigPhotoRoot' )) );
 		var events = new vic.events.EventDispatcher();
 		$scope.events = events;
 		$scope.openLoading = function(){
-			mc_loading.fadeIn( 300 );
+			console.log( "openLoading" );
+			mc_loading.fadeIn( 500 );
 		}
 		$scope.closeLoading = function(){
-			mc_loading.fadeOut( 300 );
+			mc_loading.fadeOut( 500 );
+		}
+		$scope.openBigPhoto = function( base64str ){
+			bigPhotoObj.open( base64str );
+		}
+		$scope.closeBigPhoto = function(){
+			bigPhotoObj.close();
 		}
 	});
 	
@@ -38,12 +46,9 @@
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
-				console.log( 'directive' );
-				
-				var view = app.view.v_indexContent(element)
+				var view = app.indexContent.view(element)
 				view.scope = scope;
-				app.controller.c_indexContent(view)
-				
+				app.indexContent.controller(view)
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'index' ));
 			}
 		};
@@ -87,8 +92,9 @@
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
-				var view = app.view.v_streetSnapContent(element)
-				app.controller.c_streetSnapContent(view)
+				var view = app.streetSnap.view(element);
+				view.scope = scope;
+				app.streetSnap.controller(view);
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
 			}
 		};
@@ -130,9 +136,9 @@
 			templateUrl: 'navbar.directive.html',
 			replace: true,
 			link:function( scope, element, attrs ){
-				var view = app.view.v_navbar( element );
+				var view = app.navbar.view( element );
 				view.scope = scope;
-				app.controller.c_navbar( view );
+				app.navbar.controller( view );
 			}
 		};
 	});

@@ -1,6 +1,5 @@
 var app = app || {};
-app.controller = app.controller || {};
-
+app.navbar = app.navbar || {};
 (function(){
 	function c_navbar( view ){
 		var ary_btns = [
@@ -114,8 +113,6 @@ app.controller = app.controller || {};
 					break;
 			}
 		}
-		
-		
 	}
-	app.controller.c_navbar = c_navbar;
+	app.navbar.controller = c_navbar;
 })();

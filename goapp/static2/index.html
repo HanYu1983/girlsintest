@@ -2,36 +2,11 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>angular test</title>
-		<script src="js/lib/jquery-1.7.2.js"></script>
-		<script src="js/lib/perfect-scrollbar-0.5.1/src/perfect-scrollbar.js"></script>
-		<script src="js/lib/sketchfab-iframe.js"></script>
-		<script src='js/lib/angular.min.js'></script>
-		<script src='js/lib/underscore.js'></script>
-		<script src='js/lib/vic.events.js'></script/>
-		<script>app = {}</script>
-		<script src='js/app.api.js'></script>
-		<script src='js/utils.js'></script>
-		<script src='js/view.navbar.js'></script>
-		<script src='js/view.indexContent.js'></script>
-		<script src='js/view.streetSnap.js'></script>
-		<script src='js/controller.navbar.js'></script>
-		<script src='js/controller.indexContent.js'></script>
-		<script src='js/controller.streetSnap.js'></script>
-		<script src='js/angularApp.js' charset="utf-8" type="text/javascript"></script>
+		<link href='css/basic.css' rel='stylesheet' type='text/css'/>
 		<link href='css/reset.css' rel='stylesheet' type='text/css'/>
 	</head>
 	<body>
 		<style>
-		.root{
-			position:absolute;
-			width:100%;
-			height:100%;
-		}
-		.mc_mainRoot{
-			position:absolute;
-			width:100%;
-			height:100%;
-		}
 		.mc_centerRoot{
 			position:absolute;
 			width:960px;
@@ -39,16 +14,6 @@
 			left:50%;
 			top:0;
 			margin-left:-480px;
-		}
-		.mc_centerBackground{
-			position:fixed;
-			width:960px;
-			height:100%;
-			background-color:black;
-			opacity:.0;
-		}
-		.mc_content{
-			position:absolute;
 		}
 		.mc_headbarRoot{
 			position:fixed;
@@ -80,39 +45,99 @@
 			position:fixed;
 			width:100%;
 			height:100%;
-			background: -webkit-linear-gradient(#434343, #252525); /* For Safari 5.1 to 6.0 */
-			background: -o-linear-gradient(#434343, #252525); /* For Opera 11.1 to 12.0 */
-			background: -moz-linear-gradient(#434343, #252525); /* For Firefox 3.6 to 15 */
+		}
+		.mc_backgroundBack{
+			position:absolute;
+			width:100%;
+			height:100%;
+			background: -webkit-linear-gradient(#555555, #000000); /* For Safari 5.1 to 6.0 */
+			background: -o-linear-gradient(#555555, #000000); /* For Opera 11.1 to 12.0 */
+			background: -moz-linear-gradient(#555555, #000000); /* For Firefox 3.6 to 15 */
 			background: linear-gradient(#555555, #000000); /* Standard syntax */
 			//background-image:url('images/index/background3.jpg' );
 		}
+		.mc_backgroundPattern{
+			position:absolute;
+			width:100%;
+			height:100%;
+			background-image:url('images/index/patterm.png' );
+		}
+		.mc_fadeOutTop{
+			position:absolute;
+			width:100%;
+			height:300px;
+			background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0)); /* Standard syntax */
+			pointer-events:none;
+		}
+		.mc_fadeOutBottom{
+			position:absolute;
+			width:100%;
+			height:300px;
+			top:-250px;
+			background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .5)); /* Standard syntax */
+			pointer-events:none;
+		}
 		.mc_loading{
-			position:relative;
+			position:fixed;
+			top:0;
+			left:0;
 			width:100%;
 			height:100%;
 			background-color:black;
-			opacity:.5;
+			opacity:.7;
+		}
+		.mc_bigPhotoRoot{
+			width:100%;
+			height:100%;
+			
 		}
 		</style>
-		<div id='mainFrame' class='root' ng-app='app' ng-controller='globalController'>
-			<div class='mc_mainRoot'>
-				<div class='mc_backgroundRoot'></div>
+		<div id='mainFrame' class='basic_fullScreen' ng-app='app' ng-controller='globalController'>
+			<div class='basic_fullScreen'>
+				<div class='mc_backgroundRoot'>
+					<div class='mc_backgroundBack'></div>
+					<div class='mc_backgroundPattern'></div>
+					<div class='mc_fadeOutTop'></div>
+				</div>
 				<div class='mc_centerRoot'>
+					<!--
 					<div class='mc_centerBackground'></div>
-					<div class='mc_content' ng-view></div>
+					-->
+					<div class='basic_fullScreen' ng-view></div>
 				</div>
 				<div class='mc_headbarRoot'>
 					<headbar class='mc_headbar'></headbar>
 				</div>
 				<div class='mc_footbarRoot'>
+					<div class='mc_fadeOutBottom'></div>
 					<footbar class='mc_footbar'>
 				</div>
 				<div class='mc_navbarRoot'>
 					<navbar class='mc_navbar'></navbar>
 				</div>
 			</div>
-		</div>
-			<div id='mc_loading' class='mc_loading' style='display:none'></div>
+			<div id='mc_bigPhotoRoot' class='mc_bigPhotoRoot'>
+			</div>
+			<div id='mc_loading' class='mc_loading'></div>
 		</div>
 	</body>
+	<script src="js/lib/jquery-1.7.2.js"></script>
+	<script src='js/lib/jquery.waitforimages.js'></script>
+	<script src="js/lib/perfect-scrollbar-0.5.1/src/perfect-scrollbar.js"></script>
+	<script src="js/lib/sketchfab-iframe.js"></script>
+	<script src='js/lib/angular.min.js'></script>
+	<script src='js/lib/underscore.js'></script>
+	<script src='js/lib/vic.events.js'></script/>
+	<script>app = {}</script>
+	<script src='js/app.api.js'></script>
+	<script src='js/app.utils.js'></script>
+	<script src='js/app.bigPhoto.view.js'></script>
+	<script src='js/app.bigPhoto.controller.js'></script>
+	<script src='js/app.navbar.view.js'></script>
+	<script src='js/app.navbar.controller.js'></script>
+	<script src='js/app.indexContent.view.js'></script>
+	<script src='js/app.indexContent.controller.js'></script>
+	<script src='js/app.streetSnap.view.js'></script>
+	<script src='js/app.streetSnap.controller.js'></script>
+	<script src='js/angularApp.js' charset="utf-8" type="text/javascript"></script>
 </html>

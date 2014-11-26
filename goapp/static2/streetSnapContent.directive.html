@@ -11,28 +11,35 @@
 	}
 	.mc_line{
 		position:relative;
-		width:97%;
-		left:17px;
+		width:100%;
+		top:5px;
 	}
 	.mc_photoBorder{
 		width:100%;
-		height:420px;
+		height:405px;
 	}
 	.mc_3dIframeBorder{
 		width:360px;
 		height:100%;
 		float:left;
+		position:relative;
+		left:5px;
+		top:3px;
 	}
 	.mc_describeBorder{
 		width:360px;
 		height:100%;
 		float:left;
+		position:relative;
+		top:5px;
 	}
 	.mc_photosBorder{
 		width:100%;
 	}
 	.mc_photoSide{
 		padding:3px;
+		width:99px;
+		height:94px;
 		top:-4px;
 		left:4px;
 		position:relative;
@@ -40,7 +47,7 @@
 	}
 	.mc_photo{
 		padding:3px;
-		top:6px;
+		top:14px;
 		left:40px;
 		position:relative;
 		cursor:pointer;
@@ -50,18 +57,24 @@
 		font-family:'Microsoft JhengHei'
 	}
 	.text_title{
-		top:80px;
-		left:20px;
+		top:90px;
+		font-size:20px;
 		position:absolute;
 	}
 	.text_date{
-		top:80px;
-		right:10px;
+		top:90px;
+		right:0px;
 		float:right;
 		position:absolute;
 	}
 	.txt_modelDetail{
 		padding:10px;
+		line-height:23px;
+		letter-spacing:1px;
+		opacity:.5;
+		position:relative;
+		left:33px;
+		width:650px;
 	}
 	.iframe_3dIframe{
 		position:absolute;
@@ -81,23 +94,23 @@
 	}
 	.mc_proBorder{
 		width:100%;
-		height:103px;
+		height:98px;
 	}
 	.mc_proback{
 		width:306px;
-		height:83px;
+		height:79px;
 		background-color:white;
 		opacity:.3;
 		margin-top:13px;
-		margin-left:28px;
+		margin-left:16px;
 		position:absolute;
 	}
 	.txt_proContent{
 		color:white;
-		margin-top:13px;
-		margin-left:28px;
+		margin-top:20px;
+		margin-left:27px;
 		position:absolute;
-		padding:5px;
+		width:290px;
 	}
 	.mc_stylePictureBorder{
 		height:302px;
@@ -107,11 +120,10 @@
 		height:302px;
 	}
 	.mc_stylePicture{
-		margin-left:28px;
+		margin-left:17px;
 	}
 	.mc_modelDetailBorder{
 		width:100%;
-		height:200px;
 	}
 	.mc_modelInviteBorder{
 		width:100%;
@@ -134,17 +146,30 @@
 		padding-bottom:5px;
 		padding-top:5px;
 		cursor:pointer;
+		display:none;
+	}
+	.mc_downArrow{
+		position:relative;
+		left:-3px;
+	}
+	.mc_centerBackground{
+		position:fixed;
+		width:960px;
+		height:100%;
+		background-color:#333333;
 	}
 	</style>
+	
+	<div class='mc_centerBackground'></div>
 	<div class='mc_streetSnapContentRoot'>
 		<!--
 		<img style='opacity:.5;position:absolute;top:65px;left:4px;' src='images/streetSnap/Streetsnap_layout.jpg'/>
 		-->
 		<div class='mc_silderModel'>
-			<img class='mc_arrowBase' src='images/streetSnap/upArrow.png'/>
+			<img id='mc_upArrow' class='mc_arrowBase' src='images/streetSnap/upArrow.png'/>
 			<div id='mc_photoContainer'>
 			</div>
-			<img class='mc_arrowBase' src='images/streetSnap/downArrow.png'/>
+			<img id='mc_downArrow' class='mc_arrowBase mc_downArrow' src='images/streetSnap/downArrow.png'/>
 		</div>
 		<div class='mc_titleBorder'>
 			<div id='txt_title' class='textBase text_title'></div>
@@ -160,46 +185,43 @@
 			<div class='mc_describeBorder'>
 				<div class='mc_proBorder'>
 					<div class='mc_proback'/>
-					<div id='txt_proContent' class='textBase txt_proContent'>aabb</div>
+					<div id='txt_proContent' class='textBase txt_proContent'></div>
 				</div>
 				<div class='mc_stylePictureBorder'>
 					<img class='mc_stylePicture' src='images/streetSnap/test2.jpg'/>
 				</div>
 				<div class='mc_detailPhotoBorder'>
-					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
-					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
-					<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+					<div id='mc_photoContainer2'>
+						<!--
+						example
+						<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+						<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+						<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+						-->
+					</div>
 				</div>
 			</div>
 		</div>
+		<div class='textBase'>MODEL照片</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_photosBorder'>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
-			<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+			<div id='mc_photoContainer3'>
+				<!--
+				example
+				<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+				-->
+			</div>
 			<div style='width:720px;height:20px'></div>
 		</div>
-		<div class='textBase'>Model資料</div>
+		<div class='textBase'>MODEL資料</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_modelDetailBorder'>
 			<div id='txt_modelDetail' class='textBase txt_modelDetail'></div>
 		</div>
-		<div class='textBase'>Model訪談</div>
+		<div class='textBase'>MODEL訪談</div>
 		<img class='mc_line' src='images/streetSnap/line.png'/>
 		<div class='mc_modelInviteBorder'>
-			
+			<div id='txt_modelInvite' class='textBase txt_modelDetail'></div>
 		</div>
 	</div>
 </div>

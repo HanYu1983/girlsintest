@@ -1,5 +1,5 @@
 var app = app || {};
-app.view = app.view || {};
+app.navbar = app.navbar || {};
 (function(){
 	function v_navbar( elem ){
 		var btn_nav_celebrity = elem.find( '#btn_nav_celebrity' );
@@ -25,5 +25,5 @@ app.view = app.view || {};
 			}
 		}
 	}
-	app.view.v_navbar = v_navbar;
+	app.navbar.view = v_navbar;
 })();

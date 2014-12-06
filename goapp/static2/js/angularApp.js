@@ -2,6 +2,9 @@
 	var angularApp = angular.module('app', [])
 	angularApp.config(['$routeProvider', function($routeProvider){
 		$routeProvider.
+			//街拍頁->模特頁
+			//街拍頁->模特頁->模特id
+			//街拍頁->搜尋頁
 			when('/street', {
 				templateUrl: 'streetSnapContent.html'
 			}).

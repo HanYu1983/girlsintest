@@ -24,15 +24,21 @@ app.streetSnap = app.streetSnap || {};
 			});
 		});
 		
+		view.getEvent().on( 'onBtnMoreClick', function(){
+			window.location.href = '#/street/search';
+		});
+		
 		loadAllModelData( function( datas ){
 			modelDatas = datas;
 			generateModels( modelDatas ); 
 			generateOneModel( modelDatas[pid] );
 		});
 		
+		view.showArrow( true );
+		
 		//讀取大頭貼
 		function generateModels( datas ){
-			if( datas.length > 6 )	view.showArrow( true );
+			//if( datas.length > 6 )	view.showArrow( true );
 			getPhotosByEveryModelAndThen( startToPush );
 			
 			//要按照順序把圖片load下來

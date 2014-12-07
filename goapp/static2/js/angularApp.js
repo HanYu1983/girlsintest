@@ -8,7 +8,7 @@
 			when('/street', {
 				templateUrl: 'streetSnapContent.html',
 			}).
-			when('/street/:key', {
+			when('/street/id=:key', {
 				templateUrl: 'streetSnapContent.html',
                 controller: 'getParameters'
 			}).
@@ -29,10 +29,13 @@
 	angularApp.controller('globalController', function($scope){
 		var mc_loading = $('#mc_loading' );
 		var bigPhotoObj = app.bigPhoto.controller( app.bigPhoto.view( $('#mc_bigPhotoRoot' )) );
+		var streetSnapModel = app.streetSnap.model();
 		var events = new vic.events.EventDispatcher();
 		$scope.events = events;
+		$scope.model = {
+			streetSnap:streetSnapModel
+		}
 		$scope.openLoading = function(){
-			console.log( "openLoading" );
 			mc_loading.fadeIn( 500 );
 		}
 		$scope.closeLoading = function(){
@@ -104,9 +107,8 @@
 			transclude: true,
 			link : function(scope, element, attrs) {
 				var view = app.streetSnap.view(element);
-				view.scope = scope;
-                var isSearchModel = scope.params != null
-				app.streetSnap.controller(view);
+				var model = scope.model.streetSnap;
+				app.streetSnap.controller(view, model, scope );
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
 			}
 		};
@@ -162,6 +164,10 @@
 			replace: true,
 			link : function(scope, element, attrs) {
 				console.log('streetsearch link')
+				var model = scope.model.streetSnap;
+				model.loadAllModelData( function( datas ){
+					console.log( datas );
+				});
 			},
 			controller: function($scope){
 				console.log('streetsearch controller')

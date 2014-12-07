@@ -4,7 +4,7 @@ app.streetSnap = app.streetSnap || {};
 (function(){
 	var pkg = app.view
 
-	function v_streetSnapContent(elem){
+	function v_streetSnapContent(elem ){
 		var iframe_3dIframe = elem.find( '#iframe_3dIframe' );
 		var txt_title = elem.find( '#txt_title' );
 		var txt_date = elem.find( '#txt_date' );
@@ -16,7 +16,7 @@ app.streetSnap = app.streetSnap || {};
 		var mc_modelPhotos = elem.find( '#mc_modelPhotos' );
 	//	var mc_upArrow = elem.find( '#mc_upArrow' );
 		var mc_downArrow = elem.find( '#mc_downArrow' );
-		var event = $('<div></div>' );
+		var event = $( '<div></div>' );
 		
 		mc_downArrow.click( function(){
 			event.trigger( 'onBtnMoreClick' );
@@ -80,11 +80,13 @@ app.streetSnap = app.streetSnap || {};
 				txt_modelInvite.html( invite );
 			},
 			setIframeData:function( modelkey, autostart ){
+				iframe_3dIframe.show();
 				iframe_3dIframe.attr( 'src', 'http://sketchfab.com/embed/' + modelkey + '?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0' );
 			},
 			clearData:function(){
 				mc_modelStylePhoto.empty();
 				mc_modelPhotos.empty();
+				iframe_3dIframe.hide();
 			},
 			getEvent:function(){
 				return event;

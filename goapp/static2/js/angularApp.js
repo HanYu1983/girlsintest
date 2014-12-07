@@ -114,6 +114,22 @@
 		};
 	});
 
+	angularApp.directive('streetsearch', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'street-search.directive.html',
+			replace: true,
+			link : function(scope, element, attrs) {
+				var model = scope.model.streetSnap;
+				var view = app.streetSearch.view();
+				var controller = app.streetSearch.controller( view, model );
+				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
+			},
+			controller: function($scope){
+				console.log('streetsearch controller')
+			}
+		};
+	});
 	
 	angularApp.directive('modelcontent', function(){
 		return {
@@ -157,23 +173,6 @@
 		};
 	});
 	
-	angularApp.directive('streetsearch', function(){
-		return {
-			restrict: 'E',
-			templateUrl: 'street-search.directive.html',
-			replace: true,
-			link : function(scope, element, attrs) {
-				console.log('streetsearch link')
-				var model = scope.model.streetSnap;
-				model.loadAllModelData( function( datas ){
-					console.log( datas );
-				});
-			},
-			controller: function($scope){
-				console.log('streetsearch controller')
-			}
-		};
-	});
 })();
 
 

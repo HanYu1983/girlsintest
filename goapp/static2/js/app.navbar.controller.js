@@ -9,9 +9,6 @@ app.navbar = app.navbar || {};
 			view.getBtnStreetSnap(),
 			view.getBtnNews()
 		];
-		
-		
-		
 		var events = view.scope.events;
 		events.addEventListener( 'jumpPageEvent', function( event ){
 			_.map( ary_btns, function( btn ){ offQueryListener( btn ); });

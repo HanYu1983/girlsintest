@@ -1,3 +1,83 @@
 <div>
-    
+	<style>
+	.mc_streetSearchRoot{
+		width:960px;
+	}
+	.mc_titleBorder{
+		width:100%;
+		height:110px;
+	}
+	.mc_line{
+		position:relative;
+		width:90%;
+		left:5%;
+		top:5px;
+	}
+	.mc_centerBackground{
+		position:fixed;
+		width:960px;
+		height:100%;
+		background-color:#333333;
+	}
+	.mc_modelTitle{
+		width:200px;
+		height:60px;
+	}
+	.mc_modelTitle_back{
+		width:100%;
+		height:100%;
+		background-color:white;
+		opacity:.5;
+	}
+	.mc_modelMainPhoto{
+		width:100px;
+		height:200px;
+		background-color:red;
+		position:absolute;
+	}
+	.mc_subPhoto{
+		width:50px;
+		height:50px;
+		background-color:blue;
+		position:absolute;
+		left:100px;
+	}
+	.mc_modelSubPhoto1{
+			
+	}
+	.mc_modelSubPhoto2{
+		top:50px;
+	}
+	.mc_modelSubPhoto3{
+		top:100px;
+	}
+	.mc_model{
+		position:relative;
+		width:400px;
+		height:200px;
+		float:left;
+	}
+	</style>
+	<div class='mc_centerBackground'></div>
+	<div class='mc_streetSearchRoot'>
+		<div class='mc_titleBorder'>
+			<div id='txt_title' class='textBase text_title'></div>
+			<div id='txt_date' class='textBase text_date'></div>
+		</div>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<!-- template -->
+		<div id='mc_modelContainer'>
+			<div id='mc_modelTemplate' class='mc_model' style='display:none'>
+				<div class='mc_modelTitle'>
+					<div class='mc_modelTitle_back'></div>
+					<div></div>
+				</div>
+				<div class='mc_modelMainPhoto'></div>
+				<div class='mc_subPhoto mc_modelSubPhoto1'></div>
+				<div class='mc_subPhoto mc_modelSubPhoto2'></div>
+				<div class='mc_subPhoto mc_modelSubPhoto3'></div>
+			</div>
+		</div>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+	</div>
 </div>

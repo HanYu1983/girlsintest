@@ -121,7 +121,7 @@
 			replace: true,
 			link : function(scope, element, attrs) {
 				var model = scope.model.streetSnap;
-				var view = app.streetSearch.view();
+				var view = app.streetSearch.view( element );
 				var controller = app.streetSearch.controller( view, model );
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
 			},

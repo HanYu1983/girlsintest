@@ -2,11 +2,15 @@
 	var angularApp = angular.module('app', [])
 	angularApp.config(['$routeProvider', function($routeProvider){
 		$routeProvider.
-			//街拍頁->模特頁
-			//街拍頁->模特頁->模特id
-			//街拍頁->搜尋頁
+            when('/street/search', {
+                templateUrl: 'street-search.html'
+            }).
 			when('/street', {
-				templateUrl: 'streetSnapContent.html'
+				templateUrl: 'streetSnapContent.html',
+			}).
+			when('/street/:key', {
+				templateUrl: 'streetSnapContent.html',
+                controller: 'getParameters'
 			}).
 			when('/hot', {
 				templateUrl: 'hotContent.html'
@@ -40,6 +44,10 @@
 		$scope.closeBigPhoto = function(){
 			bigPhotoObj.close();
 		}
+	});
+    
+	angularApp.controller('getParameters', function($scope, $routeParams){
+		$scope.params = $routeParams
 	});
 	
 	angularApp.directive('indexcontent', function(){
@@ -97,6 +105,7 @@
 			link : function(scope, element, attrs) {
 				var view = app.streetSnap.view(element);
 				view.scope = scope;
+                var isSearchModel = scope.params != null
 				app.streetSnap.controller(view);
 				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
 			}
@@ -146,6 +155,19 @@
 		};
 	});
 	
+	angularApp.directive('streetsearch', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'street-search.directive.html',
+			replace: true,
+			link : function(scope, element, attrs) {
+				console.log('streetsearch link')
+			},
+			controller: function($scope){
+				console.log('streetsearch controller')
+			}
+		};
+	});
 })();
 
 

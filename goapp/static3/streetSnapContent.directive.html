@@ -1,0 +1,235 @@
+﻿<div>
+	<style>
+	.mc_streetSnapContentRoot{
+		position:relative;
+		width:720px;
+		left:115px;
+	}
+	.mc_titleBorder{
+		width:100%;
+		height:110px;
+	}
+	.mc_line{
+		position:relative;
+		width:100%;
+		top:5px;
+	}
+	.mc_photoBorder{
+		width:100%;
+		height:405px;
+	}
+	.mc_3dIframeBorder{
+		width:360px;
+		height:100%;
+		float:left;
+		position:relative;
+		left:5px;
+		top:3px;
+	}
+	.mc_describeBorder{
+		width:360px;
+		height:100%;
+		float:left;
+		position:relative;
+		top:5px;
+	}
+	.mc_photosBorder{
+		width:100%;
+	}
+	.mc_photoSide{
+		padding:3px;
+		width:99px;
+		height:94px;
+		top:-4px;
+		left:4px;
+		position:relative;
+		cursor:pointer;
+	}
+	.mc_photo{
+		padding:3px;
+		top:14px;
+		left:40px;
+		position:relative;
+		cursor:pointer;
+	}
+	.textBase{
+		color:white;
+		font-family:'Microsoft JhengHei'
+	}
+	.text_title{
+		top:90px;
+		font-size:20px;
+		position:absolute;
+	}
+	.text_date{
+		top:90px;
+		right:0px;
+		float:right;
+		position:absolute;
+	}
+	.txt_modelDetail{
+		padding:10px;
+		line-height:23px;
+		letter-spacing:1px;
+		opacity:.5;
+		position:relative;
+		left:33px;
+		width:650px;
+	}
+	.iframe_3dIframe{
+		position:absolute;
+		padding-top:14px;
+		padding-left:37px;
+	}
+	.mc_3dIframeBorderLine{
+		position:absolute;
+		padding-top:14px;
+		padding-left:37px;
+		pointer-events:none;
+	}
+	.mc_3dIframeHeart{
+		position:absolute;
+		padding-top:56px;
+		padding-left:310px;
+	}
+	.mc_3dicon{
+		position:absolute;
+		padding-left:52px;
+		padding-top:339px;
+		width:40px;
+	}
+	.mc_proBorder{
+		width:100%;
+		height:98px;
+	}
+	.mc_proback{
+		width:306px;
+		height:79px;
+		background-color:white;
+		opacity:.3;
+		margin-top:13px;
+		margin-left:16px;
+		position:absolute;
+	}
+	.txt_proContent{
+		color:white;
+		margin-top:20px;
+		margin-left:27px;
+		position:absolute;
+		width:290px;
+		font-style:italic;
+	}
+	.mc_stylePictureBorder{
+		height:302px;
+		float:left;
+	}
+	.mc_detailPhotoBorder{
+		height:302px;
+	}
+	.mc_stylePicture{
+		margin-left:17px;
+	}
+	.mc_modelDetailBorder{
+		width:100%;
+	}
+	.mc_modelInviteBorder{
+		width:100%;
+		height:200px;
+	}
+	.mc_silderModel{
+		width:80px;
+		height:400px;
+		position:absolute;
+		top:105px;
+		left:-80px;
+	}
+	.mc_photoSmallSide{
+		padding:3px;
+		width:50px;
+		cursor:pointer;
+	}
+	.mc_arrowBase{
+		margin-left:10px;
+		padding-bottom:5px;
+		padding-top:5px;
+		cursor:pointer;
+		display:none;
+	}
+	.mc_downArrow{
+		position:relative;
+		left:-3px;
+	}
+	.mc_centerBackground{
+		position:fixed;
+		width:960px;
+		height:100%;
+		background-color:#333333;
+	}
+	</style>
+	
+	<div class='mc_centerBackground'></div>
+	<div class='mc_streetSnapContentRoot'>
+		<!--
+		<img style='opacity:.5;position:absolute;top:65px;left:4px;' src='images/streetSnap/Streetsnap_layout.jpg'/>
+		-->
+		<div class='mc_silderModel'>
+			<img id='mc_upArrow' class='mc_arrowBase' src='images/streetSnap/upArrow.png'/>
+			<div id='mc_photoContainer'>
+			</div>
+			<img id='mc_downArrow' class='mc_arrowBase mc_downArrow' src='images/streetSnap/downArrow.png'/>
+		</div>
+		<div class='mc_titleBorder'>
+			<div id='txt_title' class='textBase text_title'></div>
+			<div id='txt_date' class='textBase text_date'></div>
+		</div>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_photoBorder'>
+			<div class='mc_3dIframeBorder'>
+				<iframe id='iframe_3dIframe' class='iframe_3dIframe' width='323px' height='379px'></iframe>
+				<img class='mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
+				<img class='mc_3dIframeHeart' src='images/streetSnap/pinkHeart.png'/>
+				<img class='mc_3dicon' src='images/streetSnap/3D_ICON.png'/>
+			</div>
+			<div class='mc_describeBorder'>
+				<div class='mc_proBorder'>
+					<div class='mc_proback'/>
+					<div id='txt_proContent' class='textBase txt_proContent'></div>
+				</div>
+				<div class='mc_stylePictureBorder'>
+					<img class='mc_stylePicture' src='images/streetSnap/test2.jpg'/>
+				</div>
+				<div class='mc_detailPhotoBorder'>
+					<div id='mc_photoContainer2'>
+						<!--
+						example
+						<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+						<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+						<img class='mc_photoSide' src='images/streetSnap/test1.jpg'/>
+						-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='textBase'>MODEL照片</div>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_photosBorder'>
+			<div id='mc_photoContainer3'>
+				<!--
+				example
+				<img class='mc_photo' src='images/streetSnap/test1.jpg'/>
+				-->
+			</div>
+			<div style='width:720px;height:20px'></div>
+		</div>
+		<div class='textBase'>MODEL資料</div>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_modelDetailBorder'>
+			<div id='txt_modelDetail' class='textBase txt_modelDetail'></div>
+		</div>
+		<div class='textBase'>MODEL訪談</div>
+		<img class='mc_line' src='images/streetSnap/line.png'/>
+		<div class='mc_modelInviteBorder'>
+			<div id='txt_modelInvite' class='textBase txt_modelDetail'></div>
+		</div>
+	</div>
+</div>

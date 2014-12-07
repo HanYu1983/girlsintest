@@ -1,0 +1,98 @@
+﻿<script>app = {}</script>
+<script src="js/lib/jquery-1.7.2.js"></script>
+<script src='js/app.api.js'></script>
+
+<script>
+
+(function($){
+	var host = 'http://localhost:8080/'
+	var query = app.api.partial( app.api.query, host )
+	
+	// 查單筆
+	$.when( query( app.api.QueryStreetModel,{Key:5067649092419584} ) )
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	
+	// 查多筆
+	$.when( query( app.api.QueryStreetModel,{} ) )
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	// 新增一筆
+	$.when( query( app.api.CreateStreetModel, { Caption:"caption", ModelKey: "modelKey", Description: "Description", Tag: "Tag" } ) )
+		.fail( function(err){ console.log(err) } )
+		.pipe( function(data){
+			console.log('1')
+			console.log(data)
+			
+	// 修改指定資料
+			var key = data.Info
+			return query( app.api.UpdateStreetModel, {  Key: key, Caption:"xxx", ModelKey: "xxx", Description: "xxx", Tag: "xx" } )
+		})
+		.pipe( function(data){
+			console.log('2')
+			console.log(data)
+		})
+		.fail( function( err ){
+			console.log( err )
+		})
+	
+	
+	// 新增照片
+	$.when( query( app.api.AddPhotoToStreetModel, {StreetModelKey:5067649092419584, Base64:'lalala'} ) )
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+
+	// 查詢照片
+	$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:5067649092419584} ) )
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	// 刪除照片
+	$.when( query( app.api.DeletePhotoWithStreetModel, {StreetModelKey:5067649092419584, PhotoKey:4818609708728320} ) )
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	
+})(jQuery)
+
+</script>
+
+<script>
+/*
+(function($){
+
+	var host = 'http://localhost:8080/'
+	var api = app.api.apiWithHost(host);
+	
+	// 查單筆
+	$.when(api.queryStreetModel({Key:5067649092419584}))
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	// 查多筆
+	$.when(api.queryStreetModel({}))
+		.done( function(data){ console.log(data) } )
+		.fail( function(err){ console.log(err) } )
+	
+	// 新增一筆
+	$.when(api.createStreetModel( { Caption:"caption", ModelKey: "modelKey", Description: "Description", Tag: "Tag" } ))
+		.fail( function(err){ console.log(err) } )
+		.pipe( function(data){
+			console.log(data)
+			
+	// 修改指定資料
+			var key = data.Info
+			return api.updateStreetModel( {  Key: key, Caption:"xxx", ModelKey: "xxx", Description: "xxx", Tag: "xx" } )
+		})
+		.pipe( function(data){
+			console.log(data)
+		})
+		.fail( function( err ){
+			console.log( err )
+		})
+		
+})(jQuery)
+*/
+</script>

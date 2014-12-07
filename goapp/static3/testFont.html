@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script src='js/lib/jquery-1.7.2.js'></script>
+		<script src='js/lib/jquery.flash.js'></script>
+		<script src='js/lib/vic.utils.js'></script>
+	</head>
+	<body>
+		<h3>John Lennon</h3>
+		<h3>gg<a>link</a></h3>
+		<div id='hello'/>
+		<div id='output'>ABC</div>
+	</body>
+	<style>
+	.flash-replaced .alt {
+		display: block;
+		height: 0;
+		position: absolute;
+		overflow: hidden;
+		width: 0;
+	}
+	
+	h3 { font-size: 1em; }
+	</style>
+	<script>
+	/*
+	$('#hello').flash({
+		src: 'resource/fontTest.swf',
+		width: 400,
+		height: 400
+	});
+*/
+	$(document).ready(function(){
+		vic.utils.sIFR( $('h3' ), 'resource/jfr.swf', ['* { color: #ff0000; }', 'a:hover { text-decoration: underline }'] );
+		$('#output' ).html( 'vic use to test' );
+		$('#output' ).html( 'vic use to testBBBDDD' );
+		vic.utils.sIFR( $('#output' ), 'resource/jfr.swf', ['* { color: #ff00ff; }', 'a:hover { text-decoration: underline }'] );
+	});
+	</script>
+</html>

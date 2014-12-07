@@ -7,7 +7,7 @@ app.streetSnap = app.streetSnap || {};
 		var modelDatas;
 		
 		var isSearchModel = scope.params != null;
-		var keyFromHash = undefined;
+		var keyFromHash;
 		if( isSearchModel )	keyFromHash = scope.params.key;
 		
 		model.getEvent().on( 'onOpenLoadingEvent', function(){
@@ -38,7 +38,7 @@ app.streetSnap = app.streetSnap || {};
 		model.loadAllModelData( function( datas ){
 			modelDatas = datas;
 			generateModels( modelDatas ); 
-			if( keyFromHash != undefined )	generateOneModel( model.getModelDataByKey( keyFromHash ) );
+			if( isSearchModel )	generateOneModel( model.getModelDataByKey( keyFromHash ) );
 			else 	generateOneModel( modelDatas[pid] );
 		});
 		

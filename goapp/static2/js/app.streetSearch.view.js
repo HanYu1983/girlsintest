@@ -14,14 +14,15 @@ app.streetSearch = app.streetSearch || {};
 				mc_modelContainer.append( newTemplate );
 			},
 			pushOneModelMainPhoto:function( key, base64str ){
-				console.log( key );
-				var image = $( '<img/>' );
 				var tostr = 'data:image/png;base64,' + base64str;
-				image.attr( 'src', tostr );
-				ary_modelView[key].find( '.mc_modelMainPhoto' ).append( image );
+				ary_modelView[key].find( '.mc_modelMainPhoto img' ).attr( 'src', tostr );
 			},
-			pushOneModelSubPhoto:function(){
-			
+			pushOneModelSubPhoto:function( key, ary_sub ){
+				for( var i = 0; i < ary_sub.length; ++i ){
+					var img = ary_modelView[key].find( '.mc_modelSubPhoto' + (i + 1) ).find('img');
+					var base64str = 'data:image/png;base64,' + ary_sub[i];
+					img.attr( 'src', base64str );
+				}
 			}
 		}
 	}

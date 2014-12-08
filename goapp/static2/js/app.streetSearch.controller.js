@@ -19,22 +19,23 @@ app.streetSearch = app.streetSearch || {};
 			
 				var fatchData = function ( key ){
 					return function( _data ){
-						console.log( key, _data );
+						var mainPhoto;
+						var subPhotos = [];
 						_data.forEach( function( __data ){
 							switch( app.config.typeMapping[ __data.Belong ] ){
 								case app.config.MODEL_HEAD:
+								case app.config.MODEL_NORMAL:
+									break;
 								case app.config.MODEL_STYLE:
+									mainPhoto = __data.Base64Str;
 									break;
 								case app.config.MODEL_SIDE:
-								//	view.pushOneModelMainPhoto( key, __data.Base64Str );
-									break;
-								case app.config.MODEL_NORMAL:
-								//	view.pushOnePictureToPhotoList( __data.Key, __data.Base64Str );
-									view.pushOneModelMainPhoto( key, __data.Base64Str );
+									subPhotos.push( __data.Base64Str );
 									break;
 							}
 						});
-						
+						view.pushOneModelSubPhoto( key, subPhotos );
+						view.pushOneModelMainPhoto( key, mainPhoto );
 					}
 				}( data.Key );
 				

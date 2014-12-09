@@ -16,7 +16,6 @@ app.streetSearch = app.streetSearch || {};
 		
 		function loadModelPhotoByPid(datas ){
 			datas.slice( pid, 6 ).forEach( function ( data ){
-			
 				var fatchData = function ( key ){
 					return function( _data ){
 						var mainPhoto;
@@ -38,7 +37,7 @@ app.streetSearch = app.streetSearch || {};
 						view.pushOneModelMainPhoto( key, mainPhoto );
 					}
 				}( data.Key );
-				
+				view.pushOneModelDetail( data.Key, data.Caption, data.DateUnix );
 				model.loadModelPhotoById( data.Key, fatchData )
 			})
 		}

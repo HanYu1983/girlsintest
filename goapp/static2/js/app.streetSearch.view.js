@@ -23,6 +23,11 @@ app.streetSearch = app.streetSearch || {};
 					var base64str = 'data:image/png;base64,' + ary_sub[i];
 					img.attr( 'src', base64str );
 				}
+			},
+			pushOneModelDetail:function( key, name, unixtime ){
+				var date = new Date( unixtime * 1000 );
+				ary_modelView[key].find( '#txt_name' ).html( name );
+				ary_modelView[key].find( '#txt_date' ).html( date.getFullYear() + '/' + date.getMonth() + '/' + date.getHours() );
 			}
 		}
 	}

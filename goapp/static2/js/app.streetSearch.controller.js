@@ -4,6 +4,11 @@ app.streetSearch = app.streetSearch || {};
 (function(){
 	function controller(view, model){
 		var pid = 0;
+		
+		view.getEvent().on( 'onModelBorderClick', function( e, modelKey ){
+			window.location.href = '#/street/id=' + modelKey;
+		});
+		
 		model.loadAllModelData( function( datas ){
 			datas.forEach( function( data ){
 				view.pushOneModel( data );

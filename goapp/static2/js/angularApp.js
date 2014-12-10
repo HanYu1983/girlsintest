@@ -61,7 +61,6 @@
 			transclude: true,
 			link : function(scope, element, attrs) {
 				var view = app.indexContent.view(element)
-				view.scope = scope;
 				app.indexContent.controller(view)
 				scope.events.trigger( 'jumpPageEvent', 'index' );
 			}

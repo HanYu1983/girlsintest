@@ -6,10 +6,16 @@ app.streetSearch = app.streetSearch || {};
 		var mc_modelTemplate = elem.find('#mc_modelTemplate' );
 		var mc_modelContainer = elem.find( '#mc_modelContainer' );
 		var ary_modelView = {};
+		var event = $('<div></div>' );
 		return {
 			pushOneModel:function( data ){
 				var newTemplate = mc_modelTemplate.clone();
 				newTemplate.css( 'display', '' );
+				newTemplate.attr( 'id', 'mc_modelBorder_' + data.Key );
+				newTemplate.click( function(){
+					var modelKey = this.id.substr( 'mc_modelBorder_'.length, this.id.length );
+					event.trigger( 'onModelBorderClick', modelKey );
+				});
 				ary_modelView[data.Key] = newTemplate;
 				mc_modelContainer.append( newTemplate );
 			},
@@ -28,6 +34,9 @@ app.streetSearch = app.streetSearch || {};
 				var date = new Date( unixtime * 1000 );
 				ary_modelView[key].find( '#txt_name' ).html( name );
 				ary_modelView[key].find( '#txt_date' ).html( date.getFullYear() + '/' + date.getMonth() + '/' + date.getHours() );
+			},
+			getEvent:function(){
+				return event;
 			}
 		}
 	}

@@ -2,7 +2,6 @@ var app = app || {};
 app.indexContent = app.indexContent || {};
 (function(){
 	function c_indexContent(view){
-		view.scope.closeLoading();
 		view.setIframeData( 'bb79930ee30944378ec957dcc6bed42d' );
 		
 		/*

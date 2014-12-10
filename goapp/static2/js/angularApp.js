@@ -150,8 +150,7 @@
 			templateUrl:'headbar.directive.html',
 			replace:true,
 			link: function( scope, element, attrs ){
-				var headerController = app.header.controller( app.header.view( element ) );
-				
+				var headerController = app.header.controller( app.header.view( element ), scope );
 			}
 		};
 	});

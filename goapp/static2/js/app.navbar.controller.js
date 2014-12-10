@@ -13,7 +13,6 @@ app.navbar = app.navbar || {};
 		var events = view.scope.events;
 		events.on( 'jumpPageEvent', function( event, pageName ){
 			_.map( ary_btns, function( btn ){ offQueryListener( btn ); });
-			
 			switch( pageName ){
 				case 'index':
 					btnNormalStatu( ary_btns[0] );

@@ -30,7 +30,7 @@
 		var mc_loading = $('#mc_loading' );
 		var bigPhotoObj = app.bigPhoto.controller( app.bigPhoto.view( $('#mc_bigPhotoRoot' )) );
 		var streetSnapModel = app.streetSnap.model();
-		var events = new vic.events.EventDispatcher();
+		var events = $( '<div></div>' );
 		$scope.events = events;
 		$scope.model = {
 			streetSnap:streetSnapModel
@@ -63,7 +63,7 @@
 				var view = app.indexContent.view(element)
 				view.scope = scope;
 				app.indexContent.controller(view)
-				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'index' ));
+				scope.events.trigger( 'jumpPageEvent', 'index' );
 			}
 		};
 	});
@@ -75,7 +75,7 @@
 			templateUrl: 'hotContent.directive.html',
 			replace: true,
 			link : function(scope, element, attrs) {
-				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'hot' ));
+				scope.events.trigger( 'jumpPageEvent', 'hot' );
 			},
 			controller: function($scope){
 				$scope.title = '時尚變3d?…挺有趣的'
@@ -109,7 +109,7 @@
 				var view = app.streetSnap.view(element);
 				var model = scope.model.streetSnap;
 				app.streetSnap.controller(view, model, scope );
-				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
+				scope.events.trigger( 'jumpPageEvent', 'street' );
 			}
 		};
 	});
@@ -123,7 +123,7 @@
 				var model = scope.model.streetSnap;
 				var view = app.streetSearch.view( element );
 				var controller = app.streetSearch.controller( view, model );
-				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'street' ));
+				scope.events.trigger( 'jumpPageEvent', 'street' );
 			},
 			controller: function($scope){
 				console.log('streetsearch controller')
@@ -139,7 +139,7 @@
 			transclude: true,
 			link : function(scope, element, attrs) {
 				
-				scope.events.dispatchEvent( new vic.events.Event( 'jumpPageEvent', 'model' ));
+				scope.events.trigger( 'jumpPageEvent', 'model' );
 			}
 		};
 	});

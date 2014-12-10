@@ -9,11 +9,12 @@ app.navbar = app.navbar || {};
 			view.getBtnStreetSnap(),
 			view.getBtnNews()
 		];
+		
 		var events = view.scope.events;
-		events.addEventListener( 'jumpPageEvent', function( event ){
+		events.on( 'jumpPageEvent', function( event, pageName ){
 			_.map( ary_btns, function( btn ){ offQueryListener( btn ); });
 			
-			switch( event.getData() ){
+			switch( pageName ){
 				case 'index':
 					btnNormalStatu( ary_btns[0] );
 					btnNormalStatu( ary_btns[1] );

@@ -62,8 +62,8 @@ cacheDatas = {
 				$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key} ) )
 						.done( function(data){ 
 							cacheDatas[key].Photos = data.Info;
-							event.trigger( 'onCloseLoadingEvent' );
 							callback( data.Info ); 
+							event.trigger( 'onCloseLoadingEvent' );
 						} )
 						.fail( function(err){ console.log(err) } );
 			},
@@ -80,8 +80,8 @@ cacheDatas = {
 						.done( function(data){ 
 							if( cacheDatas[key].belong == undefined )	cacheDatas[key].belong = {};
 							cacheDatas[key].belong[belong] = data.Info;
-							event.trigger( 'onCloseLoadingEvent' );
 							callback( data.Info ); 
+							event.trigger( 'onCloseLoadingEvent' );
 						} )
 						.fail( function(err){ console.log(err) } );
 			},

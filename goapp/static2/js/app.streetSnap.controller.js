@@ -36,6 +36,7 @@ app.streetSnap = app.streetSnap || {};
 		});
 		
 		model.loadAllModelData( function( datas ){
+			if( datas.length == 0 )	return;
 			modelDatas = datas;
 			generateModels( modelDatas ); 
 			if( isSearchModel )	generateOneModel( model.getModelDataByKey( keyFromHash ) );

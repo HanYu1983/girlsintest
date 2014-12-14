@@ -37,7 +37,7 @@ app.streetSnap = app.streetSnap || {};
 			},
 			//新增照片到模特大頭貼區
 			pushOneModelToList:function( index, base64 ){
-				var tostr = 'data:image/png;base64,' + base64;
+				var tostr = app.config.getFullBase64str( base64 );
 				var imgquery = $("<img class='mc_photoSmallSide' id='mc_modelphoto_" + index + "' src='" + tostr + "'/>" );
 				imgquery.click( function(){
 					event.trigger( 'onPhotoSmallSideClick', this.id.substr( 'mc_modelphoto_'.length, this.id.length ));
@@ -47,7 +47,7 @@ app.streetSnap = app.streetSnap || {};
 			//新增照片到特寫區
 			pushOnePictureToList:function( key, base64 ){
 				if( mc_modelStylePhoto.children().length >= 3 )	return;
-				var tostr = 'data:image/png;base64,' + base64;
+				var tostr = app.config.getFullBase64str( base64 );
 				var imgquery = $("<img class='mc_photoSide' id='mc_photo_" + key + "' src='" + tostr + "'/>" );
 				imgquery.click( function(){
 					event.trigger( 'onPhotoSmallClick', this.id.substr( 'mc_photo_'.length, this.id.length ));
@@ -56,7 +56,7 @@ app.streetSnap = app.streetSnap || {};
 			},
 			//新增照片到個人照片區
 			pushOnePictureToPhotoList:function( key, base64 ){
-				var tostr = 'data:image/png;base64,' + base64;
+				var tostr = app.config.getFullBase64str( base64 );
 				var imgquery = $("<img class='mc_photo' id='mc_photo_" + key + "' src='" + tostr + "'/>" );
 				imgquery.click( function(){
 					event.trigger( 'onPhotoSmallClick', this.id.substr( 'mc_photo_'.length, this.id.length ));

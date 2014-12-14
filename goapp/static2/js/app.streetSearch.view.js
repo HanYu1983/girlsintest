@@ -20,13 +20,13 @@ app.streetSearch = app.streetSearch || {};
 				mc_modelContainer.append( newTemplate );
 			},
 			pushOneModelMainPhoto:function( key, base64str ){
-				var tostr = 'data:image/png;base64,' + base64str;
+				var tostr = app.config.getFullBase64str( base64str );
 				ary_modelView[key].find( '.mc_modelMainPhoto img' ).attr( 'src', tostr );
 			},
 			pushOneModelSubPhoto:function( key, ary_sub ){
 				for( var i = 0; i < ary_sub.length; ++i ){
 					var img = ary_modelView[key].find( '.mc_modelSubPhoto' + (i + 1) ).find('img');
-					var base64str = 'data:image/png;base64,' + ary_sub[i];
+					var base64str = app.config.getFullBase64str( ary_sub[i] );
 					img.attr( 'src', base64str );
 				}
 			},

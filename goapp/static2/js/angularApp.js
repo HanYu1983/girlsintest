@@ -1,4 +1,8 @@
 ﻿(function(){
+	vic.facebook.init( '679171275511375', '', function(){
+		console.log( 'facebook init complete');
+	});
+	
 	var angularApp = angular.module('app', [])
 	angularApp.config(['$routeProvider', function($routeProvider){
 		$routeProvider.
@@ -60,6 +64,7 @@
 			replace: true,
 			transclude: true,
 			link : function(scope, element, attrs) {
+				
 				var view = app.indexContent.view(element)
 				app.indexContent.controller(view)
 				scope.events.trigger( 'jumpPageEvent', 'index' );

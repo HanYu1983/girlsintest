@@ -180,6 +180,16 @@
 		};
 	});
 	
+	angularApp.directive( 'login', function(){
+		return {
+			restrict: 'E',
+			templateUrl: 'login.directive.html',
+			replace: true,
+			link:function( scope, element, attrs ){
+				console.log( 'login' );
+			}
+		}
+	});
 })();
 
 

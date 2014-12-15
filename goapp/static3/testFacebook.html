@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<script src='js/lib/vic.facebook.js'></script>
+		<script src='js/lib/vic.google.api.js'></script>
+		<script src='js/lib/jquery-1.7.2.js'></script>
+		<script src="https://apis.google.com/js/client.js"></script>
+	</head>
+	<body onload=init()>
+		<button id='btn_login'>login</button>
+		<script>
+			vic.facebook.init( '679171275511375', '', function(){
+				console.log( 'd');
+				
+			});
+			
+			$( '#btn_login' ).click( function(){
+				vic.facebook.getMyData( function( res ){
+					console.log( res );
+				});
+			});
+		
+			function init(){
+				console.log( "DDD");
+				vic.google.api.init( {
+					clientId:'10759862730-em9hs1v10pblook5po2o8uc01t0ttaub.apps.googleusercontent.com',
+					apiKey:'AIzaSyDaq6jjkKtehEDJaa2CRZFrLR6T752NZDM',
+					scopes:'',
+					onApiReady:function(){
+						console.log( 'onApiReady' );
+					},
+					onNoLogin:function(){
+						console.log( 'onNoLogin' );
+					}
+				});	
+			}
+		</script>
+	</body>
+</html>

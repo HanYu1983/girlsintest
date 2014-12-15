@@ -2,37 +2,52 @@ var app = app || {};
 app.streetSnap = app.streetSnap || {};
 
 (function(){
-	function c_streetSnapContent(view){
-		view.scope.openLoading();
-		
-		var query = app.api.partial( app.api.query, '../' );
+	function c_streetSnapContent(view, model, scope ){
 		var pid = 0;
 		var modelDatas;
 		
+		var isSearchModel = scope.params != null;
+		var keyFromHash;
+		if( isSearchModel )	keyFromHash = scope.params.key;
+		
+		model.getEvent().on( 'onOpenLoadingEvent', function(){
+			scope.openLoading();
+		});
+		
+		model.getEvent().on( 'onCloseLoadingEvent', function(){
+			scope.closeLoading();
+		});
+		
 		view.getEvent().on( 'onPhotoSmallSideClick', function( event, id ){
 			pid = id;
-			generateOneModel( modelDatas[pid] );
+			window.location.href = '#/street/id=' + modelDatas[pid].Key;
+			//generateOneModel( modelDatas[pid] );
 		});
 		
 		view.getEvent().on( 'onPhotoSmallClick', function( event, key ){
-			view.scope.openLoading();
-			loadModelMainPhoto( modelDatas[pid].Key, key, function( result ){
-				view.scope.closeLoading();
-				//if( result.length == 0 )	throw ( key + '並沒有所屬的相片' );
+			model.loadModelMainPhoto( modelDatas[pid].Key, key, function( result ){
 				if( result.length == 0 )	alert ( key + '並沒有所屬的相片' );
-				view.scope.openBigPhoto( result[0].Base64Str );
+				scope.openBigPhoto( result[0].Base64Str );
 			});
 		});
 		
-		loadAllModelData( function( datas ){
+		view.getEvent().on( 'onBtnMoreClick', function(){
+			window.location.href = '#/street/search';
+		});
+		
+		model.loadAllModelData( function( datas ){
+			if( datas.length == 0 )	return;
 			modelDatas = datas;
 			generateModels( modelDatas ); 
-			generateOneModel( modelDatas[pid] );
+			if( isSearchModel )	generateOneModel( model.getModelDataByKey( keyFromHash ) );
+			else 	generateOneModel( modelDatas[pid] );
 		});
+		
+		view.showArrow( true );
 		
 		//讀取大頭貼
 		function generateModels( datas ){
-			if( datas.length > 6 )	view.showArrow( true );
+			//if( datas.length > 6 )	view.showArrow( true );
 			getPhotosByEveryModelAndThen( startToPush );
 			
 			//要按照順序把圖片load下來
@@ -46,7 +61,7 @@ app.streetSnap = app.streetSnap || {};
 							if( ++count >= datas.length )	callback( retary );
 						}
 					})( i );
-					loadModelMainPhoto( datas[i].Key, app.config.getTypeCode( app.config.MODEL_HEAD ), fatchData );
+					model.loadModelMainPhoto( datas[i].Key, app.config.getTypeCode( app.config.MODEL_HEAD ), fatchData );
 				}
 			}
 			
@@ -59,29 +74,19 @@ app.streetSnap = app.streetSnap || {};
 		
 		//顯示當前模特
 		function generateOneModel( data ){
-			view.scope.openLoading();
-			
-			var caption = data.Caption;
-			var date = data.Date;
-			var dateUnix = data.DateUnix;
-			var desc = data.Description;
-			var key = data.Key;
-			var talk = data.Talk;
-			var comment = data.Comment;
-			var modelKey = data.ModelKey;
 			view.clearData();
-			view.setTitle( caption );
-			view.setDate( dateUnix );
-			view.setModelDetail( desc );
-			view.setModelInvite( talk );
-			view.setJudge( comment );
-			view.setIframeData( modelKey, 0 );
-			generateOneModelPhoto( key );
+			view.setTitle( data.Caption );
+			view.setDate( data.DateUnix );
+			view.setModelDetail( data.Description );
+			view.setModelInvite( data.Talk );
+			view.setJudge( data.Comment );
+			view.setIframeData( data.ModelKey, 0 );
+			generateOneModelPhoto( data.Key );
 		}
 		
 		//產生當前模特的照片
 		function generateOneModelPhoto( key ){
-			loadModelPhotoById( key, function( datas ){
+			model.loadModelPhotoById( key, function( datas ){
 				datas.forEach( function( data ){
 					switch( app.config.typeMapping[ data.Belong ] ){
 						case app.config.MODEL_HEAD:
@@ -95,29 +100,7 @@ app.streetSnap = app.streetSnap || {};
 							break;
 					}
 				});
-				view.scope.closeLoading();
 			});
-		}
-		
-		//讀取所有模特
-		function loadAllModelData( callback ){
-			$.when( query( app.api.QueryStreetModel,{} ) ).done( function(data){ 	
-				if( data.Success )	callback( data.Info ); 
-			} ).fail( function(err){ console.log(err) } );
-		}
-		
-		//讀取模特的所有照片
-		function loadModelPhotoById( key, callback ){
-			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key} ) )
-					.done( function(data){ callback( data.Info ); } )
-					.fail( function(err){ console.log(err) } );
-		}
-		
-		//讀取指定所屬的照片
-		function loadModelMainPhoto( key, belong, callback ){
-			$.when( query( app.api.QueryPhotoWithStreetModel, {StreetModelKey:key, Belong:belong } ) )
-					.done( function(data){ callback( data.Info ); } )
-					.fail( function(err){ console.log(err) } );
 		}
 		
 		//產生轉轉轉
@@ -147,32 +130,3 @@ app.streetSnap = app.streetSnap || {};
 	
 	app.streetSnap.controller = c_streetSnapContent;
 })()
-
-/*
-function cache( data, fn ){
-	return function(){
-		var key = arguments[0]
-		if data[key]
-			return data[key]
-		fn.apply( null, arguments )
-	}
-}
-
-function getPhoto( key, url ){
-	//call back
-}
-
-getPhoto = cache( {}, getPhoto )
-getPhoto();
-*/
-/*
-function getPhoto( key, url ){
-	return cache( key, url )
-}
-var datas;
-
-function cache( url ){
-	if( datas[key] )	return datas[key];
-	
-}
-*/

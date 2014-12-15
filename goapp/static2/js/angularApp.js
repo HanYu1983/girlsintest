@@ -192,11 +192,6 @@
 	});
 })();
 
-
-
-
-
-
 (function(){
 	var test = angular.module('test', []);
 	test.config(['$routeProvider', function($routeProvider){

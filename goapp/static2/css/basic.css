@@ -37,3 +37,6 @@
 .hide{
 	display:none;
 }
+.btn{
+	cursor:pointer;
+}

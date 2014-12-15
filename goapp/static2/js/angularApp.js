@@ -1,5 +1,6 @@
 ﻿(function(){
-	vic.facebook.init( '679171275511375', '', function(){
+	//vic.facebook.init( '679171275511375', '', function(){
+	vic.facebook.init( '605719376223231', '', function(){
 		console.log( 'facebook init complete');
 	});
 	

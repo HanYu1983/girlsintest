@@ -4,6 +4,8 @@ runtime: go
 api_version: go1
 
 handlers:
+- url: /angular-test-coffee
+  static_dir: static3
 - url: /angular-test
   static_dir: static2
 - url: /static

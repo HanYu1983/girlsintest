@@ -1,4 +1,4 @@
-<div>
+<div class="hide">
 	<style>
 	.mc_loginPanel{
 		width:313px;
@@ -32,31 +32,31 @@
 	}
 	.img_register{
 		margin-top:23px;
-		margin-left:76px;
+		margin-left:68px;
 	}
 	.img_login{
 		margin-left:49px;
 	}
 	</style>
-	<div class="full colorBlack halfOpcacity"></div>
+	<div id="mc_loginBackground" class="full colorBlack halfOpcacity"></div>
 	<div id="mc_loginPanel" class="absolute mc_loginPanel">
 		<div class="absolute full colorWhite"></div>
 		<div class="relative mc_logo" >
-			<img style="margin-left:56px" src="images/login/logo.png"/>
+			<img style="margin-left:53px" src="images/login/logo.png"/>
 		</div>
 		<div class="relative mc_login">
-			<img class="btn" style="margin-left:56px;" src="images/login/facebook_login.png"/>
+			<img id="btn_facebookLogin" class="btn" style="margin-left:53px;" src="images/login/facebook_login.png"/>
 		</div>
 		<div class="relative mc_line">
 			<img style="margin-left:25px" src="images/login/line.png"/>
 		</div>
 		<div class="relative mc_email">
-			<input id="input_email" style="margin-left:57px" class="baseLoginInput" placeholder="E-MAIL" />
+			<input id="input_email" style="margin-left:53px" class="baseLoginInput" placeholder="E-MAIL" />
 		</div>
 		<div class="relative mc_password">
-			<input id="input_password" style="margin-left:57px" class="baseLoginInput" placeholder="密碼" />
+			<input id="input_password" style="margin-left:53px" class="baseLoginInput" placeholder="密碼" />
 		</div>
-		<img class="relative btn img_register" src="images/login/btn_register.png"/>
-		<img class="relative btn img_login" src="images/login/btn_login.png"/>
+		<img id="btn_register" class="relative btn img_register" src="images/login/btn_register.png"/>
+		<img id="btn_login" class="relative btn img_login" src="images/login/btn_login.png"/>
 	</div>
 </div>

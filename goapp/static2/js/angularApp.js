@@ -186,7 +186,12 @@
 			templateUrl: 'login.directive.html',
 			replace: true,
 			link:function( scope, element, attrs ){
-				console.log( 'login' );
+				var controller = app.login.controller( app.login.view( element ) );
+				controller.open();
+				controller.getEvent().on( 'onLoginSuccessEvent', function(){
+					controller.getEvent().off( 'onLoginSuccessEvent' );
+					controller.close();
+				});
 			}
 		}
 	});

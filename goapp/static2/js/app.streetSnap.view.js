@@ -14,12 +14,16 @@ app.streetSnap = app.streetSnap || {};
 		var mc_modelSymbolPhoto = elem.find( '#mc_modelSymbolPhoto' );
 		var mc_modelStylePhoto = elem.find( '#mc_modelStylePhoto' );
 		var mc_modelPhotos = elem.find( '#mc_modelPhotos' );
+		var mc_3dIframeHeart = elem.find( '#mc_3dIframeHeart' );
 	//	var mc_upArrow = elem.find( '#mc_upArrow' );
 		var mc_downArrow = elem.find( '#mc_downArrow' );
 		var event = $( '<div></div>' );
 		
 		mc_downArrow.click( function(){
 			event.trigger( 'onBtnMoreClick' );
+		});
+		mc_3dIframeHeart.click( function(){
+			event.trigger( 'onBtnHeartClick' );
 		});
 		
 		return {

@@ -13,26 +13,34 @@ app.streetSnap = app.streetSnap || {};
 		model.getEvent().on( 'onOpenLoadingEvent', function(){
 			scope.openLoading();
 		});
-		
 		model.getEvent().on( 'onCloseLoadingEvent', function(){
 			scope.closeLoading();
 		});
-		
 		view.getEvent().on( 'onPhotoSmallSideClick', function( event, id ){
 			pid = id;
 			window.location.href = '#/street/id=' + modelDatas[pid].Key;
 			//generateOneModel( modelDatas[pid] );
 		});
-		
 		view.getEvent().on( 'onPhotoSmallClick', function( event, key ){
 			model.loadModelMainPhoto( modelDatas[pid].Key, key, function( result ){
 				if( result.length == 0 )	alert ( key + '並沒有所屬的相片' );
 				scope.openBigPhoto( result[0].Base64Str );
 			});
 		});
-		
 		view.getEvent().on( 'onBtnMoreClick', function(){
 			window.location.href = '#/street/search';
+		});
+		view.getEvent().on( 'onBtnHeartClick', function(){
+			vic.facebook.postMessageToMyboard({
+				name:'test',
+				link:window.location.href,
+				picture:'',
+				caption:'caption',
+				description:'description',
+				callback:function(){
+					//close loading page
+				}
+			});
 		});
 		
 		model.loadAllModelData( function( datas ){

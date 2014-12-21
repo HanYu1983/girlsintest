@@ -10,12 +10,13 @@ func Login(sys tool.ISystem)interface{}{
     r := sys.GetRequest()
     userRepository := app.GetApp().GetUserDAO()
     cookieManager := app.GetApp().GetCookieManager()
-    
+    /* 
+    //issue: hasValue always is true
     hasValue, _ := cookieManager.GetValue(sys)
     if hasValue {
         return tool.NotSuccess("already login")
     }
-    
+    */
     isLoginByFB := len( r.Form["fbtoken"] ) > 0
     if isLoginByFB {
         fbtoken := r.Form["fbtoken"][0]

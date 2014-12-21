@@ -6,6 +6,8 @@ app.api = app.api || {};
 	var pkg = app.api
 	var apipath = 'goapp/Func'
 	
+    pkg.Login = 'Login'
+    pkg.Logout = 'Logout'
 	pkg.QueryStreetModel = 'QueryStreetModel'
 	pkg.CreateStreetModel = 'UpdateStreetModel'
 	pkg.UpdateStreetModel = 'UpdateStreetModel'

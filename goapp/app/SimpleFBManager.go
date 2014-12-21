@@ -35,7 +35,7 @@ func (mgr *SimpleFBManager) Verify(sys tool.ISystem, fbtoken string) (user FBUse
                 errMsg := fbError["message"].(string)
                 return FBUserEntity{}, errors.New(errMsg)
             }
-            return FBUserEntity{FbId: info["id"].(string)}, nil
+            return FBUserEntity{FbId: info["id"].(string), Name: info["first_name"].(string)}, nil
         }
     }
 }

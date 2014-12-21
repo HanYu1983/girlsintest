@@ -8,12 +8,11 @@ import (
 
 func Logout(sys tool.ISystem)interface{}{
     cookieManager := app.GetApp().GetCookieManager()
-    
     hasValue, _ := cookieManager.GetValue(sys)
     if hasValue {
         cookieManager.Clear(sys)
-        return tool.DefaultResult{Success: true}
+        return tool.Success("logout")
     }else{
-        return tool.DefaultResult{}
+        return tool.NotSuccess("already logout")
     }
 }

@@ -16,16 +16,31 @@ func Login(sys tool.ISystem)interface{}{
         return tool.DefaultResult{Success: true, Info: "already login"}
     }
     
-	tool.Verify( tool.ParamShouldExist( r, "account") )
-	tool.Verify( tool.ParamShouldExist( r, "password") )
+    isLoginByFB := len( r.Form["fbtoken"] ) > 0
+    if isLoginByFB {
+        fbtoken := r.Form["fbtoken"][0]
+        
+        fbManager := app.GetApp().GetFBManager()
+        fbUser, err := fbManager.Verify( sys, fbtoken )
+        
+        if err != nil {
+            return tool.NotSuccess( err.Error() )
+        } else {
+            cookieManager.SetValue(sys, "{'name':'"+ fbUser.Name +"'}")
+            return tool.Success("register ok, set cookie")
+        }
+    } else {
+    	tool.Verify( tool.ParamShouldExist( r, "account") )
+    	tool.Verify( tool.ParamShouldExist( r, "password") )
     
-    account := r.Form["account"][0]
-    pwd := r.Form["password"][0]
+        account := r.Form["account"][0]
+        pwd := r.Form["password"][0]
     
-    verifyOk := userRepository.Verify(account, pwd)
-    if verifyOk {
-        cookieManager.SetValue(sys, "user login")
-        return tool.DefaultResult{Success: true}
+        verifyOk := userRepository.Verify(account, pwd)
+        if verifyOk {
+            cookieManager.SetValue(sys, "{'name':'"+ account +"'}")
+            return tool.Success("register ok, set cookie")
+        }
+        return tool.NotSuccess("incorrect password")
     }
-    return tool.DefaultResult{Success: false, Info:"incorrect password"}
 }

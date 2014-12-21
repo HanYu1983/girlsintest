@@ -42,3 +42,8 @@ func (app *SimpleApp) GetSessionManager() ISessionManager{
 func (app *SimpleApp) GetCookieManager() tool.ICookieManager{
 	return &app.CookieManager
 }
+
+func (app *SimpleApp) GetFBManager() IFBManager{
+    mgr := FBManagerWithGraphAPI(GraphApi)
+    return &mgr
+}

@@ -10,6 +10,7 @@ type UserEntity struct {
     Account string
     Password string
     Type int
+    FbId string
 }
 
 type IUserDAO interface {
@@ -57,12 +58,24 @@ type ISessionManager interface {
     SetSession(session SimpleSession)
 }
 
+var GraphApi string = "https://graph.facebook.com/v2.1/"
+
+type FBUserEntity struct {
+    FbId string
+    Name string
+}
+
+type IFBManager interface {
+    Verify(sys tool.ISystem, token string) (user FBUserEntity, err error)
+}
+
 type IApp interface {
 	GetUserDAO() IUserDAO
 	GetStreetModelDAO() IStreetModelDAO
 	GetPhotoDAO() IPhotoDAO
 	GetSessionManager() ISessionManager
 	GetCookieManager() tool.ICookieManager
+    GetFBManager() IFBManager
 }
 
 func GetApp() IApp{

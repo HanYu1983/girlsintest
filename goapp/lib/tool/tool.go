@@ -6,6 +6,10 @@ import (
     "strings"
     "html/template"
 	"strconv"
+    "io/ioutil"
+    "appengine"
+    "appengine/urlfetch"
+    "encoding/json"
 )
 
 func Str2Int64(str string) int64{
@@ -51,3 +55,29 @@ type int64Array []int64
 func (s int64Array) Len() int { return len(s) }
 func (s int64Array) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
 func (s int64Array) Less(i, j int) bool { return s[i] < s[j] }
+
+func HttpGet (sys ISystem, url string) (res []byte, err error){
+    c := appengine.NewContext(sys.GetRequest())
+    client := urlfetch.Client(c)
+    resp, err := client.Get(url)
+    if err != nil {
+        return nil, err
+    } else {
+        defer resp.Body.Close()
+        body, err := ioutil.ReadAll(resp.Body)
+        if err != nil {
+            return nil, err
+        } else {
+            return body, nil
+        }
+    }
+}
+
+func Byte2Json(data []byte) (jsonobj map[string]interface{}, err error) {
+    var ret interface{}
+    err = json.Unmarshal(data, &ret)
+    if err == nil {
+        jsonobj = ret.(map[string]interface{})
+    }
+    return
+}

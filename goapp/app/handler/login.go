@@ -13,7 +13,7 @@ func Login(sys tool.ISystem)interface{}{
     
     hasValue, _ := cookieManager.GetValue(sys)
     if hasValue {
-        return tool.DefaultResult{Success: true, Info: "already login"}
+        return tool.NotSuccess("already login")
     }
     
     isLoginByFB := len( r.Form["fbtoken"] ) > 0

@@ -4,8 +4,169 @@
 		<title>angular test</title>
 		<link href='css/basic.css' rel='stylesheet' type='text/css'/>
 		<link href='css/app.css' rel='stylesheet' type='text/css'/>
+		<link href='css/home.css' rel='stylesheet' type='text/css'/>
 	</head>
 	<body>
+		<!-- home page -->
+		<script type='x-jquery-tmpl' id='tmpl_home'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是首頁</h1>
+						<ul>
+							<li>會有一個轉轉轉</li>
+						</ul>
+					</div>
+				</div>
+				<!--
+				<img class='relative mc_backLine' src='images/index/backgroundBigLine.png'/>
+				<img class='mc_bigLogo' src='images/index/big_LOGO.png'/>
+				<div class='mc_3dIframeBorder'>
+					<div class='mc_iframeBack'></div>
+					<iframe id='iframe_3dIframe' class='iframe_3dIframe' width='323px' height='379px'></iframe>
+					<img class='mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
+					<img class='mc_3dicon' src='images/streetSnap/3D_ICON.png'/>
+				</div>
+				-->
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_celebrity'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是名人頁</h1>
+						<ul>
+							<li>會有一個名人稿(可能會有轉轉轉)</li>
+							<li>上一則新聞<button>上一個</button></li>
+							<li>下一則新聞<button>下一個</button></li>
+							<li><button>名人列表</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_celebrity_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是名人列表頁</h1>
+						<ul>
+							<li>一堆名人排排站</li>
+							<li><button>名人詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_news'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是新聞頁</h1>
+						<ul>
+							<li>會有一個新聞稿(可能會有轉轉轉)</li>
+							<li>上一則新聞<button>上一個</button></li>
+							<li>下一則新聞<button>下一個</button></li>
+							<li><button>活動列表</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_news_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是新聞列表頁</h1>
+						<ul>
+							<li>一堆新聞排排站</li>
+							<li><button>新聞詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_models'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是model頁</h1>
+						<ul>
+							<li>model的詳細頁(跟街拍一樣)</li>
+							<li>看更多<button>more</button></li>
+							<li>是否有哪裡不一樣的地方，沒有的話，就會做的跟街拍頁一模一樣</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_models_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是model列表頁</h1>
+						<ul>
+							<li>一堆model排排站</li>
+							<li><button>model詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_event'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是活動頁</h1>
+						<ul>
+							<li>會有一個新聞稿(可能會有轉轉轉)</li>
+							<li>上一則新聞<button>上一個</button></li>
+							<li>下一則新聞<button>下一個</button></li>
+							<li><button>活動列表</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_event_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是活動列表頁</h1>
+						<ul>
+							<li>一堆活動排排站</li>
+							<li><button>活動詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是街拍頁</h1>
+						<ul>
+							<li>街拍的詳細頁</li>
+							<li>看更多<button>more</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是街拍列表頁</h1>
+						<ul>
+							<li>一堆model排排站</li>
+							<li><button>model詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
 		<div class="root">
 			<!-- background -->
 			<div class="fixed top left full">
@@ -14,19 +175,21 @@
 				<div class='absolute mc_fadeOutTop'></div>
 				<div class='absolute bottom mc_fadeOutBottom'></div>
 			</div>
+			<!-- pages -->
+			<div id='mc_pageContainer' class='absolute mc_pageContainer'></div>
 			<!-- header -->
-			<div>
+			<div class='fixed left top w_full'>
 				<div class='absolute w_full top left mc_head_background'></div>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/>
 				<a href='#/index'>
-					<img id="img_homeLogo" class='relative fixedTop' src='images/index/small_Logo.png'/>
-					<img id="img_streetSnapLogo" class='relative fixedTop' src='images/index/backhomeLogo3.png'/>
+					<img id="img_homeLogo" class='relative' src='images/index/small_Logo.png'/>
+					<img id="img_streetSnapLogo" class='relative' src='images/index/backhomeLogo3.png'/>
 				</a>
 			</div>
 			<!-- menubar -->
-			<div class="fixed right">
+			<div class="fixed right mc_menubar">
 				<div id='btn_nav_celebrity' class='btn navbarBtnHeight'>
 					<img class="absolute" src='images/navbar/CELEBRITY.png'></img>
 					<img src='images/navbar/CELEBRITY_over.jpg'/>
@@ -62,10 +225,14 @@
 			</div>
 		</div>
 	</body>
-	<script src='js/lib/vic.facebook.js'></script>
-	<script src="js/lib/jquery-1.7.2.js"></script>
-	<script src='js/lib/jquery.waitforimages.js'></script>
-	<script src="js/lib/perfect-scrollbar-0.5.1/src/perfect-scrollbar.js"></script>
+	<script src='js/lib/vic/vic.facebook.js'></script>
+	<script src="js/lib/jquery/jquery-1.9.min.js"></script>
+	<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
+	<script src='js/lib/jquery/jquery.waitforimages.js'></script>
 	<script src="js/lib/sketchfab-iframe.js"></script>
-	<script src='js/lib/underscore.js'></script>
+	<script src='js/lib/underscore/underscore.js'></script>
+	<script>
+	var tmpl = $('#tmpl_celebrity' ).tmpl();
+	$('#mc_pageContainer' ).append( tmpl );
+	</script>
 </html>

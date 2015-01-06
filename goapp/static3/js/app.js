@@ -13,6 +13,11 @@
       };
       this.mc_pageContainer = $('#mc_pageContainer');
       self = this;
+      this.header = new window.app.header.Controller(new window.app.header.View($('#mc_header')));
+      this.header.open();
+      this.header.event.on('onHeaderBtnBackhomeClick', function() {
+        return self.openHome();
+      });
       this.menubar = new window.app.menubar.Controller(new window.app.menubar.View($('#mc_menubar')));
       this.menubar.open();
       this.menubar.event.on('onMenubarBtnClick', function(e, id) {
@@ -62,6 +67,8 @@
       this.mc_pageContainer.empty();
       return this.mc_pageContainer.append(tmpl);
     };
+
+    Main.prototype.closeTargetPage = function(name) {};
 
     return Main;
 

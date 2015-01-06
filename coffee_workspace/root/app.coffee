@@ -12,6 +12,10 @@ class window.app.Main
 		
 		self = this
 		
+		@header = new window.app.header.Controller new window.app.header.View $ '#mc_header'
+		@header.open()
+		@header.event.on 'onHeaderBtnBackhomeClick', -> self.openHome()
+			
 		@menubar = new window.app.menubar.Controller new window.app.menubar.View $ '#mc_menubar'
 		@menubar.open()
 		@menubar.event.on 'onMenubarBtnClick', ( e, id ) ->
@@ -51,5 +55,8 @@ class window.app.Main
 		tmpl = @coll_tmpls[ name ].tmpl data
 		@mc_pageContainer.empty()
 		@mc_pageContainer.append tmpl
+		
+	closeTargetPage: ( name ) ->
+		
 
 new window.app.Main()

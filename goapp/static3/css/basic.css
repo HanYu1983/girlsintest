@@ -1,14 +1,41 @@
-.basic_fullScreenFixed{
+.fixed{
 	position:fixed;
-	left:0;
-	top:0;
+}
+.absolute{
+	position:absolute;
+}
+.relative{
+	position:relative;
+}
+
+.full{
 	width:100%;
 	height:100%;
 }
-.basic_fullScreen{
-	position:absolute;
-	left:0;
-	top:0;
+.w_full{
 	width:100%;
+}
+.h_full{
 	height:100%;
+}
+
+.top{
+	top:0;
+}
+.left{
+	left:0;
+}
+.right{
+	right:0;
+}
+.bottom{
+	bottom:0;
+}
+
+.f_right{
+	float:right;
+}
+
+.btn{
+	cursor:pointer;
 }

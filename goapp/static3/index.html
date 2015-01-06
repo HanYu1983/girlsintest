@@ -3,41 +3,63 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>angular test</title>
 		<link href='css/basic.css' rel='stylesheet' type='text/css'/>
-		<link href='css/reset.css' rel='stylesheet' type='text/css'/>
 		<link href='css/app.css' rel='stylesheet' type='text/css'/>
 	</head>
 	<body>
-		<div id='mainFrame' class='basic_fullScreen' ng-app='app' ng-controller='globalController'>
-			<div class='basic_fullScreen'>
-				<div class='mc_backgroundRoot'>
-					<div class='mc_backgroundBack'></div>
-					<div class='mc_backgroundPattern'></div>
-					<div class='mc_fadeOutTop'></div>
+		<div class="root">
+			<!-- background -->
+			<div class="fixed top left full">
+				<div class='absolute full mc_backgroundBack'></div>
+				<img class="absolute full mc_mainBg"/>
+				<div class='absolute mc_fadeOutTop'></div>
+				<div class='absolute bottom mc_fadeOutBottom'></div>
+			</div>
+			<!-- header -->
+			<div>
+				<div class='absolute w_full top left mc_head_background'></div>
+				<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
+				<img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/>
+				<img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/>
+				<a href='#/index'>
+					<img id="img_homeLogo" class='relative fixedTop' src='images/index/small_Logo.png'/>
+					<img id="img_streetSnapLogo" class='relative fixedTop' src='images/index/backhomeLogo3.png'/>
+				</a>
+			</div>
+			<!-- menubar -->
+			<div class="fixed right">
+				<div id='btn_nav_celebrity' class='btn navbarBtnHeight'>
+					<img class="absolute" src='images/navbar/CELEBRITY.png'></img>
+					<img src='images/navbar/CELEBRITY_over.jpg'/>
 				</div>
-				<div class='mc_centerRoot'>
-					<!--
-					<div class='mc_centerBackground'></div>
-					-->
-					<div class='basic_fullScreen' ng-view></div>
+				<div id='btn_nav_model' class='btn navbarBtnHeight'>
+					<img class="absolute" src='images/navbar/MODELS.png'></img>
+					<img src='images/navbar/MODELS_over.jpg'/>
 				</div>
-				<div class='mc_headbarRoot'>
-					<headbar class='mc_headbar'></headbar>
+				<div id='btn_nav_event' class='btn navbarBtnHeight'>
+					<img class="absolute" src='images/navbar/EVENT.png'></img>
+					<img src='images/navbar/EVENT_over.jpg'/>
 				</div>
-				<div class='mc_footbarRoot'>
-					<div class='mc_fadeOutBottom'></div>
-					<footbar class='mc_footbar'>
+				<div id='btn_nav_streetSnap' class='btn navbarBtnHeight'>
+					<img class="absolute" src='images/navbar/STREET-SNAP.png'></img>
+					<img src='images/navbar/STREET-SNAP_over.jpg'/>
 				</div>
-				<div class='mc_navbarRoot'>
-					<navbar class='mc_navbar'></navbar>
+				<div id='btn_nav_news' class='btn navbarBtnHeight'>
+					<img class="absolute" src='images/navbar/NEWS.png'></img>
+					<img src='images/navbar/NEWS_over.jpg'/>
+				</div>
+				<div class='btn navbarBtnHeight'>
+					<img src='images/navbar/advertise.png'></img>
 				</div>
 			</div>
-			<div id='mc_bigPhotoRoot' style='display:none' class='mc_bigPhotoRoot'>
-				<div class='mc_bigPhotoBack'></div>
-				<div class='mc_bigPhotoFixPosition'>
-					<img id='img_photo' class='img_photo'/>
-				</div>
+			<!-- footer -->
+			<div class="fixed left w_full bottom">
+				<div class='mc_foot_background w_full absolute'></div>
+				<img class="btn relative" src='images/index/bottomBtn_01.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_02.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_03.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_04.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_05.png'/>
 			</div>
-			<div id='mc_loading' class='mc_loading'></div>
 		</div>
 	</body>
 	<script src='js/lib/vic.facebook.js'></script>
@@ -45,25 +67,5 @@
 	<script src='js/lib/jquery.waitforimages.js'></script>
 	<script src="js/lib/perfect-scrollbar-0.5.1/src/perfect-scrollbar.js"></script>
 	<script src="js/lib/sketchfab-iframe.js"></script>
-	<script src='js/lib/angular.min.js'></script>
 	<script src='js/lib/underscore.js'></script>
-	<script src='js/lib/vic.events.js'></script/>
-	<script>app = {}</script>
-	<script src='js/app.config.js'></script>
-	<script src='js/app.api.js'></script>
-	<script src='js/app.utils.js'></script>
-	<script src='js/app.header.view.js'></script>
-	<script src='js/app.header.controller.js'></script>
-	<script src='js/app.bigPhoto.view.js'></script>
-	<script src='js/app.bigPhoto.controller.js'></script>
-	<script src='js/app.navbar.view.js'></script>
-	<script src='js/app.navbar.controller.js'></script>
-	<script src='js/app.indexContent.view.js'></script>
-	<script src='js/app.indexContent.controller.js'></script>
-	<script src='js/app.streetSnap.model.js'></script>
-	<script src='js/app.streetSnap.view.js'></script>
-	<script src='js/app.streetSnap.controller.js'></script>
-	<script src='js/app.streetSearch.view.js'></script>
-	<script src='js/app.streetSearch.controller.js'></script>
-	<script src='js/angularApp.js' charset="utf-8" type="text/javascript"></script>
 </html>

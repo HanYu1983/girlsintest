@@ -1,0 +1,12 @@
+.fixed{position:fixed;}
+.absolute{position:absolute;}
+.relative{position:relative;}
+.full{width:100%;height:100%;}
+.w_full{width:100%;}
+.h_full{height:100%;}
+.top{top:0;}
+.left{left:0;}
+.right{right:0;}
+.bottom{bottom:0;}
+.f_right{float:right;}
+.btn{cursor:pointer;}

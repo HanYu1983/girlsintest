@@ -5,9 +5,15 @@
 		<link href='css/basic.css' rel='stylesheet' type='text/css'/>
 		<link href='css/app.css' rel='stylesheet' type='text/css'/>
 		<link href='css/home.css' rel='stylesheet' type='text/css'/>
+		
+		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
+		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
+		<script src="js/lib/sketchfab-iframe.js"></script>
+		<script src='js/lib/underscore/underscore.js'></script>
+		<script src='js/lib/vic/vic.facebook.js'></script>
+		<script src='js/lib/vic/vic.mvc.js'></script>
 	</head>
 	<body>
-		<!-- home page -->
 		<script type='x-jquery-tmpl' id='tmpl_home'>
 			<div class='fixed top left full'>
 				<div style='left:200px; top:100px;' class='absolute'>
@@ -189,7 +195,7 @@
 				</a>
 			</div>
 			<!-- menubar -->
-			<div class="fixed right mc_menubar">
+			<div id="mc_menubar" class="fixed right mc_menubar">
 				<div id='btn_nav_celebrity' class='btn navbarBtnHeight'>
 					<img class="absolute" src='images/navbar/CELEBRITY.png'></img>
 					<img src='images/navbar/CELEBRITY_over.jpg'/>
@@ -225,14 +231,9 @@
 			</div>
 		</div>
 	</body>
-	<script src='js/lib/vic/vic.facebook.js'></script>
-	<script src="js/lib/jquery/jquery-1.9.min.js"></script>
-	<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
-	<script src='js/lib/jquery/jquery.waitforimages.js'></script>
-	<script src="js/lib/sketchfab-iframe.js"></script>
-	<script src='js/lib/underscore/underscore.js'></script>
-	<script>
-	var tmpl = $('#tmpl_celebrity' ).tmpl();
-	$('#mc_pageContainer' ).append( tmpl );
-	</script>
+	
+	<script>window.app = {}</script>
+	
+	<script src='js/app.menubar.js'></script>
+	<script src='js/app.js'></script>
 </html>

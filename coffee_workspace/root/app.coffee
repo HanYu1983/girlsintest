@@ -31,7 +31,7 @@ class window.app.Main
 				when 'btn_nav_news'
 					self.openNews()
 		
-		@openHome()
+		@openStreetsnap()
 	
 	openHome: ->
 		@openTargetPage 'home'
@@ -53,6 +53,7 @@ class window.app.Main
 		
 	openTargetPage: ( name, data ) ->
 		tmpl = @coll_tmpls[ name ].tmpl data
+		tmpl.fadeIn 400
 		@mc_pageContainer.empty()
 		@mc_pageContainer.append tmpl
 		

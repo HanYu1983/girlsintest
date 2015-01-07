@@ -34,7 +34,7 @@
             return self.openNews();
         }
       });
-      this.openHome();
+      this.openStreetsnap();
     }
 
     Main.prototype.openHome = function() {
@@ -64,6 +64,7 @@
     Main.prototype.openTargetPage = function(name, data) {
       var tmpl;
       tmpl = this.coll_tmpls[name].tmpl(data);
+      tmpl.fadeIn(400);
       this.mc_pageContainer.empty();
       return this.mc_pageContainer.append(tmpl);
     };

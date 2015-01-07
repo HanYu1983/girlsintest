@@ -2,9 +2,10 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>angular test</title>
-		<link href='css/basic.css' rel='stylesheet' type='text/css'/>
-		<link href='css/app.css' rel='stylesheet' type='text/css'/>
-		<link href='css/home.css' rel='stylesheet' type='text/css'/>
+		<link href='css/basic.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/app.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/home.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/streetsnap.min.css' rel='stylesheet' type='text/css'/>
 		
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
 		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
@@ -15,25 +16,16 @@
 	</head>
 	<body>
 		<script type='x-jquery-tmpl' id='tmpl_home'>
-			<div class='fixed top left full'>
-				<div style='left:200px; top:100px;' class='absolute'>
-					<div style='font-size:20px; color:white'>
-						<h1>這是首頁</h1>
-						<ul>
-							<li>會有一個轉轉轉</li>
-						</ul>
+			<div class='hide fixed top left full'>
+				<div class="absolute full mc_centerLogo">
+					<img class='absolute mc_backLine' src='images/index/backgroundBigLine.png'/>
+					<img class='absolute mc_bigLogo' src='images/index/big_LOGO.png'/>
+					<div class='absolute mc_3dIframeBorder'>
+						<div class='black_cube opacity_5 mc_iframeBack'></div>
+						<iframe class='absolute top left iframe_3dIframe' class='iframe_3dIframe' width='323px' height='379px'></iframe>
+						<img class='absolute top left mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
 					</div>
 				</div>
-				<!--
-				<img class='relative mc_backLine' src='images/index/backgroundBigLine.png'/>
-				<img class='mc_bigLogo' src='images/index/big_LOGO.png'/>
-				<div class='mc_3dIframeBorder'>
-					<div class='mc_iframeBack'></div>
-					<iframe id='iframe_3dIframe' class='iframe_3dIframe' width='323px' height='379px'></iframe>
-					<img class='mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
-					<img class='mc_3dicon' src='images/streetSnap/3D_ICON.png'/>
-				</div>
-				-->
 			</div>
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_celebrity'>
@@ -148,15 +140,33 @@
 			</div>
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
-			<div class='fixed top left full'>
-				<div style='left:200px; top:100px;' class='absolute'>
-					<div style='font-size:20px; color:white'>
-						<h1>這是街拍頁</h1>
-						<ul>
-							<li>街拍的詳細頁</li>
-							<li>看更多<button>more</button></li>
-						</ul>
-					</div>
+			<div class="full">
+				<div class="absolute h_full mc_center">
+					<div class="fixed h_full mc_background"></div>
+					<div class="txt_name">name</div>
+					<div class="txt_date">2014-12-1</div>
+					<img class='mc_line' src='images/streetSnap/line.png'/>
+					<iframe class='iframe_3dIframe' width='323px' height='379px'></iframe>
+					<div class="mc_pro"></div>
+					<img class='mc_stylePicture' src='images/streetSnap/test2.jpg'/>
+					<img class='mc_picture1' src='images/streetSnap/test1.jpg'/>
+					<img class='mc_picture2' src='images/streetSnap/test1.jpg'/>
+					<img class='mc_picture3' src='images/streetSnap/test1.jpg'/>
+					<div class="txt_name2">name</div>
+					<img class='mc_line' src='images/streetSnap/line.png'/>
+					<!--
+					<div class="relative f_left margin_topA">name</div>
+					<div class="relative f_left margin_topA txt_date">2014-12-1</div>
+					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+					<iframe class='relative f_left margin_topB iframe_3dIframe' width='323px' height='379px'></iframe>
+					<div class="relative f_left margin_topB margin_rightA black_cube opacity_5 mc_pro"></div>
+					<img class='relative f_left mc_stylePicture' src='images/streetSnap/test2.jpg'/>
+					<img class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
+					<img class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
+					<img class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
+					<div class="relative f_left">name</div>
+					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+					-->
 				</div>
 			</div>
 		</script>
@@ -182,7 +192,7 @@
 				<div class='absolute bottom mc_fadeOutBottom'></div>
 			</div>
 			<!-- pages -->
-			<div id='mc_pageContainer' class='absolute mc_pageContainer'></div>
+			<div id='mc_pageContainer' class='absolute full mc_pageContainer'></div>
 			<!-- header -->
 			<div id="mc_header" class='fixed left top w_full'>
 				<div class='absolute w_full top left mc_head_background'></div>

@@ -1,6 +1,7 @@
 .fixed{position:fixed;}
 .absolute{position:absolute;}
 .relative{position:relative;}
+.hide{display:none;}
 .full{width:100%;height:100%;}
 .w_full{width:100%;}
 .h_full{height:100%;}
@@ -9,4 +10,8 @@
 .right{right:0;}
 .bottom{bottom:0;}
 .f_right{float:right;}
+.f_left{float:left;}
 .btn{cursor:pointer;}
+.black_cube{background-color:black;}
+.opacity_5{opacity:.5;}
+

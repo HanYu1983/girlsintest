@@ -17,13 +17,13 @@
 	<body>
 		<script type='x-jquery-tmpl' id='tmpl_home'>
 			<div class='hide fixed top left full'>
-				<div class="absolute full mc_centerLogo">
-					<img class='absolute mc_backLine' src='images/index/backgroundBigLine.png'/>
-					<img class='absolute mc_bigLogo' src='images/index/big_LOGO.png'/>
-					<div class='absolute mc_3dIframeBorder'>
-						<div class='black_cube opacity_5 mc_iframeBack'></div>
-						<iframe class='absolute top left iframe_3dIframe' class='iframe_3dIframe' width='323px' height='379px'></iframe>
-						<img class='absolute top left mc_3dIframeBorderLine' src='images/streetSnap/pinkBorder.png'/>
+				<div id="mc_centerLogo" class="absolute full">
+					<img id="mc_backLine" class='absolute' src='images/index/backgroundBigLine.png'/>
+					<img id="mc_bigLogo" class='absolute' src='images/index/big_LOGO.png'/>
+					<div id="mc_3dIframeBorder" class='absolute'>
+						<div id="mc_iframeBack" class='black_cube opacity_5'></div>
+						<iframe id="iframe_3dIframe" class='absolute top left' class='iframe_3dIframe' width='323px' height='379px'></iframe>
+						<img id="mc_3dIframeBorderLine" class='absolute top left' src='images/streetSnap/pinkBorder.png'/>
 					</div>
 				</div>
 			</div>
@@ -173,16 +173,16 @@
 		<div class="root">
 			<!-- background -->
 			<div class="fixed top left full">
-				<div class='absolute full mc_backgroundBack'></div>
-				<img class='absolute full mc_mainBg'/>
-				<div class='absolute mc_fadeOutTop'></div>
-				<div class='absolute bottom mc_fadeOutBottom'></div>
+				<div id="mc_backgroundBack" class='absolute full'></div>
+				<img id="mc_mainBg" class='absolute full'/>
+				<div id="mc_fadeOutTop" class='absolute'></div>
+				<div id="mc_fadeOutBottom" class='absolute bottom'></div>
 			</div>
 			<!-- pages -->
-			<div id='mc_pageContainer' class='absolute full mc_pageContainer'></div>
+			<div id='mc_pageContainer' class='absolute full'></div>
 			<!-- header -->
 			<div id="mc_header" class='fixed left top w_full'>
-				<div class='absolute w_full top left mc_head_background'></div>
+				<div id="mc_head_background" class='absolute w_full top left'></div>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/>
@@ -192,7 +192,7 @@
 				</div>
 			</div>
 			<!-- menubar -->
-			<div id="mc_menubar" class="fixed right mc_menubar">
+			<div id="mc_menubar" class="fixed right">
 				<div id='btn_nav_celebrity' class='btn navbarBtnHeight'>
 					<img class="absolute" src='images/navbar/CELEBRITY.png'></img>
 					<img src='images/navbar/CELEBRITY_over.jpg'/>

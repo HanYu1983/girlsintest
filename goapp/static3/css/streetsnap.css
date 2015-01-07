@@ -36,22 +36,3 @@
 .mc_stylePicture{
 	height:282px;
 }
-
-.txt_name, .txt_name2, .txt_date, .mc_line, .mc_pro, .mc_stylePicture, .mc_picture1, .mc_picture2, .mc_picture3, .iframe_3dIframe{
-	position:relative;
-	float:left;
-}
-.txt_name, .txt_date{
-	margin-top:150px;
-}
-<div class="relative f_left margin_topA">name</div>
-					<div class="relative f_left margin_topA txt_date">2014-12-1</div>
-					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
-					<iframe class='relative f_left margin_topB iframe_3dIframe' width='323px' height='379px'></iframe>
-					<div class="relative f_left margin_topB margin_rightA black_cube opacity_5 mc_pro"></div>
-					<img class='relative f_left mc_stylePicture' src='images/streetSnap/test2.jpg'/>
-					<img class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
-					<img class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
-					<img class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
-					<div class="relative f_left">name</div>
-					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>

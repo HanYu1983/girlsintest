@@ -9,6 +9,7 @@
         models: $('#tmpl_models'),
         event: $('#tmpl_event'),
         streetsnap: $('#tmpl_streetsnap'),
+        streetsnapList: $('#tmpl_streetsnap_list'),
         news: $('#tmpl_news')
       };
       this.mc_pageContainer = $('#mc_pageContainer');
@@ -34,7 +35,7 @@
             return self.openNews();
         }
       });
-      this.openStreetsnap();
+      this.openStreetsnapList();
     }
 
     Main.prototype.openHome = function() {
@@ -55,6 +56,10 @@
 
     Main.prototype.openStreetsnap = function() {
       return this.openTargetPage('streetsnap');
+    };
+
+    Main.prototype.openStreetsnapList = function() {
+      return this.openTargetPage('streetsnapList');
     };
 
     Main.prototype.openNews = function() {

@@ -6,6 +6,7 @@ class window.app.Main
 			models: $ '#tmpl_models'
 			event: $ '#tmpl_event'
 			streetsnap: $ '#tmpl_streetsnap'
+			streetsnapList: $ '#tmpl_streetsnap_list'
 			news: $ '#tmpl_news'
 				
 		@mc_pageContainer = $ '#mc_pageContainer'
@@ -31,7 +32,7 @@ class window.app.Main
 				when 'btn_nav_news'
 					self.openNews()
 		
-		@openStreetsnap()
+		@openStreetsnapList()
 	
 	openHome: ->
 		@openTargetPage 'home'
@@ -47,7 +48,10 @@ class window.app.Main
 		
 	openStreetsnap: ->
 		@openTargetPage 'streetsnap'
-		
+	
+	openStreetsnapList: ->
+		@openTargetPage 'streetsnapList'
+	
 	openNews: ->
 		@openTargetPage 'news'	
 		

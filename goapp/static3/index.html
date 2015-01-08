@@ -6,6 +6,7 @@
 		<link href='css/app.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/home.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/streetsnap.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/streetsnapSearch.min.css' rel='stylesheet' type='text/css'/>
 		
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
 		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
@@ -143,29 +144,80 @@
 			<div class="full">
 				<div id="mc_center" class="absolute h_full">
 					<div id="mc_background" class="fixed h_full"></div>
-					<div id="txt_name" class="relative f_left margin_topA">name</div>
-					<div id="txt_date" class="relative f_left margin_topA">2014-12-1</div>
-					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
-					<iframe id="iframe_3dIframe" class='relative f_left margin_topB' width='323px' height='379px'></iframe>
-					<div id="mc_pro" class="relative f_left margin_topB margin_rightA black_cube opacity_5"></div>
-					<img id="img_stylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
-					<img id="img_sideA" class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
-					<img id="img_sideB" class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
-					<img id="img_sideC" class='relative f_left margin_rightA' src='images/streetSnap/test1.jpg'/>
-					<div id="txt_name2" class="relative f_left">name</div>
-					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+					<div class="mainContainer margin_leftA margin_topA">
+						<div id="txt_name" class="relative f_left txt_size_title textBase">Alice</div>
+						<div id="txt_date" class="relative f_right txt_size_title textBase">2014-12-1</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div id="mc_mainContainer" class="relative f_left">
+							<iframe id="iframe_3dIframe" class='relative f_left' width='323px' height='379px'></iframe>
+							<div id="mc_pro" class="relative f_left">
+								<div class="absolute full white_cube opacity_3"></div>
+								<div id="txt_proContent" class="absolute textBase">於東區街頭看到這個小女孩, 桃紅T-Shirt加上深藍帽T的搭配，呈現出初秋可愛的氣息</div>
+							</div>
+							<img id="img_stylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
+							<img id="img_sideA" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideB" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+						</div>
+						<div id="txt_name2" class="relative f_left margin_topB textBase">MODEL照片</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div class="relative f_left margin_photoLeft sectionBorder">
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+						</div>
+						<div id="txt_name2" class="relative f_left margin_topB textBase">MODEL資料</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
+							名字　　　　　　　　　: Alice</br>
+							喜歡的品牌　　　　　　: Burberry</br>
+							喜歡的穿衣風格　　　　: American Style</br>
+							喜歡的雜誌　　　　　　: Vogue, ELLE</br>
+							最近喜歡看的電視節目　: 不是政論節目都好
+						</div>
+						<div id="txt_name2" class="relative f_left margin_topB textBase">MODEL訪談</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div id="txt_modelMeeting" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">對於時尚,我覺得最重要的是穿出自己的風格, 而不是一昧跟隨著流行。但當然也需要觀察最近的趨勢.也許有朝一日也可以成為部落格呢</div>
+					</div>
 				</div>
 			</div>
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
-			<div class='fixed top left full'>
-				<div style='left:200px; top:100px;' class='absolute'>
-					<div style='font-size:20px; color:white'>
-						<h1>這是街拍列表頁</h1>
-						<ul>
-							<li>一堆model排排站</li>
-							<li><button>model詳細</button></li>
-						</ul>
+			<div class="full">
+				<div id="mc_center" class="absolute h_full">
+					<div id="mc_background" class="fixed h_full"></div>
+					<div class="mainContainer margin_leftA margin_topA">
+						<div id="txt_name2" class="relative f_left textBase">街拍精選</div>
+						<div id="mc_searchbar" class="relative f_right">
+							<input id='input_search' class="relative f_left" />
+							<img id="btn_search" src='images/streetSearch/search.png'/>
+						</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div class="relative f_left singleModel">
+							<div class='mc_modelTitle'>
+								<div class='mc_modelTitle_back'></div>
+								<div id='txt_name' class='textBase txt_name'>Alice</div>
+								<div id='txt_date' class='textBase txt_date'>2010/10/10</div>
+							</div>
+							<img id="img_stylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
+							<img id="img_sideA" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideB" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -182,7 +234,7 @@
 			<div id='mc_pageContainer' class='absolute full'></div>
 			<!-- header -->
 			<div id="mc_header" class='fixed left top w_full'>
-				<div id="mc_head_background" class='absolute w_full top left'></div>
+				<div id="mc_head_background" class='absolute w_full black_cube opacity_3 white_outline_1 top left'></div>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/>
@@ -219,7 +271,7 @@
 			</div>
 			<!-- footer -->
 			<div class="fixed left w_full bottom">
-				<div class='mc_foot_background w_full absolute'></div>
+				<div id="mc_foot_background" class='absolute w_full black_cube opacity_3 white_outline_1'></div>
 				<img class="btn relative" src='images/index/bottomBtn_01.png'/>
 				<img class="btn relative" src='images/index/bottomBtn_02.png'/>
 				<img class="btn relative" src='images/index/bottomBtn_03.png'/>

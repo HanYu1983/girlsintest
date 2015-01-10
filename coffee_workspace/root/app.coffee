@@ -6,23 +6,10 @@ PageStreetsnap = 'streetsnap'
 PageStreetsnapList = 'streetsnapList'
 PageNews = 'news'
 CloseablePageList = [PageHome, PageCelebrity, PageModels, PageEvent ,PageStreetsnap ,PageStreetsnapList ,PageNews ]
-		
+
 class window.app.Main
-	constructor: ->
-		#所有的頁面template
-		@coll_tmpls = 
-			home: $ '#tmpl_home'
-			celebrity: $ '#tmpl_celebrity'
-			models: $ '#tmpl_models'
-			event: $ '#tmpl_event'
-			streetsnap: $ '#tmpl_streetsnap'
-			streetsnapList: $ '#tmpl_streetsnap_list'
-			news: $ '#tmpl_news'
-			header: $ '#mc_header'
-			menubar: $ '#mc_menubar'
-			
+	constructor: (@mvcConfig)->
 		@coll_pages = {}
-				
 		#頁面的container	
 		@mc_pageContainer = $ '#mc_pageContainer'
 		
@@ -51,43 +38,46 @@ class window.app.Main
 		
 		@openPage PageHome
 	
+	# 打開一個頁面
 	openPage: ( name, model ) ->
-		@closeAllPage
+		@closeAllPage()
 		@bindEvent name, @openPageController name, model
 	
+	# 每打開一個頁面會呼叫這，為各個頁面綁定事件處理
 	bindEvent: (name, controller) ->
 	
+	
+	# 關閉一個頁面
 	closePage: ( name ) ->
 		@unbindEvent name, @closePageController name
 	
+	# 每關閉一個頁面會呼叫這，將事件綁定解除。controller可能會是undefined, 就不必為它處理
 	unbindEvent: (name, controller) ->
 		return if controller is undefined
 		
 	#打開指定頁面	
 	openPageController: ( name, model ) ->
-		self = this
-		elem = @coll_tmpls[ name ].tmpl model 
+		return if @mvcConfig[ name ] is undefined
+		
+		elem = @mvcConfig[ name ].tmpl.tmpl model 
 		elem.appendTo @mc_pageContainer
 		
-		isControllerExist = window.app[ name ] isnt undefined
-		if isControllerExist
-			controller = new window.app[ name ].Controller new window.app[ name ].View elem
-			controller.open()
-			@collect_page[ name ] = controller
-		else
-			console.log 'no controller ' + name
+		controller = new @mvcConfig[ name ].controller new @mvcConfig[ name ].view elem
+		controller.open()
+		@coll_pages[ name ] = controller
 			
 	#關掉指定頁面	
 	closePageController: ( name ) ->
-		if ( @collect_page[ name ] is undefined ) then return
-		page = @collect_page[ name ]
+		if ( @coll_pages[ name ] is undefined ) then return
+		page = @coll_pages[ name ]
 		@mc_pageContainer.empty()
-		@collect_page[ name ].close()
-		delete @collect_page[ name ]
+		@coll_pages[ name ].close()
+		delete @coll_pages[ name ]
 		page
 	
 	closeAllPage: ->
 		@closePage page for page in CloseablePageList
 		
-		
-new window.app.Main()
+console.log app.mvcConfig
+
+new window.app.Main app.mvcConfig 

@@ -19,19 +19,9 @@
   CloseablePageList = [PageHome, PageCelebrity, PageModels, PageEvent, PageStreetsnap, PageStreetsnapList, PageNews];
 
   window.app.Main = (function() {
-    function Main() {
+    function Main(mvcConfig) {
       var self;
-      this.coll_tmpls = {
-        home: $('#tmpl_home'),
-        celebrity: $('#tmpl_celebrity'),
-        models: $('#tmpl_models'),
-        event: $('#tmpl_event'),
-        streetsnap: $('#tmpl_streetsnap'),
-        streetsnapList: $('#tmpl_streetsnap_list'),
-        news: $('#tmpl_news'),
-        header: $('#mc_header'),
-        menubar: $('#mc_menubar')
-      };
+      this.mvcConfig = mvcConfig;
       this.coll_pages = {};
       this.mc_pageContainer = $('#mc_pageContainer');
       self = this;
@@ -60,7 +50,7 @@
     }
 
     Main.prototype.openPage = function(name, model) {
-      this.closeAllPage;
+      this.closeAllPage();
       return this.bindEvent(name, this.openPageController(name, model));
     };
 
@@ -77,29 +67,26 @@
     };
 
     Main.prototype.openPageController = function(name, model) {
-      var controller, elem, isControllerExist, self;
-      self = this;
-      elem = this.coll_tmpls[name].tmpl(model);
-      elem.appendTo(this.mc_pageContainer);
-      isControllerExist = window.app[name] !== void 0;
-      if (isControllerExist) {
-        controller = new window.app[name].Controller(new window.app[name].View(elem));
-        controller.open();
-        return this.collect_page[name] = controller;
-      } else {
-        return console.log('no controller ' + name);
+      var controller, elem;
+      if (this.mvcConfig[name] === void 0) {
+        return;
       }
+      elem = this.mvcConfig[name].tmpl.tmpl(model);
+      elem.appendTo(this.mc_pageContainer);
+      controller = new this.mvcConfig[name].controller(new this.mvcConfig[name].view(elem));
+      controller.open();
+      return this.coll_pages[name] = controller;
     };
 
     Main.prototype.closePageController = function(name) {
       var page;
-      if (this.collect_page[name] === void 0) {
+      if (this.coll_pages[name] === void 0) {
         return;
       }
-      page = this.collect_page[name];
+      page = this.coll_pages[name];
       this.mc_pageContainer.empty();
-      this.collect_page[name].close();
-      delete this.collect_page[name];
+      this.coll_pages[name].close();
+      delete this.coll_pages[name];
       return page;
     };
 
@@ -117,6 +104,8 @@
 
   })();
 
-  new window.app.Main();
+  console.log(app.mvcConfig);
+
+  new window.app.Main(app.mvcConfig);
 
 }).call(this);

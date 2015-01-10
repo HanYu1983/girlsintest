@@ -12,6 +12,7 @@
         streetsnapList: $('#tmpl_streetsnap_list'),
         news: $('#tmpl_news')
       };
+      this.coll_pages = {};
       this.mc_pageContainer = $('#mc_pageContainer');
       self = this;
       this.header = new window.app.header.Controller(new window.app.header.View($('#mc_header')));
@@ -35,7 +36,7 @@
             return self.openNews();
         }
       });
-      this.openStreetsnapList();
+      this.openHome();
     }
 
     Main.prototype.openHome = function() {
@@ -66,15 +67,31 @@
       return this.openTargetPage('news');
     };
 
-    Main.prototype.openTargetPage = function(name, data) {
-      var tmpl;
-      tmpl = this.coll_tmpls[name].tmpl(data);
-      tmpl.fadeIn(400);
-      this.mc_pageContainer.empty();
-      return this.mc_pageContainer.append(tmpl);
+    Main.prototype.openTargetPage = function(name, model) {
+      var controller, elem, self;
+      self = this;
+      elem = this.coll_tmpls[name].tmpl(model);
+      elem.appendTo(this.mc_pageContainer);
+      controller = new window.app[name].Controller(new window.app[name].View(elem));
+      controller.open();
+      return this.collect_page[name] = controller;
     };
 
-    Main.prototype.closeTargetPage = function(name) {};
+    Main.prototype.closeTargetPage = function(name) {
+      var page;
+      if (this.collect_page[name] === void 0) {
+        return;
+      }
+      page = this.collect_page[name];
+      this.mc_pageContainer.empty();
+      this.collect_page[name].close();
+      delete this.collect_page[name];
+      return page;
+    };
+
+    Main.prototype.closeAllPageAndThen = function(func) {
+      return func();
+    };
 
     return Main;
 

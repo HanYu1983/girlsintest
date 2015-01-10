@@ -1,3 +1,12 @@
+PageHome = 'home'
+PageCelebrity = 'celebrity'
+PageModels = 'models'
+PageEvent = 'event'
+PageStreetsnap = 'streetsnap'
+PageStreetsnapList = 'streetsnapList'
+PageNews = 'news'
+CloseablePageList = [PageHome, PageCelebrity, PageModels, PageEvent ,PageStreetsnap ,PageStreetsnapList ,PageNews ]
+		
 class window.app.Main
 	constructor: ->
 		#所有的頁面template
@@ -9,6 +18,8 @@ class window.app.Main
 			streetsnap: $ '#tmpl_streetsnap'
 			streetsnapList: $ '#tmpl_streetsnap_list'
 			news: $ '#tmpl_news'
+			header: $ '#mc_header'
+			menubar: $ '#mc_menubar'
 			
 		@coll_pages = {}
 				
@@ -20,7 +31,7 @@ class window.app.Main
 		#頭部的header
 		@header = new window.app.header.Controller new window.app.header.View $ '#mc_header'
 		@header.open()
-		@header.event.on 'onHeaderBtnBackhomeClick', -> self.openHome()
+		@header.event.on 'onHeaderBtnBackhomeClick', -> self.openPage PageHome
 			
 		#選單
 		@menubar = new window.app.menubar.Controller new window.app.menubar.View $ '#mc_menubar'
@@ -28,57 +39,46 @@ class window.app.Main
 		@menubar.event.on 'onMenubarBtnClick', ( e, id ) ->
 			switch id
 				when 'btn_nav_celebrity'
-					self.openCelebrity()
+					self.openPage PageCelebrity 
 				when 'btn_nav_model'
-					self.openModels()
+					self.openPage PageModels 
 				when 'btn_nav_event'
-					self.openEvent()
+					self.openPage PageEvent 
 				when 'btn_nav_streetSnap'
-					self.openStreetsnap()
+					self.openPage PageStreetsnap 
 				when 'btn_nav_news'
-					self.openNews()
+					self.openPage PageNews 
 		
-		@openHome()
+		@openPage PageHome
 	
-	#打開首頁	
-	openHome: ->
-		@openTargetPage 'home'
+	openPage: ( name, model ) ->
+		@closeAllPage
+		@bindEvent name, @openPageController name, model
 	
-	#打開名人頁
-	openCelebrity: ->
-		@openTargetPage 'celebrity'
+	bindEvent: (name, controller) ->
 	
-	#打開模特頁
-	openModels: ->
-		@openTargetPage 'models'
-
-	#打開活動頁
-	openEvent: ->
-		@openTargetPage 'event'
+	closePage: ( name ) ->
+		@unbindEvent name, @closePageController name
+	
+	unbindEvent: (name, controller) ->
+		return if controller is undefined
 		
-	#打開街拍頁	
-	openStreetsnap: ->
-		@openTargetPage 'streetsnap'
-	
-	#打開街拍搜尋頁	
-	openStreetsnapList: ->
-		@openTargetPage 'streetsnapList'
-	
-	#打開新聞頁	
-	openNews: ->
-		@openTargetPage 'news'	
-	
 	#打開指定頁面	
-	openTargetPage: ( name, model ) ->
+	openPageController: ( name, model ) ->
 		self = this
 		elem = @coll_tmpls[ name ].tmpl model 
 		elem.appendTo @mc_pageContainer
-		controller = new window.app[ name ].Controller new window.app[ name ].View elem
-		controller.open()
-		@collect_page[ name ] = controller
-	
+		
+		isControllerExist = window.app[ name ] isnt undefined
+		if isControllerExist
+			controller = new window.app[ name ].Controller new window.app[ name ].View elem
+			controller.open()
+			@collect_page[ name ] = controller
+		else
+			console.log 'no controller ' + name
+			
 	#關掉指定頁面	
-	closeTargetPage: ( name ) ->
+	closePageController: ( name ) ->
 		if ( @collect_page[ name ] is undefined ) then return
 		page = @collect_page[ name ]
 		@mc_pageContainer.empty()
@@ -86,10 +86,8 @@ class window.app.Main
 		delete @collect_page[ name ]
 		page
 	
-	closeAllPageAndThen: ( func ) ->
-		func()
-	
+	closeAllPage: ->
+		@closePage page for page in CloseablePageList
 		
 		
-
 new window.app.Main()

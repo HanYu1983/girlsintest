@@ -110,6 +110,6 @@
 
   console.log(app.mvcConfig);
 
-  new window.app.Main(app.mvcConfig);
+  new window.app.Main(app.config.mvcConfig);
 
 }).call(this);

@@ -23,52 +23,91 @@
     };
 
     StreetsnapController.prototype.applyTemplate = function(tmpl, callback) {
-      this.queryData();
-      return callback(tmpl.tmpl({
-        name: 'vic',
-        date: '2014-12-2',
-        styleUrl: 'images/streetSnap/test2.jpg',
-        sideList: [
-          {
-            id: '01',
-            url: 'images/streetSnap/test1.jpg'
-          }, {
-            id: '02',
-            url: 'images/streetSnap/test1.jpg'
-          }
-        ],
-        bottomList: [
-          {
-            id: '01',
-            url: 'images/streetSnap/test1.jpg'
-          }, {
-            id: '02',
-            url: 'images/streetSnap/test1.jpg'
-          }
-        ],
-        modelDetail: '名字　　　　　　　　　: Alice</br>喜歡的品牌　　　　　　: Burberry</br>\n喜歡的穿衣風格　　　　: American Style</br>\n喜歡的雜誌　　　　　　: Vogue, ELLE</br>\n最近喜歡看的電視節目　: 不是政論節目都好',
-        talk: '對於時尚,我覺得最重要的是穿出自己的風格, 而不是一昧跟隨著流行。但當然也需要觀察最近的趨勢.也許有朝一日也可以成為部落格',
-        protalk: '於東區街頭看到這個小女孩, 桃紅T-Shirt加上深藍帽T的搭配，呈現出初秋可愛的氣息'
-      }));
+      var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isSidePhoto, isStylePhoto, repairBase64;
+      isStylePhoto = function(photo) {
+        return photo.Belong === -3;
+      };
+      isSidePhoto = function(photo) {
+        return photo.Belong === -2;
+      };
+      isBottomPhoto = function(photo) {
+        return photo.Belong === -1;
+      };
+      repairBase64 = function(base64) {
+        return base64.replace('\r', '').replace('\n', '');
+      };
+      formatPhoto = function(photo) {
+        return {
+          id: photo.Key,
+          url: app.tool.getFullBase64str(repairBase64(photo.Base64Str))
+        };
+      };
+      findFormatedPhoto = function(photoData, filterFn) {
+        return _.map(_.filter(photoData, filterFn), formatPhoto);
+      };
+      formatModelData = function(_arg) {
+        var modelData, photoData;
+        modelData = _arg[0], photoData = _arg[1];
+        return {
+          name: modelData.Caption,
+          date: modelData.DateUnix,
+          styleUrl: _.first(findFormatedPhoto(photoData, isStylePhoto)).url,
+          sideList: findFormatedPhoto(photoData, isSidePhoto),
+          bottomList: findFormatedPhoto(photoData, isBottomPhoto),
+          modelDetail: modelData.Description,
+          talk: modelData.Talk,
+          protalk: modelData.Comment
+        };
+      };
+      return this.queryDefault().done(function(_arg) {
+        var model, modelData, photoData;
+        modelData = _arg[0], photoData = _arg[1];
+        model = _.first(_.map(_.zip(modelData, photoData), formatModelData));
+        return callback(tmpl.tmpl(model));
+      }).fail(function(err) {
+        return console.log(err);
+      });
+
+      /*
+      		 *{"Key":5629499534213120,"Caption":"caption","Description":"description","Talk":"talk","Comment":"comment","ModelKey":"","Date":"2015-01-10T17:21:14.024316Z","DateUnix":1420910474,"Tag":"xxx","Available":true}
+      		
+      		callback tmpl.tmpl
+      			name: 'vic'
+      			date: '2014-12-2'
+      			styleUrl:'images/streetSnap/test2.jpg'
+      			sideList:[ {id:'01', url:'images/streetSnap/test1.jpg'}, {id:'02', url:'images/streetSnap/test1.jpg' }]
+      			bottomList:[ {id:'01', url:'images/streetSnap/test1.jpg'}, {id:'02', url:'images/streetSnap/test1.jpg' }]
+      			modelDetail:'''名字　　　　　　　　　: Alice</br>喜歡的品牌　　　　　　: Burberry</br>
+      							喜歡的穿衣風格　　　　: American Style</br>
+      							喜歡的雜誌　　　　　　: Vogue, ELLE</br>
+      							最近喜歡看的電視節目　: 不是政論節目都好'''
+      			talk:'對於時尚,我覺得最重要的是穿出自己的風格, 而不是一昧跟隨著流行。但當然也需要觀察最近的趨勢.也許有朝一日也可以成為部落格'
+      			protalk:'於東區街頭看到這個小女孩, 桃紅T-Shirt加上深藍帽T的搭配，呈現出初秋可愛的氣息'
+       */
     };
 
-    StreetsnapController.prototype.queryData = function() {
-      var fetchEndProcess, fetchModelData, fetchPhotoData, query;
+    StreetsnapController.prototype.queryDefault = function() {
+      return this.queryData(0, 1);
+    };
+
+    StreetsnapController.prototype.queryData = function(offset, limit) {
+      var fetchEndProcess, fetchModelData, fetchPhotoData, promise, query;
       query = app.tool.serverapi.query("http://localhost:8080/");
       fetchModelData = function(callback) {
-        return query(app.tool.serverapi.QueryStreetModel, {}).done(function(data) {
-          return callback(null, data);
+        return query(app.tool.serverapi.QueryStreetModel, {
+          Offset: offset,
+          Limit: limit
+        }).done(function(data) {
+          return callback(null, data.Info);
         }).fail(function(err) {
           return callback(err);
         });
       };
       fetchPhotoData = function(modelData, callback) {
-        var models;
-        models = modelData.Info;
-        if (models.length === 0) {
+        if (modelData.length === 0) {
           callback(null, []);
         }
-        return async.map(modelData.Info, function(model, callback) {
+        return async.map(modelData, function(model, callback) {
           return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
             StreetModelKey: model.Key
           }).done(function(photoData) {
@@ -80,25 +119,18 @@
           return callback(err, [modelData, results]);
         });
       };
+      promise = jQuery.Deferred();
       fetchEndProcess = (function(_this) {
         return function(err, results) {
           if (err != null) {
-            return _this.onQueryError(err);
+            return promise.reject(err);
           } else {
-            return _this.onDataFetched.apply(_this, results);
+            return promise.resolve(results);
           }
         };
       })(this);
-      return async.waterfall([fetchModelData, fetchPhotoData], fetchEndProcess);
-    };
-
-    StreetsnapController.prototype.onQueryError = function(err) {
-      return console.log(err);
-    };
-
-    StreetsnapController.prototype.onDataFetched = function(modelData, photoData) {
-      console.log(modelData);
-      return console.log(photoData);
+      async.waterfall([fetchModelData, fetchPhotoData], fetchEndProcess);
+      return promise;
     };
 
     return StreetsnapController;

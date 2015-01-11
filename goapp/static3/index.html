@@ -10,7 +10,7 @@
 		
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
 		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
-		<script src="js/lib/sketchfab-iframe.js"></script>
+		<script src="js/lib/sketchfab/sketchfab-iframe.js"></script>
 		<script src='js/lib/underscore/underscore.js'></script>
 		<script src='js/lib/vic/vic.facebook.js'></script>
 		<script src='js/lib/vic/vic.mvc.js'></script>
@@ -141,7 +141,7 @@
 			</div>
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
-			<div class="full">
+			<div class="hide full">
 				<div id="mc_center" class="absolute h_full">
 					<div id="mc_background" class="fixed h_full"></div>
 					<div class="mainContainer margin_leftA margin_topA">
@@ -155,13 +155,15 @@
 								<div id="txt_proContent" class="absolute textBase">於東區街頭看到這個小女孩, 桃紅T-Shirt加上深藍帽T的搭配，呈現出初秋可愛的氣息</div>
 							</div>
 							<img id="img_stylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
-							<img id="img_sideA" class='relative f_left' src='images/streetSnap/test1.jpg'/>
-							<img id="img_sideB" class='relative f_left' src='images/streetSnap/test1.jpg'/>
-							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<div id="mc_sideContainer">
+								<img id="img_sideA" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+								<img id="img_sideB" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+								<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							</div>
 						</div>
 						<div id="txt_name2" class="relative f_left margin_topB textBase">MODEL照片</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
-						<div class="relative f_left margin_photoLeft sectionBorder">
+						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
 							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
 							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
 							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
@@ -283,10 +285,14 @@
 	
 	<script>window.app = {}</script>
 	<script>window.app.page = {}</script>
+	<script src='js/app.page.home.View.js'></script>
+    <script src='js/app.page.home.Controller.js'></script>
+	<script src='js/app.page.menubar.View.js'></script>
+    <script src='js/app.page.menubar.Controller.js'></script>
+    <script src='js/app.page.header.View.js'></script>
+    <script src='js/app.page.header.Controller.js'></script>
     <script src='js/app.page.streetsnap.View.js'></script>
     <script src='js/app.page.streetsnap.Controller.js'></script>
-	<script src='js/app.menubar.js'></script>
-	<script src='js/app.header.js'></script>
     <script src="js/app.config.js"></script>
 	<script src='js/app.js'></script>
 </html>

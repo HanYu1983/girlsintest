@@ -36,7 +36,7 @@ class window.app.Main
 				when 'btn_nav_news'
 					self.openPage PageNews 
 		
-		@openPage PageHome
+		@openPage PageStreetsnap
 	
 	# 打開一個頁面
 	openPage: ( name, model ) ->

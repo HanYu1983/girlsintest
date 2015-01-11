@@ -46,7 +46,7 @@
             return self.openPage(PageNews);
         }
       });
-      this.openPage(PageHome);
+      this.openPage(PageStreetsnap);
     }
 
     Main.prototype.openPage = function(name, model) {

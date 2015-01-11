@@ -1,10 +1,10 @@
 window.app.mvcConfig = 
-	###
+	
 	home:
 		tmpl: $ '#tmpl_home'
 		view: window.app.home.View
 		controller: window.app.home.Controller
-		
+	###	
 	celebrity: 
 		tmpl: $ '#tmpl_celebrity'
 		view: window.app.celebrity.View

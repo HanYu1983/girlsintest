@@ -19,20 +19,36 @@
       var self;
       self = this;
       this.mc_sideContainer.delegate('img', 'click', function() {
-        console.log('onImgClick', this.id);
-        return self.event.trigger('onImgClick', this.id);
+        console.log('onImgClick', {
+          id: this.id
+        });
+        return self.event.trigger('onImgClick', {
+          id: this.id
+        });
       });
       this.mc_bottomContainer.delegate('img', 'click', function() {
-        console.log('onImgClick', this.id);
-        return self.event.trigger('onImgClick', this.id);
+        console.log('onImgClick', {
+          id: this.id
+        });
+        return self.event.trigger('onImgClick', {
+          id: this.id
+        });
       });
       this.mc_historyContainer.delegate('img', 'click', function() {
-        console.log('onImgHistoryClick', this.id);
-        return self.event.trigger('onImgHistoryClick', this.id);
+        console.log('onImgHistoryClick', {
+          id: this.id
+        });
+        return self.event.trigger('onImgHistoryClick', {
+          id: this.id
+        });
       });
       this.img_stylePicture.click(function() {
-        console.log('onImgClick', this.id);
-        return self.event.trigger('onImgClick', this.id);
+        console.log('onImgClick', {
+          id: this.id
+        });
+        return self.event.trigger('onImgClick', {
+          id: this.id
+        });
       });
       return this.btn_more.click(function() {
         console.log('onBtnMoreClick');

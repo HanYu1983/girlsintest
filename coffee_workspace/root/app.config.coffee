@@ -1,4 +1,5 @@
-window.app.mvcConfig = 
+window.app.config ?= {}
+window.app.config.mvcConfig = 
 	
 	home:
 		tmpl: $ '#tmpl_home'
@@ -30,3 +31,8 @@ window.app.mvcConfig =
 		tmpl: $ '#tmpl_streetsnap'
 		view: window.app.page.StreetsnapView
 		controller: window.app.page.StreetsnapController
+
+window.app.config.BelongHead = -1
+window.app.config.BelongStyle = -2
+window.app.config.BelongSide = -3
+window.app.config.BelongNormal = 0

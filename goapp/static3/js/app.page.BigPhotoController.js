@@ -27,14 +27,16 @@
       };
       query = app.tool.serverapi.query("http://localhost:8080/");
       return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
-        StreetModelKey: model.Key,
+        StreetModelKey: modelKey,
         Belong: belongKey
       }).done(function(photoData) {
-        if (photoData.Info.length != null) {
+        console.log(photoData);
+        if (photoData.Info.length > 0) {
           return callback({
             url: app.tool.getFullBase64str(repairBase64(photoData.Info[0].Base64Str))
           });
         } else {
+          alert('data error, no picture');
           return callback({
             url: ''
           });

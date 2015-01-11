@@ -124,8 +124,8 @@ class window.app.Main
 		console.log "streetsnap_id=#{id}"
 		@router.navigate "streetsnap_id=#{id}", trigger: true
 		
-	onImgClick: (evt, {id})->
-		@openPopup PageBigPhoto, [id]
+	onImgClick: (evt, {id, key})->
+		@openPopup PageBigPhoto, [key, id]
 		
 	onBtnCloseClick: ->
 		@closePopup PageBigPhoto

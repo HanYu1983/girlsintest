@@ -180,6 +180,14 @@
 						<div id="txt_modelMeeting" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
 							{{html talk}}
 						</div>
+						<div id="mc_historyList" class="absolute">
+							<div id="mc_historyContainer">
+								{{each historyList}}
+								<img id=${id} class="historyImgSize" src=${url} />
+								{{/each}}
+							</div>
+							<img id='mc_more' src='images/streetSnap/downArrow.png'/>
+						</div>
 					</div>
 				</div>
 			</div>

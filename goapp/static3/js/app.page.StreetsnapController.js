@@ -43,7 +43,6 @@
           return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
             StreetModelKey: model.Key
           }).done(function(photoData) {
-            console.log(photoData);
             return callback(null, photoData.Info);
           }).fail(function(err) {
             return callback(err);
@@ -57,7 +56,7 @@
           if (err != null) {
             return _this.onQueryError(err);
           } else {
-            return _this.onDataFetched(results[0], results[1]);
+            return _this.onDataFetched.apply(_this, results);
           }
         };
       })(this);

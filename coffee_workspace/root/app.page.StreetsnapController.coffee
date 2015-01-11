@@ -40,7 +40,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			if err?
 				@onQueryError err
 			else
-				@onDataFetched results[0], results[1]
+				@onDataFetched results...
 		
 		async.waterfall [fetchModelData, fetchPhotoData], fetchEndProcess
 	

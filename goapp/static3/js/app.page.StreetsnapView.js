@@ -13,6 +13,7 @@
       this.mc_historyContainer = elem.find('#mc_historyContainer');
       this.img_stylePicture = elem.find('#img_stylePicture');
       this.btn_more = elem.find('#btn_more');
+      console.log(elem.dataDTO);
     }
 
     StreetsnapView.prototype.addListener = function() {

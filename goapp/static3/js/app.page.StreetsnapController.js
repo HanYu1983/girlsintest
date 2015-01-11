@@ -34,7 +34,6 @@
 
     StreetsnapController.prototype.applyTemplate = function(param, callback) {
       var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
-      console.log("XXXXSAFDSDAS");
       isStylePhoto = function(photo) {
         return photo.Belong === -3;
       };

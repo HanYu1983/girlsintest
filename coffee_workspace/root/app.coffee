@@ -50,24 +50,29 @@ class window.app.Main
 		@router = new Router()
 		Backbone.history.start()
 		
-		@openPopup PageBigPhoto, [ 'images/streetSnap/test1.jpg' ]
+		
 		#@openPage PageHome, [ 'images/streetSnap/test1.jpg' ]
 		
 	openPopup: ( name, param ) ->
 		@closeAllPage @mc_popupContainer
 		@bindEvent name, @openPageController name, @mc_popupContainer, param
+		
+	closePopup: ( name ) ->
+		@closePage name, @mc_popupContainer
 	
 	# 打開一個頁面
 	openPage: ( name, param ) ->
-		@closeAllPage @mc_pageContainer
+		@closePageController @mc_pageContainer
 		@bindEvent name, @openPageController name, @mc_pageContainer, param
 	
 	# 每打開一個頁面會呼叫這，為各個頁面綁定事件處理
 	bindEvent: (name, controller) ->
 		switch name
 			when PageStreetsnap
-				console.log('bind!!')
 				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
+				controller.event.on 'onImgClick', => @onImgClick arguments...
+			when PageBigPhoto
+				controller.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
 	
 	# 關閉一個頁面
 	closePage: ( name, container ) ->
@@ -109,4 +114,11 @@ class window.app.Main
 	onImgHistoryClick: (evt, {id})->
 		console.log "streetsnap_id=#{id}"
 		@router.navigate "streetsnap_id=#{id}", trigger: true
+		
+	onImgClick: (evt, {id})->
+		@openPopup PageBigPhoto, [id]
+		
+	onBtnCloseClick: ->
+		@closePopup PageBigPhoto
+	
 new window.app.Main app.config.mvcConfig 

@@ -147,8 +147,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		promise
 	
 	onImgHistoryClick: (evt, data) ->
-		console.log evt
 		@event.trigger evt.type, data
 		
 	onImgClick: (evt, data) ->
-		console.log evt.type
+		@event.trigger evt.type, data

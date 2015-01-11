@@ -199,12 +199,11 @@
     };
 
     StreetsnapController.prototype.onImgHistoryClick = function(evt, data) {
-      console.log(evt);
       return this.event.trigger(evt.type, data);
     };
 
     StreetsnapController.prototype.onImgClick = function(evt, data) {
-      return console.log(evt.type);
+      return this.event.trigger(evt.type, data);
     };
 
     return StreetsnapController;

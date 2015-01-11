@@ -10,10 +10,26 @@
       return BigPhotoController.__super__.constructor.apply(this, arguments);
     }
 
-    BigPhotoController.prototype.applyTemplate = function(tmpl, param, callback) {
+    BigPhotoController.prototype.addListener = function() {
+      BigPhotoController.__super__.addListener.call(this);
+      return this._view.event.on('onBtnCloseClick', (function(_this) {
+        return function() {
+          return _this.onBtnCloseClick.apply(_this, arguments);
+        };
+      })(this));
+    };
+
+    BigPhotoController.prototype.applyTemplate = function(tmpl, _arg, callback) {
+      var id;
+      id = _arg[0];
+      console.log("XXXX");
       return callback(tmpl.tmpl({
-        url: param[0]
+        url: id
       }));
+    };
+
+    BigPhotoController.prototype.onBtnCloseClick = function(evt) {
+      return this.event.trigger(evt.type);
     };
 
     return BigPhotoController;

@@ -65,7 +65,6 @@
       });
       this.router = new Router();
       Backbone.history.start();
-      this.openPopup(PageBigPhoto, ['images/streetSnap/test1.jpg']);
     }
 
     Main.prototype.openPopup = function(name, param) {
@@ -73,18 +72,32 @@
       return this.bindEvent(name, this.openPageController(name, this.mc_popupContainer, param));
     };
 
+    Main.prototype.closePopup = function(name) {
+      return this.closePage(name, this.mc_popupContainer);
+    };
+
     Main.prototype.openPage = function(name, param) {
-      this.closeAllPage(this.mc_pageContainer);
+      this.closePageController(this.mc_pageContainer);
       return this.bindEvent(name, this.openPageController(name, this.mc_pageContainer, param));
     };
 
     Main.prototype.bindEvent = function(name, controller) {
       switch (name) {
         case PageStreetsnap:
-          console.log('bind!!');
-          return controller.event.on('onImgHistoryClick', (function(_this) {
+          controller.event.on('onImgHistoryClick', (function(_this) {
             return function() {
               return _this.onImgHistoryClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onImgClick', (function(_this) {
+            return function() {
+              return _this.onImgClick.apply(_this, arguments);
+            };
+          })(this));
+        case PageBigPhoto:
+          return controller.event.on('onBtnCloseClick', (function(_this) {
+            return function() {
+              return _this.onBtnCloseClick.apply(_this, arguments);
             };
           })(this));
       }
@@ -150,6 +163,16 @@
       return this.router.navigate("streetsnap_id=" + id, {
         trigger: true
       });
+    };
+
+    Main.prototype.onImgClick = function(evt, _arg) {
+      var id;
+      id = _arg.id;
+      return this.openPopup(PageBigPhoto, [id]);
+    };
+
+    Main.prototype.onBtnCloseClick = function() {
+      return this.closePopup(PageBigPhoto);
     };
 
     return Main;

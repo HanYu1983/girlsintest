@@ -75,10 +75,10 @@
       };
       queryDefaultTask = (function(_this) {
         return function(callback) {
-          var queryFn;
-          queryFn = param.length > 0 ? function() {
-            return _this.queryKey(param[0]);
-          } : function() {
+          var key, queryFn;
+          queryFn = param.length > 0 ? ((key = param[0], param), function() {
+            return _this.queryKey(key);
+          }) : function() {
             return _this.queryDefault();
           };
           return queryFn().done(function(_arg) {

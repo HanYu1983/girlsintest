@@ -12,9 +12,14 @@
 
     StreetsnapController.prototype.addListener = function() {
       StreetsnapController.__super__.addListener.call(this);
-      return this._view.event.on('onImgHistoryClick', (function(_this) {
+      this._view.event.on('onImgHistoryClick', (function(_this) {
         return function() {
           return _this.onImgHistoryClick.apply(_this, arguments);
+        };
+      })(this));
+      return this._view.event.on('onImgClick', (function(_this) {
+        return function() {
+          return _this.onImgClick.apply(_this, arguments);
         };
       })(this));
     };
@@ -27,7 +32,7 @@
       return StreetsnapController.__super__.close.call(this);
     };
 
-    StreetsnapController.prototype.applyTemplate = function(tmpl, callback) {
+    StreetsnapController.prototype.applyTemplate = function(tmpl, param, callback) {
       var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
       isStylePhoto = function(photo) {
         return photo.Belong === -3;
@@ -68,19 +73,15 @@
           key: modelData.ModelKey
         };
       };
-
-      /*
-      		@queryDefault()
-      			.done ([modelDataList, photoDataList])->
-      				model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
-      				callback tmpl.tmpl model
-      				
-      			.fail (err)->
-      				console.log err
-       */
       queryDefaultTask = (function(_this) {
         return function(callback) {
-          return _this.queryDefault().done(function(_arg) {
+          var key, queryFn;
+          queryFn = param.length > 0 ? ((key = param[0], param), function() {
+            return _this.queryKey(key);
+          }) : function() {
+            return _this.queryDefault();
+          };
+          return queryFn().done(function(_arg) {
             var model, modelDataList, photoDataList;
             modelDataList = _arg[0], photoDataList = _arg[1];
             model = _.first(_.map(_.zip(modelDataList, photoDataList), formatModelData));
@@ -92,13 +93,20 @@
       })(this);
       queryHeadPhotoTask = (function(_this) {
         return function(callback) {
-          return _this.queryData(0, 6).done(function(_arg) {
+          return _this.queryDataList(0, 6).done(function(_arg) {
             var modelDataList, photoDataList, photos;
             modelDataList = _arg[0], photoDataList = _arg[1];
             photos = _.map(photoDataList, function(photoData) {
               return _.first(_.filter(photoData, isHeadPhoto));
             });
-            photos = _.map(photos, formatPhoto);
+            photos = _.map(_.zip(photos, modelDataList), function(_arg1) {
+              var model, photo;
+              photo = _arg1[0], model = _arg1[1];
+              return {
+                id: model.Key,
+                url: app.tool.getFullBase64str(repairBase64(photo.Base64Str))
+              };
+            });
             return callback(null, photos);
           }).fail(function(err) {
             return callback(err);
@@ -131,19 +139,31 @@
        */
     };
 
-    StreetsnapController.prototype.queryDefault = function() {
-      return this.queryData(0, 1);
+    StreetsnapController.prototype.queryDataList = function(offset, limit) {
+      return this.queryData({
+        Offset: offset,
+        Limit: limit
+      });
     };
 
-    StreetsnapController.prototype.queryData = function(offset, limit) {
+    StreetsnapController.prototype.queryDefault = function() {
+      return this.queryDataList(0, 1);
+    };
+
+    StreetsnapController.prototype.queryKey = function(key) {
+      return this.queryData({
+        Key: key
+      });
+    };
+
+    StreetsnapController.prototype.queryData = function(option) {
       var fetchEndProcess, fetchModelData, fetchPhotoData, promise, query;
       query = app.tool.serverapi.query("http://localhost:8080/");
       fetchModelData = function(callback) {
-        return query(app.tool.serverapi.QueryStreetModel, {
-          Offset: offset,
-          Limit: limit
-        }).done(function(data) {
-          return callback(null, data.Info);
+        return query(app.tool.serverapi.QueryStreetModel, option).done(function(data) {
+          var list;
+          list = data.Info.length != null ? data.Info : [data.Info];
+          return callback(null, list);
         }).fail(function(err) {
           return callback(err);
         });
@@ -181,6 +201,10 @@
     StreetsnapController.prototype.onImgHistoryClick = function(evt, data) {
       console.log(evt);
       return this.event.trigger(evt.type, data);
+    };
+
+    StreetsnapController.prototype.onImgClick = function(evt, data) {
+      return console.log(evt.type);
     };
 
     return StreetsnapController;

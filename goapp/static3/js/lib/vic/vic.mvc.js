@@ -69,10 +69,9 @@
 
     Controller.prototype.setView = function(_view) {
       this._view = _view;
-      return console.log(this._view);
     };
 
-    Controller.prototype.applyTemplate = function(tmpl, callback) {
+    Controller.prototype.applyTemplate = function(tmpl, param, callback) {
       return callback(tmpl.tmpl());
     };
 

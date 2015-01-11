@@ -40,21 +40,21 @@ class window.app.Main
 			routes:
 				'streetsnap_id=:id':'streetsnap'
 				'':'default'
-			streetsnap: ( id )->
-				console.log id
-				#@openPage PageStreetsnap id
+			streetsnap: ( id )=>
+				#console.log id
+				@openPage PageStreetsnap, arguments
 			default: ->
 				console.log 'default'
 				
-		router = new Router()
+		@router = new Router()
 		Backbone.history.start()
 		
-		@openPage PageStreetsnap
+		@openPage PageStreetsnap, null
 	
 	# 打開一個頁面
-	openPage: ( name, model, param ) ->
+	openPage: ( name, param ) ->
 		@closeAllPage()
-		@bindEvent name, @openPageController name, model, param
+		@bindEvent name, @openPageController name, param
 	
 	# 每打開一個頁面會呼叫這，為各個頁面綁定事件處理
 	bindEvent: (name, controller) ->
@@ -75,7 +75,7 @@ class window.app.Main
 				controller.event.off 'onImgHistoryClick'
 				
 	#打開指定頁面	
-	openPageController: ( name, model, param ) ->
+	openPageController: ( name, param ) ->
 		return if @mvcConfig[ name ] is undefined
 		
 		controller = new @mvcConfig[ name ].controller
@@ -100,8 +100,7 @@ class window.app.Main
 		
 	
 	#各頁面事件
-	onImgHistoryClick: (evt, data)->
-		console.log('main onImgHistoryClick')
-		console.log(data)
-
+	onImgHistoryClick: (evt, {id})->
+		console.log "streetsnap_id=#{id}"
+		@router.navigate "streetsnap_id=#{id}", trigger: true
 new window.app.Main app.config.mvcConfig 

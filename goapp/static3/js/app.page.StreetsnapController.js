@@ -23,15 +23,18 @@
     };
 
     StreetsnapController.prototype.applyTemplate = function(tmpl, callback) {
-      var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isSidePhoto, isStylePhoto, repairBase64;
+      var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
       isStylePhoto = function(photo) {
         return photo.Belong === -3;
       };
       isSidePhoto = function(photo) {
         return photo.Belong === -2;
       };
-      isBottomPhoto = function(photo) {
+      isHeadPhoto = function(photo) {
         return photo.Belong === -1;
+      };
+      isBottomPhoto = function(photo) {
+        return photo.Belong === 0;
       };
       repairBase64 = function(base64) {
         return base64.replace('\r', '').replace('\n', '');
@@ -46,27 +49,64 @@
         return _.map(_.filter(photoData, filterFn), formatPhoto);
       };
       formatModelData = function(_arg) {
-        var modelData, photoData;
+        var modelData, photoData, _ref;
         modelData = _arg[0], photoData = _arg[1];
         return {
           name: modelData.Caption,
           date: modelData.DateUnix,
-          styleUrl: _.first(findFormatedPhoto(photoData, isStylePhoto)).url,
+          styleUrl: (_ref = _.first(findFormatedPhoto(photoData, isStylePhoto))) != null ? _ref.url : void 0,
           sideList: findFormatedPhoto(photoData, isSidePhoto),
           bottomList: findFormatedPhoto(photoData, isBottomPhoto),
           modelDetail: modelData.Description,
           talk: modelData.Talk,
-          protalk: modelData.Comment
+          protalk: modelData.Comment,
+          key: modelData.ModelKey
         };
       };
-      return this.queryDefault().done(function(_arg) {
-        var model, modelDataList, photoDataList;
-        modelDataList = _arg[0], photoDataList = _arg[1];
-        model = _.first(_.map(_.zip(modelDataList, photoDataList), formatModelData));
-        return callback(tmpl.tmpl(model));
-      }).fail(function(err) {
-        return console.log(err);
-      });
+
+      /*
+      		@queryDefault()
+      			.done ([modelDataList, photoDataList])->
+      				model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
+      				callback tmpl.tmpl model
+      				
+      			.fail (err)->
+      				console.log err
+       */
+      queryDefaultTask = (function(_this) {
+        return function(callback) {
+          return _this.queryDefault().done(function(_arg) {
+            var model, modelDataList, photoDataList;
+            modelDataList = _arg[0], photoDataList = _arg[1];
+            model = _.first(_.map(_.zip(modelDataList, photoDataList), formatModelData));
+            return callback(null, model);
+          }).fail(function(err) {
+            return callback(err);
+          });
+        };
+      })(this);
+      queryHeadPhotoTask = (function(_this) {
+        return function(callback) {
+          return _this.queryData(0, 6).done(function(_arg) {
+            var modelDataList, photoDataList, photos;
+            modelDataList = _arg[0], photoDataList = _arg[1];
+            photos = _.map(photoDataList, function(photoData) {
+              return _.first(_.filter(photoData, isHeadPhoto));
+            });
+            photos = _.map(photos, formatPhoto);
+            return callback(null, photos);
+          }).fail(function(err) {
+            return callback(err);
+          });
+        };
+      })(this);
+      queryEndProcess = function(err, _arg) {
+        var headModel, mainModel;
+        mainModel = _arg[0], headModel = _arg[1];
+        mainModel.historyList = headModel;
+        return callback(tmpl.tmpl(mainModel));
+      };
+      return async.parallel([queryDefaultTask, queryHeadPhotoTask], queryEndProcess);
 
       /*
       		 *{"Key":5629499534213120,"Caption":"caption","Description":"description","Talk":"talk","Comment":"comment","ModelKey":"","Date":"2015-01-10T17:21:14.024316Z","DateUnix":1420910474,"Tag":"xxx","Available":true}

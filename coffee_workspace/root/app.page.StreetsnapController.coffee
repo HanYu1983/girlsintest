@@ -14,8 +14,10 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			photo.Belong is -3
 		isSidePhoto = (photo) ->
 			photo.Belong is -2
-		isBottomPhoto = (photo) ->
+		isHeadPhoto = (photo) ->
 			photo.Belong is -1
+		isBottomPhoto = (photo) ->
+			photo.Belong is 0
 		repairBase64 = (base64) ->
 			base64.replace('\r', '').replace('\n', '')
 			
@@ -29,13 +31,15 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		formatModelData = ([modelData, photoData]) ->
 			name: modelData.Caption
 			date: modelData.DateUnix
-			styleUrl: _.first( findFormatedPhoto photoData, isStylePhoto ).url
+			styleUrl: _.first( findFormatedPhoto photoData, isStylePhoto )?.url
 			sideList: findFormatedPhoto photoData, isSidePhoto
 			bottomList: findFormatedPhoto photoData, isBottomPhoto
 			modelDetail: modelData.Description
 			talk: modelData.Talk
 			protalk: modelData.Comment
+			key: modelData.ModelKey
 		
+		###
 		@queryDefault()
 			.done ([modelDataList, photoDataList])->
 				model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
@@ -43,6 +47,34 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				
 			.fail (err)->
 				console.log err
+		###
+		
+		
+		
+		
+		queryDefaultTask = (callback) =>
+			@queryDefault()
+				.done ([modelDataList, photoDataList])->
+					model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
+					callback null, model
+				
+				.fail (err)->
+					callback err
+					
+		queryHeadPhotoTask = (callback) =>
+			@queryData(0, 6)
+				.done ([modelDataList, photoDataList])->
+					photos = _.map( photoDataList, (photoData)-> _.first( _.filter photoData, isHeadPhoto) )
+					photos = _.map( photos, formatPhoto )
+					callback null, photos
+				.fail (err)->
+					callback err
+					
+		queryEndProcess = (err, [mainModel, headModel]) ->
+			mainModel.historyList = headModel
+			callback tmpl.tmpl mainModel
+		
+		async.parallel [queryDefaultTask, queryHeadPhotoTask], queryEndProcess
 		
 		###
 		#{"Key":5629499534213120,"Caption":"caption","Description":"description","Talk":"talk","Comment":"comment","ModelKey":"","Date":"2015-01-10T17:21:14.024316Z","DateUnix":1420910474,"Tag":"xxx","Available":true}

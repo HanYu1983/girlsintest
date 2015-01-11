@@ -177,9 +177,9 @@
     };
 
     Main.prototype.onImgClick = function(evt, _arg) {
-      var id;
-      id = _arg.id;
-      return this.openPopup(PageBigPhoto, [id]);
+      var id, key;
+      id = _arg.id, key = _arg.key;
+      return this.openPopup(PageBigPhoto, [key, id]);
     };
 
     Main.prototype.onBtnCloseClick = function() {

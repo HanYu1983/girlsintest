@@ -44,6 +44,7 @@ class window.app.Main
 				'':'default'
 			streetsnap: ( id )=>
 				@openPage PageStreetsnap, arguments
+				
 			default: ->
 				console.log 'default'
 				
@@ -61,7 +62,7 @@ class window.app.Main
 	
 	# 打開一個頁面
 	openPage: ( name, param ) ->
-		@closePageController @mc_pageContainer
+		@closeAllPage @mc_pageContainer
 		@bindEvent name, @openPageController name, @mc_pageContainer, param
 	
 	# 每打開一個頁面會呼叫這，為各個頁面綁定事件處理
@@ -89,7 +90,16 @@ class window.app.Main
 		return if @mvcConfig[ name ] is undefined
 		
 		controller = new @mvcConfig[ name ].controller
+		###
 		controller.applyTemplate @mvcConfig[ name ].tmpl, param, (elem)=>
+			elem.appendTo container
+			controller.setView new @mvcConfig[ name ].view elem
+			controller.open()
+			@coll_pages[ name ] = controller
+		###
+		controller.applyTemplate param, ( dataDTO )=>
+			elem = @mvcConfig[ name ].tmpl.tmpl dataDTO
+			elem.__dataDTO__ = dataDTO
 			elem.appendTo container
 			controller.setView new @mvcConfig[ name ].view elem
 			controller.open()

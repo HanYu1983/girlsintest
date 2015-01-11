@@ -4,9 +4,10 @@ class window.app.page.BigPhotoController extends vic.mvc.Controller
 		super()
 		@_view.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
 		
-	applyTemplate: ( tmpl, [id], callback)->
-		console.log "XXXX"
-		callback tmpl.tmpl url:id
+	applyTemplate: ( [modelKey, belongKey], callback)->
+		console.log "XXXX id #{id}"
+		
+	
 		
 	onBtnCloseClick: (evt) ->
 		@event.trigger evt.type

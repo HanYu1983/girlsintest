@@ -32,8 +32,9 @@
       return StreetsnapController.__super__.close.call(this);
     };
 
-    StreetsnapController.prototype.applyTemplate = function(tmpl, param, callback) {
+    StreetsnapController.prototype.applyTemplate = function(param, callback) {
       var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
+      console.log("XXXXSAFDSDAS");
       isStylePhoto = function(photo) {
         return photo.Belong === -3;
       };
@@ -117,7 +118,7 @@
         var headModel, mainModel;
         mainModel = _arg[0], headModel = _arg[1];
         mainModel.historyList = headModel;
-        return callback(tmpl.tmpl(mainModel));
+        return callback(mainModel);
       };
       return async.parallel([queryDefaultTask, queryHeadPhotoTask], queryEndProcess);
 

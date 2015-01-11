@@ -11,11 +11,31 @@
     }
 
     MenubarView.prototype.addListener = function() {
-      var self;
+      var onBtnMouseOut, onBtnMouseOver, self;
+      onBtnMouseOut = function() {
+        var btnOver, btnSelf;
+        btnSelf = $(this);
+        btnOver = btnSelf.find('.navover');
+        console.log(btnOver);
+        return btnOver.animate({
+          width: '0px'
+        }, 300);
+      };
+      onBtnMouseOver = function() {
+        var btnOver, btnSelf;
+        btnSelf = $(this);
+        btnOver = btnSelf.find('.navover');
+        console.log(btnOver);
+        return btnOver.animate({
+          width: '120px'
+        }, 300);
+      };
       self = this;
-      return this._elem.delegate('div', 'click', function() {
+      this._elem.delegate('div', 'click', function() {
         return self.event.trigger('onMenubarBtnClick', this.id);
       });
+      this._elem.delegate('div', 'mouseover', onBtnMouseOver);
+      return this._elem.delegate('div', 'mouseout', onBtnMouseOut);
     };
 
     return MenubarView;

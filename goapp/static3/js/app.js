@@ -67,15 +67,19 @@
     };
 
     Main.prototype.openPageController = function(name, model) {
-      var controller, elem;
+      var controller;
       if (this.mvcConfig[name] === void 0) {
         return;
       }
-      elem = this.mvcConfig[name].tmpl.tmpl(model);
-      elem.appendTo(this.mc_pageContainer);
-      controller = new this.mvcConfig[name].controller(new this.mvcConfig[name].view(elem));
-      controller.open();
-      return this.coll_pages[name] = controller;
+      controller = new this.mvcConfig[name].controller;
+      return controller.applyTemplate(this.mvcConfig[name].tmpl, (function(_this) {
+        return function(elem) {
+          elem.appendTo(_this.mc_pageContainer);
+          controller.setView(new _this.mvcConfig[name].view(elem));
+          controller.open();
+          return _this.coll_pages[name] = controller;
+        };
+      })(this));
     };
 
     Main.prototype.closePageController = function(name) {

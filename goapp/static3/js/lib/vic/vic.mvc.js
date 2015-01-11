@@ -49,6 +49,7 @@
     }
 
     Controller.prototype.open = function() {
+      console.log(this._view);
       this._view.open();
       return this.addListener();
     };
@@ -64,6 +65,15 @@
 
     Controller.prototype.removeListener = function() {
       return this._view.removeListener();
+    };
+
+    Controller.prototype.setView = function(_view) {
+      this._view = _view;
+      return console.log(this._view);
+    };
+
+    Controller.prototype.applyTemplate = function(tmpl, callback) {
+      return callback(tmpl.tmpl());
     };
 
     return Controller;

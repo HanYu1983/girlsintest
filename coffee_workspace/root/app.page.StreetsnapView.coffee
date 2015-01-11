@@ -1,6 +1,9 @@
 class window.app.page.StreetsnapView extends vic.mvc.View	
 	constructor: ( elem ) ->
 		super elem
+		
+		
+	###
 		@txt_name = elem.find '#txt_name'
 		@txt_date = elem.find '#txt_date'
 		@txt_proContent = elem.find '#txt_proContent'
@@ -37,4 +40,4 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		img = "<img id='" + pid + "' class='relative f_left' src='" + app.tool.getFullBase64str base64 + "'/>"
 		@mc_bottomContainer.append img
 		
-		
+	###	

@@ -18,6 +18,7 @@ class vic.mvc.Controller extends vic.mvc.Event
 	constructor: ( @_view ) ->
 		super()
 	open: ->
+		console.log @_view
 		@_view.open()
 		@addListener()
 	close: ->
@@ -27,3 +28,8 @@ class vic.mvc.Controller extends vic.mvc.Event
 		@_view.addListener()
 	removeListener: ->
 		@_view.removeListener()
+	setView: ( @_view ) ->
+		console.log @_view
+	applyTemplate: ( tmpl, callback ) ->
+		callback tmpl.tmpl()
+		

@@ -59,13 +59,13 @@ class window.app.Main
 	openPageController: ( name, model ) ->
 		return if @mvcConfig[ name ] is undefined
 		
-		elem = @mvcConfig[ name ].tmpl.tmpl model 
-		elem.appendTo @mc_pageContainer
+		controller = new @mvcConfig[ name ].controller
+		controller.applyTemplate @mvcConfig[ name ].tmpl, (elem)=>
+			elem.appendTo @mc_pageContainer
+			controller.setView new @mvcConfig[ name ].view elem
+			controller.open()
+			@coll_pages[ name ] = controller
 		
-		controller = new @mvcConfig[ name ].controller new @mvcConfig[ name ].view elem
-		controller.open()
-		@coll_pages[ name ] = controller
-			
 	#關掉指定頁面	
 	closePageController: ( name ) ->
 		if ( @coll_pages[ name ] is undefined ) then return

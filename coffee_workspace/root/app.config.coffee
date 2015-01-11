@@ -31,6 +31,10 @@ window.app.config.mvcConfig =
 		tmpl: $ '#tmpl_streetsnap'
 		view: window.app.page.StreetsnapView
 		controller: window.app.page.StreetsnapController
+	bigPhoto:
+		tmpl: $ '#tmpl_bigPhoto'
+		view: window.app.page.BigPhotoView
+		controller: window.app.page.BigPhotoController
 
 window.app.config.BelongHead = -1
 window.app.config.BelongStyle = -2

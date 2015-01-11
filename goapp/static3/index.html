@@ -8,6 +8,7 @@
 		<link href='css/menubar.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/streetsnap.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/streetsnapSearch.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/bigPhoto.min.css' rel='stylesheet' type='text/css'/>
 		
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
 		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
@@ -195,7 +196,7 @@
 			</div>
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
-			<div class="full">
+			<div class="hide full">
 				<div id="mc_center" class="absolute h_full">
 					<div id="mc_background" class="fixed h_full"></div>
 					<div class="mainContainer margin_leftA margin_topA">
@@ -217,6 +218,14 @@
 							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
 						</div>
 					</div>
+				</div>
+			</div>
+		</script>
+		<script type="x-jquery-tmpl" id="tmpl_bigPhoto">
+			<div class="hide full">
+				<div id="mc_bigPhotoBack" class='fixed full black_cube opacity_7'></div>
+				<div id="mc_bigPhotoFixPosition" class='fixed full '>
+					<img id='img_photo' class='relative'/>
 				</div>
 			</div>
 		</script>
@@ -283,6 +292,8 @@
 	<script>window.app.page = {}</script>
 	<script src='js/app.tool.global.js'></script>
 	<script src='js/app.tool.serverapi.js'></script>
+	<script src='js/app.page.BigPhotoView.js'></script>
+	<script src='js/app.page.BigPhotoController.js'></script>
 	<script src='js/app.page.StreetsnapView.js'></script>
 	<script src='js/app.page.StreetsnapController.js'></script>
 	<script src='js/app.page.HomeView.js'></script>

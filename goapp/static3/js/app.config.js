@@ -39,6 +39,11 @@
       tmpl: $('#tmpl_streetsnap'),
       view: window.app.page.StreetsnapView,
       controller: window.app.page.StreetsnapController
+    },
+    bigPhoto: {
+      tmpl: $('#tmpl_bigPhoto'),
+      view: window.app.page.BigPhotoView,
+      controller: window.app.page.BigPhotoController
     }
   };
 

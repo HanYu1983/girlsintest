@@ -52,7 +52,7 @@ class window.app.Main
 		Backbone.history.start()
 		
 		
-		#@openPage PageHome, [ 'images/streetSnap/test1.jpg' ]
+		@openPage PageHome
 		
 	openPopup: ( name, param ) ->
 		@bindEvent name, @openPageController name, @mc_popupContainer, param

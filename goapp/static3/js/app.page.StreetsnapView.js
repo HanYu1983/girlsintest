@@ -8,12 +8,12 @@
 
     function StreetsnapView(elem) {
       StreetsnapView.__super__.constructor.call(this, elem);
+      this.dataDTO = elem.dataDTO;
       this.mc_sideContainer = elem.find('#mc_sideContainer');
       this.mc_bottomContainer = elem.find('#mc_bottomContainer');
       this.mc_historyContainer = elem.find('#mc_historyContainer');
       this.img_stylePicture = elem.find('#img_stylePicture');
       this.btn_more = elem.find('#btn_more');
-      console.log(elem.dataDTO);
     }
 
     StreetsnapView.prototype.addListener = function() {
@@ -24,7 +24,8 @@
           id: this.id
         });
         return self.event.trigger('onImgClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.Key
         });
       });
       this.mc_bottomContainer.delegate('img', 'click', function() {
@@ -32,7 +33,8 @@
           id: this.id
         });
         return self.event.trigger('onImgClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.Key
         });
       });
       this.mc_historyContainer.delegate('img', 'click', function() {
@@ -40,7 +42,8 @@
           id: this.id
         });
         return self.event.trigger('onImgHistoryClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.Key
         });
       });
       this.img_stylePicture.click(function() {
@@ -48,7 +51,8 @@
           id: this.id
         });
         return self.event.trigger('onImgClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.Key
         });
       });
       return this.btn_more.click(function() {

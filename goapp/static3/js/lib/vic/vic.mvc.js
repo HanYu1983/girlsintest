@@ -71,8 +71,8 @@
       this._view = _view;
     };
 
-    Controller.prototype.applyTemplate = function(tmpl, param, callback) {
-      return callback(tmpl.tmpl());
+    Controller.prototype.applyTemplate = function(param, callback) {
+      return callback(param);
     };
 
     return Controller;

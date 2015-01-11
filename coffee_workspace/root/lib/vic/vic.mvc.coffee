@@ -30,6 +30,6 @@ class vic.mvc.Controller extends vic.mvc.Event
 		@_view.removeListener()
 	setView: ( @_view ) ->
 		#console.log @_view
-	applyTemplate: ( tmpl, param, callback ) ->
-		callback tmpl.tmpl()
+	applyTemplate: ( param, callback ) ->
+		callback param
 		

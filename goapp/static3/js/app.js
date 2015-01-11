@@ -65,6 +65,7 @@
       });
       this.router = new Router();
       Backbone.history.start();
+      this.openPage(PageHome);
     }
 
     Main.prototype.openPopup = function(name, param) {

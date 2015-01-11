@@ -1,7 +1,8 @@
 class window.app.page.StreetsnapController extends vic.mvc.Controller	
 	addListener: ->
 		super()
-		@_view.event.on 'onImgHistoryClick', => @onImgHistoryClick( arguments... )
+		@_view.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments... 
+		@_view.event.on 'onImgClick', => @onImgClick arguments...
 	
 	open: ->
 		super()
@@ -9,7 +10,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 	close: ->
 		super()
 		
-	applyTemplate: (tmpl, callback)->
+	applyTemplate: (tmpl, param, callback)->
 		
 		isStylePhoto = (photo) ->
 			photo.Belong is -3
@@ -44,21 +45,14 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			protalk: modelData.Comment
 			key: modelData.ModelKey
 		
-		###
-		@queryDefault()
-			.done ([modelDataList, photoDataList])->
-				model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
-				callback tmpl.tmpl model
-				
-			.fail (err)->
-				console.log err
-		###
-		
-		
-		
-		
 		queryDefaultTask = (callback) =>
-			@queryDefault()
+			queryFn =
+				if param.length > 0
+					()=>@queryKey param[0]
+				else
+					()=>@queryDefault()
+			
+			queryFn()
 				.done ([modelDataList, photoDataList])->
 					model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
 					callback null, model
@@ -67,10 +61,13 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 					callback err
 					
 		queryHeadPhotoTask = (callback) =>
-			@queryData(0, 6)
+			@queryDataList(0, 6)
 				.done ([modelDataList, photoDataList])->
 					photos = _.map( photoDataList, (photoData)-> _.first( _.filter photoData, isHeadPhoto) )
-					photos = _.map( photos, formatPhoto )
+					photos = _.map _.zip( photos, modelDataList ), 
+						( [photo, model] )-> 
+							id: model.Key 
+							url: app.tool.getFullBase64str repairBase64( photo.Base64Str )
 					callback null, photos
 				.fail (err)->
 					callback err
@@ -99,18 +96,27 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		###
 		
 		
+	queryDataList: (offset, limit)->
+		@queryData { Offset: offset, Limit: limit }
 		
 	queryDefault: ->
-		@queryData(0 ,1)
+		@queryDataList(0 ,1)
+		
+	queryKey: (key)->
+		@queryData { Key: key }
 	
-	
-	queryData: (offset, limit)->
+	queryData: (option)->
 		query = app.tool.serverapi.query "http://localhost:8080/"
 		
 		fetchModelData = (callback) -> 
-			query(app.tool.serverapi.QueryStreetModel, { Offset: offset, Limit: limit })
+			query(app.tool.serverapi.QueryStreetModel, option)
 				.done (data) ->
-					callback null, data.Info
+					list = 
+						if data.Info.length?
+							data.Info
+						else
+							[data.Info]
+					callback null, list
 					
 				.fail (err) ->
 					callback err
@@ -142,3 +148,6 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 	onImgHistoryClick: (evt, data) ->
 		console.log evt
 		@event.trigger evt.type, data
+		
+	onImgClick: (evt, data) ->
+		console.log evt.type

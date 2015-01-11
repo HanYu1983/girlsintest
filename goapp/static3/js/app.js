@@ -20,7 +20,7 @@
 
   window.app.Main = (function() {
     function Main(mvcConfig) {
-      var Router, router, self;
+      var Router, self;
       this.mvcConfig = mvcConfig;
       this.coll_pages = {};
       this.mc_pageContainer = $('#mc_pageContainer');
@@ -51,21 +51,23 @@
           'streetsnap_id=:id': 'streetsnap',
           '': 'default'
         },
-        streetsnap: function(id) {
-          return console.log(id);
-        },
+        streetsnap: (function(_this) {
+          return function(id) {
+            return _this.openPage(PageStreetsnap, arguments);
+          };
+        })(this),
         "default": function() {
           return console.log('default');
         }
       });
-      router = new Router();
+      this.router = new Router();
       Backbone.history.start();
-      this.openPage(PageStreetsnap);
+      this.openPage(PageStreetsnap, null);
     }
 
-    Main.prototype.openPage = function(name, model, param) {
+    Main.prototype.openPage = function(name, param) {
       this.closeAllPage();
-      return this.bindEvent(name, this.openPageController(name, model, param));
+      return this.bindEvent(name, this.openPageController(name, param));
     };
 
     Main.prototype.bindEvent = function(name, controller) {
@@ -94,7 +96,7 @@
       }
     };
 
-    Main.prototype.openPageController = function(name, model, param) {
+    Main.prototype.openPageController = function(name, param) {
       var controller;
       if (this.mvcConfig[name] === void 0) {
         return;
@@ -133,9 +135,13 @@
       return _results;
     };
 
-    Main.prototype.onImgHistoryClick = function(evt, data) {
-      console.log('main onImgHistoryClick');
-      return console.log(data);
+    Main.prototype.onImgHistoryClick = function(evt, _arg) {
+      var id;
+      id = _arg.id;
+      console.log("streetsnap_id=" + id);
+      return this.router.navigate("streetsnap_id=" + id, {
+        trigger: true
+      });
     };
 
     return Main;

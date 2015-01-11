@@ -34,7 +34,6 @@
 
     StreetsnapController.prototype.applyTemplate = function(param, callback) {
       var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
-      console.log("XXXXSAFDSDAS");
       isStylePhoto = function(photo) {
         return photo.Belong === -3;
       };
@@ -77,7 +76,7 @@
       queryDefaultTask = (function(_this) {
         return function(callback) {
           var key, queryFn;
-          queryFn = param.length > 0 ? ((key = param[0], param), function() {
+          queryFn = param != null ? ((key = param[0], param), function() {
             return _this.queryKey(key);
           }) : function() {
             return _this.queryDefault();

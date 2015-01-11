@@ -28,15 +28,15 @@ class window.app.Main
 		@menubar.event.on 'onMenubarBtnClick', ( e, id ) ->
 			switch id
 				when 'btn_nav_celebrity'
-					self.openPage PageCelebrity 
+					self.openPage PageCelebrity
 				when 'btn_nav_model'
-					self.openPage PageModels 
+					self.openPage PageModels
 				when 'btn_nav_event'
-					self.openPage PageEvent 
+					self.openPage PageEvent
 				when 'btn_nav_streetSnap'
-					self.openPage PageStreetsnap 
+					self.openPage PageStreetsnap
 				when 'btn_nav_news'
-					self.openPage PageNews 
+					self.openPage PageNews
 					
 		Router = Backbone.Router.extend
 			routes:

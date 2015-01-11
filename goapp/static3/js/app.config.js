@@ -3,14 +3,14 @@
   window.app.mvcConfig = {
     home: {
       tmpl: $('#tmpl_home'),
-      view: window.app.home.View,
-      controller: window.app.home.Controller
+      view: window.app.page.HomeView,
+      controller: window.app.page.HomeController
     },
 
     /*	
     	celebrity: 
     		tmpl: $ '#tmpl_celebrity'
-    		view: window.app.celebrity.View
+    		view: window.app.pageCelebrity.View
     		controller: window.app.celebrity.Controller
     	models:
     		tmpl: $ '#tmpl_models'

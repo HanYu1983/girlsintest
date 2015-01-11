@@ -1,5 +1,4 @@
-window.app.header ?= {}
-class window.app.header.Controller extends vic.mvc.Controller
+class window.app.page.HeaderController extends vic.mvc.Controller
 	addListener: ->
 		super()
 		self = this

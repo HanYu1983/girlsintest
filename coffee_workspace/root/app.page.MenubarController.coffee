@@ -1,5 +1,4 @@
-window.app.menubar ?= {}
-class window.app.menubar.Controller extends vic.mvc.Controller
+class window.app.page.MenubarController extends vic.mvc.Controller
 	addListener: ->
 		super()
 		self = this

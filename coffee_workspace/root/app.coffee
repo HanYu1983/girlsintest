@@ -16,12 +16,12 @@ class window.app.Main
 		self = this
 		
 		#頭部的header
-		@header = new window.app.header.Controller new window.app.header.View $ '#mc_header'
+		@header = new window.app.page.HeaderController new window.app.page.HeaderView $ '#mc_header'
 		@header.open()
 		@header.event.on 'onHeaderBtnBackhomeClick', -> self.openPage PageHome
 			
 		#選單
-		@menubar = new window.app.menubar.Controller new window.app.menubar.View $ '#mc_menubar'
+		@menubar = new window.app.page.MenubarController new window.app.page.MenubarView $ '#mc_menubar'
 		@menubar.open()
 		@menubar.event.on 'onMenubarBtnClick', ( e, id ) ->
 			switch id

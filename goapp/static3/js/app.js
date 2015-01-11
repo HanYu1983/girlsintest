@@ -25,12 +25,12 @@
       this.coll_pages = {};
       this.mc_pageContainer = $('#mc_pageContainer');
       self = this;
-      this.header = new window.app.header.Controller(new window.app.header.View($('#mc_header')));
+      this.header = new window.app.page.HeaderController(new window.app.page.HeaderView($('#mc_header')));
       this.header.open();
       this.header.event.on('onHeaderBtnBackhomeClick', function() {
         return self.openPage(PageHome);
       });
-      this.menubar = new window.app.menubar.Controller(new window.app.menubar.View($('#mc_menubar')));
+      this.menubar = new window.app.page.MenubarController(new window.app.page.MenubarView($('#mc_menubar')));
       this.menubar.open();
       this.menubar.event.on('onMenubarBtnClick', function(e, id) {
         switch (id) {

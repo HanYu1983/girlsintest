@@ -23,38 +23,42 @@
       self = this;
       this.mc_sideContainer.delegate('img', 'click', function() {
         console.log('onImgClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.key
         });
         return self.event.trigger('onImgClick', {
           id: this.id,
-          key: self.dataDTO.Key
+          key: self.dataDTO.key
         });
       });
       this.mc_bottomContainer.delegate('img', 'click', function() {
         console.log('onImgClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.key
         });
         return self.event.trigger('onImgClick', {
           id: this.id,
-          key: self.dataDTO.Key
+          key: self.dataDTO.key
         });
       });
       this.mc_historyContainer.delegate('img', 'click', function() {
         console.log('onImgHistoryClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.key
         });
         return self.event.trigger('onImgHistoryClick', {
           id: this.id,
-          key: self.dataDTO.Key
+          key: self.dataDTO.key
         });
       });
       this.img_stylePicture.click(function() {
         console.log('onImgClick', {
-          id: this.id
+          id: this.id,
+          key: self.dataDTO.key
         });
         return self.event.trigger('onImgClick', {
           id: this.id,
-          key: self.dataDTO.Key
+          key: self.dataDTO.key
         });
       });
       return this.btn_more.click(function() {

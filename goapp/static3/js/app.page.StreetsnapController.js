@@ -59,11 +59,10 @@
           protalk: modelData.Comment
         };
       };
-      return this.queryDefault().done(function(results) {
+      return this.queryDefault().done(function(_arg) {
         var model, modelData, photoData;
-        modelData = results[0], photoData = results[1];
+        modelData = _arg[0], photoData = _arg[1];
         model = _.first(_.map(_.zip(modelData, photoData), formatModelData));
-        console.log(model);
         return callback(tmpl.tmpl(model));
       }).fail(function(err) {
         return console.log(err);

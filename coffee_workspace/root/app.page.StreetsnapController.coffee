@@ -37,10 +37,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			protalk: modelData.Comment
 		
 		@queryDefault()
-			.done (results)->
-				[modelData, photoData] = results
+			.done ([modelData, photoData])->
 				model = _.first( _.map( _.zip( modelData, photoData ), formatModelData ))
-				console.log model
 				callback tmpl.tmpl model
 				
 			.fail (err)->

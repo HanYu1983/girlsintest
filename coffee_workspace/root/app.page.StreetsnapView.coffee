@@ -27,14 +27,14 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@txt_date.html date
 		
 	setStylePicture: ( pid, base64 ) ->
-		@img_stylePicture.attr 'src', base64
+		@img_stylePicture.attr 'src', app.tool.getFullBase64str base64
 	
 	addSidePicture: ( pid, base64 ) ->
-		img = "<img id='" + pid + "' class='relative f_left' src='" + base64 + "'/>"
+		img = "<img id='" + pid + "' class='relative f_left' src='" + app.tool.getFullBase64str base64 + "'/>"
 		@mc_sideContainer.append img
 		
 	addBottomPicture: ( pid, base64 ) ->
-		img = "<img id='" + pid + "' class='relative f_left' src='" + base64 + "'/>"
+		img = "<img id='" + pid + "' class='relative f_left' src='" + app.tool.getFullBase64str base64 + "'/>"
 		@mc_bottomContainer.append img
 		
 		

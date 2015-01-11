@@ -36,18 +36,18 @@
     };
 
     StreetsnapView.prototype.setStylePicture = function(pid, base64) {
-      return this.img_stylePicture.attr('src', base64);
+      return this.img_stylePicture.attr('src', app.tool.getFullBase64str(base64));
     };
 
     StreetsnapView.prototype.addSidePicture = function(pid, base64) {
       var img;
-      img = "<img id='" + pid + "' class='relative f_left' src='" + base64 + "'/>";
+      img = "<img id='" + pid + "' class='relative f_left' src='" + app.tool.getFullBase64str(base64 + "'/>");
       return this.mc_sideContainer.append(img);
     };
 
     StreetsnapView.prototype.addBottomPicture = function(pid, base64) {
       var img;
-      img = "<img id='" + pid + "' class='relative f_left' src='" + base64 + "'/>";
+      img = "<img id='" + pid + "' class='relative f_left' src='" + app.tool.getFullBase64str(base64 + "'/>");
       return this.mc_bottomContainer.append(img);
     };
 

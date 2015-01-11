@@ -54,7 +54,6 @@ class window.app.Main
 		#@openPage PageHome, [ 'images/streetSnap/test1.jpg' ]
 		
 	openPopup: ( name, param ) ->
-		@closeAllPage @mc_popupContainer
 		@bindEvent name, @openPageController name, @mc_popupContainer, param
 		
 	closePopup: ( name ) ->

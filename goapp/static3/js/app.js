@@ -68,7 +68,6 @@
     }
 
     Main.prototype.openPopup = function(name, param) {
-      this.closeAllPage(this.mc_popupContainer);
       return this.bindEvent(name, this.openPageController(name, this.mc_popupContainer, param));
     };
 

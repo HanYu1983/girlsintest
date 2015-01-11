@@ -10,7 +10,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 	close: ->
 		super()
 		
-	applyTemplate: (tmpl, param, callback)->
+	applyTemplate: (param, callback)->
 		
 		isStylePhoto = (photo) ->
 			photo.Belong is -3
@@ -75,7 +75,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 					
 		queryEndProcess = (err, [mainModel, headModel]) ->
 			mainModel.historyList = headModel
-			callback tmpl.tmpl mainModel
+			callback mainModel
 		
 		async.parallel [queryDefaultTask, queryHeadPhotoTask], queryEndProcess
 		

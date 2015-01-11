@@ -19,13 +19,10 @@
       })(this));
     };
 
-    BigPhotoController.prototype.applyTemplate = function(tmpl, _arg, callback) {
-      var id;
-      id = _arg[0];
-      console.log("XXXX");
-      return callback(tmpl.tmpl({
-        url: id
-      }));
+    BigPhotoController.prototype.applyTemplate = function(_arg, callback) {
+      var belongKey, modelKey;
+      modelKey = _arg[0], belongKey = _arg[1];
+      return console.log("XXXX id " + id);
     };
 
     BigPhotoController.prototype.onBtnCloseClick = function(evt) {

@@ -77,7 +77,7 @@
     };
 
     Main.prototype.openPage = function(name, param) {
-      this.closePageController(this.mc_pageContainer);
+      this.closeAllPage(this.mc_pageContainer);
       return this.bindEvent(name, this.openPageController(name, this.mc_pageContainer, param));
     };
 
@@ -123,8 +123,19 @@
         return;
       }
       controller = new this.mvcConfig[name].controller;
-      controller.applyTemplate(this.mvcConfig[name].tmpl, param, (function(_this) {
-        return function(elem) {
+
+      /*
+      		controller.applyTemplate @mvcConfig[ name ].tmpl, param, (elem)=>
+      			elem.appendTo container
+      			controller.setView new @mvcConfig[ name ].view elem
+      			controller.open()
+      			@coll_pages[ name ] = controller
+       */
+      controller.applyTemplate(param, (function(_this) {
+        return function(dataDTO) {
+          var elem;
+          elem = _this.mvcConfig[name].tmpl.tmpl(dataDTO);
+          elem.__dataDTO__ = dataDTO;
           elem.appendTo(container);
           controller.setView(new _this.mvcConfig[name].view(elem));
           controller.open();

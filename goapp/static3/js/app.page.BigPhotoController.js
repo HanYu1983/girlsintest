@@ -10,6 +10,8 @@
       return BigPhotoController.__super__.constructor.apply(this, arguments);
     }
 
+    BigPhotoController.prototype.applyTemplate = function() {};
+
     BigPhotoController.prototype.addListener = function() {
       return BigPhotoController.__super__.addListener.call(this);
     };

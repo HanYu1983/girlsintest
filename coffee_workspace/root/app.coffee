@@ -5,6 +5,7 @@ PageEvent = 'event'
 PageStreetsnap = 'streetsnap'
 PageStreetsnapList = 'streetsnapList'
 PageNews = 'news'
+PageBigPhoto = 'bigPhoto'
 CloseablePageList = [PageHome, PageCelebrity, PageModels, PageEvent ,PageStreetsnap ,PageStreetsnapList ,PageNews ]
 
 class window.app.Main
@@ -49,7 +50,7 @@ class window.app.Main
 		@router = new Router()
 		Backbone.history.start()
 		
-		@openPage PageStreetsnap, null
+		@openPage PageBigPhoto, null
 	
 	# 打開一個頁面
 	openPage: ( name, param ) ->

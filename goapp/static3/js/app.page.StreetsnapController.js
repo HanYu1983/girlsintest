@@ -15,11 +15,62 @@
     };
 
     StreetsnapController.prototype.open = function() {
-      return StreetsnapController.__super__.open.call(this);
+      StreetsnapController.__super__.open.call(this);
+      return this.queryData();
     };
 
     StreetsnapController.prototype.close = function() {
       return StreetsnapController.__super__.close.call(this);
+    };
+
+    StreetsnapController.prototype.queryData = function() {
+      var fetchEndProcess, fetchModelData, fetchPhotoData, query;
+      query = app.tool.serverapi.query("http://localhost:8080/");
+      fetchModelData = function(callback) {
+        return query(app.tool.serverapi.QueryStreetModel, {}).done(function(data) {
+          return callback(null, data);
+        }).fail(function(err) {
+          return callback(err);
+        });
+      };
+      fetchPhotoData = function(modelData, callback) {
+        var models;
+        models = modelData.Info;
+        if (models.length === 0) {
+          callback(null, []);
+        }
+        return async.map(modelData.Info, function(model, callback) {
+          return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
+            StreetModelKey: model.Key
+          }).done(function(photoData) {
+            console.log(photoData);
+            return callback(null, photoData.Info);
+          }).fail(function(err) {
+            return callback(err);
+          });
+        }, function(err, results) {
+          return callback(err, [modelData, results]);
+        });
+      };
+      fetchEndProcess = (function(_this) {
+        return function(err, results) {
+          if (err != null) {
+            return _this.onQueryError(err);
+          } else {
+            return _this.onDataFetched(results[0], results[1]);
+          }
+        };
+      })(this);
+      return async.waterfall([fetchModelData, fetchPhotoData], fetchEndProcess);
+    };
+
+    StreetsnapController.prototype.onQueryError = function(err) {
+      return console.log(err);
+    };
+
+    StreetsnapController.prototype.onDataFetched = function(modelData, photoData) {
+      console.log(modelData);
+      return console.log(photoData);
     };
 
     return StreetsnapController;

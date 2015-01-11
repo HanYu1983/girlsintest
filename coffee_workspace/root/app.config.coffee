@@ -28,5 +28,5 @@ window.app.mvcConfig =
 	###
 	streetsnap:
 		tmpl: $ '#tmpl_streetsnap'
-		view: window.app.page.streetsnap.View
-		controller: window.app.page.streetsnap.Controller
+		view: window.app.page.StreetsnapView
+		controller: window.app.page.StreetsnapController

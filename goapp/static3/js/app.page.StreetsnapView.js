@@ -28,7 +28,7 @@
       })(this));
       this.mc_historyContainer.delegate('img', 'click', (function(_this) {
         return function() {
-          return _this.event.trigger('onImgClick', _this.id);
+          return _this.event.trigger('onImgHistoryClick', _this.id);
         };
       })(this));
       this.img_stylePicture.click((function(_this) {

@@ -151,15 +151,15 @@
 						<div id="txt_date" class="relative f_right txt_size_title textBase">${date}</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="mc_mainContainer" class="relative f_left">
-							<iframe id="iframe_3dIframe" class='relative f_left' width='323px' height='379px'></iframe>
+							<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/'" + key + "'?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='relative f_left' width='323px' height='379px'></iframe>
 							<div id="mc_pro" class="relative f_left">
 								<div class="absolute full white_cube opacity_3"></div>
 								<div id="txt_proContent" class="absolute textBase">{{html protalk}}</div>
 							</div>
-							<img id="img_stylePicture" class='relative f_left' src=${styleUrl} />
+							<img id="img_stylePicture" class='btn relative f_left' src=${styleUrl} />
 							<div id="mc_sideContainer">
 								{{each sideList}}
-								<img id=${id} class='relative f_left' src=${url} />
+								<img id=${id} class='btn relative f_left' src=${url} />
 								{{/each}}
 							</div>
 						</div>
@@ -167,7 +167,7 @@
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
 							{{each bottomList}}
-								<img id=${id} class='relative f_left' src=${url} />
+								<img id=${id} class='btn relative f_left' src=${url} />
 							{{/each}}
 						</div>
 						<div class="relative f_left margin_topB textBase">MODEL資料</div>
@@ -183,10 +183,10 @@
 						<div id="mc_historyList" class="absolute">
 							<div id="mc_historyContainer">
 								{{each historyList}}
-								<img id=${id} class="historyImgSize" src=${url} />
+								<img id=${id} class="btn historyImgSize" src=${url} />
 								{{/each}}
 							</div>
-							<img id='mc_more' src='images/streetSnap/downArrow.png'/>
+							<img id='btn_more' class="btn" src='images/streetSnap/downArrow.png'/>
 						</div>
 					</div>
 				</div>
@@ -234,7 +234,7 @@
 				<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/>
-				<div id="btn_backhome">
+				<div id="btn_backhome" class="btn">
 					<img id="img_homeLogo" class='relative' src='images/index/small_Logo.png'/>
 					<img id="img_streetSnapLogo" class='relative' src='images/index/backhomeLogo3.png'/>
 				</div>

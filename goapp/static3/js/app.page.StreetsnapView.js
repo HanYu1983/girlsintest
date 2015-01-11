@@ -12,6 +12,7 @@
       this.mc_bottomContainer = elem.find('#mc_bottomContainer');
       this.mc_historyContainer = elem.find('#mc_historyContainer');
       this.img_stylePicture = elem.find('#img_stylePicture');
+      this.btn_more = elem.find('#btn_more');
     }
 
     StreetsnapView.prototype.addListener = function() {
@@ -30,9 +31,14 @@
           return _this.event.trigger('onImgClick', _this.id);
         };
       })(this));
-      return this.img_stylePicture.click((function(_this) {
+      this.img_stylePicture.click((function(_this) {
         return function() {
           return _this.event.trigger('onImgClick', _this.id);
+        };
+      })(this));
+      return this.btn_more.click((function(_this) {
+        return function() {
+          return _this.event.trigger('onBtnMoreClick');
         };
       })(this));
     };
@@ -41,7 +47,8 @@
       this.mc_sideContainer.undelegate('img', 'click');
       this.mc_bottomContainer.undelegate('img', 'click');
       this.mc_historyContainer.undelegate('img', 'click');
-      return this.img_stylePicture.off('click');
+      this.img_stylePicture.off('click');
+      return this.btn_more.off('click');
     };
 
 

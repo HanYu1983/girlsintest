@@ -5,19 +5,21 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@mc_bottomContainer = elem.find '#mc_bottomContainer'
 		@mc_historyContainer = elem.find '#mc_historyContainer'
 		@img_stylePicture = elem.find '#img_stylePicture'
+		@btn_more = elem.find '#btn_more'
 		
 	addListener: ->
 		@mc_sideContainer.delegate 'img', 'click', => @event.trigger 'onImgClick', this.id
 		@mc_bottomContainer.delegate 'img', 'click', => @event.trigger 'onImgClick', this.id
 		@mc_historyContainer.delegate 'img', 'click', => @event.trigger 'onImgClick', this.id
 		@img_stylePicture.click => @event.trigger 'onImgClick', this.id
+		@btn_more.click => @event.trigger 'onBtnMoreClick'
 		
 	removeListener: ->
 		@mc_sideContainer.undelegate 'img', 'click'
 		@mc_bottomContainer.undelegate 'img', 'click'
 		@mc_historyContainer.undelegate 'img', 'click'
 		@img_stylePicture.off 'click'
-		
+		@btn_more.off 'click'
 		
 		
 	###

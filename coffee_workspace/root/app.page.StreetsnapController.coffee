@@ -43,7 +43,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			modelDetail: modelData.Description
 			talk: modelData.Talk
 			protalk: modelData.Comment
-			key: modelData.ModelKey
+			modelKey: modelData.ModelKey
+			key: modelData.Key
 		
 		queryDefaultTask = (callback) =>
 			queryFn =

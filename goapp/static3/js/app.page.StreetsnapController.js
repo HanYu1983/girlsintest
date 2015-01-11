@@ -70,7 +70,8 @@
           modelDetail: modelData.Description,
           talk: modelData.Talk,
           protalk: modelData.Comment,
-          key: modelData.ModelKey
+          modelKey: modelData.ModelKey,
+          key: modelData.Key
         };
       };
       queryDefaultTask = (function(_this) {

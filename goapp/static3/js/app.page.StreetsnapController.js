@@ -11,7 +11,12 @@
     }
 
     StreetsnapController.prototype.addListener = function() {
-      return StreetsnapController.__super__.addListener.call(this);
+      StreetsnapController.__super__.addListener.call(this);
+      return this._view.event.on('onImgHistoryClick', (function(_this) {
+        return function() {
+          return _this.onImgHistoryClick.apply(_this, arguments);
+        };
+      })(this));
     };
 
     StreetsnapController.prototype.open = function() {
@@ -171,6 +176,11 @@
       })(this);
       async.waterfall([fetchModelData, fetchPhotoData], fetchEndProcess);
       return promise;
+    };
+
+    StreetsnapController.prototype.onImgHistoryClick = function(evt, data) {
+      console.log(evt);
+      return this.event.trigger(evt.type, data);
     };
 
     return StreetsnapController;

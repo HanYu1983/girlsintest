@@ -54,7 +54,17 @@
       return this.bindEvent(name, this.openPageController(name, model));
     };
 
-    Main.prototype.bindEvent = function(name, controller) {};
+    Main.prototype.bindEvent = function(name, controller) {
+      switch (name) {
+        case PageStreetsnap:
+          console.log('bind!!');
+          return controller.event.on('onImgHistoryClick', (function(_this) {
+            return function() {
+              return _this.onImgHistoryClick.apply(_this, arguments);
+            };
+          })(this));
+      }
+    };
 
     Main.prototype.closePage = function(name) {
       return this.unbindEvent(name, this.closePageController(name));
@@ -62,7 +72,11 @@
 
     Main.prototype.unbindEvent = function(name, controller) {
       if (controller === void 0) {
-
+        return;
+      }
+      switch (name) {
+        case PageStreetsnap:
+          return controller.event.off('onImgHistoryClick');
       }
     };
 
@@ -72,7 +86,7 @@
         return;
       }
       controller = new this.mvcConfig[name].controller;
-      return controller.applyTemplate(this.mvcConfig[name].tmpl, (function(_this) {
+      controller.applyTemplate(this.mvcConfig[name].tmpl, (function(_this) {
         return function(elem) {
           elem.appendTo(_this.mc_pageContainer);
           controller.setView(new _this.mvcConfig[name].view(elem));
@@ -80,6 +94,7 @@
           return _this.coll_pages[name] = controller;
         };
       })(this));
+      return controller;
     };
 
     Main.prototype.closePageController = function(name) {
@@ -104,11 +119,14 @@
       return _results;
     };
 
+    Main.prototype.onImgHistoryClick = function(evt, data) {
+      console.log('main onImgHistoryClick');
+      return console.log(data);
+    };
+
     return Main;
 
   })();
-
-  console.log(app.mvcConfig);
 
   new window.app.Main(app.config.mvcConfig);
 

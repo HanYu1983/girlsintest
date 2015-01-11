@@ -1,6 +1,7 @@
 class window.app.page.StreetsnapController extends vic.mvc.Controller	
 	addListener: ->
 		super()
+		@_view.event.on 'onImgHistoryClick', => @onImgHistoryClick( arguments... )
 	
 	open: ->
 		super()
@@ -12,12 +13,16 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		
 		isStylePhoto = (photo) ->
 			photo.Belong is -3
+			
 		isSidePhoto = (photo) ->
 			photo.Belong is -2
+			
 		isHeadPhoto = (photo) ->
 			photo.Belong is -1
+			
 		isBottomPhoto = (photo) ->
 			photo.Belong is 0
+			
 		repairBase64 = (base64) ->
 			base64.replace('\r', '').replace('\n', '')
 			
@@ -93,6 +98,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			protalk:'於東區街頭看到這個小女孩, 桃紅T-Shirt加上深藍帽T的搭配，呈現出初秋可愛的氣息'	
 		###
 		
+		
+		
 	queryDefault: ->
 		@queryData(0 ,1)
 	
@@ -131,4 +138,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		
 		async.waterfall [fetchModelData, fetchPhotoData], fetchEndProcess
 		promise
-		
+	
+	onImgHistoryClick: (evt, data) ->
+		console.log evt
+		@event.trigger evt.type, data

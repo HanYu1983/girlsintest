@@ -45,7 +45,10 @@ class window.app.Main
 	
 	# 每打開一個頁面會呼叫這，為各個頁面綁定事件處理
 	bindEvent: (name, controller) ->
-	
+		switch name
+			when PageStreetsnap
+				console.log('bind!!')
+				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
 	
 	# 關閉一個頁面
 	closePage: ( name ) ->
@@ -54,7 +57,10 @@ class window.app.Main
 	# 每關閉一個頁面會呼叫這，將事件綁定解除。controller可能會是undefined, 就不必為它處理
 	unbindEvent: (name, controller) ->
 		return if controller is undefined
-		
+		switch name
+			when PageStreetsnap
+				controller.event.off 'onImgHistoryClick'
+				
 	#打開指定頁面	
 	openPageController: ( name, model ) ->
 		return if @mvcConfig[ name ] is undefined
@@ -65,6 +71,7 @@ class window.app.Main
 			controller.setView new @mvcConfig[ name ].view elem
 			controller.open()
 			@coll_pages[ name ] = controller
+		controller
 		
 	#關掉指定頁面	
 	closePageController: ( name ) ->
@@ -78,6 +85,10 @@ class window.app.Main
 	closeAllPage: ->
 		@closePage page for page in CloseablePageList
 		
-console.log app.mvcConfig
+	
+	#各頁面事件
+	onImgHistoryClick: (evt, data)->
+		console.log('main onImgHistoryClick')
+		console.log(data)
 
 new window.app.Main app.config.mvcConfig 

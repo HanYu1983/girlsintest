@@ -1,12 +1,15 @@
 class window.app.page.StreetsnapView extends vic.mvc.View	
 	constructor: ( elem ) ->
 		super elem
-		@dataDTO = elem.dataDTO
+		@dataDTO = elem.__dataDTO__
 		@mc_sideContainer = elem.find '#mc_sideContainer'
 		@mc_bottomContainer = elem.find '#mc_bottomContainer'
 		@mc_historyContainer = elem.find '#mc_historyContainer'
 		@img_stylePicture = elem.find '#img_stylePicture'
 		@btn_more = elem.find '#btn_more'
+		
+		console.log elem
+		console.log @dataDTO
 		
 	addListener: ->
 		self = this

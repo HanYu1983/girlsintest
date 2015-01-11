@@ -8,12 +8,14 @@
 
     function StreetsnapView(elem) {
       StreetsnapView.__super__.constructor.call(this, elem);
-      this.dataDTO = elem.dataDTO;
+      this.dataDTO = elem.__dataDTO__;
       this.mc_sideContainer = elem.find('#mc_sideContainer');
       this.mc_bottomContainer = elem.find('#mc_bottomContainer');
       this.mc_historyContainer = elem.find('#mc_historyContainer');
       this.img_stylePicture = elem.find('#img_stylePicture');
       this.btn_more = elem.find('#btn_more');
+      console.log(elem);
+      console.log(this.dataDTO);
     }
 
     StreetsnapView.prototype.addListener = function() {

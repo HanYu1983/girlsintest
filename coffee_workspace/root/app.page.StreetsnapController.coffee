@@ -47,7 +47,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		
 		queryDefaultTask = (callback) =>
 			queryFn =
-				if param.length > 0
+				if param?
 					[key] = param
 					()=>@queryKey key
 				else

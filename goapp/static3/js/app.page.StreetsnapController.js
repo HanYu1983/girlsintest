@@ -76,7 +76,7 @@
       queryDefaultTask = (function(_this) {
         return function(callback) {
           var key, queryFn;
-          queryFn = param.length > 0 ? ((key = param[0], param), function() {
+          queryFn = param != null ? ((key = param[0], param), function() {
             return _this.queryKey(key);
           }) : function() {
             return _this.queryDefault();

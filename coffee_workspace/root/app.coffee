@@ -43,7 +43,6 @@ class window.app.Main
 				'streetsnap_id=:id':'streetsnap'
 				'':'default'
 			streetsnap: ( id )=>
-				#console.log id
 				@openPage PageStreetsnap, arguments
 			default: ->
 				console.log 'default'
@@ -51,8 +50,8 @@ class window.app.Main
 		@router = new Router()
 		Backbone.history.start()
 		
-		#@openPopup PageBigPhoto, [ 'images/streetSnap/test1.jpg' ]
-		@openPage PageHome, [ 'images/streetSnap/test1.jpg' ]
+		@openPopup PageBigPhoto, [ 'images/streetSnap/test1.jpg' ]
+		#@openPage PageHome, [ 'images/streetSnap/test1.jpg' ]
 		
 	openPopup: ( name, param ) ->
 		@closeAllPage @mc_popupContainer

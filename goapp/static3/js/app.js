@@ -26,6 +26,7 @@
       this.mvcConfig = mvcConfig;
       this.coll_pages = {};
       this.mc_pageContainer = $('#mc_pageContainer');
+      this.mc_popupContainer = $('#mc_popupContainer');
       self = this;
       this.header = new window.app.page.HeaderController(new window.app.page.HeaderView($('#mc_header')));
       this.header.open();
@@ -64,12 +65,17 @@
       });
       this.router = new Router();
       Backbone.history.start();
-      this.openPage(PageBigPhoto, null);
+      this.openPopup(PageBigPhoto, ['images/streetSnap/test1.jpg']);
     }
 
+    Main.prototype.openPopup = function(name, param) {
+      this.closeAllPage(this.mc_popupContainer);
+      return this.bindEvent(name, this.openPageController(name, this.mc_popupContainer, param));
+    };
+
     Main.prototype.openPage = function(name, param) {
-      this.closeAllPage();
-      return this.bindEvent(name, this.openPageController(name, param));
+      this.closeAllPage(this.mc_pageContainer);
+      return this.bindEvent(name, this.openPageController(name, this.mc_pageContainer, param));
     };
 
     Main.prototype.bindEvent = function(name, controller) {
@@ -84,8 +90,8 @@
       }
     };
 
-    Main.prototype.closePage = function(name) {
-      return this.unbindEvent(name, this.closePageController(name));
+    Main.prototype.closePage = function(name, container) {
+      return this.unbindEvent(name, this.closePageController(name, container));
     };
 
     Main.prototype.unbindEvent = function(name, controller) {
@@ -98,7 +104,7 @@
       }
     };
 
-    Main.prototype.openPageController = function(name, param) {
+    Main.prototype.openPageController = function(name, container, param) {
       var controller;
       if (this.mvcConfig[name] === void 0) {
         return;
@@ -106,7 +112,7 @@
       controller = new this.mvcConfig[name].controller;
       controller.applyTemplate(this.mvcConfig[name].tmpl, param, (function(_this) {
         return function(elem) {
-          elem.appendTo(_this.mc_pageContainer);
+          elem.appendTo(container);
           controller.setView(new _this.mvcConfig[name].view(elem));
           controller.open();
           return _this.coll_pages[name] = controller;
@@ -115,24 +121,24 @@
       return controller;
     };
 
-    Main.prototype.closePageController = function(name) {
+    Main.prototype.closePageController = function(name, container) {
       var page;
       if (this.coll_pages[name] === void 0) {
         return;
       }
       page = this.coll_pages[name];
-      this.mc_pageContainer.empty();
+      container.empty();
       this.coll_pages[name].close();
       delete this.coll_pages[name];
       return page;
     };
 
-    Main.prototype.closeAllPage = function() {
+    Main.prototype.closeAllPage = function(container) {
       var page, _i, _len, _results;
       _results = [];
       for (_i = 0, _len = CloseablePageList.length; _i < _len; _i++) {
         page = CloseablePageList[_i];
-        _results.push(this.closePage(page));
+        _results.push(this.closePage(page, container));
       }
       return _results;
     };

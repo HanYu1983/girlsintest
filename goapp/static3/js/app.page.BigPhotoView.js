@@ -10,6 +10,15 @@
       return BigPhotoView.__super__.constructor.apply(this, arguments);
     }
 
+    BigPhotoView.prototype.addListener = function() {
+      return this._elem.click((function(_this) {
+        return function() {
+          console.log('onBtnCloseClick');
+          return _this.event.trigger('onBtnCloseClick');
+        };
+      })(this));
+    };
+
     return BigPhotoView;
 
   })(window.vic.mvc.View);

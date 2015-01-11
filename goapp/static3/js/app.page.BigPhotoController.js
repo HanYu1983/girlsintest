@@ -10,10 +10,10 @@
       return BigPhotoController.__super__.constructor.apply(this, arguments);
     }
 
-    BigPhotoController.prototype.applyTemplate = function() {};
-
-    BigPhotoController.prototype.addListener = function() {
-      return BigPhotoController.__super__.addListener.call(this);
+    BigPhotoController.prototype.applyTemplate = function(tmpl, param, callback) {
+      return callback(tmpl.tmpl({
+        url: param[0]
+      }));
     };
 
     return BigPhotoController;

@@ -60,9 +60,9 @@
         };
       };
       return this.queryDefault().done(function(_arg) {
-        var model, modelData, photoData;
-        modelData = _arg[0], photoData = _arg[1];
-        model = _.first(_.map(_.zip(modelData, photoData), formatModelData));
+        var model, modelDataList, photoDataList;
+        modelDataList = _arg[0], photoDataList = _arg[1];
+        model = _.first(_.map(_.zip(modelDataList, photoDataList), formatModelData));
         return callback(tmpl.tmpl(model));
       }).fail(function(err) {
         return console.log(err);
@@ -103,11 +103,11 @@
           return callback(err);
         });
       };
-      fetchPhotoData = function(modelData, callback) {
-        if (modelData.length === 0) {
+      fetchPhotoData = function(modelDataList, callback) {
+        if (modelDataList.length === 0) {
           callback(null, []);
         }
-        return async.map(modelData, function(model, callback) {
+        return async.map(modelDataList, function(model, callback) {
           return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
             StreetModelKey: model.Key
           }).done(function(photoData) {
@@ -115,8 +115,8 @@
           }).fail(function(err) {
             return callback(err);
           });
-        }, function(err, results) {
-          return callback(err, [modelData, results]);
+        }, function(err, photoDataList) {
+          return callback(err, [modelDataList, photoDataList]);
         });
       };
       promise = jQuery.Deferred();

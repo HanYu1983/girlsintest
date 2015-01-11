@@ -37,8 +37,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			protalk: modelData.Comment
 		
 		@queryDefault()
-			.done ([modelData, photoData])->
-				model = _.first( _.map( _.zip( modelData, photoData ), formatModelData ))
+			.done ([modelDataList, photoDataList])->
+				model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
 				callback tmpl.tmpl model
 				
 			.fail (err)->
@@ -76,9 +76,9 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				.fail (err) ->
 					callback err
 					
-		fetchPhotoData = (modelData, callback) ->
-			callback null, [] if modelData.length is 0
-			async.map modelData, 
+		fetchPhotoData = (modelDataList, callback) ->
+			callback null, [] if modelDataList.length is 0
+			async.map modelDataList, 
 				(model, callback) ->
 					query(app.tool.serverapi.QueryPhotoWithStreetModel , { StreetModelKey: model.Key })
 						.done (photoData) ->
@@ -87,8 +87,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 						.fail (err) ->
 							callback err
 				,
-				(err, results) ->
-					callback err, [modelData, results]
+				(err, photoDataList) ->
+					callback err, [modelDataList, photoDataList]
 					
 		promise = jQuery.Deferred()
 		fetchEndProcess = (err, results) => 

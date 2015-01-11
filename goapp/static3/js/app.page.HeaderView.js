@@ -9,14 +9,31 @@
     function HeaderView(elem) {
       HeaderView.__super__.constructor.call(this, elem);
       this._btn_backhome = elem.find('#btn_backhome');
+      this.img_homeLogo = elem.find('#img_homeLogo');
+      this.img_streetSnapLogo = elem.find('#img_streetSnapLogo');
+      this.showHome();
     }
 
     HeaderView.prototype.addListener = function() {
-      var self;
-      self = this;
-      return this._btn_backhome.click(function() {
-        return self.event.trigger('onHeaderBtnBackhomeClick');
-      });
+      return this._btn_backhome.click((function(_this) {
+        return function() {
+          return _this.event.trigger('onHeaderBtnBackhomeClick');
+        };
+      })(this));
+    };
+
+    HeaderView.prototype.removerListener = function() {
+      return this._btn_backhome.off('click');
+    };
+
+    HeaderView.prototype.showHome = function() {
+      this.img_streetSnapLogo.hide();
+      return this.img_homeLogo.show();
+    };
+
+    HeaderView.prototype.showStreetsnap = function() {
+      this.img_streetSnapLogo.show();
+      return this.img_homeLogo.hide();
     };
 
     return HeaderView;

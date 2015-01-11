@@ -8,7 +8,48 @@
 
     function StreetsnapView(elem) {
       StreetsnapView.__super__.constructor.call(this, elem);
+      this.mc_sideContainer = elem.find('#mc_sideContainer');
+      this.mc_bottomContainer = elem.find('#mc_bottomContainer');
+      this.mc_historyContainer = elem.find('#mc_historyContainer');
+      this.img_stylePicture = elem.find('#img_stylePicture');
+      this.btn_more = elem.find('#btn_more');
     }
+
+    StreetsnapView.prototype.addListener = function() {
+      this.mc_sideContainer.delegate('img', 'click', (function(_this) {
+        return function() {
+          return _this.event.trigger('onImgClick', _this.id);
+        };
+      })(this));
+      this.mc_bottomContainer.delegate('img', 'click', (function(_this) {
+        return function() {
+          return _this.event.trigger('onImgClick', _this.id);
+        };
+      })(this));
+      this.mc_historyContainer.delegate('img', 'click', (function(_this) {
+        return function() {
+          return _this.event.trigger('onImgClick', _this.id);
+        };
+      })(this));
+      this.img_stylePicture.click((function(_this) {
+        return function() {
+          return _this.event.trigger('onImgClick', _this.id);
+        };
+      })(this));
+      return this.btn_more.click((function(_this) {
+        return function() {
+          return _this.event.trigger('onBtnMoreClick');
+        };
+      })(this));
+    };
+
+    StreetsnapView.prototype.removeListener = function() {
+      this.mc_sideContainer.undelegate('img', 'click');
+      this.mc_bottomContainer.undelegate('img', 'click');
+      this.mc_historyContainer.undelegate('img', 'click');
+      this.img_stylePicture.off('click');
+      return this.btn_more.off('click');
+    };
 
 
     /*

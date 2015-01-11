@@ -33,6 +33,18 @@
 	position:relative;
 	width:650px;
 }
+.historyImgSize{
+	width:60px;
+}
+#mc_more{
+	margin-top:12px;
+	margin-left:11px;
+}
+#mc_historyList{
+	width:60px;
+	left:30px;
+	top:105px;
+}
 #mc_mainContainer{
 	width:700px;
 	margin-left:34px;

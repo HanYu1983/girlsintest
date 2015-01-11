@@ -17,4 +17,5 @@
 .opacity_5{opacity:.5;}
 .opacity_3{opacity:.3;}
 .white_outline_1{outline:white solid 1px;}
+.disable{pointer-events:none;}
 

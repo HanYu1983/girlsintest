@@ -5,6 +5,7 @@
 		<link href='css/basic.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/app.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/home.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/menubar.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/streetsnap.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/streetsnapSearch.min.css' rel='stylesheet' type='text/css'/>
 		
@@ -151,15 +152,15 @@
 						<div id="txt_date" class="relative f_right txt_size_title textBase">${date}</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="mc_mainContainer" class="relative f_left">
-							<iframe id="iframe_3dIframe" class='relative f_left' width='323px' height='379px'></iframe>
+							<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/'" + key + "'?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='relative f_left' width='323px' height='379px'></iframe>
 							<div id="mc_pro" class="relative f_left">
 								<div class="absolute full white_cube opacity_3"></div>
 								<div id="txt_proContent" class="absolute textBase">{{html protalk}}</div>
 							</div>
-							<img id="img_stylePicture" class='relative f_left' src=${styleUrl} />
+							<img id="img_stylePicture" class='btn relative f_left' src=${styleUrl} />
 							<div id="mc_sideContainer">
 								{{each sideList}}
-								<img id=${id} class='relative f_left' src=${url} />
+								<img id=${id} class='btn relative f_left' src=${url} />
 								{{/each}}
 							</div>
 						</div>
@@ -167,7 +168,7 @@
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
 							{{each bottomList}}
-								<img id=${id} class='relative f_left' src=${url} />
+								<img id=${id} class='btn relative f_left' src=${url} />
 							{{/each}}
 						</div>
 						<div class="relative f_left margin_topB textBase">MODEL資料</div>
@@ -179,6 +180,14 @@
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="txt_modelMeeting" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
 							{{html talk}}
+						</div>
+						<div id="mc_historyList" class="absolute">
+							<div id="mc_historyContainer">
+								{{each historyList}}
+								<img id=${id} class="btn historyImgSize" src=${url} />
+								{{/each}}
+							</div>
+							<img id='btn_more' class="btn" src='images/streetSnap/downArrow.png'/>
 						</div>
 					</div>
 				</div>
@@ -226,7 +235,7 @@
 				<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/>
 				<img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/>
-				<div id="btn_backhome">
+				<div id="btn_backhome" class="btn">
 					<img id="img_homeLogo" class='relative' src='images/index/small_Logo.png'/>
 					<img id="img_streetSnapLogo" class='relative' src='images/index/backhomeLogo3.png'/>
 				</div>
@@ -234,24 +243,24 @@
 			<!-- menubar -->
 			<div id="mc_menubar" class="fixed right">
 				<div id='btn_nav_celebrity' class='btn navbarBtnHeight'>
-					<img class="absolute" src='images/navbar/CELEBRITY.png'></img>
-					<img src='images/navbar/CELEBRITY_over.jpg'/>
+					<img class="absolute disable" src='images/navbar/CELEBRITY.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/CELEBRITY_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_model' class='btn navbarBtnHeight'>
-					<img class="absolute" src='images/navbar/MODELS.png'></img>
-					<img src='images/navbar/MODELS_over.jpg'/>
+					<img class="absolute disable" src='images/navbar/MODELS.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/MODELS_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_event' class='btn navbarBtnHeight'>
-					<img class="absolute" src='images/navbar/EVENT.png'></img>
-					<img src='images/navbar/EVENT_over.jpg'/>
+					<img class="absolute disable" src='images/navbar/EVENT.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/EVENT_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_streetSnap' class='btn navbarBtnHeight'>
-					<img class="absolute" src='images/navbar/STREET-SNAP.png'></img>
-					<img src='images/navbar/STREET-SNAP_over.jpg'/>
+					<img class="absolute disable" src='images/navbar/STREET-SNAP.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/STREET-SNAP_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_news' class='btn navbarBtnHeight'>
-					<img class="absolute" src='images/navbar/NEWS.png'></img>
-					<img src='images/navbar/NEWS_over.jpg'/>
+					<img class="absolute disable" src='images/navbar/NEWS.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/NEWS_over.jpg'/></div>
 				</div>
 				<div class='btn navbarBtnHeight'>
 					<img src='images/navbar/advertise.png'></img>

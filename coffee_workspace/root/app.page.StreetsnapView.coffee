@@ -34,13 +34,6 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 			self.event.trigger 'onImgHistoryClick', 
 				id:this.id
 				key:self.dataDTO.key
-		@img_stylePicture.click -> 
-			console.log 'onImgClick', 
-				id:this.id 
-				key:self.dataDTO.key
-			self.event.trigger 'onImgClick', 
-				id:this.id
-				key:self.dataDTO.key
 		@btn_more.click -> 
 			console.log 'onBtnMoreClick'
 			self.event.trigger 'onBtnMoreClick'
@@ -49,5 +42,4 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@mc_sideContainer.undelegate 'img', 'click'
 		@mc_bottomContainer.undelegate 'img', 'click'
 		@mc_historyContainer.undelegate 'img', 'click'
-		@img_stylePicture.off 'click'
 		@btn_more.off 'click'

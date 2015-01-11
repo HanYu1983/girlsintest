@@ -51,16 +51,6 @@
           key: self.dataDTO.key
         });
       });
-      this.img_stylePicture.click(function() {
-        console.log('onImgClick', {
-          id: this.id,
-          key: self.dataDTO.key
-        });
-        return self.event.trigger('onImgClick', {
-          id: this.id,
-          key: self.dataDTO.key
-        });
-      });
       return this.btn_more.click(function() {
         console.log('onBtnMoreClick');
         return self.event.trigger('onBtnMoreClick');
@@ -71,7 +61,6 @@
       this.mc_sideContainer.undelegate('img', 'click');
       this.mc_bottomContainer.undelegate('img', 'click');
       this.mc_historyContainer.undelegate('img', 'click');
-      this.img_stylePicture.off('click');
       return this.btn_more.off('click');
     };
 

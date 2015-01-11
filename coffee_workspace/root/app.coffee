@@ -35,13 +35,26 @@ class window.app.Main
 					self.openPage PageStreetsnap 
 				when 'btn_nav_news'
 					self.openPage PageNews 
+					
+		Router = Backbone.Router.extend
+			routes:
+				'streetsnap_id=:id':'streetsnap'
+				'':'default'
+			streetsnap: ( id )->
+				console.log id
+				#@openPage PageStreetsnap id
+			default: ->
+				console.log 'default'
+				
+		router = new Router()
+		Backbone.history.start()
 		
 		@openPage PageStreetsnap
 	
 	# 打開一個頁面
-	openPage: ( name, model ) ->
+	openPage: ( name, model, param ) ->
 		@closeAllPage()
-		@bindEvent name, @openPageController name, model
+		@bindEvent name, @openPageController name, model, param
 	
 	# 每打開一個頁面會呼叫這，為各個頁面綁定事件處理
 	bindEvent: (name, controller) ->
@@ -62,11 +75,11 @@ class window.app.Main
 				controller.event.off 'onImgHistoryClick'
 				
 	#打開指定頁面	
-	openPageController: ( name, model ) ->
+	openPageController: ( name, model, param ) ->
 		return if @mvcConfig[ name ] is undefined
 		
 		controller = new @mvcConfig[ name ].controller
-		controller.applyTemplate @mvcConfig[ name ].tmpl, (elem)=>
+		controller.applyTemplate @mvcConfig[ name ].tmpl, param, (elem)=>
 			elem.appendTo @mc_pageContainer
 			controller.setView new @mvcConfig[ name ].view elem
 			controller.open()

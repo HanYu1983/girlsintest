@@ -20,7 +20,7 @@
 
   window.app.Main = (function() {
     function Main(mvcConfig) {
-      var self;
+      var Router, router, self;
       this.mvcConfig = mvcConfig;
       this.coll_pages = {};
       this.mc_pageContainer = $('#mc_pageContainer');
@@ -46,12 +46,26 @@
             return self.openPage(PageNews);
         }
       });
+      Router = Backbone.Router.extend({
+        routes: {
+          'streetsnap_id=:id': 'streetsnap',
+          '': 'default'
+        },
+        streetsnap: function(id) {
+          return console.log(id);
+        },
+        "default": function() {
+          return console.log('default');
+        }
+      });
+      router = new Router();
+      Backbone.history.start();
       this.openPage(PageStreetsnap);
     }
 
-    Main.prototype.openPage = function(name, model) {
+    Main.prototype.openPage = function(name, model, param) {
       this.closeAllPage();
-      return this.bindEvent(name, this.openPageController(name, model));
+      return this.bindEvent(name, this.openPageController(name, model, param));
     };
 
     Main.prototype.bindEvent = function(name, controller) {
@@ -80,13 +94,13 @@
       }
     };
 
-    Main.prototype.openPageController = function(name, model) {
+    Main.prototype.openPageController = function(name, model, param) {
       var controller;
       if (this.mvcConfig[name] === void 0) {
         return;
       }
       controller = new this.mvcConfig[name].controller;
-      controller.applyTemplate(this.mvcConfig[name].tmpl, (function(_this) {
+      controller.applyTemplate(this.mvcConfig[name].tmpl, param, (function(_this) {
         return function(elem) {
           elem.appendTo(_this.mc_pageContainer);
           controller.setView(new _this.mvcConfig[name].view(elem));

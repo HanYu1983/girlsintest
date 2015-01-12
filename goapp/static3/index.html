@@ -19,6 +19,39 @@
 		<script src='js/lib/async/async.js'></script>
 		<script src='js/lib/vic/vic.facebook.js'></script>
 		<script src='js/lib/vic/vic.mvc.js'></script>
+		
+		<script>
+		
+		</script>
+		
+		<script>
+		
+		window.fbAsyncInit = function() {
+			FB.init({
+			  appId      : '605719376223231',
+			  xfbml      : true,
+			  version    : 'v2.2'
+			});
+			
+			// ADD ADDITIONAL FACEBOOK CODE HERE
+		  };
+			
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=605719376223231&version=v2.0";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		</script>
 	</head>
 	<body>
 		<script type='x-jquery-tmpl' id='tmpl_home'>
@@ -162,7 +195,7 @@
 							<img id="img_stylePicture" class='relative f_left' src=${styleUrl} />
 							<div id="mc_sideContainer">
 								{{each sideList}}
-								<img id=${id} class='btn relative f_left' src=${url} />
+								<img id=${id} class='btn relative f_left sidePicture' src=${url} />
 								{{/each}}
 							</div>
 						</div>
@@ -170,7 +203,7 @@
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
 							{{each bottomList}}
-								<img id=${id} class='btn relative f_left' src=${url} />
+								<img id=${id} class='btn relative f_left sidePicture' src=${url} />
 							{{/each}}
 						</div>
 						<div class="relative f_left margin_topB textBase">MODEL資料</div>
@@ -189,8 +222,9 @@
 								<img id=${id} class="btn historyImgSize" src=${url} />
 								{{/each}}
 							</div>
-							<img id='btn_more' class="btn" src='images/streetSnap/downArrow.png'/>
+							<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
 						</div>
+						<div class="fb-comments" data-href="http://developers.facebook.com/docs/plugins/comments/" data-numposts="5" data-colorscheme="light"></div>
 					</div>
 				</div>
 			</div>

@@ -83,6 +83,9 @@ class window.app.Main
 			when PageStreetsnap
 				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onImgClick arguments...
+			when PageModels
+				controller.event.on 'onImgHistoryClick', => @onModelsImgHistoryClick arguments...
+				controller.event.on 'onImgClick', => @onModelsImgClick arguments...
 			when PageBigPhoto
 				controller.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
 	
@@ -96,6 +99,12 @@ class window.app.Main
 		switch name
 			when PageStreetsnap
 				controller.event.off 'onImgHistoryClick'
+				controller.event.off 'onImgClick'
+			when PageModels
+				controller.event.off 'onImgHistoryClick'
+				controller.event.off 'onImgClick'
+			when PageBigPhoto
+				controller.event.off 'onBtnCloseClick'
 				
 	#打開指定頁面	
 	openPageController: ( name, container, param ) ->
@@ -133,10 +142,15 @@ class window.app.Main
 	
 	#各頁面事件
 	onImgHistoryClick: (evt, {id})->
-		console.log "streetsnap_id=#{id}"
 		@router.navigate "streetsnap/id=#{id}", trigger: true
 		
 	onImgClick: (evt, {id, key})->
+		@openPopup PageBigPhoto, [key, id]
+		
+	onModelsImgHistoryClick: ( evt, {id})->
+		@router.navigate "models/id=#{id}", trigger: true
+		
+	onModelsImgClick: (evt, {id, key})->
 		@openPopup PageBigPhoto, [key, id]
 		
 	onBtnCloseClick: ->

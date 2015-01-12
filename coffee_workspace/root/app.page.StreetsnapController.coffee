@@ -13,10 +13,10 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 	applyTemplate: ([key, modelType], callback)->
 		
 		isStylePhoto = (photo) ->
-			photo.Belong is -3
+			photo.Belong is -2
 			
 		isSidePhoto = (photo) ->
-			photo.Belong is -2
+			photo.Belong is -3
 			
 		isHeadPhoto = (photo) ->
 			photo.Belong is -1

@@ -36,10 +36,10 @@
       var EmptyModel, findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, key, modelType, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
       key = _arg[0], modelType = _arg[1];
       isStylePhoto = function(photo) {
-        return photo.Belong === -3;
+        return photo.Belong === -2;
       };
       isSidePhoto = function(photo) {
-        return photo.Belong === -2;
+        return photo.Belong === -3;
       };
       isHeadPhoto = function(photo) {
         return photo.Belong === -1;

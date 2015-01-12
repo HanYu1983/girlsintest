@@ -32,8 +32,9 @@
       return StreetsnapController.__super__.close.call(this);
     };
 
-    StreetsnapController.prototype.applyTemplate = function(param, callback) {
-      var findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
+    StreetsnapController.prototype.applyTemplate = function(_arg, callback) {
+      var EmptyModel, findFormatedPhoto, formatModelData, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, key, modelType, queryDefaultTask, queryEndProcess, queryHeadPhotoTask, repairBase64;
+      key = _arg[0], modelType = _arg[1];
       isStylePhoto = function(photo) {
         return photo.Belong === -3;
       };
@@ -58,9 +59,9 @@
       findFormatedPhoto = function(photoData, filterFn) {
         return _.map(_.filter(photoData, filterFn), formatPhoto);
       };
-      formatModelData = function(_arg) {
+      formatModelData = function(_arg1) {
         var modelData, photoData, _ref;
-        modelData = _arg[0], photoData = _arg[1];
+        modelData = _arg1[0], photoData = _arg1[1];
         return {
           name: modelData.Caption,
           date: modelData.DateUnix,
@@ -74,19 +75,31 @@
           key: modelData.Key
         };
       };
+      EmptyModel = {
+        name: '',
+        date: '',
+        styleUrl: '',
+        sideList: '',
+        bottomList: '',
+        modelDetail: '',
+        talk: '',
+        protalk: '',
+        modelKey: '',
+        key: ''
+      };
       queryDefaultTask = (function(_this) {
         return function(callback) {
-          var key, queryFn;
-          queryFn = param != null ? ((key = param[0], param), function() {
+          var queryFn;
+          queryFn = key != null ? function() {
             return _this.queryKey(key);
-          }) : function() {
-            return _this.queryDefault();
+          } : function() {
+            return _this.queryDefault(modelType);
           };
-          return queryFn().done(function(_arg) {
+          return queryFn().done(function(_arg1) {
             var model, modelDataList, photoDataList;
-            modelDataList = _arg[0], photoDataList = _arg[1];
+            modelDataList = _arg1[0], photoDataList = _arg1[1];
             model = _.first(_.map(_.zip(modelDataList, photoDataList), formatModelData));
-            return callback(null, model);
+            return callback(null, model != null ? model : EmptyModel);
           }).fail(function(err) {
             return callback(err);
           });
@@ -94,15 +107,15 @@
       })(this);
       queryHeadPhotoTask = (function(_this) {
         return function(callback) {
-          return _this.queryDataList(0, 6).done(function(_arg) {
+          return _this.queryDataList(modelType, 0, 6).done(function(_arg1) {
             var modelDataList, photoDataList, photos;
-            modelDataList = _arg[0], photoDataList = _arg[1];
+            modelDataList = _arg1[0], photoDataList = _arg1[1];
             photos = _.map(photoDataList, function(photoData) {
               return _.first(_.filter(photoData, isHeadPhoto));
             });
-            photos = _.map(_.zip(photos, modelDataList), function(_arg1) {
+            photos = _.map(_.zip(photos, modelDataList), function(_arg2) {
               var model, photo;
-              photo = _arg1[0], model = _arg1[1];
+              photo = _arg2[0], model = _arg2[1];
               return {
                 id: model.Key,
                 url: app.tool.getFullBase64str(repairBase64(photo.Base64Str))
@@ -114,9 +127,9 @@
           });
         };
       })(this);
-      queryEndProcess = function(err, _arg) {
+      queryEndProcess = function(err, _arg1) {
         var headModel, mainModel;
-        mainModel = _arg[0], headModel = _arg[1];
+        mainModel = _arg1[0], headModel = _arg1[1];
         mainModel.historyList = headModel;
         return callback(mainModel);
       };
@@ -140,15 +153,28 @@
        */
     };
 
-    StreetsnapController.prototype.queryDataList = function(offset, limit) {
-      return this.queryData({
+    StreetsnapController.prototype.queryDataList = function(modelType, offset, limit) {
+      this.queryData({
         Offset: offset,
         Limit: limit
       });
+      if (modelType === "models") {
+        return this.queryData({
+          ModelType: "m",
+          Offset: offset,
+          Limit: limit
+        });
+      } else {
+        return this.queryData({
+          ModelType: "s",
+          Offset: offset,
+          Limit: limit
+        });
+      }
     };
 
-    StreetsnapController.prototype.queryDefault = function() {
-      return this.queryDataList(0, 1);
+    StreetsnapController.prototype.queryDefault = function(modelType) {
+      return this.queryDataList(modelType, 0, 1);
     };
 
     StreetsnapController.prototype.queryKey = function(key) {
@@ -163,7 +189,7 @@
       fetchModelData = function(callback) {
         return query(app.tool.serverapi.QueryStreetModel, option).done(function(data) {
           var list;
-          list = data.Info.length != null ? data.Info : [data.Info];
+          list = Array.isArray(data.Info) ? data.Info : [data.Info];
           return callback(null, list);
         }).fail(function(err) {
           return callback(err);
@@ -171,19 +197,20 @@
       };
       fetchPhotoData = function(modelDataList, callback) {
         if (modelDataList.length === 0) {
-          callback(null, []);
-        }
-        return async.map(modelDataList, function(model, callback) {
-          return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
-            StreetModelKey: model.Key
-          }).done(function(photoData) {
-            return callback(null, photoData.Info);
-          }).fail(function(err) {
-            return callback(err);
+          return callback(null, [[], []]);
+        } else {
+          return async.map(modelDataList, function(model, callback) {
+            return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
+              StreetModelKey: model.Key
+            }).done(function(photoData) {
+              return callback(null, photoData.Info);
+            }).fail(function(err) {
+              return callback(err);
+            });
+          }, function(err, photoDataList) {
+            return callback(err, [modelDataList, photoDataList]);
           });
-        }, function(err, photoDataList) {
-          return callback(err, [modelDataList, photoDataList]);
-        });
+        }
       };
       promise = jQuery.Deferred();
       fetchEndProcess = (function(_this) {

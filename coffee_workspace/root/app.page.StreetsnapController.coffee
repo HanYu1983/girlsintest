@@ -10,7 +10,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 	close: ->
 		super()
 		
-	applyTemplate: (param, callback)->
+	applyTemplate: ([key, modelType], callback)->
 		
 		isStylePhoto = (photo) ->
 			photo.Belong is -3
@@ -45,25 +45,37 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			protalk: modelData.Comment
 			modelKey: modelData.ModelKey
 			key: modelData.Key
+			
+		EmptyModel = 
+			name: ''
+			date: ''
+			styleUrl: ''
+			sideList: ''
+			bottomList: ''
+			modelDetail: ''
+			talk: ''
+			protalk: ''
+			modelKey: ''
+			key: ''
 		
 		queryDefaultTask = (callback) =>
 			queryFn =
-				if param?
-					[key] = param
+				if key?
 					()=>@queryKey key
 				else
-					()=>@queryDefault()
+					()=>@queryDefault( modelType )
 			
 			queryFn()
 				.done ([modelDataList, photoDataList])->
 					model = _.first( _.map( _.zip( modelDataList, photoDataList ), formatModelData ))
-					callback null, model
+					callback null, model ? EmptyModel
+						
 				
 				.fail (err)->
 					callback err
 					
 		queryHeadPhotoTask = (callback) =>
-			@queryDataList(0, 6)
+			@queryDataList( modelType, 0, 6)
 				.done ([modelDataList, photoDataList])->
 					photos = _.map( photoDataList, (photoData)-> _.first( _.filter photoData, isHeadPhoto) )
 					photos = _.map _.zip( photos, modelDataList ), 
@@ -98,11 +110,16 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		###
 		
 		
-	queryDataList: (offset, limit)->
+	queryDataList: ( modelType, offset, limit)->
 		@queryData { Offset: offset, Limit: limit }
 		
-	queryDefault: ->
-		@queryDataList(0 ,1)
+		if modelType is "models"
+			@queryData { ModelType: "m", Offset: offset, Limit: limit }
+		else
+			@queryData { ModelType: "s", Offset: offset, Limit: limit }
+		
+	queryDefault: ( modelType ) ->
+		@queryDataList( modelType, 0 ,1)
 		
 	queryKey: (key)->
 		@queryData { Key: key }
@@ -115,28 +132,31 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			query(app.tool.serverapi.QueryStreetModel, option)
 				.done (data) ->
 					list = 
-						if data.Info.length?
+						if Array.isArray data.Info
 							data.Info
 						else
 							[data.Info]
+							
 					callback null, list
 					
 				.fail (err) ->
 					callback err
 					
 		fetchPhotoData = (modelDataList, callback) ->
-			callback null, [] if modelDataList.length is 0
-			async.map modelDataList, 
-				(model, callback) ->
-					query(app.tool.serverapi.QueryPhotoWithStreetModel , { StreetModelKey: model.Key })
-						.done (photoData) ->
-							callback null, photoData.Info
-				
-						.fail (err) ->
-							callback err
-				,
-				(err, photoDataList) ->
-					callback err, [modelDataList, photoDataList]
+			if modelDataList.length is 0
+				callback null, [[], []]
+			else
+				async.map modelDataList, 
+					(model, callback) ->
+						query(app.tool.serverapi.QueryPhotoWithStreetModel , { StreetModelKey: model.Key })
+							.done (photoData) ->
+								callback null, photoData.Info
+								
+							.fail (err) ->
+								callback err
+					,
+					(err, photoDataList) ->
+						callback err, [modelDataList, photoDataList]
 					
 		promise = jQuery.Deferred()
 		fetchEndProcess = (err, results) => 

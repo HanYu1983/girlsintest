@@ -29,6 +29,7 @@ type StreetModelEntity struct {
 	DateUnix int64
 	Tag string
 	Available bool
+	ModelType string
 }
 
 type IStreetModelDAO interface {

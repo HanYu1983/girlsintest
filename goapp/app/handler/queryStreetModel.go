@@ -14,6 +14,10 @@ func QueryStreetModel(sys tool.ISystem) interface{} {
 	}else{
 		q := dao.NewQuery(sys)
 		q = q.Filter("Available =", true)
+		hasModelType := len( r.Form["ModelType"] ) > 0
+		if hasModelType {
+			q = q.Filter("ModelType =", r.Form["ModelType"][0])
+		}
 		hasOffset := len( r.Form["Offset"] ) > 0 
 		if hasOffset {
 			offset := tool.Str2Int64(r.Form["Offset"][0])

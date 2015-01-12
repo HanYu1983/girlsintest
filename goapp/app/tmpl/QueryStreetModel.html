@@ -12,6 +12,7 @@
 				<td>Key</td>
 				<td>Available</td>
 				<td>ModelKey</td>
+				<td>ModelType</td>
 				<td>Caption</td>
 				<td>Description</td>
 				<td>Talk</td>
@@ -38,6 +39,7 @@
 					<td>{{ .Key }}</td>
 					<td><input type=checkbox name=Available {{if .Available}}checked{{end}}></td>
 					<td><input name=ModelKey value={{ .ModelKey }}></td>
+					<td><input name=ModelType value={{ .ModelType }}></td>
 					<td><input name=Caption value={{ .Caption }}></td>
 					<td><textarea name=Description rows=3>{{ .Description }}</textarea></td>
 					<td><textarea name=Talk rows=3>{{ .Talk }}</textarea></td>

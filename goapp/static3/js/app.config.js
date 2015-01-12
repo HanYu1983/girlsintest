@@ -18,10 +18,6 @@
     		tmpl: $ '#tmpl_celebrity'
     		view: window.app.pageCelebrity.View
     		controller: window.app.celebrity.Controller
-    	models:
-    		tmpl: $ '#tmpl_models'
-    		view: window.app.models.View
-    		controller: window.app.models.Controller
     	event: 
     		tmpl: $ '#tmpl_event'
     		view: window.app.event.View
@@ -36,6 +32,11 @@
     		controller: window.app.news.Controller
      */
     streetsnap: {
+      tmpl: $('#tmpl_streetsnap'),
+      view: window.app.page.StreetsnapView,
+      controller: window.app.page.StreetsnapController
+    },
+    models: {
       tmpl: $('#tmpl_streetsnap'),
       view: window.app.page.StreetsnapView,
       controller: window.app.page.StreetsnapController

@@ -10,10 +10,6 @@ window.app.config.mvcConfig =
 		tmpl: $ '#tmpl_celebrity'
 		view: window.app.pageCelebrity.View
 		controller: window.app.celebrity.Controller
-	models:
-		tmpl: $ '#tmpl_models'
-		view: window.app.models.View
-		controller: window.app.models.Controller
 	event: 
 		tmpl: $ '#tmpl_event'
 		view: window.app.event.View
@@ -31,6 +27,12 @@ window.app.config.mvcConfig =
 		tmpl: $ '#tmpl_streetsnap'
 		view: window.app.page.StreetsnapView
 		controller: window.app.page.StreetsnapController
+		
+	models:
+		tmpl: $ '#tmpl_streetsnap'
+		view: window.app.page.StreetsnapView
+		controller: window.app.page.StreetsnapController
+		
 	bigPhoto:
 		tmpl: $ '#tmpl_bigPhoto'
 		view: window.app.page.BigPhotoView

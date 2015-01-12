@@ -35,37 +35,70 @@
       });
       this.menubar = new window.app.page.MenubarController(new window.app.page.MenubarView($('#mc_menubar')));
       this.menubar.open();
-      this.menubar.event.on('onMenubarBtnClick', function(e, id) {
-        switch (id) {
-          case 'btn_nav_celebrity':
-            return self.openPage(PageCelebrity);
-          case 'btn_nav_model':
-            return self.openPage(PageModels);
-          case 'btn_nav_event':
-            return self.openPage(PageEvent);
-          case 'btn_nav_streetSnap':
-            return self.openPage(PageStreetsnap);
-          case 'btn_nav_news':
-            return self.openPage(PageNews);
-        }
-      });
+      this.menubar.event.on('onMenubarBtnClick', (function(_this) {
+        return function(e, id) {
+          switch (id) {
+            case 'btn_nav_celebrity':
+              return _this.router.navigate('celebrity', {
+                trigger: true
+              });
+            case 'btn_nav_model':
+              return _this.router.navigate('models', {
+                trigger: true
+              });
+            case 'btn_nav_event':
+              return _this.router.navigate('event', {
+                trigger: true
+              });
+            case 'btn_nav_streetSnap':
+              return _this.router.navigate('streetsnap', {
+                trigger: true
+              });
+            case 'btn_nav_news':
+              return _this.router.navigate('news', {
+                trigger: true
+              });
+          }
+        };
+      })(this));
       Router = Backbone.Router.extend({
         routes: {
-          'streetsnap_id=:id': 'streetsnap',
+          'streetsnap': 'streetsnap',
+          'streetsnap/id=:id': 'streetsnap',
+          'models': 'models',
+          'models/id=:id': 'models',
+          'celebrity': 'celebrity',
+          'event': 'event',
+          'news': 'news',
           '': 'default'
         },
         streetsnap: (function(_this) {
           return function(id) {
-            return _this.openPage(PageStreetsnap, arguments);
+            return _this.openPage(PageStreetsnap, [id, 'streetsnap']);
           };
         })(this),
-        "default": function() {
-          return console.log('default');
-        }
+        models: (function(_this) {
+          return function(id) {
+            return _this.openPage(PageModels, [id, 'models']);
+          };
+        })(this),
+        celebrity: (function(_this) {
+          return function() {};
+        })(this),
+        event: (function(_this) {
+          return function() {};
+        })(this),
+        news: (function(_this) {
+          return function() {};
+        })(this),
+        "default": (function(_this) {
+          return function() {
+            return _this.openPage(PageHome);
+          };
+        })(this)
       });
       this.router = new Router();
       Backbone.history.start();
-      this.openPage(PageHome);
     }
 
     Main.prototype.openPopup = function(name, param) {
@@ -171,7 +204,7 @@
       var id;
       id = _arg.id;
       console.log("streetsnap_id=" + id);
-      return this.router.navigate("streetsnap_id=" + id, {
+      return this.router.navigate("streetsnap/id=" + id, {
         trigger: true
       });
     };

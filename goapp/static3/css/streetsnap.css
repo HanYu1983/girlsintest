@@ -35,6 +35,7 @@
 }
 .historyImgSize{
 	width:60px;
+	height:60px;
 }
 #mc_more{
 	margin-top:12px;
@@ -68,6 +69,10 @@
 	margin-left:-480px;
 	width:960px;
 }
+#btn_more{
+	margin-left:12px;
+	margin-top:10px;
+}
 #txt_date{
 	
 }
@@ -81,4 +86,9 @@
 }
 #img_stylePicture{
 	height:282px;
+	width:198px;
+}
+.sidePicture{
+	width:94px;
+	height:94px;
 }

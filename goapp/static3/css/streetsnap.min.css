@@ -8,7 +8,7 @@
 .txt_size_title{font-size:20px;}
 .sectionBorder{width:700px;}
 .txt_content{line-height:23px;letter-spacing:1px;opacity:.5;position:relative;width:650px;}
-.historyImgSize{width:60px;}
+.historyImgSize{width:60px;height:60px;}
 #mc_more{margin-top:12px;margin-left:11px;}
 #mc_historyList{width:60px;left:30px;top:105px;}
 #mc_mainContainer{width:700px;margin-left:34px;}
@@ -16,8 +16,10 @@
 #txt_modelMeeting{margin-bottom:100px;}
 #mc_background{width:960px;background-color:#333333;}
 #mc_center{left:50%;margin-left:-480px;width:960px;}
+#btn_more{margin-left:12px;margin-top:10px;}
 #txt_date{}
 #mc_pro{width:292px;height:91px;margin-bottom:10px;}
 #iframe_3dIframe{margin-right:10px;}
-#img_stylePicture{height:282px;}
+#img_stylePicture{height:282px;width:198px;}
+.sidePicture{width:94px;height:94px;}
 

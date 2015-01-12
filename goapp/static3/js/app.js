@@ -127,6 +127,17 @@
               return _this.onImgClick.apply(_this, arguments);
             };
           })(this));
+        case PageModels:
+          controller.event.on('onImgHistoryClick', (function(_this) {
+            return function() {
+              return _this.onModelsImgHistoryClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onImgClick', (function(_this) {
+            return function() {
+              return _this.onModelsImgClick.apply(_this, arguments);
+            };
+          })(this));
         case PageBigPhoto:
           return controller.event.on('onBtnCloseClick', (function(_this) {
             return function() {
@@ -146,7 +157,13 @@
       }
       switch (name) {
         case PageStreetsnap:
-          return controller.event.off('onImgHistoryClick');
+          controller.event.off('onImgHistoryClick');
+          return controller.event.off('onImgClick');
+        case PageModels:
+          controller.event.off('onImgHistoryClick');
+          return controller.event.off('onImgClick');
+        case PageBigPhoto:
+          return controller.event.off('onBtnCloseClick');
       }
     };
 
@@ -203,13 +220,26 @@
     Main.prototype.onImgHistoryClick = function(evt, _arg) {
       var id;
       id = _arg.id;
-      console.log("streetsnap_id=" + id);
       return this.router.navigate("streetsnap/id=" + id, {
         trigger: true
       });
     };
 
     Main.prototype.onImgClick = function(evt, _arg) {
+      var id, key;
+      id = _arg.id, key = _arg.key;
+      return this.openPopup(PageBigPhoto, [key, id]);
+    };
+
+    Main.prototype.onModelsImgHistoryClick = function(evt, _arg) {
+      var id;
+      id = _arg.id;
+      return this.router.navigate("models/id=" + id, {
+        trigger: true
+      });
+    };
+
+    Main.prototype.onModelsImgClick = function(evt, _arg) {
       var id, key;
       id = _arg.id, key = _arg.key;
       return this.openPopup(PageBigPhoto, [key, id]);

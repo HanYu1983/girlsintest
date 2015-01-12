@@ -23,6 +23,13 @@ indexes:
 
 - kind: StreetModel
   properties:
+  - name: Available
+  - name: ModelType
+  - name: Date
+    direction: desc
+
+- kind: StreetModel
+  properties:
   - name: Availiable
   - name: Date
     direction: desc

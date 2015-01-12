@@ -14,7 +14,7 @@ pkg.DeletePhotoWithStreetModel = 'DeletePhotoWithStreetModel'
 query = ( host ) -> ( cmd, data ) ->
 	data.cmd = cmd
 	promise = jQuery.Deferred()
-	$.when($.ajax(host+apipath, {type:'post', data: data}))
+	$.when($.ajax(host+"/"+apipath, {type:'post', data: data}))
 		.done( (data) ->
 			promise.resolve(data)
 		)

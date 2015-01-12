@@ -159,7 +159,7 @@
 
     StreetsnapController.prototype.queryData = function(option) {
       var fetchEndProcess, fetchModelData, fetchPhotoData, promise, query;
-      query = app.tool.serverapi.query("http://localhost:8080/");
+      query = app.tool.serverapi.query("http://" + window.location.host);
       fetchModelData = function(callback) {
         return query(app.tool.serverapi.QueryStreetModel, option).done(function(data) {
           var list;

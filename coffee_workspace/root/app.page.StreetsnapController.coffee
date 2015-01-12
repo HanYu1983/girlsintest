@@ -108,7 +108,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		@queryData { Key: key }
 	
 	queryData: (option)->
-		query = app.tool.serverapi.query "http://localhost:8080/"
+		
+		query = app.tool.serverapi.query "http://#{window.location.host}"
 		
 		fetchModelData = (callback) -> 
 			query(app.tool.serverapi.QueryStreetModel, option)

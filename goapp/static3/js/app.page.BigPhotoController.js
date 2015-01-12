@@ -25,7 +25,7 @@
       repairBase64 = function(base64) {
         return base64.replace('\r', '').replace('\n', '');
       };
-      query = app.tool.serverapi.query("http://localhost:8080/");
+      query = app.tool.serverapi.query("http://" + window.location.host);
       return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
         StreetModelKey: modelKey,
         Belong: belongKey

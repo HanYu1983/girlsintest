@@ -31,7 +31,7 @@
       var promise;
       data.cmd = cmd;
       promise = jQuery.Deferred();
-      $.when($.ajax(host + apipath, {
+      $.when($.ajax(host + "/" + apipath, {
         type: 'post',
         data: data
       })).done(function(data) {

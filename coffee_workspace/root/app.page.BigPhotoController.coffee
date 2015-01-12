@@ -9,7 +9,7 @@ class window.app.page.BigPhotoController extends vic.mvc.Controller
 		repairBase64 = (base64) ->
 			base64.replace('\r', '').replace('\n', '')
 			
-		query = app.tool.serverapi.query "http://localhost:8080/"
+		query = app.tool.serverapi.query "http://#{window.location.host}"
 		
 		query(app.tool.serverapi.QueryPhotoWithStreetModel , { StreetModelKey: modelKey, Belong: belongKey })
 			.done (photoData) ->

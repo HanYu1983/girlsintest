@@ -25,34 +25,46 @@ class window.app.Main
 		#選單
 		@menubar = new window.app.page.MenubarController new window.app.page.MenubarView $ '#mc_menubar'
 		@menubar.open()
-		@menubar.event.on 'onMenubarBtnClick', ( e, id ) ->
+		@menubar.event.on 'onMenubarBtnClick', ( e, id ) =>
 			switch id
 				when 'btn_nav_celebrity'
-					self.openPage PageCelebrity
+					@router.navigate 'celebrity', trigger:true
 				when 'btn_nav_model'
-					self.openPage PageModels
+					@router.navigate 'models', trigger:true
 				when 'btn_nav_event'
-					self.openPage PageEvent
+					@router.navigate 'event', trigger:true
 				when 'btn_nav_streetSnap'
-					self.openPage PageStreetsnap
+					@router.navigate 'streetsnap', trigger:true
 				when 'btn_nav_news'
-					self.openPage PageNews
+					@router.navigate 'news', trigger:true
 					
 		Router = Backbone.Router.extend
 			routes:
-				'streetsnap_id=:id':'streetsnap'
+				'streetsnap':'streetsnap'
+				'streetsnap/id=:id':'streetsnap'
+				'models':'models'
+				'models/id=:id':'models'
+				'celebrity':'celebrity'
+				'event':'event'
+				'news':'news'
 				'':'default'
 			streetsnap: ( id )=>
-				@openPage PageStreetsnap, arguments
+				@openPage PageStreetsnap, [ id, 'streetsnap' ]
 				
-			default: ->
-				console.log 'default'
+			models: ( id ) =>
+				@openPage PageModels, [ id, 'models' ]	
+				
+			celebrity: =>
+				
+			event: =>
+				
+			news: =>
+				
+			default: =>
+				@openPage PageHome
 				
 		@router = new Router()
 		Backbone.history.start()
-		
-		
-		@openPage PageHome
 		
 	openPopup: ( name, param ) ->
 		@bindEvent name, @openPageController name, @mc_popupContainer, param
@@ -122,7 +134,7 @@ class window.app.Main
 	#各頁面事件
 	onImgHistoryClick: (evt, {id})->
 		console.log "streetsnap_id=#{id}"
-		@router.navigate "streetsnap_id=#{id}", trigger: true
+		@router.navigate "streetsnap/id=#{id}", trigger: true
 		
 	onImgClick: (evt, {id, key})->
 		@openPopup PageBigPhoto, [key, id]

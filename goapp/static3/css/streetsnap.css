@@ -58,7 +58,7 @@
 	font-style:italic;
 }
 #txt_modelMeeting{
-	margin-bottom:100px;
+	margin-bottom:30px;
 }
 #mc_background{
 	width:960px;
@@ -87,6 +87,10 @@
 #img_stylePicture{
 	height:282px;
 	width:198px;
+}
+#fbcomment{
+	margin-left:85px;
+	margin-bottom:60px;
 }
 .sidePicture{
 	width:94px;

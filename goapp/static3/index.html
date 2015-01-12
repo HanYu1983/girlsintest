@@ -22,10 +22,6 @@
 		
 		<script>
 		
-		</script>
-		
-		<script>
-		
 		window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '605719376223231',
@@ -180,7 +176,7 @@
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
 			<div class="hide full">
-				<div id="mc_center" class="absolute h_full">
+				<div id="mc_center" class="absolute">
 					<div id="mc_background" class="fixed h_full"></div>
 					<div class="mainContainer margin_leftA margin_topA">
 						<div id="txt_name" class="relative f_left txt_size_title textBase">${name}</div>
@@ -216,6 +212,10 @@
 						<div id="txt_modelMeeting" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
 							{{html talk}}
 						</div>
+						<div class="w_full relative white_cube f_left">
+							<div id="fbcomment" class="fb-comments" data-href="http://developers.facebook.com/docs/plugins/comments/" data-numposts="5" data-colorscheme="light"></div>
+						</div>
+						
 						<div id="mc_historyList" class="absolute">
 							<div id="mc_historyContainer">
 								{{each historyList}}
@@ -224,7 +224,6 @@
 							</div>
 							<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
 						</div>
-						<div class="fb-comments" data-href="http://developers.facebook.com/docs/plugins/comments/" data-numposts="5" data-colorscheme="light"></div>
 					</div>
 				</div>
 			</div>

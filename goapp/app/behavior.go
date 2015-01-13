@@ -35,6 +35,7 @@ type StreetModelEntity struct {
 type IStreetModelDAO interface {
 	tool.IDataAccessObject
 	GetRandomModel(sys tool.ISystem, count int) StreetModelEntity
+	SearchModelWithRegexp(sys tool.ISystem, regexp string, count int) []StreetModelEntity
 }
 
 type PhotoEntity struct {

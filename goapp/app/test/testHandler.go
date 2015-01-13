@@ -88,3 +88,9 @@ func TestRandomModel(sys tool.ISystem) interface{} {
 	dao.GetRandomModel(sys, 1)
 	return tool.CustomView
 }
+
+func TestSearchRegular(sys tool.ISystem) interface{} {
+	dao := app.GetApp().GetStreetModelDAO()
+	sys.Log( dao.SearchModelWithRegexp(sys, ".a", 2) )
+	return tool.CustomView	
+}

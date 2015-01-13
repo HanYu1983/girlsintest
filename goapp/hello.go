@@ -26,6 +26,7 @@ func init() {
 		"TestShowImage": test.TestShowImage,
 		"TestBase64": test.TestBase64,
 		"TestRandomModel": test.TestRandomModel,
+		"TestSearchRegular": test.TestSearchRegular,
 	}
 	pageActions := tool.ActionMap{
 		"Admin": AdminPage,

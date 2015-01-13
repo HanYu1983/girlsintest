@@ -11,8 +11,19 @@ func QueryStreetModel(sys tool.ISystem) interface{} {
 	if len(r.Form["Key"]) > 0 {
 		key64 := tool.Str2Int64(r.Form["Key"][0])
 		return tool.Success(dao.Read(sys, dao.GetKey(sys, key64, nil)))
+		
 	}else if len(r.Form["Rand"]) > 0 {
 		return tool.Success(app.GetApp().GetStreetModelDAO().GetRandomModel(sys, 1))
+		
+	}else if len(r.Form["Regexp"]) > 0 {
+		regstr := r.Form["Regexp"][0]
+		limit := 10
+		hasLimit := len( r.Form["Limit"] ) > 0 
+		if hasLimit {
+			limit = int(tool.Str2Int64(r.Form["Limit"][0]))
+		}
+		return tool.Success(app.GetApp().GetStreetModelDAO().SearchModelWithRegexp(sys, regstr, limit))
+		
 	}else{
 		q := dao.NewQuery(sys)
 		q = q.Filter("Available =", true)

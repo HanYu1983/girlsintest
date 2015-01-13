@@ -19,16 +19,13 @@
 		<script src='js/lib/async/async.js'></script>
 		<script src='js/lib/vic/vic.facebook.js'></script>
 		<script src='js/lib/vic/vic.mvc.js'></script>
-		
 		<script>
-		
 		window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '605719376223231',
 			  xfbml      : true,
 			  version    : 'v2.2'
 			});
-			
 			// ADD ADDITIONAL FACEBOOK CODE HERE
 		  };
 			
@@ -48,6 +45,7 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 		</script>
+		<div id="fb-root"></div>
 	</head>
 	<body>
 		<script type='x-jquery-tmpl' id='tmpl_home'>
@@ -57,7 +55,7 @@
 					<img id="mc_bigLogo" class='absolute' src='images/index/big_LOGO.png'/>
 					<div id="mc_3dIframeBorder" class='absolute'>
 						<div id="mc_iframeBack" class='black_cube opacity_5'></div>
-						<iframe id="iframe_3dIframe" class='absolute top left' class='iframe_3dIframe' width='323px' height='379px'></iframe>
+						<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
 						<img id="mc_3dIframeBorderLine" class='absolute top left' src='images/streetSnap/pinkBorder.png'/>
 					</div>
 				</div>
@@ -233,22 +231,55 @@
 				<div id="mc_center" class="absolute h_full">
 					<div id="mc_background" class="fixed h_full"></div>
 					<div class="mainContainer margin_leftA margin_topA">
-						<div id="txt_name2" class="relative f_left textBase">街拍精選</div>
+						<div class="relative f_left textBase">街拍精選</div>
 						<div id="mc_searchbar" class="relative f_right">
 							<input id='input_search' class="relative f_left" />
 							<img id="btn_search" src='images/streetSearch/search.png'/>
 						</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div class="relative f_left singleModel">
-							<div class='mc_modelTitle'>
-								<div class='mc_modelTitle_back'></div>
-								<div id='txt_name' class='textBase txt_name'>Alice</div>
-								<div id='txt_date' class='textBase txt_date'>2010/10/10</div>
+							<div id="mc_modelTitle" class="relative">
+								<div class='full white_cube opacity_5 absolute'></div>
+								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
+								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
 							</div>
-							<img id="img_stylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
-							<img id="img_sideA" class='relative f_left' src='images/streetSnap/test1.jpg'/>
-							<img id="img_sideB" class='relative f_left' src='images/streetSnap/test1.jpg'/>
-							<img id="img_sideC" class='relative f_left' src='images/streetSnap/test1.jpg'/>
+							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+						</div>
+						<div class="relative f_left singleModel">
+							<div id="mc_modelTitle" class="relative">
+								<div class='full white_cube opacity_5 absolute'></div>
+								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
+								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
+							</div>
+							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+						</div>
+						<div class="relative f_left singleModel">
+							<div id="mc_modelTitle" class="relative">
+								<div class='full white_cube opacity_5 absolute'></div>
+								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
+								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
+							</div>
+							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+						</div>
+						<div class="relative f_left singleModel">
+							<div id="mc_modelTitle" class="relative">
+								<div class='full white_cube opacity_5 absolute'></div>
+								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
+								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
+							</div>
+							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
 						</div>
 					</div>
 				</div>
@@ -331,6 +362,8 @@
 	<script src='js/app.page.BigPhotoController.js'></script>
 	<script src='js/app.page.StreetsnapView.js'></script>
 	<script src='js/app.page.StreetsnapController.js'></script>
+	<script src='js/app.page.StreetsnapListView.js'></script>
+	<script src='js/app.page.StreetsnapListController.js'></script>
 	<script src='js/app.page.HomeView.js'></script>
 	<script src='js/app.page.HomeController.js'></script>
 	<script src='js/app.page.HeaderView.js'></script>

@@ -65,6 +65,7 @@
         routes: {
           'streetsnap': 'streetsnap',
           'streetsnap/id=:id': 'streetsnap',
+          'streetsnapList': 'streetsnapList',
           'models': 'models',
           'models/id=:id': 'models',
           'celebrity': 'celebrity',
@@ -75,6 +76,11 @@
         streetsnap: (function(_this) {
           return function(id) {
             return _this.openPage(PageStreetsnap, [id, 'streetsnap']);
+          };
+        })(this),
+        streetsnapList: (function(_this) {
+          return function() {
+            return _this.openPage(PageStreetsnapList);
           };
         })(this),
         models: (function(_this) {
@@ -122,9 +128,14 @@
               return _this.onImgHistoryClick.apply(_this, arguments);
             };
           })(this));
-          return controller.event.on('onImgClick', (function(_this) {
+          controller.event.on('onImgClick', (function(_this) {
             return function() {
               return _this.onImgClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onBtnMoreClick', (function(_this) {
+            return function() {
+              return _this.onBtnMoreClick.apply(_this, arguments);
             };
           })(this));
         case PageModels:
@@ -158,7 +169,8 @@
       switch (name) {
         case PageStreetsnap:
           controller.event.off('onImgHistoryClick');
-          return controller.event.off('onImgClick');
+          controller.event.off('onImgClick');
+          return controller.event.off('onBtnMoreClick');
         case PageModels:
           controller.event.off('onImgHistoryClick');
           return controller.event.off('onImgClick');
@@ -229,6 +241,12 @@
       var id, key;
       id = _arg.id, key = _arg.key;
       return this.openPopup(PageBigPhoto, [key, id]);
+    };
+
+    Main.prototype.onBtnMoreClick = function(evt) {
+      return this.router.navigate('streetsnapList', {
+        trigger: true
+      });
     };
 
     Main.prototype.onModelsImgHistoryClick = function(evt, _arg) {

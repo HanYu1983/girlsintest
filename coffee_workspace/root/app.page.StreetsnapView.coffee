@@ -8,9 +8,6 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@img_stylePicture = elem.find '#img_stylePicture'
 		@btn_more = elem.find '#btn_more'
 		
-		console.log elem
-		console.log @dataDTO
-		
 	addListener: ->
 		self = this
 		@mc_sideContainer.delegate 'img', 'click', -> 

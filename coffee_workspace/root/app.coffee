@@ -42,6 +42,7 @@ class window.app.Main
 			routes:
 				'streetsnap':'streetsnap'
 				'streetsnap/id=:id':'streetsnap'
+				'streetsnapList':'streetsnapList'
 				'models':'models'
 				'models/id=:id':'models'
 				'celebrity':'celebrity'
@@ -50,6 +51,9 @@ class window.app.Main
 				'':'default'
 			streetsnap: ( id )=>
 				@openPage PageStreetsnap, [ id, 'streetsnap' ]
+				
+			streetsnapList: =>
+				@openPage PageStreetsnapList
 				
 			models: ( id ) =>
 				@openPage PageModels, [ id, 'models' ]	
@@ -83,6 +87,7 @@ class window.app.Main
 			when PageStreetsnap
 				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onImgClick arguments...
+				controller.event.on 'onBtnMoreClick', => @onBtnMoreClick arguments...
 			when PageModels
 				controller.event.on 'onImgHistoryClick', => @onModelsImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onModelsImgClick arguments...
@@ -100,6 +105,7 @@ class window.app.Main
 			when PageStreetsnap
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
+				controller.event.off 'onBtnMoreClick'
 			when PageModels
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
@@ -146,6 +152,9 @@ class window.app.Main
 		
 	onImgClick: (evt, {id, key})->
 		@openPopup PageBigPhoto, [key, id]
+		
+	onBtnMoreClick: ( evt ) ->
+		@router.navigate 'streetsnapList', trigger: true
 		
 	onModelsImgHistoryClick: ( evt, {id})->
 		@router.navigate "models/id=#{id}", trigger: true

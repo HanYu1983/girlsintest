@@ -65,6 +65,7 @@
         routes: {
           'streetsnap': 'streetsnap',
           'streetsnap/id=:id': 'streetsnap',
+          'streetsnapList': 'streetsnapList',
           'models': 'models',
           'models/id=:id': 'models',
           'celebrity': 'celebrity',
@@ -75,6 +76,11 @@
         streetsnap: (function(_this) {
           return function(id) {
             return _this.openPage(PageStreetsnap, [id, 'streetsnap']);
+          };
+        })(this),
+        streetsnapList: (function(_this) {
+          return function() {
+            return _this.openPage(PageStreetsnapList);
           };
         })(this),
         models: (function(_this) {
@@ -238,7 +244,9 @@
     };
 
     Main.prototype.onBtnMoreClick = function(evt) {
-      return this.openPage(PageStreetsnapList);
+      return this.router.navigate('streetsnapList', {
+        trigger: true
+      });
     };
 
     Main.prototype.onModelsImgHistoryClick = function(evt, _arg) {

@@ -7,11 +7,6 @@
   }
 
   window.app.config.mvcConfig = {
-    home: {
-      tmpl: $('#tmpl_home'),
-      view: window.app.page.HomeView,
-      controller: window.app.page.HomeController
-    },
 
     /*	
     	celebrity: 
@@ -28,6 +23,11 @@
     		view: window.app.news.View
     		controller: window.app.news.Controller
      */
+    home: {
+      tmpl: $('#tmpl_home'),
+      view: window.app.page.HomeView,
+      controller: window.app.page.HomeController
+    },
     streetsnap: {
       tmpl: $('#tmpl_streetsnap'),
       view: window.app.page.StreetsnapView,

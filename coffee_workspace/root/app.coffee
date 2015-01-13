@@ -42,6 +42,7 @@ class window.app.Main
 			routes:
 				'streetsnap':'streetsnap'
 				'streetsnap/id=:id':'streetsnap'
+				'streetsnapList':'streetsnapList'
 				'models':'models'
 				'models/id=:id':'models'
 				'celebrity':'celebrity'
@@ -50,6 +51,9 @@ class window.app.Main
 				'':'default'
 			streetsnap: ( id )=>
 				@openPage PageStreetsnap, [ id, 'streetsnap' ]
+				
+			streetsnapList: =>
+				@openPage PageStreetsnapList
 				
 			models: ( id ) =>
 				@openPage PageModels, [ id, 'models' ]	
@@ -150,7 +154,7 @@ class window.app.Main
 		@openPopup PageBigPhoto, [key, id]
 		
 	onBtnMoreClick: ( evt ) ->
-		@openPage PageStreetsnapList
+		@router.navigate 'streetsnapList', trigger: true
 		
 	onModelsImgHistoryClick: ( evt, {id})->
 		@router.navigate "models/id=#{id}", trigger: true

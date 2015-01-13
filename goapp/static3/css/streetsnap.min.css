@@ -13,7 +13,7 @@
 #mc_historyList{width:60px;left:30px;top:105px;}
 #mc_mainContainer{width:700px;margin-left:34px;}
 #txt_proContent{color:white;margin-top:7px;margin-left:8px;width:275px;font-style:italic;}
-#txt_modelMeeting{margin-bottom:100px;}
+#txt_modelMeeting{margin-bottom:30px;}
 #mc_background{width:960px;background-color:#333333;}
 #mc_center{left:50%;margin-left:-480px;width:960px;}
 #btn_more{margin-left:12px;margin-top:10px;}
@@ -21,5 +21,6 @@
 #mc_pro{width:292px;height:91px;margin-bottom:10px;}
 #iframe_3dIframe{margin-right:10px;}
 #img_stylePicture{height:282px;width:198px;}
+#fbcomment{margin-left:85px;margin-bottom:60px;}
 .sidePicture{width:94px;height:94px;}
 

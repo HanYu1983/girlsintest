@@ -4,6 +4,7 @@ import (
 	"lib/tool"
 	"appengine"
     "appengine/datastore"
+	"math/rand"
 )
 
 type StreetModelDAO struct{
@@ -52,3 +53,15 @@ func (r *StreetModelDAO) Init(){
 	}
 }
 
+func (r *StreetModelDAO) GetRandomModel( sys tool.ISystem, count int) StreetModelEntity {
+	c := appengine.NewContext(sys.GetRequest())
+	query := r.NewQuery(sys)
+	query = query.Filter("Available =", true)
+	total, err := query.Count(c)
+	if err != nil || total == 0 {
+		panic("no model")
+	}
+	luck := rand.Intn( total )
+	query = query.Offset( luck ).Limit(1)
+	return r.ReadAll(sys, query)[0].(StreetModelEntity)
+}

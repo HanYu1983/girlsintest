@@ -14,6 +14,20 @@
       return HomeController.__super__.addListener.call(this);
     };
 
+    HomeController.prototype.applyTemplate = function(param, callback) {
+      var query;
+      query = app.tool.serverapi.query("http://" + window.location.host);
+      return query(app.tool.serverapi.QueryStreetModel, {
+        Rand: 0
+      }).done(function(data) {
+        return callback({
+          modelKey: data.Info.ModelKey
+        });
+      }).fail(function(err) {
+        return alert(err);
+      });
+    };
+
     return HomeController;
 
   })(vic.mvc.Controller);

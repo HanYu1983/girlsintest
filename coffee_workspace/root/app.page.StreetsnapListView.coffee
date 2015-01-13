@@ -1,0 +1,1 @@
+class window.app.page.StreetsnapListView extends vic.mvc.View

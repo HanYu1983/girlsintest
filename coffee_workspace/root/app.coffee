@@ -83,6 +83,7 @@ class window.app.Main
 			when PageStreetsnap
 				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onImgClick arguments...
+				controller.event.on 'onBtnMoreClick', => @onBtnMoreClick arguments...
 			when PageModels
 				controller.event.on 'onImgHistoryClick', => @onModelsImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onModelsImgClick arguments...
@@ -100,6 +101,7 @@ class window.app.Main
 			when PageStreetsnap
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
+				controller.event.off 'onBtnMoreClick'
 			when PageModels
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
@@ -146,6 +148,9 @@ class window.app.Main
 		
 	onImgClick: (evt, {id, key})->
 		@openPopup PageBigPhoto, [key, id]
+		
+	onBtnMoreClick: ( evt ) ->
+		@openPage PageStreetsnapList
 		
 	onModelsImgHistoryClick: ( evt, {id})->
 		@router.navigate "models/id=#{id}", trigger: true

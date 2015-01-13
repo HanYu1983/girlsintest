@@ -1,10 +1,5 @@
 window.app.config ?= {}
 window.app.config.mvcConfig = 
-	
-	home:
-		tmpl: $ '#tmpl_home'
-		view: window.app.page.HomeView
-		controller: window.app.page.HomeController
 	###	
 	celebrity: 
 		tmpl: $ '#tmpl_celebrity'
@@ -14,19 +9,27 @@ window.app.config.mvcConfig =
 		tmpl: $ '#tmpl_event'
 		view: window.app.event.View
 		controller: window.app.event.Controller
-	streetsnapList: 
-		tmpl: $ '#tmpl_streetsnapList'
-		view: window.app.streetsnapList.View
-		controller: window.app.streetsnapList.Controller
+		
 	news:
 		tmpl: $ '#tmpl_news'
 		view: window.app.news.View
 		controller: window.app.news.Controller
 	###
+	
+	home:
+		tmpl: $ '#tmpl_home'
+		view: window.app.page.HomeView
+		controller: window.app.page.HomeController
+	
 	streetsnap:
 		tmpl: $ '#tmpl_streetsnap'
 		view: window.app.page.StreetsnapView
 		controller: window.app.page.StreetsnapController
+		
+	streetsnapList: 
+		tmpl: $ '#tmpl_streetsnap_list'
+		view: window.app.page.StreetsnapListView
+		controller: window.app.page.StreetsnapListController
 		
 	models:
 		tmpl: $ '#tmpl_streetsnap'

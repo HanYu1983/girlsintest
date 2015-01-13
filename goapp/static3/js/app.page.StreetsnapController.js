@@ -17,11 +17,22 @@
           return _this.onImgHistoryClick.apply(_this, arguments);
         };
       })(this));
-      return this._view.event.on('onImgClick', (function(_this) {
+      this._view.event.on('onImgClick', (function(_this) {
         return function() {
           return _this.onImgClick.apply(_this, arguments);
         };
       })(this));
+      return this._view.event.on('onBtnMoreClick', (function(_this) {
+        return function() {
+          return _this.onBtnMoreClick.apply(_this, arguments);
+        };
+      })(this));
+    };
+
+    StreetsnapController.prototype.removeListener = function() {
+      this._view.event.off('onImgHistoryClick');
+      this._view.event.off('onImgClick');
+      return this._view.event.off('onBtnMoreClick');
     };
 
     StreetsnapController.prototype.open = function() {
@@ -232,6 +243,10 @@
 
     StreetsnapController.prototype.onImgClick = function(evt, data) {
       return this.event.trigger(evt.type, data);
+    };
+
+    StreetsnapController.prototype.onBtnMoreClick = function(evt) {
+      return this.event.trigger(evt.type);
     };
 
     return StreetsnapController;

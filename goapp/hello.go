@@ -25,6 +25,7 @@ func init() {
 	testActions := tool.ActionMap{
 		"TestShowImage": test.TestShowImage,
 		"TestBase64": test.TestBase64,
+		"TestRandomModel": test.TestRandomModel,
 	}
 	pageActions := tool.ActionMap{
 		"Admin": AdminPage,

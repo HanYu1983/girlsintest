@@ -8,6 +8,7 @@ import (
 	_ "image/png"
 	"encoding/base64"
 	"bytes"
+	"app"
 )
 
 
@@ -79,5 +80,11 @@ func TestBase64(sys tool.ISystem) interface{} {
 		sys.GetResponse().WriteHeader(200)
 	}
 	*/
+	return tool.CustomView
+}
+
+func TestRandomModel(sys tool.ISystem) interface{} {
+	dao := app.GetApp().GetStreetModelDAO()
+	dao.GetRandomModel(sys, 1)
 	return tool.CustomView
 }

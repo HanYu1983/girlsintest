@@ -196,6 +196,7 @@
       controller.applyTemplate(param, (function(_this) {
         return function(dataDTO) {
           var elem;
+          console.log(dataDTO);
           elem = _this.mvcConfig[name].tmpl.tmpl(dataDTO);
           elem.__dataDTO__ = dataDTO;
           elem.appendTo(container);

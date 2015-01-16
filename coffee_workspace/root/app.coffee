@@ -125,6 +125,7 @@ class window.app.Main
 			@coll_pages[ name ] = controller
 		###
 		controller.applyTemplate param, ( dataDTO )=>
+			console.log dataDTO
 			elem = @mvcConfig[ name ].tmpl.tmpl dataDTO
 			elem.__dataDTO__ = dataDTO
 			elem.appendTo container

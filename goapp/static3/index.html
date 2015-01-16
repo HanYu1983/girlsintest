@@ -237,50 +237,19 @@
 							<img id="btn_search" src='images/streetSearch/search.png'/>
 						</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						{{each streetsnapList}}
 						<div class="relative f_left singleModel">
 							<div id="mc_modelTitle" class="relative">
 								<div class='full white_cube opacity_5 absolute'></div>
-								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
-								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
+								<div id='txt_name' class='absolute textBase txt_name'>${name}</div>
+								<div id='txt_date' class='absolute textBase txt_date'>${date}</div>
 							</div>
-							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
+							<img id="img_listStylePicture" class='relative f_left' src=${imgStylePath} />
+							<img class='relative f_left listSideSize' src=${imgSideAPath} />
+							<img class='relative f_left listSideSize' src=${imgSideBPath} />
+							<img class='relative f_left listSideSize' src=${imgSideCPath} />
 						</div>
-						<div class="relative f_left singleModel">
-							<div id="mc_modelTitle" class="relative">
-								<div class='full white_cube opacity_5 absolute'></div>
-								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
-								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
-							</div>
-							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-						</div>
-						<div class="relative f_left singleModel">
-							<div id="mc_modelTitle" class="relative">
-								<div class='full white_cube opacity_5 absolute'></div>
-								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
-								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
-							</div>
-							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-						</div>
-						<div class="relative f_left singleModel">
-							<div id="mc_modelTitle" class="relative">
-								<div class='full white_cube opacity_5 absolute'></div>
-								<div id='txt_name' class='absolute textBase txt_name'>Alice</div>
-								<div id='txt_date' class='absolute textBase txt_date'>2010/10/10</div>
-							</div>
-							<img id="img_listStylePicture" class='relative f_left' src='images/streetSnap/test2.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-							<img class='relative f_left listSideSize' src='images/streetSnap/test1.jpg'/>
-						</div>
+						{{/each}}
 					</div>
 				</div>
 			</div>

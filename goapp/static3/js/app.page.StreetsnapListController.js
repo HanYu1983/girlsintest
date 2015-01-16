@@ -10,6 +10,28 @@
       return StreetsnapListController.__super__.constructor.apply(this, arguments);
     }
 
+    StreetsnapListController.prototype.applyTemplate = function(params, callback) {
+      return callback({
+        streetsnapList: [
+          {
+            name: 'vic',
+            date: '12321',
+            imgStylePath: 'images/streetSnap/test2.jpg',
+            imgSideAPath: 'images/streetSnap/test1.jpg',
+            imgSideBPath: 'images/streetSnap/test1.jpg',
+            imgSideCPath: 'images/streetSnap/test1.jpg'
+          }, {
+            name: 'vic',
+            date: '12321',
+            imgStylePath: 'images/streetSnap/test2.jpg',
+            imgSideAPath: 'images/streetSnap/test1.jpg',
+            imgSideBPath: 'images/streetSnap/test1.jpg',
+            imgSideCPath: 'images/streetSnap/test1.jpg'
+          }
+        ]
+      });
+    };
+
     return StreetsnapListController;
 
   })(vic.mvc.Controller);

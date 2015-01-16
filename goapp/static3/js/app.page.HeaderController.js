@@ -19,6 +19,14 @@
       });
     };
 
+    HeaderController.prototype.showHome = function() {
+      return this._view.showHome();
+    };
+
+    HeaderController.prototype.showStreetsnap = function() {
+      return this._view.showStreetsnap();
+    };
+
     return HeaderController;
 
   })(vic.mvc.Controller);

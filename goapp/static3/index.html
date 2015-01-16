@@ -57,7 +57,9 @@
 					<div id="mc_3dIframeBorder" class='absolute'>
 						<div id="mc_iframeBack" class='black_cube opacity_5'></div>
 						<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
+						<!--
 						<img id="mc_3dIframeBorderLine" class='absolute top left' src='images/streetSnap/pinkBorder.png'/>
+						-->
 					</div>
 				</div>
 			</div>
@@ -235,7 +237,7 @@
 						<div class="relative f_left textBase">街拍精選</div>
 						<div id="mc_searchbar" class="relative f_right">
 							<input id='input_search' class="relative f_left" />
-							<img id="btn_search" src='images/streetSearch/search.png'/>
+							<img id="btn_search" class="btn" src='images/streetSearch/search.png'/>
 						</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						{{each streetsnapList}}
@@ -326,7 +328,7 @@
 	
 	<script>window.app = {}</script>
 	<script>window.app.page = {}</script>
-	<script src='js/app.tool.global.js'></script>
+	<script src='js/app.tool.js'></script>
 	<script src='js/app.tool.serverapi.js'></script>
 	<script src='js/app.page.BigPhotoView.js'></script>
 	<script src='js/app.page.BigPhotoController.js'></script>

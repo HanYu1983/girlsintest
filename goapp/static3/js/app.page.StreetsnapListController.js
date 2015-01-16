@@ -52,7 +52,7 @@
             var m, p;
             m = _arg1[0], p = _arg1[1];
             return {
-              name: 'Test',
+              name: m.Name,
               date: m.UnixDate,
               imgStylePath: 'images/streetSnap/test2.jpg',
               imgSideAPath: 'images/streetSnap/test1.jpg',
@@ -89,6 +89,15 @@
       				}
       			]
        */
+    };
+
+    StreetsnapListController.prototype.addListener = function() {
+      StreetsnapListController.__super__.addListener.call(this);
+      return this._view.event.on('onBtnSearchClick', (function(_this) {
+        return function(evt, params) {
+          return _this.event.trigger(evt.type, params);
+        };
+      })(this));
     };
 
     return StreetsnapListController;

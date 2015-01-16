@@ -30,9 +30,13 @@
       self = this;
       this.header = new window.app.page.HeaderController(new window.app.page.HeaderView($('#mc_header')));
       this.header.open();
-      this.header.event.on('onHeaderBtnBackhomeClick', function() {
-        return self.openPage(PageHome);
-      });
+      this.header.event.on('onHeaderBtnBackhomeClick', (function(_this) {
+        return function() {
+          return _this.router.navigate('', {
+            trigger: true
+          });
+        };
+      })(this));
       this.menubar = new window.app.page.MenubarController(new window.app.page.MenubarView($('#mc_menubar')));
       this.menubar.open();
       this.menubar.event.on('onMenubarBtnClick', (function(_this) {
@@ -66,6 +70,7 @@
           'streetsnap': 'streetsnap',
           'streetsnap/id=:id': 'streetsnap',
           'streetsnapList': 'streetsnapList',
+          'streetsnapList/search=:search': 'streetsnapList',
           'models': 'models',
           'models/id=:id': 'models',
           'celebrity': 'celebrity',
@@ -75,12 +80,14 @@
         },
         streetsnap: (function(_this) {
           return function(id) {
-            return _this.openPage(PageStreetsnap, [id, 'streetsnap']);
+            _this.openPage(PageStreetsnap, [id, 'streetsnap']);
+            return _this.header.showStreetsnap();
           };
         })(this),
         streetsnapList: (function(_this) {
-          return function() {
-            return _this.openPage(PageStreetsnapList);
+          return function(search) {
+            _this.openPage(PageStreetsnapList, [search]);
+            return _this.header.showStreetsnap();
           };
         })(this),
         models: (function(_this) {
@@ -99,7 +106,8 @@
         })(this),
         "default": (function(_this) {
           return function() {
-            return _this.openPage(PageHome);
+            _this.openPage(PageHome);
+            return _this.header.showHome();
           };
         })(this)
       });
@@ -138,6 +146,12 @@
               return _this.onBtnMoreClick.apply(_this, arguments);
             };
           })(this));
+        case PageStreetsnapList:
+          return controller.event.on('onBtnSearchClick', (function(_this) {
+            return function() {
+              return _this.onBtnSearchClick.apply(_this, arguments);
+            };
+          })(this));
         case PageModels:
           controller.event.on('onImgHistoryClick', (function(_this) {
             return function() {
@@ -171,6 +185,8 @@
           controller.event.off('onImgHistoryClick');
           controller.event.off('onImgClick');
           return controller.event.off('onBtnMoreClick');
+        case PageStreetsnapList:
+          return controller.event.off('onBtnSearchClick');
         case PageModels:
           controller.event.off('onImgHistoryClick');
           return controller.event.off('onImgClick');
@@ -266,6 +282,12 @@
 
     Main.prototype.onBtnCloseClick = function() {
       return this.closePopup(PageBigPhoto);
+    };
+
+    Main.prototype.onBtnSearchClick = function(evt, params) {
+      return this.router.navigate('streetsnapList/search=' + params.search, {
+        trigger: true
+      });
     };
 
     return Main;

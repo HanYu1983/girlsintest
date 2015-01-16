@@ -20,7 +20,7 @@ class window.app.Main
 		#頭部的header
 		@header = new window.app.page.HeaderController new window.app.page.HeaderView $ '#mc_header'
 		@header.open()
-		@header.event.on 'onHeaderBtnBackhomeClick', -> self.openPage PageHome
+		@header.event.on 'onHeaderBtnBackhomeClick', => @router.navigate '', trigger:true
 			
 		#選單
 		@menubar = new window.app.page.MenubarController new window.app.page.MenubarView $ '#mc_menubar'
@@ -43,6 +43,7 @@ class window.app.Main
 				'streetsnap':'streetsnap'
 				'streetsnap/id=:id':'streetsnap'
 				'streetsnapList':'streetsnapList'
+				'streetsnapList/search=:search':'streetsnapList'
 				'models':'models'
 				'models/id=:id':'models'
 				'celebrity':'celebrity'
@@ -51,9 +52,11 @@ class window.app.Main
 				'':'default'
 			streetsnap: ( id )=>
 				@openPage PageStreetsnap, [ id, 'streetsnap' ]
+				@header.showStreetsnap()
 				
-			streetsnapList: =>
-				@openPage PageStreetsnapList
+			streetsnapList: ( search )=>
+				@openPage PageStreetsnapList, [ search ]
+				@header.showStreetsnap()
 				
 			models: ( id ) =>
 				@openPage PageModels, [ id, 'models' ]	
@@ -66,6 +69,7 @@ class window.app.Main
 				
 			default: =>
 				@openPage PageHome
+				@header.showHome()
 				
 		@router = new Router()
 		Backbone.history.start()
@@ -88,6 +92,8 @@ class window.app.Main
 				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onImgClick arguments...
 				controller.event.on 'onBtnMoreClick', => @onBtnMoreClick arguments...
+			when PageStreetsnapList
+				controller.event.on 'onBtnSearchClick', => @onBtnSearchClick arguments...
 			when PageModels
 				controller.event.on 'onImgHistoryClick', => @onModelsImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onModelsImgClick arguments...
@@ -106,6 +112,8 @@ class window.app.Main
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
 				controller.event.off 'onBtnMoreClick'
+			when PageStreetsnapList
+				controller.event.off 'onBtnSearchClick'
 			when PageModels
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
@@ -165,5 +173,8 @@ class window.app.Main
 		
 	onBtnCloseClick: ->
 		@closePopup PageBigPhoto
-	
+		
+	onBtnSearchClick: ( evt, params ) ->
+		@router.navigate 'streetsnapList/search=' + params.search, trigger: true
+		
 new window.app.Main app.config.mvcConfig 

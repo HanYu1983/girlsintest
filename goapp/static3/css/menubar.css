@@ -1,3 +1,7 @@
+#mc_menubar{
+	top:50%;
+	margin-top:-200px;
+}
 .navover{
 	overflow:hidden;
 	width:0;

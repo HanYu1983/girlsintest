@@ -6,9 +6,31 @@
   window.app.page.StreetsnapListView = (function(_super) {
     __extends(StreetsnapListView, _super);
 
-    function StreetsnapListView() {
-      return StreetsnapListView.__super__.constructor.apply(this, arguments);
+    function StreetsnapListView(elem) {
+      StreetsnapListView.__super__.constructor.call(this, elem);
+      this.input_search = elem.find($('#input_search'));
+      this.btn_search = elem.find($('#btn_search'));
+      console.log(this.btn_search);
+      console.log(this.input_search);
     }
+
+    StreetsnapListView.prototype.addListener = function() {
+      return this.btn_search.click((function(_this) {
+        return function() {
+          var searchvalue;
+          searchvalue = _this.input_search.val();
+          if (searchvalue.length > 0) {
+            return _this.event.trigger('onBtnSearchClick', {
+              search: searchvalue
+            });
+          }
+        };
+      })(this));
+    };
+
+    StreetsnapListView.prototype.removeListener = function() {
+      return this.btn_search.off('click');
+    };
 
     return StreetsnapListView;
 

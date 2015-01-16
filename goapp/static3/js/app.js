@@ -66,6 +66,7 @@
           'streetsnap': 'streetsnap',
           'streetsnap/id=:id': 'streetsnap',
           'streetsnapList': 'streetsnapList',
+          'streetsnapList/search=:search': 'streetsnapList',
           'models': 'models',
           'models/id=:id': 'models',
           'celebrity': 'celebrity',
@@ -79,8 +80,8 @@
           };
         })(this),
         streetsnapList: (function(_this) {
-          return function() {
-            return _this.openPage(PageStreetsnapList);
+          return function(search) {
+            return _this.openPage(PageStreetsnapList, [search]);
           };
         })(this),
         models: (function(_this) {
@@ -277,7 +278,9 @@
     };
 
     Main.prototype.onBtnSearchClick = function(evt, params) {
-      return console.log(params.search);
+      return this.router.navigate('streetsnapList/search=' + params.search, {
+        trigger: true
+      });
     };
 
     return Main;

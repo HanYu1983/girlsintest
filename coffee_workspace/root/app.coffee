@@ -43,6 +43,7 @@ class window.app.Main
 				'streetsnap':'streetsnap'
 				'streetsnap/id=:id':'streetsnap'
 				'streetsnapList':'streetsnapList'
+				'streetsnapList/search=:search':'streetsnapList'
 				'models':'models'
 				'models/id=:id':'models'
 				'celebrity':'celebrity'
@@ -52,8 +53,8 @@ class window.app.Main
 			streetsnap: ( id )=>
 				@openPage PageStreetsnap, [ id, 'streetsnap' ]
 				
-			streetsnapList: =>
-				@openPage PageStreetsnapList
+			streetsnapList: ( search )=>
+				@openPage PageStreetsnapList, [ search ]
 				
 			models: ( id ) =>
 				@openPage PageModels, [ id, 'models' ]	
@@ -171,6 +172,6 @@ class window.app.Main
 		@closePopup PageBigPhoto
 		
 	onBtnSearchClick: ( evt, params ) ->
-		console.log params.search
-	
+		@router.navigate 'streetsnapList/search=' + params.search, trigger: true
+		
 new window.app.Main app.config.mvcConfig 

@@ -19,3 +19,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 					imgSideCPath:'images/streetSnap/test1.jpg'
 				}
 			]
+			
+	addListener: ->
+		super()
+		@_view.event.on 'onBtnSearchClick', ( evt, params ) => @event.trigger evt.type, params

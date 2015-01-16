@@ -8,20 +8,19 @@
 
     function StreetsnapListView(elem) {
       StreetsnapListView.__super__.constructor.call(this, elem);
-      this.input_search = elem.find($('#input_search'));
-      this.btn_search = elem.find($('#btn_search'));
-      console.log(this.btn_search);
-      console.log(this.input_search);
+      this.input_search = elem.find('#input_search');
+      this.btn_search = elem.find('#btn_search');
     }
 
     StreetsnapListView.prototype.addListener = function() {
+      StreetsnapListView.__super__.addListener.call(this);
       return this.btn_search.click((function(_this) {
         return function() {
-          var searchvalue;
-          searchvalue = _this.input_search.val();
-          if (searchvalue.length > 0) {
+          var search;
+          search = _this.input_search.val();
+          if (search.length > 0) {
             return _this.event.trigger('onBtnSearchClick', {
-              search: searchvalue
+              search: search
             });
           }
         };

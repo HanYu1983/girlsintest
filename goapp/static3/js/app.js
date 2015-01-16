@@ -138,6 +138,12 @@
               return _this.onBtnMoreClick.apply(_this, arguments);
             };
           })(this));
+        case PageStreetsnapList:
+          return controller.event.on('onBtnSearchClick', (function(_this) {
+            return function() {
+              return _this.onBtnSearchClick.apply(_this, arguments);
+            };
+          })(this));
         case PageModels:
           controller.event.on('onImgHistoryClick', (function(_this) {
             return function() {
@@ -171,6 +177,8 @@
           controller.event.off('onImgHistoryClick');
           controller.event.off('onImgClick');
           return controller.event.off('onBtnMoreClick');
+        case PageStreetsnapList:
+          return controller.event.off('onBtnSearchClick');
         case PageModels:
           controller.event.off('onImgHistoryClick');
           return controller.event.off('onImgClick');
@@ -266,6 +274,10 @@
 
     Main.prototype.onBtnCloseClick = function() {
       return this.closePopup(PageBigPhoto);
+    };
+
+    Main.prototype.onBtnSearchClick = function(evt, params) {
+      return console.log(params.search);
     };
 
     return Main;

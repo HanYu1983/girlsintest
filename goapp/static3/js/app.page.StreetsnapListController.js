@@ -32,6 +32,15 @@
       });
     };
 
+    StreetsnapListController.prototype.addListener = function() {
+      StreetsnapListController.__super__.addListener.call(this);
+      return this._view.event.on('onBtnSearchClick', (function(_this) {
+        return function(evt, params) {
+          return _this.event.trigger(evt.type, params);
+        };
+      })(this));
+    };
+
     return StreetsnapListController;
 
   })(vic.mvc.Controller);

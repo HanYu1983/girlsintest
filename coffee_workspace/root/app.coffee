@@ -88,6 +88,8 @@ class window.app.Main
 				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onImgClick arguments...
 				controller.event.on 'onBtnMoreClick', => @onBtnMoreClick arguments...
+			when PageStreetsnapList
+				controller.event.on 'onBtnSearchClick', => @onBtnSearchClick arguments...
 			when PageModels
 				controller.event.on 'onImgHistoryClick', => @onModelsImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onModelsImgClick arguments...
@@ -106,6 +108,8 @@ class window.app.Main
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
 				controller.event.off 'onBtnMoreClick'
+			when PageStreetsnapList
+				controller.event.off 'onBtnSearchClick'
 			when PageModels
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
@@ -165,5 +169,8 @@ class window.app.Main
 		
 	onBtnCloseClick: ->
 		@closePopup PageBigPhoto
+		
+	onBtnSearchClick: ( evt, params ) ->
+		console.log params.search
 	
 new window.app.Main app.config.mvcConfig 

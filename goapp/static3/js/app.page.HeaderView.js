@@ -28,11 +28,11 @@
 
     HeaderView.prototype.showHome = function() {
       this.img_streetSnapLogo.hide();
-      return this.img_homeLogo.show();
+      return this.img_homeLogo.fadeIn(400);
     };
 
     HeaderView.prototype.showStreetsnap = function() {
-      this.img_streetSnapLogo.show();
+      this.img_streetSnapLogo.fadeIn(400);
       return this.img_homeLogo.hide();
     };
 

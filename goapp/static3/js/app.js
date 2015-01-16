@@ -30,9 +30,13 @@
       self = this;
       this.header = new window.app.page.HeaderController(new window.app.page.HeaderView($('#mc_header')));
       this.header.open();
-      this.header.event.on('onHeaderBtnBackhomeClick', function() {
-        return self.openPage(PageHome);
-      });
+      this.header.event.on('onHeaderBtnBackhomeClick', (function(_this) {
+        return function() {
+          return _this.router.navigate('', {
+            trigger: true
+          });
+        };
+      })(this));
       this.menubar = new window.app.page.MenubarController(new window.app.page.MenubarView($('#mc_menubar')));
       this.menubar.open();
       this.menubar.event.on('onMenubarBtnClick', (function(_this) {
@@ -76,12 +80,14 @@
         },
         streetsnap: (function(_this) {
           return function(id) {
-            return _this.openPage(PageStreetsnap, [id, 'streetsnap']);
+            _this.openPage(PageStreetsnap, [id, 'streetsnap']);
+            return _this.header.showStreetsnap();
           };
         })(this),
         streetsnapList: (function(_this) {
           return function(search) {
-            return _this.openPage(PageStreetsnapList, [search]);
+            _this.openPage(PageStreetsnapList, [search]);
+            return _this.header.showStreetsnap();
           };
         })(this),
         models: (function(_this) {
@@ -100,7 +106,8 @@
         })(this),
         "default": (function(_this) {
           return function() {
-            return _this.openPage(PageHome);
+            _this.openPage(PageHome);
+            return _this.header.showHome();
           };
         })(this)
       });

@@ -20,7 +20,7 @@ class window.app.Main
 		#頭部的header
 		@header = new window.app.page.HeaderController new window.app.page.HeaderView $ '#mc_header'
 		@header.open()
-		@header.event.on 'onHeaderBtnBackhomeClick', -> self.openPage PageHome
+		@header.event.on 'onHeaderBtnBackhomeClick', => @router.navigate '', trigger:true
 			
 		#選單
 		@menubar = new window.app.page.MenubarController new window.app.page.MenubarView $ '#mc_menubar'
@@ -52,9 +52,11 @@ class window.app.Main
 				'':'default'
 			streetsnap: ( id )=>
 				@openPage PageStreetsnap, [ id, 'streetsnap' ]
+				@header.showStreetsnap()
 				
 			streetsnapList: ( search )=>
 				@openPage PageStreetsnapList, [ search ]
+				@header.showStreetsnap()
 				
 			models: ( id ) =>
 				@openPage PageModels, [ id, 'models' ]	
@@ -67,6 +69,7 @@ class window.app.Main
 				
 			default: =>
 				@openPage PageHome
+				@header.showHome()
 				
 		@router = new Router()
 		Backbone.history.start()

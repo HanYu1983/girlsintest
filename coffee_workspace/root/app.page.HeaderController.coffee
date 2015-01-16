@@ -4,3 +4,9 @@ class window.app.page.HeaderController extends vic.mvc.Controller
 		self = this
 		@_view.event.on 'onHeaderBtnBackhomeClick', ->
 			self.event.trigger 'onHeaderBtnBackhomeClick'
+			
+	showHome: ->
+		@_view.showHome()
+		
+	showStreetsnap: ->
+		@_view.showStreetsnap()

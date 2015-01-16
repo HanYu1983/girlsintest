@@ -14,9 +14,9 @@ class window.app.page.HeaderView extends window.vic.mvc.View
 		
 	showHome: ->
 		@img_streetSnapLogo.hide()
-		@img_homeLogo.show()
+		@img_homeLogo.fadeIn 400
 		
 	showStreetsnap: ->
-		@img_streetSnapLogo.show()
+		@img_streetSnapLogo.fadeIn 400
 		@img_homeLogo.hide()
 

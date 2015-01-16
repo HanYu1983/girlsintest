@@ -3,11 +3,13 @@
 	margin-left:-512px;
 }
 #mc_bigLogo{
+	top:50%;
+	margin-top:-200px;
 	left:5px;
-	top:252px;
 }
 #mc_3dIframeBorder{
-	top:251px;
+	top:50%;
+	margin-top:-200px;
 	left:513px;
 }
 #mc_iframeBack{

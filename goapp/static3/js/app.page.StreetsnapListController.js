@@ -11,25 +11,84 @@
     }
 
     StreetsnapListController.prototype.applyTemplate = function(params, callback) {
-      return callback({
-        streetsnapList: [
-          {
-            name: 'vic',
-            date: '12321',
-            imgStylePath: 'images/streetSnap/test2.jpg',
-            imgSideAPath: 'images/streetSnap/test1.jpg',
-            imgSideBPath: 'images/streetSnap/test1.jpg',
-            imgSideCPath: 'images/streetSnap/test1.jpg'
-          }, {
-            name: 'vic',
-            date: '12321',
-            imgStylePath: 'images/streetSnap/test2.jpg',
-            imgSideAPath: 'images/streetSnap/test1.jpg',
-            imgSideBPath: 'images/streetSnap/test1.jpg',
-            imgSideCPath: 'images/streetSnap/test1.jpg'
+      var fetchAllModel, fetchAllModelOnSuccess, fetchPhoto, fetchPhotoOnSuccess, fetched, onError, query;
+      fetchAllModelOnSuccess = new Rx.Subject;
+      fetchPhotoOnSuccess = new Rx.Subject;
+      onError = new Rx.Subject;
+      query = app.tool.serverapi.query("http://" + window.location.host);
+      fetchAllModel = function() {
+        return query(app.tool.serverapi.QueryStreetModel, {}).done(function(data) {
+          return fetchAllModelOnSuccess.onNext(data.Info);
+        }).fail(function(err) {
+          return onError.onNext(err);
+        });
+      };
+      fetchPhoto = function(modelList) {
+        return async.map(modelList, function(model, sink) {
+          return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
+            StreetModelKey: model.Key
+          }).done(function(data) {
+            return sink(null, data.Info);
+          }).fail(function(err) {
+            return sink(err);
+          });
+        }, function(err, results) {
+          if (err != null) {
+            return onError.onNext(err);
+          } else {
+            return fetchPhotoOnSuccess.onNext(results);
           }
-        ]
+        });
+      };
+      fetchAllModelOnSuccess.subscribe(fetchPhoto);
+      fetched = fetchAllModelOnSuccess.zip(fetchPhotoOnSuccess, function(model, photo) {
+        return [model, photo];
       });
+      fetched.subscribe(function(_arg) {
+        var dto, model, photo;
+        model = _arg[0], photo = _arg[1];
+        dto = {
+          streetsnapList: _.map(_.zip(model, photo), function(_arg1) {
+            var m, p;
+            m = _arg1[0], p = _arg1[1];
+            return {
+              name: 'Test',
+              date: m.UnixDate,
+              imgStylePath: 'images/streetSnap/test2.jpg',
+              imgSideAPath: 'images/streetSnap/test1.jpg',
+              imgSideBPath: 'images/streetSnap/test1.jpg',
+              imgSideCPath: 'images/streetSnap/test1.jpg'
+            };
+          })
+        };
+        return callback(dto);
+      });
+      onError.subscribe(function(err) {
+        return console.log(err);
+      });
+      return fetchAllModel();
+
+      /*
+      		callback
+      			streetsnapList:[
+      				{
+      					name:'vic'
+      					date:'12321'
+      					imgStylePath:'images/streetSnap/test2.jpg'
+      					imgSideAPath:'images/streetSnap/test1.jpg'
+      					imgSideBPath:'images/streetSnap/test1.jpg'
+      					imgSideCPath:'images/streetSnap/test1.jpg'
+      				}
+      				{
+      					name:'vic'
+      					date:'12321'
+      					imgStylePath:'images/streetSnap/test2.jpg'
+      					imgSideAPath:'images/streetSnap/test1.jpg'
+      					imgSideBPath:'images/streetSnap/test1.jpg'
+      					imgSideCPath:'images/streetSnap/test1.jpg'
+      				}
+      			]
+       */
     };
 
     return StreetsnapListController;

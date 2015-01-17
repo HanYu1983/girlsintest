@@ -1,5 +1,28 @@
 class window.app.page.StreetsnapListController extends vic.mvc.Controller
-	applyTemplate: ( params, callback ) ->
+	applyTemplate: ( [searchKey], callback ) ->
+		
+		isStylePhoto = (photo) ->
+			photo.Belong is -2
+			
+		isSidePhoto = (photo) ->
+			photo.Belong is -3
+			
+		isHeadPhoto = (photo) ->
+			photo.Belong is -1
+			
+		isBottomPhoto = (photo) ->
+			photo.Belong is 0
+			
+		repairBase64 = (base64) ->
+			base64.replace('\r', '').replace('\n', '')
+			
+		formatPhoto = (photo) ->
+			app.tool.getFullBase64str repairBase64 photo.Base64Str
+			
+		findFormatedPhoto = (photoData, filterFn) ->
+			_.map( _.filter( photoData, filterFn), formatPhoto )
+			
+			
 		
 		fetchAllModelOnSuccess = new Rx.Subject	
 		fetchPhotoOnSuccess = new Rx.Subject
@@ -7,8 +30,13 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 		
 		query = app.tool.serverapi.query "http://#{window.location.host}"
 		
-		fetchAllModel = ()->
-			query(app.tool.serverapi.QueryStreetModel , {})
+		fetchAllModel = ( searchKey )->
+			option = 
+				if searchKey?
+					Regexp: searchKey
+				else
+					{}
+			query(app.tool.serverapi.QueryStreetModel , option)
 				.done (data) ->
 					fetchAllModelOnSuccess.onNext data.Info
 					
@@ -40,40 +68,20 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 					_.map _.zip(model, photo), ([m, p]) ->
 						name: m.Name
 						date: m.UnixDate
-						imgStylePath:'images/streetSnap/test2.jpg'
-						imgSideAPath:'images/streetSnap/test1.jpg'
-						imgSideBPath:'images/streetSnap/test1.jpg'
-						imgSideCPath:'images/streetSnap/test1.jpg'
+						imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
+						imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
+						imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]
+						imgSideCPath: findFormatedPhoto( p, isSidePhoto )[2]
 			callback dto
 			
 			
 		onError.subscribe (err) ->
 			console.log err
 		
-		fetchAllModel()
-		
-		
-		###
-		callback
-			streetsnapList:[
-				{
-					name:'vic'
-					date:'12321'
-					imgStylePath:'images/streetSnap/test2.jpg'
-					imgSideAPath:'images/streetSnap/test1.jpg'
-					imgSideBPath:'images/streetSnap/test1.jpg'
-					imgSideCPath:'images/streetSnap/test1.jpg'
-				}
-				{
-					name:'vic'
-					date:'12321'
-					imgStylePath:'images/streetSnap/test2.jpg'
-					imgSideAPath:'images/streetSnap/test1.jpg'
-					imgSideBPath:'images/streetSnap/test1.jpg'
-					imgSideCPath:'images/streetSnap/test1.jpg'
-				}
-			]
-		###
+		if searchKey?
+			fetchAllModel( searchKey )
+		else
+			fetchAllModel()
 			
 	addListener: ->
 		super()

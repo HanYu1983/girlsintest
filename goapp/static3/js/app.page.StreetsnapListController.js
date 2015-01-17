@@ -10,14 +10,40 @@
       return StreetsnapListController.__super__.constructor.apply(this, arguments);
     }
 
-    StreetsnapListController.prototype.applyTemplate = function(params, callback) {
-      var fetchAllModel, fetchAllModelOnSuccess, fetchPhoto, fetchPhotoOnSuccess, fetched, onError, query;
+    StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
+      var fetchAllModel, fetchAllModelOnSuccess, fetchPhoto, fetchPhotoOnSuccess, fetched, findFormatedPhoto, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, onError, query, repairBase64, searchKey;
+      searchKey = _arg[0];
+      isStylePhoto = function(photo) {
+        return photo.Belong === -2;
+      };
+      isSidePhoto = function(photo) {
+        return photo.Belong === -3;
+      };
+      isHeadPhoto = function(photo) {
+        return photo.Belong === -1;
+      };
+      isBottomPhoto = function(photo) {
+        return photo.Belong === 0;
+      };
+      repairBase64 = function(base64) {
+        return base64.replace('\r', '').replace('\n', '');
+      };
+      formatPhoto = function(photo) {
+        return app.tool.getFullBase64str(repairBase64(photo.Base64Str));
+      };
+      findFormatedPhoto = function(photoData, filterFn) {
+        return _.map(_.filter(photoData, filterFn), formatPhoto);
+      };
       fetchAllModelOnSuccess = new Rx.Subject;
       fetchPhotoOnSuccess = new Rx.Subject;
       onError = new Rx.Subject;
       query = app.tool.serverapi.query("http://" + window.location.host);
-      fetchAllModel = function() {
-        return query(app.tool.serverapi.QueryStreetModel, {}).done(function(data) {
+      fetchAllModel = function(searchKey) {
+        var option;
+        option = searchKey != null ? {
+          Regexp: searchKey
+        } : {};
+        return query(app.tool.serverapi.QueryStreetModel, option).done(function(data) {
           return fetchAllModelOnSuccess.onNext(data.Info);
         }).fail(function(err) {
           return onError.onNext(err);
@@ -44,20 +70,20 @@
       fetched = fetchAllModelOnSuccess.zip(fetchPhotoOnSuccess, function(model, photo) {
         return [model, photo];
       });
-      fetched.subscribe(function(_arg) {
+      fetched.subscribe(function(_arg1) {
         var dto, model, photo;
-        model = _arg[0], photo = _arg[1];
+        model = _arg1[0], photo = _arg1[1];
         dto = {
-          streetsnapList: _.map(_.zip(model, photo), function(_arg1) {
+          streetsnapList: _.map(_.zip(model, photo), function(_arg2) {
             var m, p;
-            m = _arg1[0], p = _arg1[1];
+            m = _arg2[0], p = _arg2[1];
             return {
               name: m.Name,
               date: m.UnixDate,
-              imgStylePath: 'images/streetSnap/test2.jpg',
-              imgSideAPath: 'images/streetSnap/test1.jpg',
-              imgSideBPath: 'images/streetSnap/test1.jpg',
-              imgSideCPath: 'images/streetSnap/test1.jpg'
+              imgStylePath: findFormatedPhoto(p, isStylePhoto)[0],
+              imgSideAPath: findFormatedPhoto(p, isSidePhoto)[0],
+              imgSideBPath: findFormatedPhoto(p, isSidePhoto)[1],
+              imgSideCPath: findFormatedPhoto(p, isSidePhoto)[2]
             };
           })
         };
@@ -66,29 +92,11 @@
       onError.subscribe(function(err) {
         return console.log(err);
       });
-      return fetchAllModel();
-
-      /*
-      		callback
-      			streetsnapList:[
-      				{
-      					name:'vic'
-      					date:'12321'
-      					imgStylePath:'images/streetSnap/test2.jpg'
-      					imgSideAPath:'images/streetSnap/test1.jpg'
-      					imgSideBPath:'images/streetSnap/test1.jpg'
-      					imgSideCPath:'images/streetSnap/test1.jpg'
-      				}
-      				{
-      					name:'vic'
-      					date:'12321'
-      					imgStylePath:'images/streetSnap/test2.jpg'
-      					imgSideAPath:'images/streetSnap/test1.jpg'
-      					imgSideBPath:'images/streetSnap/test1.jpg'
-      					imgSideCPath:'images/streetSnap/test1.jpg'
-      				}
-      			]
-       */
+      if (searchKey != null) {
+        return fetchAllModel(searchKey);
+      } else {
+        return fetchAllModel();
+      }
     };
 
     StreetsnapListController.prototype.addListener = function() {

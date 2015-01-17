@@ -93,8 +93,11 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 					callback err
 					
 		queryEndProcess = (err, [mainModel, headModel]) ->
-			mainModel.historyList = headModel
-			callback mainModel
+			if err?
+				console.log err
+			else
+				mainModel.historyList = headModel
+				callback mainModel
 		
 		async.parallel [queryDefaultTask, queryHeadPhotoTask], queryEndProcess
 		

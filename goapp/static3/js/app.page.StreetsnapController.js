@@ -141,8 +141,12 @@
       queryEndProcess = function(err, _arg1) {
         var headModel, mainModel;
         mainModel = _arg1[0], headModel = _arg1[1];
-        mainModel.historyList = headModel;
-        return callback(mainModel);
+        if (err != null) {
+          return console.log(err);
+        } else {
+          mainModel.historyList = headModel;
+          return callback(mainModel);
+        }
       };
       return async.parallel([queryDefaultTask, queryHeadPhotoTask], queryEndProcess);
 

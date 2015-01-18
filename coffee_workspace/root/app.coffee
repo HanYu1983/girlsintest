@@ -14,6 +14,7 @@ class window.app.Main
 		#頁面的container	
 		@mc_pageContainer = $ '#mc_pageContainer'
 		@mc_popupContainer = $ '#mc_popupContainer'
+		@mc_loading = $ '#mc_loading'
 		
 		self = this
 		
@@ -130,6 +131,7 @@ class window.app.Main
 	#打開指定頁面	
 	openPageController: ( name, container, param ) ->
 		return if @mvcConfig[ name ] is undefined
+		@openLoading();
 		
 		controller = new @mvcConfig[ name ].controller
 		###
@@ -147,6 +149,7 @@ class window.app.Main
 			controller.setView new @mvcConfig[ name ].view elem
 			controller.open()
 			@coll_pages[ name ] = controller
+			@closeLoading()
 		controller
 		
 	#關掉指定頁面	
@@ -161,6 +164,12 @@ class window.app.Main
 	closeAllPage: ( container )->
 		@closePage page, container for page in CloseablePageList
 		
+		
+	openLoading: ->
+		@mc_loading.fadeIn 400
+		
+	closeLoading: ->
+		@mc_loading.fadeOut 400
 	
 	#各頁面事件
 	onImgHistoryClick: (evt, {id})->

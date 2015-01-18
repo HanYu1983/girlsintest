@@ -27,6 +27,7 @@
       this.coll_pages = {};
       this.mc_pageContainer = $('#mc_pageContainer');
       this.mc_popupContainer = $('#mc_popupContainer');
+      this.mc_loading = $('#mc_loading');
       self = this;
       this.header = new window.app.page.HeaderController(new window.app.page.HeaderView($('#mc_header')));
       this.header.open();
@@ -201,6 +202,7 @@
       if (this.mvcConfig[name] === void 0) {
         return;
       }
+      this.openLoading();
       controller = new this.mvcConfig[name].controller;
 
       /*
@@ -219,7 +221,8 @@
           elem.appendTo(container);
           controller.setView(new _this.mvcConfig[name].view(elem));
           controller.open();
-          return _this.coll_pages[name] = controller;
+          _this.coll_pages[name] = controller;
+          return _this.closeLoading();
         };
       })(this));
       return controller;
@@ -245,6 +248,14 @@
         _results.push(this.closePage(page, container));
       }
       return _results;
+    };
+
+    Main.prototype.openLoading = function() {
+      return this.mc_loading.fadeIn(400);
+    };
+
+    Main.prototype.closeLoading = function() {
+      return this.mc_loading.fadeOut(400);
     };
 
     Main.prototype.onImgHistoryClick = function(evt, _arg) {

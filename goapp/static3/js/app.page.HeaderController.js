@@ -14,9 +14,10 @@
       var self;
       HeaderController.__super__.addListener.call(this);
       self = this;
-      return this._view.event.on('onHeaderBtnBackhomeClick', function() {
+      this._view.event.on('onHeaderBtnBackhomeClick', function() {
         return self.event.trigger('onHeaderBtnBackhomeClick');
       });
+      return this._view.showHome();
     };
 
     HeaderController.prototype.showHome = function() {
@@ -25,6 +26,22 @@
 
     HeaderController.prototype.showStreetsnap = function() {
       return this._view.showStreetsnap();
+    };
+
+    HeaderController.prototype.showNews = function() {
+      return this._view.showNews();
+    };
+
+    HeaderController.prototype.showModels = function() {
+      return this._view.showModels();
+    };
+
+    HeaderController.prototype.showEvent = function() {
+      return this._view.showEvent();
+    };
+
+    HeaderController.prototype.showCelebrity = function() {
+      return this._view.showCelebrity();
     };
 
     return HeaderController;

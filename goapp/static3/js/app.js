@@ -43,25 +43,19 @@
         return function(e, id) {
           switch (id) {
             case 'btn_nav_celebrity':
-              return _this.router.navigate('celebrity', {
-                trigger: true
-              });
+              return alert('敬請期待');
             case 'btn_nav_model':
               return _this.router.navigate('models', {
                 trigger: true
               });
             case 'btn_nav_event':
-              return _this.router.navigate('event', {
-                trigger: true
-              });
+              return alert('敬請期待');
             case 'btn_nav_streetSnap':
               return _this.router.navigate('streetsnap', {
                 trigger: true
               });
             case 'btn_nav_news':
-              return _this.router.navigate('news', {
-                trigger: true
-              });
+              return alert('敬請期待');
           }
         };
       })(this));
@@ -92,17 +86,24 @@
         })(this),
         models: (function(_this) {
           return function(id) {
-            return _this.openPage(PageModels, [id, 'models']);
+            _this.openPage(PageModels, [id, 'models']);
+            return _this.header.showModels;
           };
         })(this),
         celebrity: (function(_this) {
-          return function() {};
+          return function() {
+            return _this.header.showCelebrity();
+          };
         })(this),
         event: (function(_this) {
-          return function() {};
+          return function() {
+            return _this.header.showEvent();
+          };
         })(this),
         news: (function(_this) {
-          return function() {};
+          return function() {
+            return _this.header.showNews();
+          };
         })(this),
         "default": (function(_this) {
           return function() {

@@ -11,7 +11,10 @@
       this._btn_backhome = elem.find('#btn_backhome');
       this.img_homeLogo = elem.find('#img_homeLogo');
       this.img_streetSnapLogo = elem.find('#img_streetSnapLogo');
-      this.showHome();
+      this.img_streetNewsLogo = elem.find('#img_streetNewsLogo');
+      this.img_streetModelsLogo = elem.find('#img_streetModelsLogo');
+      this.img_streetEventLogo = elem.find('#img_streetEventLogo');
+      this.img_streetCelebrityLogo = elem.find('#img_streetCelebrityLogo');
     }
 
     HeaderView.prototype.addListener = function() {
@@ -28,11 +31,55 @@
 
     HeaderView.prototype.showHome = function() {
       this.img_streetSnapLogo.hide();
+      this.img_streetNewsLogo.hide();
+      this.img_streetModelsLogo.hide();
+      this.img_streetEventLogo.hide();
+      this.img_streetCelebrityLogo.hide();
       return this.img_homeLogo.fadeIn(400);
     };
 
     HeaderView.prototype.showStreetsnap = function() {
       this.img_streetSnapLogo.fadeIn(400);
+      this.img_streetNewsLogo.hide();
+      this.img_streetModelsLogo.hide();
+      this.img_streetEventLogo.hide();
+      this.img_streetCelebrityLogo.hide();
+      return this.img_homeLogo.hide();
+    };
+
+    HeaderView.prototype.showNews = function() {
+      this.img_streetSnapLogo.hide();
+      this.img_streetNewsLogo.fadeIn(400);
+      this.img_streetModelsLogo.hide();
+      this.img_streetEventLogo.hide();
+      this.img_streetCelebrityLogo.hide();
+      return this.img_homeLogo.hide();
+    };
+
+    HeaderView.prototype.showModels = function() {
+      this.img_streetSnapLogo.hide();
+      this.img_streetNewsLogo.hide();
+      this.img_streetModelsLogo.fadeIn(400);
+      this.img_streetEventLogo.hide();
+      this.img_streetCelebrityLogo.hide();
+      return this.img_homeLogo.hide();
+    };
+
+    HeaderView.prototype.showEvent = function() {
+      this.img_streetSnapLogo.hide();
+      this.img_streetNewsLogo.hide();
+      this.img_streetModelsLogo.hide();
+      this.img_streetEventLogo.fadeIn(400);
+      this.img_streetCelebrityLogo.hide();
+      return this.img_homeLogo.hide();
+    };
+
+    HeaderView.prototype.showCelebrity = function() {
+      this.img_streetSnapLogo.hide();
+      this.img_streetNewsLogo.hide();
+      this.img_streetModelsLogo.hide();
+      this.img_streetEventLogo.hide();
+      this.img_streetCelebrityLogo.fadeIn(400);
       return this.img_homeLogo.hide();
     };
 

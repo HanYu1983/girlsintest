@@ -28,15 +28,18 @@ class window.app.Main
 		@menubar.event.on 'onMenubarBtnClick', ( e, id ) =>
 			switch id
 				when 'btn_nav_celebrity'
-					@router.navigate 'celebrity', trigger:true
+					#@router.navigate 'celebrity', trigger:true
+					alert '敬請期待'
 				when 'btn_nav_model'
 					@router.navigate 'models', trigger:true
 				when 'btn_nav_event'
-					@router.navigate 'event', trigger:true
+					#@router.navigate 'event', trigger:true
+					alert '敬請期待'
 				when 'btn_nav_streetSnap'
 					@router.navigate 'streetsnap', trigger:true
 				when 'btn_nav_news'
-					@router.navigate 'news', trigger:true
+					#@router.navigate 'news', trigger:true
+					alert '敬請期待'
 					
 		Router = Backbone.Router.extend
 			routes:
@@ -60,12 +63,16 @@ class window.app.Main
 				
 			models: ( id ) =>
 				@openPage PageModels, [ id, 'models' ]	
+				@header.showModels
 				
 			celebrity: =>
+				@header.showCelebrity()
 				
 			event: =>
+				@header.showEvent()
 				
 			news: =>
+				@header.showNews()
 				
 			default: =>
 				@openPage PageHome

@@ -104,9 +104,10 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		###
 		#{"Key":5629499534213120,"Caption":"caption","Description":"description","Talk":"talk","Comment":"comment","ModelKey":"","Date":"2015-01-10T17:21:14.024316Z","DateUnix":1420910474,"Tag":"xxx","Available":true}
 		
-		callback tmpl.tmpl
+		callback
 			name: 'vic'
 			date: '2014-12-2'
+			modelKey:'dddd'
 			styleUrl:'images/streetSnap/test2.jpg'
 			sideList:[ {id:'01', url:'images/streetSnap/test1.jpg'}, {id:'02', url:'images/streetSnap/test1.jpg' }]
 			bottomList:[ {id:'01', url:'images/streetSnap/test1.jpg'}, {id:'02', url:'images/streetSnap/test1.jpg' }]

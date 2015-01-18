@@ -7,6 +7,10 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@mc_historyContainer = elem.find '#mc_historyContainer'
 		@img_stylePicture = elem.find '#img_stylePicture'
 		@btn_more = elem.find '#btn_more'
+		fbcon = elem.find '#fbcommentContainer'
+		fbcomment = ( $ '#fbcomment' ).clone true
+		fbcomment.attr 'data-href', window.location.href
+		fbcon.append fbcomment
 		
 	addListener: ->
 		self = this

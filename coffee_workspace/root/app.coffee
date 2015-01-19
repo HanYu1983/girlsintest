@@ -1,12 +1,13 @@
 PageHome = 'home'
 PageCelebrity = 'celebrity'
 PageModels = 'models'
+PageModelsList = 'modelsList'
 PageEvent = 'event'
 PageStreetsnap = 'streetsnap'
 PageStreetsnapList = 'streetsnapList'
 PageNews = 'news'
 PageBigPhoto = 'bigPhoto'
-CloseablePageList = [PageHome, PageCelebrity, PageModels, PageEvent ,PageStreetsnap ,PageStreetsnapList ,PageNews ]
+CloseablePageList = [PageHome, PageCelebrity, PageModels, PageModelsList, PageEvent ,PageStreetsnap ,PageStreetsnapList ,PageNews ]
 
 class window.app.Main
 	constructor: (@mvcConfig)->
@@ -32,7 +33,7 @@ class window.app.Main
 					#@router.navigate 'celebrity', trigger:true
 					alert '敬請期待'
 				when 'btn_nav_model'
-					@router.navigate 'models', trigger:true
+					@router.navigate 'modelsList', trigger:true
 				when 'btn_nav_event'
 					#@router.navigate 'event', trigger:true
 					alert '敬請期待'
@@ -50,6 +51,8 @@ class window.app.Main
 				'streetsnapList/search=:search':'streetsnapList'
 				'models':'models'
 				'models/id=:id':'models'
+				'modelsList':'modelsList'
+				'modelsList/search=:search':'modelsList'
 				'celebrity':'celebrity'
 				'event':'event'
 				'news':'news'
@@ -64,7 +67,11 @@ class window.app.Main
 				
 			models: ( id ) =>
 				@openPage PageModels, [ id, 'models' ]	
-				@header.showModels
+				@header.showModels()
+				
+			modelsList: ( search ) =>
+				@openPage PageModelsList, [ search ]
+				@header.showModels()
 				
 			celebrity: =>
 				@header.showCelebrity()
@@ -106,6 +113,10 @@ class window.app.Main
 			when PageModels
 				controller.event.on 'onImgHistoryClick', => @onModelsImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onModelsImgClick arguments...
+				controller.event.on 'onBtnMoreClick', => @onModelsBtnMoreClick arguments...
+			when PageModelsList
+				controller.event.on 'onBtnSearchClick', => @onModelsBtnSearchClick arguments...
+				controller.event.on 'onBtnModelClick', => @onModelsBtnModelClick arguments...
 			when PageBigPhoto
 				controller.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
 	
@@ -125,8 +136,12 @@ class window.app.Main
 				controller.event.off 'onBtnSearchClick'
 				controller.event.off 'onBtnModelClick'
 			when PageModels
-				controller.event.off 'onImgHistoryClick'
-				controller.event.off 'onImgClick'
+				controller.event.off 'onModelsImgHistoryClick'
+				controller.event.off 'onModelsImgClick'
+				controller.event.off 'onModelsBtnMoreClick'
+			when PageModelsList
+				controller.event.off 'onModelsBtnSearchClick'
+				controller.event.off 'onModelsBtnModelClick'
 			when PageBigPhoto
 				controller.event.off 'onBtnCloseClick'
 				
@@ -189,6 +204,9 @@ class window.app.Main
 	onModelsImgClick: (evt, {id, key})->
 		@openPopup PageBigPhoto, [key, id]
 		
+	onModelsBtnMoreClick: ( evt ) ->
+		@router.navigate 'modelsList', trigger: true
+		
 	onBtnCloseClick: ->
 		@closePopup PageBigPhoto
 		
@@ -197,5 +215,11 @@ class window.app.Main
 		
 	onBtnModelClick: ( evt, params ) ->
 		@router.navigate 'streetsnap/id=' + params.id, trigger: true
+		
+	onModelsBtnSearchClick: ( evt, params ) ->
+		@router.navigate 'modelsList/search=' + params.search, trigger: true
+	
+	onModelsBtnModelClick: ( evt, params ) ->
+		@router.navigate 'models/id=' + params.id, trigger: true
 		
 new window.app.Main app.config.mvcConfig 

@@ -52,7 +52,7 @@
             case 'btn_nav_event':
               return alert('敬請期待');
             case 'btn_nav_streetSnap':
-              return _this.router.navigate('streetsnap', {
+              return _this.router.navigate('streetsnapList', {
                 trigger: true
               });
             case 'btn_nav_news':

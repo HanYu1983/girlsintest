@@ -37,7 +37,7 @@ class window.app.Main
 					#@router.navigate 'event', trigger:true
 					alert '敬請期待'
 				when 'btn_nav_streetSnap'
-					@router.navigate 'streetsnap', trigger:true
+					@router.navigate 'streetsnapList', trigger:true
 				when 'btn_nav_news'
 					#@router.navigate 'news', trigger:true
 					alert '敬請期待'

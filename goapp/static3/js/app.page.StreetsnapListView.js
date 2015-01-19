@@ -10,11 +10,14 @@
       StreetsnapListView.__super__.constructor.call(this, elem);
       this.input_search = elem.find('#input_search');
       this.btn_search = elem.find('#btn_search');
+      this.mc_modelContainer = elem.find('#mc_modelContainer');
     }
 
     StreetsnapListView.prototype.addListener = function() {
+      var self;
       StreetsnapListView.__super__.addListener.call(this);
-      return this.btn_search.click((function(_this) {
+      self = this;
+      this.btn_search.click((function(_this) {
         return function() {
           var search;
           search = _this.input_search.val();
@@ -25,10 +28,19 @@
           }
         };
       })(this));
+      return this.mc_modelContainer.delegate('div', 'click', function() {
+        if (this.id === '' || this.id === 'mc_modelTitle') {
+          return;
+        }
+        return self.event.trigger('onBtnModelClick', {
+          id: this.id
+        });
+      });
     };
 
     StreetsnapListView.prototype.removeListener = function() {
-      return this.btn_search.off('click');
+      this.btn_search.off('click');
+      return this.mc_modelContainer.undelegate('div', 'click');
     };
 
     return StreetsnapListView;

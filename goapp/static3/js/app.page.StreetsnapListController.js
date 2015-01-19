@@ -78,7 +78,7 @@
             var m, p;
             m = _arg2[0], p = _arg2[1];
             return {
-              id: m.ModelKey,
+              id: m.Key,
               name: m.Caption,
               date: app.tool.getFullDay(m.DateUnix),
               imgStylePath: findFormatedPhoto(p, isStylePhoto)[0],
@@ -102,11 +102,21 @@
 
     StreetsnapListController.prototype.addListener = function() {
       StreetsnapListController.__super__.addListener.call(this);
-      return this._view.event.on('onBtnSearchClick', (function(_this) {
+      this._view.event.on('onBtnSearchClick', (function(_this) {
         return function(evt, params) {
           return _this.event.trigger(evt.type, params);
         };
       })(this));
+      return this._view.event.on('onBtnModelClick', (function(_this) {
+        return function(evt, params) {
+          return _this.event.trigger(evt.type, params);
+        };
+      })(this));
+    };
+
+    StreetsnapListController.prototype.removeListener = function() {
+      this._view.event.off('onBtnSearchClick');
+      return this._view.event.off('onBtnModelClick');
     };
 
     return StreetsnapListController;

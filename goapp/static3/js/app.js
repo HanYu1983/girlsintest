@@ -149,9 +149,14 @@
             };
           })(this));
         case PageStreetsnapList:
-          return controller.event.on('onBtnSearchClick', (function(_this) {
+          controller.event.on('onBtnSearchClick', (function(_this) {
             return function() {
               return _this.onBtnSearchClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onBtnModelClick', (function(_this) {
+            return function() {
+              return _this.onBtnModelClick.apply(_this, arguments);
             };
           })(this));
         case PageModels:
@@ -188,7 +193,8 @@
           controller.event.off('onImgClick');
           return controller.event.off('onBtnMoreClick');
         case PageStreetsnapList:
-          return controller.event.off('onBtnSearchClick');
+          controller.event.off('onBtnSearchClick');
+          return controller.event.off('onBtnModelClick');
         case PageModels:
           controller.event.off('onImgHistoryClick');
           return controller.event.off('onImgClick');
@@ -298,6 +304,12 @@
 
     Main.prototype.onBtnSearchClick = function(evt, params) {
       return this.router.navigate('streetsnapList/search=' + params.search, {
+        trigger: true
+      });
+    };
+
+    Main.prototype.onBtnModelClick = function(evt, params) {
+      return this.router.navigate('streetsnap/id=' + params.id, {
         trigger: true
       });
     };

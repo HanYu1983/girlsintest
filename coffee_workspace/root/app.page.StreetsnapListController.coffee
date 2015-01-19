@@ -66,7 +66,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 		fetched.subscribe ([model, photo]) ->
 			dto = streetsnapList: 
 					_.map _.zip(model, photo), ([m, p]) ->
-						id: m.ModelKey
+						id: m.Key
 						name: m.Caption
 						date: app.tool.getFullDay m.DateUnix
 						imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
@@ -87,3 +87,8 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 	addListener: ->
 		super()
 		@_view.event.on 'onBtnSearchClick', ( evt, params ) => @event.trigger evt.type, params
+		@_view.event.on 'onBtnModelClick', ( evt, params ) => @event.trigger evt.type, params
+		
+	removeListener: ->
+		@_view.event.off 'onBtnSearchClick'
+		@_view.event.off 'onBtnModelClick'

@@ -43,6 +43,11 @@
       view: window.app.page.StreetsnapView,
       controller: window.app.page.StreetsnapController
     },
+    modelsList: {
+      tmpl: $('#tmpl_streetsnap_list'),
+      view: window.app.page.StreetsnapListView,
+      controller: window.app.page.StreetsnapListController
+    },
     bigPhoto: {
       tmpl: $('#tmpl_bigPhoto'),
       view: window.app.page.BigPhotoView,

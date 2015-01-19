@@ -75,7 +75,7 @@
         modelData = _arg1[0], photoData = _arg1[1];
         return {
           name: modelData.Caption,
-          date: modelData.DateUnix,
+          date: app.tool.getFullDay(modelData.DateUnix),
           styleUrl: (_ref = _.first(findFormatedPhoto(photoData, isStylePhoto))) != null ? _ref.url : void 0,
           sideList: findFormatedPhoto(photoData, isSidePhoto),
           bottomList: findFormatedPhoto(photoData, isBottomPhoto),

@@ -66,8 +66,9 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 		fetched.subscribe ([model, photo]) ->
 			dto = streetsnapList: 
 					_.map _.zip(model, photo), ([m, p]) ->
-						name: m.Name
-						date: m.UnixDate
+						id: m.ModelKey
+						name: m.Caption
+						date: app.tool.getFullDay m.DateUnix
 						imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
 						imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
 						imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]

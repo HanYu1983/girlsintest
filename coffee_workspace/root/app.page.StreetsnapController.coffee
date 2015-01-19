@@ -42,7 +42,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		
 		formatModelData = ([modelData, photoData]) ->
 			name: modelData.Caption
-			date: modelData.DateUnix
+			date: app.tool.getFullDay modelData.DateUnix
 			styleUrl: _.first( findFormatedPhoto photoData, isStylePhoto )?.url
 			sideList: findFormatedPhoto photoData, isSidePhoto
 			bottomList: findFormatedPhoto photoData, isBottomPhoto

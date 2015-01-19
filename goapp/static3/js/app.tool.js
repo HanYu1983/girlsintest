@@ -8,4 +8,10 @@
     return 'data:image/png;base64,' + base64str;
   };
 
+  app.tool.getFullDay = function(unixtime) {
+    var date;
+    date = new Date(unixtime * 1000);
+    return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getHours();
+  };
+
 }).call(this);

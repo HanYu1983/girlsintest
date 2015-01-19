@@ -78,8 +78,9 @@
             var m, p;
             m = _arg2[0], p = _arg2[1];
             return {
-              name: m.Name,
-              date: m.UnixDate,
+              id: m.ModelKey,
+              name: m.Caption,
+              date: app.tool.getFullDay(m.DateUnix),
               imgStylePath: findFormatedPhoto(p, isStylePhoto)[0],
               imgSideAPath: findFormatedPhoto(p, isSidePhoto)[0],
               imgSideBPath: findFormatedPhoto(p, isSidePhoto)[1],

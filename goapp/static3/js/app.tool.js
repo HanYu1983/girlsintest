@@ -11,7 +11,7 @@
   app.tool.getFullDay = function(unixtime) {
     var date;
     date = new Date(unixtime * 1000);
-    return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getHours();
+    return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDay();
   };
 
 }).call(this);

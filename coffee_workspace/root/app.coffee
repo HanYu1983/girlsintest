@@ -107,6 +107,7 @@ class window.app.Main
 				controller.event.on 'onImgHistoryClick', => @onImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onImgClick arguments...
 				controller.event.on 'onBtnMoreClick', => @onBtnMoreClick arguments...
+				controller.event.on 'onBtnShareClick', => @onBtnShareClick arguments...
 			when PageStreetsnapList
 				controller.event.on 'onBtnSearchClick', => @onBtnSearchClick arguments...
 				controller.event.on 'onBtnModelClick', => @onBtnModelClick arguments...
@@ -132,6 +133,7 @@ class window.app.Main
 				controller.event.off 'onImgHistoryClick'
 				controller.event.off 'onImgClick'
 				controller.event.off 'onBtnMoreClick'
+				controller.event.off 'onBtnShareClick'
 			when PageStreetsnapList
 				controller.event.off 'onBtnSearchClick'
 				controller.event.off 'onBtnModelClick'
@@ -198,6 +200,18 @@ class window.app.Main
 	onBtnMoreClick: ( evt ) ->
 		@router.navigate 'streetsnapList', trigger: true
 		
+	onBtnShareClick: ( evt, { key } ) ->
+		vic.facebook.postMessageToMyboard
+			name:'test-share'
+			link:"http://#{window.location.host}/angular-test-coffee/index.html#streetsnap/id=#{key}"
+			picture:''
+			caption:'caption'
+			description: 'description'
+			callback: ->
+				console.log 'success'
+			error: ->
+				console.log 'error'
+			
 	onModelsImgHistoryClick: ( evt, {id})->
 		@router.navigate "models/id=#{id}", trigger: true
 		

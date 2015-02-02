@@ -7,6 +7,7 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@mc_historyContainer = elem.find '#mc_historyContainer'
 		@img_stylePicture = elem.find '#img_stylePicture'
 		@btn_more = elem.find '#btn_more'
+		@btn_share = elem.find '#btn_share'
 		
 		###
 		fbcon = elem.find '#fbcommentContainer'
@@ -41,9 +42,15 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@btn_more.click -> 
 			console.log 'onBtnMoreClick'
 			self.event.trigger 'onBtnMoreClick'
+			
+		@btn_share.click ->
+			console.log 'onBtnShareClick'
+			self.event.trigger 'onBtnShareClick', 
+				key:self.dataDTO.key
 		
 	removeListener: ->
 		@mc_sideContainer.undelegate 'img', 'click'
 		@mc_bottomContainer.undelegate 'img', 'click'
 		@mc_historyContainer.undelegate 'img', 'click'
 		@btn_more.off 'click'
+		@btn_share.off 'click'

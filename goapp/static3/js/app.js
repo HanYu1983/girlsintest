@@ -153,9 +153,14 @@
               return _this.onImgClick.apply(_this, arguments);
             };
           })(this));
-          return controller.event.on('onBtnMoreClick', (function(_this) {
+          controller.event.on('onBtnMoreClick', (function(_this) {
             return function() {
               return _this.onBtnMoreClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onBtnShareClick', (function(_this) {
+            return function() {
+              return _this.onBtnShareClick.apply(_this, arguments);
             };
           })(this));
         case PageStreetsnapList:
@@ -217,7 +222,8 @@
         case PageStreetsnap:
           controller.event.off('onImgHistoryClick');
           controller.event.off('onImgClick');
-          return controller.event.off('onBtnMoreClick');
+          controller.event.off('onBtnMoreClick');
+          return controller.event.off('onBtnShareClick');
         case PageStreetsnapList:
           controller.event.off('onBtnSearchClick');
           return controller.event.off('onBtnModelClick');
@@ -311,6 +317,24 @@
     Main.prototype.onBtnMoreClick = function(evt) {
       return this.router.navigate('streetsnapList', {
         trigger: true
+      });
+    };
+
+    Main.prototype.onBtnShareClick = function(evt, _arg) {
+      var key;
+      key = _arg.key;
+      return vic.facebook.postMessageToMyboard({
+        name: 'test-share',
+        link: "http://" + window.location.host + "/angular-test-coffee/index.html#streetsnap/id=" + key,
+        picture: '',
+        caption: 'caption',
+        description: 'description',
+        callback: function() {
+          return console.log('success');
+        },
+        error: function() {
+          return console.log('error');
+        }
       });
     };
 

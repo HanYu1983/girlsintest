@@ -86,7 +86,8 @@
 }
 #img_stylePicture{
 	height:282px;
-	width:198px;
+	width:193px;
+	margin-right:5px;
 }
 #fbcomment{
 	margin-left:85px;
@@ -94,5 +95,6 @@
 }
 .sidePicture{
 	width:94px;
-	height:94px;
+	height:91px;
+	margin-bottom:5px;
 }

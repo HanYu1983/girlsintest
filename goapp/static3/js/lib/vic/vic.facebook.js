@@ -23,7 +23,7 @@ vic.facebook = vic.facebook || {};
 		}(document, 'script', 'facebook-jssdk'));
 	}
 	
-	function postMessageToMyboard( options, error ){
+	function postMessageToMyboard( options ){
 		login( function( response ){
 			FB.ui({
 				method: 'feed', // 發布貼文
@@ -35,7 +35,7 @@ vic.facebook = vic.facebook || {};
 			},function(response){
 				options.callback( response );
 			});
-		}, error);
+		}, options.error);
 	}
 	
 	function getMyData( callback, error ){

@@ -14,6 +14,7 @@
       this.mc_historyContainer = elem.find('#mc_historyContainer');
       this.img_stylePicture = elem.find('#img_stylePicture');
       this.btn_more = elem.find('#btn_more');
+      this.btn_share = elem.find('#btn_share');
 
       /*
       		fbcon = elem.find '#fbcommentContainer'
@@ -56,9 +57,15 @@
           key: self.dataDTO.key
         });
       });
-      return this.btn_more.click(function() {
+      this.btn_more.click(function() {
         console.log('onBtnMoreClick');
         return self.event.trigger('onBtnMoreClick');
+      });
+      return this.btn_share.click(function() {
+        console.log('onBtnShareClick');
+        return self.event.trigger('onBtnShareClick', {
+          key: self.dataDTO.key
+        });
       });
     };
 
@@ -66,7 +73,8 @@
       this.mc_sideContainer.undelegate('img', 'click');
       this.mc_bottomContainer.undelegate('img', 'click');
       this.mc_historyContainer.undelegate('img', 'click');
-      return this.btn_more.off('click');
+      this.btn_more.off('click');
+      return this.btn_share.off('click');
     };
 
     return StreetsnapView;

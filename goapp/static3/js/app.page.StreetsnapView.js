@@ -7,7 +7,6 @@
     __extends(StreetsnapView, _super);
 
     function StreetsnapView(elem) {
-      var fbcomment, fbcon;
       StreetsnapView.__super__.constructor.call(this, elem);
       this.dataDTO = elem.__dataDTO__;
       this.mc_sideContainer = elem.find('#mc_sideContainer');
@@ -15,10 +14,13 @@
       this.mc_historyContainer = elem.find('#mc_historyContainer');
       this.img_stylePicture = elem.find('#img_stylePicture');
       this.btn_more = elem.find('#btn_more');
-      fbcon = elem.find('#fbcommentContainer');
-      fbcomment = ($('#fbcomment')).clone(true);
-      fbcomment.attr('data-href', window.location.href);
-      fbcon.append(fbcomment);
+
+      /*
+      		fbcon = elem.find '#fbcommentContainer'
+      		fbcomment = ( $ '#fbcomment' ).clone true
+      		fbcomment.attr 'data-href', window.location.href
+      		fbcon.append fbcomment
+       */
     }
 
     StreetsnapView.prototype.addListener = function() {

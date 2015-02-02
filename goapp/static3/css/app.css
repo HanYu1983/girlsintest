@@ -28,6 +28,10 @@
 #mc_foot_background{
 	height:50px;
 }
+#mc_loading{
+	top:0;
+	left:0;
+}
 .fixedTop{
 	top:-12px;
 }

@@ -5,6 +5,7 @@
 #mc_foot_background{height:50px;}
 #mc_head_background{height:50px;}
 #mc_foot_background{height:50px;}
+#mc_loading{top:0;left:0;}
 .fixedTop{top:-12px;}
 .textBase{color:white;font-family:'Microsoft JhengHei'}
 .mainContainer{width:700px;}

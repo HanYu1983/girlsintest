@@ -1,5 +1,11 @@
 class window.app.page.StreetsnapListController extends vic.mvc.Controller
-	applyTemplate: ( [searchKey], callback ) ->
+	applyTemplate: ( [searchKey, modelType], callback ) ->
+		
+		modelType = 
+			if modelType is "models"
+				"m"
+			else
+				"s"
 		
 		isStylePhoto = (photo) ->
 			photo.Belong is -2
@@ -34,8 +40,10 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 			option = 
 				if searchKey?
 					Regexp: searchKey
+					ModelType: modelType
 				else
-					{}
+					ModelType: modelType
+					
 			query(app.tool.serverapi.QueryStreetModel , option)
 				.done (data) ->
 					fetchAllModelOnSuccess.onNext data.Info

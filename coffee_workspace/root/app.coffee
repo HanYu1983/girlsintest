@@ -62,7 +62,7 @@ class window.app.Main
 				@header.showStreetsnap()
 				
 			streetsnapList: ( search )=>
-				@openPage PageStreetsnapList, [ search ]
+				@openPage PageStreetsnapList, [ search, 'streetsnap' ]
 				@header.showStreetsnap()
 				
 			models: ( id ) =>
@@ -70,7 +70,7 @@ class window.app.Main
 				@header.showModels()
 				
 			modelsList: ( search ) =>
-				@openPage PageModelsList, [ search ]
+				@openPage PageModelsList, [ search, 'models']
 				@header.showModels()
 				
 			celebrity: =>

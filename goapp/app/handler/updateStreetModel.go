@@ -11,7 +11,7 @@ import (
 func UpdateStreetModel(sys tool.ISystem) interface{} {
 	r := sys.GetRequest()
 	
-    entity := app.StreetModelEntity{Date: time.Now()}
+    entity := app.StreetModelEntity{}
 	
 	if len(r.Form["Caption"]) > 0 {
 		entity.Caption = r.Form["Caption"][0]
@@ -39,6 +39,9 @@ func UpdateStreetModel(sys tool.ISystem) interface{} {
 	if len(r.Form["ModelType"]) > 0 {
 		entity.ModelType = r.Form["ModelType"][0]
 	}
+	if len(r.Form["Brand"]) > 0 {
+		entity.Brand = r.Form["Brand"][0]
+	}
 	
 	dao := app.GetApp().GetStreetModelDAO()
 	isUpdate := len(r.Form["Key"]) > 0
@@ -46,10 +49,16 @@ func UpdateStreetModel(sys tool.ISystem) interface{} {
 	var ret interface{}
 	
 	if isUpdate {
+		
 		key, _ := strconv.ParseInt( r.Form["Key"][0], 10, 0 )
+		
+		// use old 'Date' property
+		oldEntity := dao.Read(sys, dao.GetKey(sys, key, nil)).(app.StreetModelEntity)
+		entity.Date = oldEntity.Date
 		dao.Update(sys, dao.GetKey(sys, key, nil), entity)
 		ret = entity
 	}else{
+		entity.Date = time.Now()
 		key := dao.Create(sys, dao.NewKey(sys, nil), entity)
 		ret = key.IntID()
 	}

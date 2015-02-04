@@ -18,6 +18,7 @@
 				<td>Talk</td>
 				<td>Comment</td>
 				<td>Tag</td>
+				<td>Brand</td>
 				<td>Date</td>
 				<td></td>
 			</tr>
@@ -45,6 +46,7 @@
 					<td><textarea name=Talk rows=3>{{ .Talk }}</textarea></td>
 					<td><textarea name=Comment rows=3>{{ .Comment }}</textarea></td>
 					<td><input name=Tag value={{ .Tag }}></td>
+					<td><input name=Brand value={{ .Brand }}></td>
 					<td>{{ .Date }}</td>
 					<td><input type=submit value=Update></td>
 				</form>

@@ -30,6 +30,7 @@ type StreetModelEntity struct {
 	Tag string
 	Available bool
 	ModelType string
+	Brand string
 }
 
 type IStreetModelDAO interface {

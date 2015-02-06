@@ -5,6 +5,16 @@
 (defrecord Main [])
 
 (defn create []
-	(let [obj (Main. nil)]
-		(js/setTimeout (fn [] (.onNext evt/on-menu-start-btn-click obj)) 1000)
-		obj))
+	(let [this (Main.)
+		  coll-pages (atom {})]
+		(.subscribe evt/on-header-btn-backhome-click (partial on-header-btn-backhome-click this))
+		(merge this {:coll-pages coll-pages})))
+
+
+
+(defn on-header-btn-backhome-click [this id])
+
+
+
+
+

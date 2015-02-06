@@ -101,9 +101,8 @@ app.Main.__GT_Main = (function __GT_Main(){return (new app.Main.Main());
 });
 app.Main.map__GT_Main = (function map__GT_Main(G__4957){return (new app.Main.Main(null,cljs.core.dissoc.call(null,G__4957)));
 });
-app.Main.create = (function create(){var obj = (new app.Main.Main(null));setTimeout(((function (obj){
-return (function (){return app.event.on_menu_start_btn_click.onNext(obj);
-});})(obj))
-,(1000));
-return obj;
+app.Main.create = (function create(){var this$ = (new app.Main.Main());var coll_pages = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);app.event.on_header_btn_backhome_click.subscribe(cljs.core.partial.call(null,app.Main.on_header_btn_backhome_click,this$));
+return cljs.core.merge.call(null,this$,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"coll-pages","coll-pages",1950731038),coll_pages], null));
+});
+app.Main.on_header_btn_backhome_click = (function on_header_btn_backhome_click(this$,id){return null;
 });

@@ -1,7 +1,8 @@
 // Compiled by ClojureScript 0.0-2268
 goog.provide('app.Main');
 goog.require('cljs.core');
-goog.require('app.IPage');
+goog.require('app.event');
+goog.require('app.event');
 
 /**
 * @constructor
@@ -101,9 +102,8 @@ app.Main.__GT_Main = (function __GT_Main(){return (new app.Main.Main());
 app.Main.map__GT_Main = (function map__GT_Main(G__4957){return (new app.Main.Main(null,cljs.core.dissoc.call(null,G__4957)));
 });
 app.Main.create = (function create(){var obj = (new app.Main.Main(null));setTimeout(((function (obj){
-return (function (){return app.Main.on_main_click.onNext(obj);
+return (function (){return app.event.on_menu_start_btn_click.onNext(obj);
 });})(obj))
 ,(1000));
 return obj;
 });
-app.Main.on_main_click = (new Rx.Subject());

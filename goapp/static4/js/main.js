@@ -24949,9 +24949,14 @@ app.IPage.close = function close(this$) {
     }().call(null, this$);
   }
 };
+goog.provide("app.event");
+goog.require("cljs.core");
+app.event.on_menu_login_btn_click = new Rx.Subject;
+app.event.on_menu_start_btn_click = new Rx.Subject;
 goog.provide("app.Main");
 goog.require("cljs.core");
-goog.require("app.IPage");
+goog.require("app.event");
+goog.require("app.event");
 app.Main.Main = function(__meta, __extmap) {
   this.__meta = __meta;
   this.__extmap = __extmap;
@@ -25084,22 +25089,23 @@ app.Main.create = function create() {
   var obj = new app.Main.Main(null);
   setTimeout(function(obj) {
     return function() {
-      return app.Main.on_main_click.onNext(obj);
+      return app.event.on_menu_start_btn_click.onNext(obj);
     };
   }(obj), 1E3);
   return obj;
 };
-app.Main.on_main_click = new Rx.Subject;
 goog.provide("test.ns1");
 goog.require("cljs.core");
 goog.require("test.ns2");
+goog.require("app.event");
+goog.require("app.event");
 goog.require("app.Main");
 goog.require("app.Main");
 goog.require("test.ns2");
 test.ns1.main = function main() {
   app.Main.create.call(null);
   app.Main.create.call(null);
-  app.Main.on_main_click.subscribe(function(p1__4963_SHARP_) {
+  app.event.on_menu_start_btn_click.subscribe(function(p1__4963_SHARP_) {
     return console.log(p1__4963_SHARP_);
   });
   console.log(jQuery("\x3cdiv\x3e\x3c/div\x3e"));

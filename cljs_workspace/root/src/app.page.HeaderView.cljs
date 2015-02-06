@@ -1,7 +1,7 @@
 (ns app.page.HeaderView
 	(:require [app.page :as page]))
 
-(defrecord HeaderView [])			
+(defrecord HeaderView [])	
 			
 (defn create [elem]
 	(let [this (promise nil)
@@ -11,7 +11,7 @@
 		  img_streetSnapLogo (.find elem "#img_streetSnapLogo")
 		  img_streetNewsLogo (.find elem "#img_streetNewsLogo")
 		  img_streetModelsLogo (.find elem "#img_streetModelsLogo")
-		  img_streetEventLogo (.find elem "#img_streetEventLogo")
+          img_streetEventLogo (.find elem "#img_streetEventLogo")
 		  img_streetCelebrityLogo (.find elem "#img_streetCelebrityLogo")]
 		  (deliver 
 		  	this 

@@ -24894,6 +24894,6 @@ goog.require("cljs.core");
 goog.require("test.ns2");
 goog.require("test.ns2");
 test.ns1.main = function main() {
-  alert("haha");
+  console.log(jQuery("\x3cdiv\x3e\x3c/div\x3e"));
   return test.ns2.eat.call(null, "choco");
 };

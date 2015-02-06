@@ -2,5 +2,5 @@
 	(:require [test.ns2 :refer [eat]]))
 
 (defn main []
-	(js/alert "haha")
+	(.log js/console (js/jQuery "<div></div>"))
 	(eat "choco"))

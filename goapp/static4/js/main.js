@@ -25235,28 +25235,28 @@ app.controller.close = function close(this$) {
     }().call(null, this$);
   }
 };
-app.controller.set_view_BANG_ = function set_view_BANG_(this$, view) {
+app.controller.set_view = function set_view(this$, view) {
   if (function() {
     var and__3539__auto__ = this$;
     if (and__3539__auto__) {
-      return this$.app$controller$IController$set_view_BANG_$arity$2;
+      return this$.app$controller$IController$set_view$arity$2;
     } else {
       return and__3539__auto__;
     }
   }()) {
-    return this$.app$controller$IController$set_view_BANG_$arity$2(this$, view);
+    return this$.app$controller$IController$set_view$arity$2(this$, view);
   } else {
     var x__4178__auto__ = this$ == null ? null : this$;
     return function() {
-      var or__3551__auto__ = app.controller.set_view_BANG_[goog.typeOf(x__4178__auto__)];
+      var or__3551__auto__ = app.controller.set_view[goog.typeOf(x__4178__auto__)];
       if (or__3551__auto__) {
         return or__3551__auto__;
       } else {
-        var or__3551__auto____$1 = app.controller.set_view_BANG_["_"];
+        var or__3551__auto____$1 = app.controller.set_view["_"];
         if (or__3551__auto____$1) {
           return or__3551__auto____$1;
         } else {
-          throw cljs.core.missing_protocol.call(null, "IController.set-view!", this$);
+          throw cljs.core.missing_protocol.call(null, "IController.set-view", this$);
         }
       }
     }().call(null, this$, view);
@@ -25434,12 +25434,12 @@ app.page.HeaderView.create = function create(elem) {
   var img_streetModelsLogo = elem.find("#img_streetModelsLogo");
   var img_streetEventLogo = elem.find("#img_streetEventLogo");
   var img_streetCelebrityLogo = elem.find("#img_streetCelebrityLogo");
-  return app.page.HeaderView.deliver.call(null, this$, cljs.core.merge.call(null, new app.page.HeaderView.HeaderView, new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null, "btn_backhome", "btn_backhome", 220539220), btn_backhome, new cljs.core.Keyword(null, "img_homeLogo", "img_homeLogo", -379151130), img_homeLogo, new cljs.core.Keyword(null, "img_streetSnapLogo", "img_streetSnapLogo", -1614930248), img_streetSnapLogo, new cljs.core.Keyword(null, "img_streetNewsLogo", "img_streetNewsLogo", 
-  -58834167), img_streetNewsLogo, new cljs.core.Keyword(null, "img_streetModelsLogo", "img_streetModelsLogo", -300791938), img_streetModelsLogo, new cljs.core.Keyword(null, "img_streetEventLogo", "img_streetEventLogo", 184872075), img_streetEventLogo, new cljs.core.Keyword(null, "img_streetCelebrityLogo", "img_streetCelebrityLogo", -2043757945), img_streetCelebrityLogo], null)));
+  return app.page.HeaderView.deliver.call(null, this$, cljs.core.merge.call(null, new app.page.HeaderView.HeaderView, new cljs.core.PersistentArrayMap(null, 8, [new cljs.core.Keyword(null, "elem", "elem", 618631056), elem, new cljs.core.Keyword(null, "btn_backhome", "btn_backhome", 220539220), btn_backhome, new cljs.core.Keyword(null, "Home", "Home", 1521501280), img_homeLogo, new cljs.core.Keyword(null, "StreetSnap", "StreetSnap", -1105926986), img_streetSnapLogo, new cljs.core.Keyword(null, "StreetNews", 
+  "StreetNews", 1399822125), img_streetNewsLogo, new cljs.core.Keyword(null, "StreetModels", "StreetModels", -643658470), img_streetModelsLogo, new cljs.core.Keyword(null, "StreetEvent", "StreetEvent", -530516872), img_streetEventLogo, new cljs.core.Keyword(null, "StreetCelebrity", "StreetCelebrity", -422187416), img_streetCelebrityLogo], null)));
 };
 app.page.HeaderView.show = function show(this$, logo) {
-  var seq__4990_4996 = cljs.core.seq.call(null, new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "img_streetSnapLogo", "img_streetSnapLogo", -1614930248), new cljs.core.Keyword(null, "img_streetNewsLogo", "img_streetNewsLogo", -58834167), new cljs.core.Keyword(null, "img_streetModelsLogo", "img_streetModelsLogo", -300791938), new cljs.core.Keyword(null, "img_streetEventLogo", "img_streetEventLogo", 184872075), new cljs.core.Keyword(null, 
-  "img_streetCelebrityLogo", "img_streetCelebrityLogo", -2043757945)], null));
+  var seq__4990_4996 = cljs.core.seq.call(null, new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "Home", "Home", 1521501280), new cljs.core.Keyword(null, "StreetSnap", "StreetSnap", -1105926986), new cljs.core.Keyword(null, "StreetNews", "StreetNews", 1399822125), new cljs.core.Keyword(null, "StreetModels", "StreetModels", -643658470), new cljs.core.Keyword(null, "StreetEvent", "StreetEvent", -530516872), new cljs.core.Keyword(null, "StreetCelebrity", 
+  "StreetCelebrity", -422187416)], null));
   var chunk__4992_4997 = null;
   var count__4993_4998 = 0;
   var i__4994_4999 = 0;
@@ -25677,12 +25677,12 @@ app.page.HeaderController.show = function show(this$, logo) {
   return show.call(null, app.page.HeaderController.view.call(null, this$), logo);
 };
 app.page.HeaderController.open = function open(this$) {
-  return app.page.HeaderController.show.call(null, app.page.HeaderController.view.call(null, this$), new cljs.core.Keyword(null, "home", "home", -74557309));
+  return app.page.HeaderController.show.call(null, app.page.HeaderController.view.call(null, this$), new cljs.core.Keyword(null, "Home", "Home", 1521501280));
 };
 app.page.HeaderController.close = function close(this$) {
   return close.call(null, app.page.HeaderController.view.call(null, this$));
 };
-app.page.HeaderController.set_view_BANG_ = function set_view_BANG_(this$, view) {
+app.page.HeaderController.set_view = function set_view(this$, view) {
   return cljs.core.reset_BANG_.call(null, view.call(null, this$), view);
 };
 app.page.HeaderController.create_model = function create_model(this$, param, cb) {
@@ -25697,9 +25697,9 @@ app.page.HeaderController.HeaderController.prototype.app$controller$IController$
   var this$__$1 = this;
   return app.page.HeaderController.close.call(null, this$__$1);
 };
-app.page.HeaderController.HeaderController.prototype.app$controller$IController$set_view_BANG_$arity$2 = function(this$, view) {
+app.page.HeaderController.HeaderController.prototype.app$controller$IController$set_view$arity$2 = function(this$, view) {
   var this$__$1 = this;
-  return app.page.HeaderController.set_view_BANG_.call(null, this$__$1, view);
+  return app.page.HeaderController.set_view.call(null, this$__$1, view);
 };
 app.page.HeaderController.HeaderController.prototype.app$controller$IController$create_model$arity$3 = function(this$, param, cb) {
   var this$__$1 = this;

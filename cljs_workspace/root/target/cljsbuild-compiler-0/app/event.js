@@ -4,3 +4,4 @@ goog.require('cljs.core');
 app.event.on_menu_login_btn_click = (new Rx.Subject());
 app.event.on_menu_start_btn_click = (new Rx.Subject());
 app.event.onHeaderBtnBackhomeClick = (new Rx.Subject());
+app.event.onMenubarBtnClick = (new Rx.Subject());

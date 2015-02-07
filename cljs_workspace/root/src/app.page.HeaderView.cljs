@@ -6,7 +6,7 @@
 (defn create [elem]
   (let [this (promise nil)
         btn_backhome (doto (.find elem "#btn_backhome")
-                           (.click elem (.onNext evt/onHeaderBtnBackhomeClick @this)))
+                           (.click elem #(.onNext evt/onHeaderBtnBackhomeClick @this)))
         img_homeLogo (.find elem "#img_homeLogo")
         img_streetSnapLogo (.find elem "#img_streetSnapLogo")
         img_streetNewsLogo (.find elem "#img_streetNewsLogo")

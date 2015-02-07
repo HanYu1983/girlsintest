@@ -24884,10 +24884,22 @@ cljs.core.special_symbol_QMARK_ = function special_symbol_QMARK_(x) {
   "letfn*", "letfn*", -110097810, null), null, new cljs.core.Symbol(null, "if", "if", 1181717262, null), null, new cljs.core.Symbol(null, "new", "new", -444906321, null), null, new cljs.core.Symbol(null, "ns", "ns", 2082130287, null), null, new cljs.core.Symbol(null, "deftype*", "deftype*", 962659890, null), null, new cljs.core.Symbol(null, "let*", "let*", 1920721458, null), null, new cljs.core.Symbol(null, "js*", "js*", -1134233646, null), null, new cljs.core.Symbol(null, "fn*", "fn*", -752876845, 
   null), null, new cljs.core.Symbol(null, "recur", "recur", 1202958259, null), null, new cljs.core.Symbol(null, "set!", "set!", 250714521, null), null, new cljs.core.Symbol(null, ".", ".", 1975675962, null), null, new cljs.core.Symbol(null, "quote", "quote", 1377916282, null), null, new cljs.core.Symbol(null, "throw", "throw", 595905694, null), null, new cljs.core.Symbol(null, "def", "def", 597100991, null), null], null), null), x);
 };
-goog.provide("test.ns2");
+goog.provide("test.rxjs");
 goog.require("cljs.core");
-test.ns2.eat = function eat(food) {
-  return console.log("eat", food);
+test.rxjs.main = function main() {
+  var elem = $("#rxjs");
+  var onOver = Rx.Observable.fromEvent(elem, "mouseover");
+  var onOut = Rx.Observable.fromEvent(elem, "mouseout");
+  onOver.subscribe(function(elem, onOver, onOut) {
+    return function(elem__$1) {
+      return console.log(elem__$1);
+    };
+  }(elem, onOver, onOut));
+  return onOut.subscribe(function(elem, onOver, onOut) {
+    return function(elem__$1) {
+      return console.log(elem__$1);
+    };
+  }(elem, onOver, onOut));
 };
 goog.provide("app.IPage");
 goog.require("cljs.core");
@@ -24954,6 +24966,179 @@ goog.require("cljs.core");
 app.event.on_menu_login_btn_click = new Rx.Subject;
 app.event.on_menu_start_btn_click = new Rx.Subject;
 app.event.onHeaderBtnBackhomeClick = new Rx.Subject;
+app.event.onMenubarBtnClick = new Rx.Subject;
+goog.provide("app.page.MenubarView");
+goog.require("cljs.core");
+goog.require("app.event");
+goog.require("app.event");
+app.page.MenubarView.MenubarView = function(__meta, __extmap) {
+  this.__meta = __meta;
+  this.__extmap = __extmap;
+  this.cljs$lang$protocol_mask$partition0$ = 2229667594;
+  this.cljs$lang$protocol_mask$partition1$ = 8192;
+  if (arguments.length > 0) {
+    this.__meta = __meta;
+    this.__extmap = __extmap;
+  } else {
+    this.__meta = null;
+    this.__extmap = null;
+  }
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$ILookup$_lookup$arity$2 = function(this__4137__auto__, k__4138__auto__) {
+  var self__ = this;
+  var this__4137__auto____$1 = this;
+  return cljs.core._lookup.call(null, this__4137__auto____$1, k__4138__auto__, null);
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$ILookup$_lookup$arity$3 = function(this__4139__auto__, k4995, else__4140__auto__) {
+  var self__ = this;
+  var this__4139__auto____$1 = this;
+  var G__4997 = k4995;
+  switch(G__4997) {
+    default:
+      return cljs.core.get.call(null, self__.__extmap, k4995, else__4140__auto__);
+  }
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$IPrintWithWriter$_pr_writer$arity$3 = function(this__4151__auto__, writer__4152__auto__, opts__4153__auto__) {
+  var self__ = this;
+  var this__4151__auto____$1 = this;
+  var pr_pair__4154__auto__ = function(this__4151__auto____$1) {
+    return function(keyval__4155__auto__) {
+      return cljs.core.pr_sequential_writer.call(null, writer__4152__auto__, cljs.core.pr_writer, "", " ", "", opts__4153__auto__, keyval__4155__auto__);
+    };
+  }(this__4151__auto____$1);
+  return cljs.core.pr_sequential_writer.call(null, writer__4152__auto__, pr_pair__4154__auto__, "#app.page.MenubarView.MenubarView{", ", ", "}", opts__4153__auto__, cljs.core.concat.call(null, cljs.core.PersistentVector.EMPTY, self__.__extmap));
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$IMeta$_meta$arity$1 = function(this__4135__auto__) {
+  var self__ = this;
+  var this__4135__auto____$1 = this;
+  return self__.__meta;
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$ICloneable$_clone$arity$1 = function(this__4131__auto__) {
+  var self__ = this;
+  var this__4131__auto____$1 = this;
+  return new app.page.MenubarView.MenubarView(self__.__meta, self__.__extmap, self__.__hash);
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$ICounted$_count$arity$1 = function(this__4141__auto__) {
+  var self__ = this;
+  var this__4141__auto____$1 = this;
+  return 0 + cljs.core.count.call(null, self__.__extmap);
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$IHash$_hash$arity$1 = function(this__4132__auto__) {
+  var self__ = this;
+  var this__4132__auto____$1 = this;
+  var h__3962__auto__ = self__.__hash;
+  if (!(h__3962__auto__ == null)) {
+    return h__3962__auto__;
+  } else {
+    var h__3962__auto____$1 = cljs.core.hash_imap.call(null, this__4132__auto____$1);
+    self__.__hash = h__3962__auto____$1;
+    return h__3962__auto____$1;
+  }
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$IEquiv$_equiv$arity$2 = function(this__4133__auto__, other__4134__auto__) {
+  var self__ = this;
+  var this__4133__auto____$1 = this;
+  if (cljs.core.truth_(function() {
+    var and__3539__auto__ = other__4134__auto__;
+    if (cljs.core.truth_(and__3539__auto__)) {
+      return this__4133__auto____$1.constructor === other__4134__auto__.constructor && cljs.core.equiv_map.call(null, this__4133__auto____$1, other__4134__auto__);
+    } else {
+      return and__3539__auto__;
+    }
+  }())) {
+    return true;
+  } else {
+    return false;
+  }
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$IMap$_dissoc$arity$2 = function(this__4146__auto__, k__4147__auto__) {
+  var self__ = this;
+  var this__4146__auto____$1 = this;
+  if (cljs.core.contains_QMARK_.call(null, cljs.core.PersistentHashSet.EMPTY, k__4147__auto__)) {
+    return cljs.core.dissoc.call(null, cljs.core.with_meta.call(null, cljs.core.into.call(null, cljs.core.PersistentArrayMap.EMPTY, this__4146__auto____$1), self__.__meta), k__4147__auto__);
+  } else {
+    return new app.page.MenubarView.MenubarView(self__.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, self__.__extmap, k__4147__auto__)), null);
+  }
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$IAssociative$_assoc$arity$3 = function(this__4144__auto__, k__4145__auto__, G__4994) {
+  var self__ = this;
+  var this__4144__auto____$1 = this;
+  var pred__4998 = cljs.core.keyword_identical_QMARK_;
+  var expr__4999 = k__4145__auto__;
+  return new app.page.MenubarView.MenubarView(self__.__meta, cljs.core.assoc.call(null, self__.__extmap, k__4145__auto__, G__4994), null);
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$ISeqable$_seq$arity$1 = function(this__4149__auto__) {
+  var self__ = this;
+  var this__4149__auto____$1 = this;
+  return cljs.core.seq.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.EMPTY, self__.__extmap));
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(this__4136__auto__, G__4994) {
+  var self__ = this;
+  var this__4136__auto____$1 = this;
+  return new app.page.MenubarView.MenubarView(G__4994, self__.__extmap, self__.__hash);
+};
+app.page.MenubarView.MenubarView.prototype.cljs$core$ICollection$_conj$arity$2 = function(this__4142__auto__, entry__4143__auto__) {
+  var self__ = this;
+  var this__4142__auto____$1 = this;
+  if (cljs.core.vector_QMARK_.call(null, entry__4143__auto__)) {
+    return cljs.core._assoc.call(null, this__4142__auto____$1, cljs.core._nth.call(null, entry__4143__auto__, 0), cljs.core._nth.call(null, entry__4143__auto__, 1));
+  } else {
+    return cljs.core.reduce.call(null, cljs.core._conj, this__4142__auto____$1, entry__4143__auto__);
+  }
+};
+app.page.MenubarView.MenubarView.cljs$lang$type = true;
+app.page.MenubarView.MenubarView.cljs$lang$ctorPrSeq = function(this__4171__auto__) {
+  return cljs.core._conj.call(null, cljs.core.List.EMPTY, "app.page.MenubarView/MenubarView");
+};
+app.page.MenubarView.MenubarView.cljs$lang$ctorPrWriter = function(this__4171__auto__, writer__4172__auto__) {
+  return cljs.core._write.call(null, writer__4172__auto__, "app.page.MenubarView/MenubarView");
+};
+app.page.MenubarView.__GT_MenubarView = function __GT_MenubarView() {
+  return new app.page.MenubarView.MenubarView;
+};
+app.page.MenubarView.map__GT_MenubarView = function map__GT_MenubarView(G__4996) {
+  return new app.page.MenubarView.MenubarView(null, cljs.core.dissoc.call(null, G__4996));
+};
+app.page.MenubarView.create = function create(elem) {
+  var this$ = app.page.MenubarView.promise.call(null, null);
+  var handleBtnMouseOut = function(this$) {
+    return function(div) {
+      var btnSelf = $(div);
+      var btnOver = btnSelf.find(".navover");
+      return btnOver.animate(new cljs.core.PersistentArrayMap.fromArray([app.page.MenubarView.width, "0px"], true, false), 300);
+    };
+  }(this$);
+  var handleBtnMouseOver = function(this$, handleBtnMouseOut) {
+    return function(div) {
+      var btnSelf = $(div);
+      var btnOver = btnSelf.find(".navover");
+      return btnOver.animate(new cljs.core.PersistentArrayMap.fromArray([app.page.MenubarView.width, "120px"], true, false), 300);
+    };
+  }(this$, handleBtnMouseOut);
+  elem.delegate("div", "click", function(this$, handleBtnMouseOut, handleBtnMouseOver) {
+    return function(div) {
+      return app.event.onMenubarBtnClick2.onNext(div.id());
+    };
+  }(this$, handleBtnMouseOut, handleBtnMouseOver));
+  elem.delegate("div", "mouseover", handleBtnMouseOver);
+  elem.delegate("div", "mouseout", handleBtnMouseOut);
+  return app.page.MenubarView.deliver.call(null, this$, cljs.core.merge.call(null, new app.page.MenubarView.MenubarView, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "elem", "elem", 618631056), elem], null)));
+};
+app.page.MenubarView.open = function open(this$) {
+  return(new cljs.core.Keyword(null, "elem", "elem", 618631056)).cljs$core$IFn$_invoke$arity$1(this$).fadeIn(400);
+};
+app.page.MenubarView.close = function close(this$) {
+  return(new cljs.core.Keyword(null, "elem", "elem", 618631056)).cljs$core$IFn$_invoke$arity$1(this$).fadeOut(400);
+};
+app.page.MenubarView.MenubarView.prototype.page$IPage$ = true;
+app.page.MenubarView.MenubarView.prototype.page$IPage$open$arity$1 = function(this$) {
+  var this$__$1 = this;
+  return app.page.MenubarView.open.call(null, this$__$1);
+};
+app.page.MenubarView.MenubarView.prototype.page$IPage$close$arity$1 = function(this$) {
+  var this$__$1 = this;
+  return app.page.MenubarView.close.call(null, this$__$1);
+};
 goog.provide("app.Main");
 goog.require("cljs.core");
 goog.require("app.event");
@@ -25095,6 +25280,11 @@ app.Main.create = function create() {
 app.Main.on_header_btn_backhome_click = function on_header_btn_backhome_click(this$, id) {
   return null;
 };
+goog.provide("test.ns2");
+goog.require("cljs.core");
+test.ns2.eat = function eat(food) {
+  return console.log("eat", food);
+};
 goog.provide("test.ns1");
 goog.require("cljs.core");
 goog.require("test.ns2");
@@ -25235,28 +25425,28 @@ app.controller.close = function close(this$) {
     }().call(null, this$);
   }
 };
-app.controller.set_view = function set_view(this$, view) {
+app.controller.set_view_BANG_ = function set_view_BANG_(this$, view) {
   if (function() {
     var and__3539__auto__ = this$;
     if (and__3539__auto__) {
-      return this$.app$controller$IController$set_view$arity$2;
+      return this$.app$controller$IController$set_view_BANG_$arity$2;
     } else {
       return and__3539__auto__;
     }
   }()) {
-    return this$.app$controller$IController$set_view$arity$2(this$, view);
+    return this$.app$controller$IController$set_view_BANG_$arity$2(this$, view);
   } else {
     var x__4178__auto__ = this$ == null ? null : this$;
     return function() {
-      var or__3551__auto__ = app.controller.set_view[goog.typeOf(x__4178__auto__)];
+      var or__3551__auto__ = app.controller.set_view_BANG_[goog.typeOf(x__4178__auto__)];
       if (or__3551__auto__) {
         return or__3551__auto__;
       } else {
-        var or__3551__auto____$1 = app.controller.set_view["_"];
+        var or__3551__auto____$1 = app.controller.set_view_BANG_["_"];
         if (or__3551__auto____$1) {
           return or__3551__auto____$1;
         } else {
-          throw cljs.core.missing_protocol.call(null, "IController.set-view", this$);
+          throw cljs.core.missing_protocol.call(null, "IController.set-view!", this$);
         }
       }
     }().call(null, this$, view);
@@ -25311,13 +25501,13 @@ app.page.HeaderView.HeaderView.prototype.cljs$core$ILookup$_lookup$arity$2 = fun
   var this__4137__auto____$1 = this;
   return cljs.core._lookup.call(null, this__4137__auto____$1, k__4138__auto__, null);
 };
-app.page.HeaderView.HeaderView.prototype.cljs$core$ILookup$_lookup$arity$3 = function(this__4139__auto__, k4975, else__4140__auto__) {
+app.page.HeaderView.HeaderView.prototype.cljs$core$ILookup$_lookup$arity$3 = function(this__4139__auto__, k4974, else__4140__auto__) {
   var self__ = this;
   var this__4139__auto____$1 = this;
-  var G__4977 = k4975;
-  switch(G__4977) {
+  var G__4976 = k4974;
+  switch(G__4976) {
     default:
-      return cljs.core.get.call(null, self__.__extmap, k4975, else__4140__auto__);
+      return cljs.core.get.call(null, self__.__extmap, k4974, else__4140__auto__);
   }
 };
 app.page.HeaderView.HeaderView.prototype.cljs$core$IPrintWithWriter$_pr_writer$arity$3 = function(this__4151__auto__, writer__4152__auto__, opts__4153__auto__) {
@@ -25382,22 +25572,22 @@ app.page.HeaderView.HeaderView.prototype.cljs$core$IMap$_dissoc$arity$2 = functi
     return new app.page.HeaderView.HeaderView(self__.__meta, cljs.core.not_empty.call(null, cljs.core.dissoc.call(null, self__.__extmap, k__4147__auto__)), null);
   }
 };
-app.page.HeaderView.HeaderView.prototype.cljs$core$IAssociative$_assoc$arity$3 = function(this__4144__auto__, k__4145__auto__, G__4974) {
+app.page.HeaderView.HeaderView.prototype.cljs$core$IAssociative$_assoc$arity$3 = function(this__4144__auto__, k__4145__auto__, G__4973) {
   var self__ = this;
   var this__4144__auto____$1 = this;
-  var pred__4978 = cljs.core.keyword_identical_QMARK_;
-  var expr__4979 = k__4145__auto__;
-  return new app.page.HeaderView.HeaderView(self__.__meta, cljs.core.assoc.call(null, self__.__extmap, k__4145__auto__, G__4974), null);
+  var pred__4977 = cljs.core.keyword_identical_QMARK_;
+  var expr__4978 = k__4145__auto__;
+  return new app.page.HeaderView.HeaderView(self__.__meta, cljs.core.assoc.call(null, self__.__extmap, k__4145__auto__, G__4973), null);
 };
 app.page.HeaderView.HeaderView.prototype.cljs$core$ISeqable$_seq$arity$1 = function(this__4149__auto__) {
   var self__ = this;
   var this__4149__auto____$1 = this;
   return cljs.core.seq.call(null, cljs.core.concat.call(null, cljs.core.PersistentVector.EMPTY, self__.__extmap));
 };
-app.page.HeaderView.HeaderView.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(this__4136__auto__, G__4974) {
+app.page.HeaderView.HeaderView.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function(this__4136__auto__, G__4973) {
   var self__ = this;
   var this__4136__auto____$1 = this;
-  return new app.page.HeaderView.HeaderView(G__4974, self__.__extmap, self__.__hash);
+  return new app.page.HeaderView.HeaderView(G__4973, self__.__extmap, self__.__hash);
 };
 app.page.HeaderView.HeaderView.prototype.cljs$core$ICollection$_conj$arity$2 = function(this__4142__auto__, entry__4143__auto__) {
   var self__ = this;
@@ -25418,15 +25608,19 @@ app.page.HeaderView.HeaderView.cljs$lang$ctorPrWriter = function(this__4171__aut
 app.page.HeaderView.__GT_HeaderView = function __GT_HeaderView() {
   return new app.page.HeaderView.HeaderView;
 };
-app.page.HeaderView.map__GT_HeaderView = function map__GT_HeaderView(G__4976) {
-  return new app.page.HeaderView.HeaderView(null, cljs.core.dissoc.call(null, G__4976));
+app.page.HeaderView.map__GT_HeaderView = function map__GT_HeaderView(G__4975) {
+  return new app.page.HeaderView.HeaderView(null, cljs.core.dissoc.call(null, G__4975));
 };
 app.page.HeaderView.create = function create(elem) {
   var this$ = app.page.HeaderView.promise.call(null, null);
   var btn_backhome = function() {
-    var G__4983 = elem.find("#btn_backhome");
-    G__4983.click(elem, evt.onHeaderBtnBackhomeClick.onNext(cljs.core.deref.call(null, this$)));
-    return G__4983;
+    var G__4982 = elem.find("#btn_backhome");
+    G__4982.click(elem, function(G__4982, this$) {
+      return function() {
+        return evt.onHeaderBtnBackhomeClick.onNext(cljs.core.deref.call(null, this$));
+      };
+    }(G__4982, this$));
+    return G__4982;
   }();
   var img_homeLogo = elem.find("#img_homeLogo");
   var img_streetSnapLogo = elem.find("#img_streetSnapLogo");
@@ -25438,73 +25632,73 @@ app.page.HeaderView.create = function create(elem) {
   "StreetNews", 1399822125), img_streetNewsLogo, new cljs.core.Keyword(null, "StreetModels", "StreetModels", -643658470), img_streetModelsLogo, new cljs.core.Keyword(null, "StreetEvent", "StreetEvent", -530516872), img_streetEventLogo, new cljs.core.Keyword(null, "StreetCelebrity", "StreetCelebrity", -422187416), img_streetCelebrityLogo], null)));
 };
 app.page.HeaderView.show = function show(this$, logo) {
-  var seq__4990_4996 = cljs.core.seq.call(null, new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "Home", "Home", 1521501280), new cljs.core.Keyword(null, "StreetSnap", "StreetSnap", -1105926986), new cljs.core.Keyword(null, "StreetNews", "StreetNews", 1399822125), new cljs.core.Keyword(null, "StreetModels", "StreetModels", -643658470), new cljs.core.Keyword(null, "StreetEvent", "StreetEvent", -530516872), new cljs.core.Keyword(null, "StreetCelebrity", 
+  var seq__4989_4995 = cljs.core.seq.call(null, new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "Home", "Home", 1521501280), new cljs.core.Keyword(null, "StreetSnap", "StreetSnap", -1105926986), new cljs.core.Keyword(null, "StreetNews", "StreetNews", 1399822125), new cljs.core.Keyword(null, "StreetModels", "StreetModels", -643658470), new cljs.core.Keyword(null, "StreetEvent", "StreetEvent", -530516872), new cljs.core.Keyword(null, "StreetCelebrity", 
   "StreetCelebrity", -422187416)], null));
-  var chunk__4992_4997 = null;
-  var count__4993_4998 = 0;
-  var i__4994_4999 = 0;
+  var chunk__4991_4996 = null;
+  var count__4992_4997 = 0;
+  var i__4993_4998 = 0;
   while (true) {
-    if (i__4994_4999 < count__4993_4998) {
-      var elem_5000 = cljs.core._nth.call(null, chunk__4992_4997, i__4994_4999);
-      if (cljs.core.truth_(cljs.core._EQ_.call(null, logo, elem_5000) ? null : null)) {
-        elem_5000.call(null, this$).hide();
-        var G__5001 = seq__4990_4996;
-        var G__5002 = chunk__4992_4997;
-        var G__5003 = count__4993_4998;
-        var G__5004 = i__4994_4999 + 1;
-        seq__4990_4996 = G__5001;
-        chunk__4992_4997 = G__5002;
-        count__4993_4998 = G__5003;
-        i__4994_4999 = G__5004;
+    if (i__4993_4998 < count__4992_4997) {
+      var elem_4999 = cljs.core._nth.call(null, chunk__4991_4996, i__4993_4998);
+      if (cljs.core.truth_(cljs.core._EQ_.call(null, logo, elem_4999) ? null : null)) {
+        elem_4999.call(null, this$).hide();
+        var G__5000 = seq__4989_4995;
+        var G__5001 = chunk__4991_4996;
+        var G__5002 = count__4992_4997;
+        var G__5003 = i__4993_4998 + 1;
+        seq__4989_4995 = G__5000;
+        chunk__4991_4996 = G__5001;
+        count__4992_4997 = G__5002;
+        i__4993_4998 = G__5003;
         continue;
       } else {
-        var G__5005 = seq__4990_4996;
-        var G__5006 = chunk__4992_4997;
-        var G__5007 = count__4993_4998;
-        var G__5008 = i__4994_4999 + 1;
-        seq__4990_4996 = G__5005;
-        chunk__4992_4997 = G__5006;
-        count__4993_4998 = G__5007;
-        i__4994_4999 = G__5008;
+        var G__5004 = seq__4989_4995;
+        var G__5005 = chunk__4991_4996;
+        var G__5006 = count__4992_4997;
+        var G__5007 = i__4993_4998 + 1;
+        seq__4989_4995 = G__5004;
+        chunk__4991_4996 = G__5005;
+        count__4992_4997 = G__5006;
+        i__4993_4998 = G__5007;
         continue;
       }
     } else {
-      var temp__4126__auto___5009 = cljs.core.seq.call(null, seq__4990_4996);
-      if (temp__4126__auto___5009) {
-        var seq__4990_5010__$1 = temp__4126__auto___5009;
-        if (cljs.core.chunked_seq_QMARK_.call(null, seq__4990_5010__$1)) {
-          var c__4307__auto___5011 = cljs.core.chunk_first.call(null, seq__4990_5010__$1);
-          var G__5012 = cljs.core.chunk_rest.call(null, seq__4990_5010__$1);
-          var G__5013 = c__4307__auto___5011;
-          var G__5014 = cljs.core.count.call(null, c__4307__auto___5011);
-          var G__5015 = 0;
-          seq__4990_4996 = G__5012;
-          chunk__4992_4997 = G__5013;
-          count__4993_4998 = G__5014;
-          i__4994_4999 = G__5015;
+      var temp__4126__auto___5008 = cljs.core.seq.call(null, seq__4989_4995);
+      if (temp__4126__auto___5008) {
+        var seq__4989_5009__$1 = temp__4126__auto___5008;
+        if (cljs.core.chunked_seq_QMARK_.call(null, seq__4989_5009__$1)) {
+          var c__4307__auto___5010 = cljs.core.chunk_first.call(null, seq__4989_5009__$1);
+          var G__5011 = cljs.core.chunk_rest.call(null, seq__4989_5009__$1);
+          var G__5012 = c__4307__auto___5010;
+          var G__5013 = cljs.core.count.call(null, c__4307__auto___5010);
+          var G__5014 = 0;
+          seq__4989_4995 = G__5011;
+          chunk__4991_4996 = G__5012;
+          count__4992_4997 = G__5013;
+          i__4993_4998 = G__5014;
           continue;
         } else {
-          var elem_5016 = cljs.core.first.call(null, seq__4990_5010__$1);
-          if (cljs.core.truth_(cljs.core._EQ_.call(null, logo, elem_5016) ? null : null)) {
-            elem_5016.call(null, this$).hide();
-            var G__5017 = cljs.core.next.call(null, seq__4990_5010__$1);
-            var G__5018 = null;
+          var elem_5015 = cljs.core.first.call(null, seq__4989_5009__$1);
+          if (cljs.core.truth_(cljs.core._EQ_.call(null, logo, elem_5015) ? null : null)) {
+            elem_5015.call(null, this$).hide();
+            var G__5016 = cljs.core.next.call(null, seq__4989_5009__$1);
+            var G__5017 = null;
+            var G__5018 = 0;
             var G__5019 = 0;
-            var G__5020 = 0;
-            seq__4990_4996 = G__5017;
-            chunk__4992_4997 = G__5018;
-            count__4993_4998 = G__5019;
-            i__4994_4999 = G__5020;
+            seq__4989_4995 = G__5016;
+            chunk__4991_4996 = G__5017;
+            count__4992_4997 = G__5018;
+            i__4993_4998 = G__5019;
             continue;
           } else {
-            var G__5021 = cljs.core.next.call(null, seq__4990_5010__$1);
-            var G__5022 = null;
+            var G__5020 = cljs.core.next.call(null, seq__4989_5009__$1);
+            var G__5021 = null;
+            var G__5022 = 0;
             var G__5023 = 0;
-            var G__5024 = 0;
-            seq__4990_4996 = G__5021;
-            chunk__4992_4997 = G__5022;
-            count__4993_4998 = G__5023;
-            i__4994_4999 = G__5024;
+            seq__4989_4995 = G__5020;
+            chunk__4991_4996 = G__5021;
+            count__4992_4997 = G__5022;
+            i__4993_4998 = G__5023;
             continue;
           }
         }
@@ -25677,12 +25871,12 @@ app.page.HeaderController.show = function show(this$, logo) {
   return show.call(null, app.page.HeaderController.view.call(null, this$), logo);
 };
 app.page.HeaderController.open = function open(this$) {
-  return app.page.HeaderController.show.call(null, app.page.HeaderController.view.call(null, this$), new cljs.core.Keyword(null, "Home", "Home", 1521501280));
+  return app.page.HeaderController.show.call(null, app.page.HeaderController.view.call(null, this$), new cljs.core.Keyword(null, "home", "home", -74557309));
 };
 app.page.HeaderController.close = function close(this$) {
   return close.call(null, app.page.HeaderController.view.call(null, this$));
 };
-app.page.HeaderController.set_view = function set_view(this$, view) {
+app.page.HeaderController.set_view_BANG_ = function set_view_BANG_(this$, view) {
   return cljs.core.reset_BANG_.call(null, view.call(null, this$), view);
 };
 app.page.HeaderController.create_model = function create_model(this$, param, cb) {
@@ -25697,9 +25891,9 @@ app.page.HeaderController.HeaderController.prototype.app$controller$IController$
   var this$__$1 = this;
   return app.page.HeaderController.close.call(null, this$__$1);
 };
-app.page.HeaderController.HeaderController.prototype.app$controller$IController$set_view$arity$2 = function(this$, view) {
+app.page.HeaderController.HeaderController.prototype.app$controller$IController$set_view_BANG_$arity$2 = function(this$, view) {
   var this$__$1 = this;
-  return app.page.HeaderController.set_view.call(null, this$__$1, view);
+  return app.page.HeaderController.set_view_BANG_.call(null, this$__$1, view);
 };
 app.page.HeaderController.HeaderController.prototype.app$controller$IController$create_model$arity$3 = function(this$, param, cb) {
   var this$__$1 = this;

@@ -10,3 +10,4 @@ return (function (elem__$1){return console.log(elem__$1);
 });})(elem,onOver,onOut))
 );
 });
+test.rxjs.main.call(null);

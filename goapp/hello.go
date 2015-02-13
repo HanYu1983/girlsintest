@@ -17,6 +17,7 @@ func init() {
 		
 		"UpdateStreetModel": handler.UpdateStreetModel,
 		"QueryStreetModel": handler.QueryStreetModel,
+    "DeleteStreetModel": handler.DeleteStreetModel,
 		"AddPhotoToStreetModel": handler.AddPhotoToStreetModel,
 		"QueryPhotoWithStreetModel": handler.QueryPhotoWithStreetModel,
 		"DeletePhotoWithStreetModel": handler.DeletePhotoWithStreetModel,

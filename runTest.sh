@@ -1,0 +1,1 @@
+node_workspace/bdd/node_modules/mocha/bin/mocha node_workspace/bdd/index.js

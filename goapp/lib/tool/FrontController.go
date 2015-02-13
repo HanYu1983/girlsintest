@@ -40,14 +40,17 @@ func FrontController(
 			switch x.(type){
 				case string:
 					errmsg, _ := json.Marshal(DefaultResult{Info:x.(string)})
+          w.Header().Set("Content-Type", "application/json; charset=utf8")
 					fmt.Fprintf(w, "%s", errmsg)
 				break
 				default:
+          w.Header().Set("Content-Type", "application/json; charset=utf8")
 					fmt.Fprintf(w, "{'Success':false, Info:'%s'}", x)
 				break
 			}
         }
     }()
+  
 	var sys ISystem
 	sys = AppEngineSystem{Request: r, Response: w}
     r.ParseForm()
@@ -61,7 +64,7 @@ func FrontController(
 		http.Redirect(w, r, url, 302)
 	}else{
         js, _ := json.Marshal(formatResult)
-        w.Header().Set("Content-Type", "application/json")
+        w.Header().Set("Content-Type", "application/json; charset=utf8")
         fmt.Fprintf(w, "%s",  js)
     }
 }

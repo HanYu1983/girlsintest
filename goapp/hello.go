@@ -42,7 +42,7 @@ func init() {
 func AdminPage(sys tool.ISystem)interface{}{
 	w := sys.GetResponse()
 	w.Header().Set("Content-Type", "text/html")
-    tool.TemplateWithFile("EditStreetModel", "app/tmpl/Admin.html").Execute(w, nil)
+    tool.TemplateWithFile("EditStreetModel", "src/app/tmpl/Admin.html").Execute(w, nil)
 	return tool.CustomView
 }
 		

@@ -2,11 +2,13 @@ package tool
 
 import (
 	"net/http"
+  "appengine"
 )
 
 type AppEngineSystem struct {
 	Request *http.Request
 	Response http.ResponseWriter
+  Context appengine.Context
 }
 
 func (s AppEngineSystem) GetRequest() *http.Request{
@@ -15,6 +17,10 @@ func (s AppEngineSystem) GetRequest() *http.Request{
 
 func (s AppEngineSystem) GetResponse() http.ResponseWriter{
 	return s.Response
+}
+
+func (s AppEngineSystem) GetContext() appengine.Context{
+  return s.Context
 }
 
 func (s AppEngineSystem) Log(msg interface{}){

@@ -55,7 +55,7 @@ func (r *StreetModelDAO) Init(){
 }
 
 func (r *StreetModelDAO) GetRandomModel( sys tool.ISystem, count int) StreetModelEntity {
-	c := appengine.NewContext(sys.GetRequest())
+	c := sys.GetContext()
 	query := r.NewQuery(sys)
 	query = query.Filter("Available =", true)
 	total, err := query.Count(c)
@@ -71,7 +71,7 @@ func (r *StreetModelDAO) GetRandomModel( sys tool.ISystem, count int) StreetMode
 }
 
 func (r *StreetModelDAO) SearchModelWithRegexp(sys tool.ISystem, regstr string, count int) []StreetModelEntity {
-	c := appengine.NewContext(sys.GetRequest())
+	c := sys.GetContext()
 	q := r.NewQuery(sys)
 	total, err := q.Count(c)
 	if err != nil {

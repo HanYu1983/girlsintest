@@ -13,12 +13,12 @@ type SimpleDAO struct {
 }
 
 func (cr *SimpleDAO) NewKey(sys ISystem, parent *datastore.Key) *datastore.Key {
-	c := appengine.NewContext(sys.GetRequest())
+	c := sys.GetContext()
 	return datastore.NewIncompleteKey(c, cr.Kind, parent) 
 }
 
 func (cr *SimpleDAO) GetKey(sys ISystem, key int64, parent *datastore.Key) *datastore.Key{
-	c := appengine.NewContext(sys.GetRequest())
+	c := sys.GetContext()
 	return datastore.NewKey(c, cr.Kind, "", key, parent) 
 }
 
@@ -27,7 +27,7 @@ func (cr *SimpleDAO) NewQuery(sys ISystem) *datastore.Query {
 }
 
 func (cr *SimpleDAO) Create(sys ISystem, key *datastore.Key, po interface{}) *datastore.Key {
-    c := appengine.NewContext(sys.GetRequest())  
+    c := sys.GetContext()
     retkey, err := cr.PutFn(c, key, po)
     if err != nil {
         panic(err.Error())
@@ -36,7 +36,7 @@ func (cr *SimpleDAO) Create(sys ISystem, key *datastore.Key, po interface{}) *da
 }
 
 func (cr *SimpleDAO) Update(sys ISystem, key *datastore.Key, po interface{}){
-    c := appengine.NewContext(sys.GetRequest())
+    c := sys.GetContext()
     cr.PutFn(c, key, po)
 }
 func (cr *SimpleDAO) Read(sys ISystem, key *datastore.Key) interface{}{
@@ -48,7 +48,7 @@ func (cr *SimpleDAO) Read(sys ISystem, key *datastore.Key) interface{}{
 	}
 }
 func (cr *SimpleDAO) ReadMulti(sys ISystem, keys []*datastore.Key) []interface{}{
-    c := appengine.NewContext(sys.GetRequest())
+    c := sys.GetContext()
     ret, err := cr.GetFn(c, keys)
     if err != nil {
         panic(err.Error())
@@ -56,14 +56,14 @@ func (cr *SimpleDAO) ReadMulti(sys ISystem, keys []*datastore.Key) []interface{}
     return ret
 }
 func (cr *SimpleDAO) Delete(sys ISystem, key *datastore.Key){
-    c := appengine.NewContext(sys.GetRequest())
+    c := sys.GetContext()
     err := datastore.Delete(c, key)
     if err != nil {
         panic(err.Error())
     }
 }
 func (cr *SimpleDAO) ReadAll(sys ISystem, query *datastore.Query) []interface{}{
-    c := appengine.NewContext(sys.GetRequest())
+    c := sys.GetContext()
     pos, _, err := cr.GetAllFn( c, query )
     if err != nil {
         panic( err.Error() )

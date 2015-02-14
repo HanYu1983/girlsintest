@@ -5,6 +5,7 @@ import (
     "net/http"
     "reflect"
     "encoding/json"
+    "appengine"
     _ "strconv"
 )
 
@@ -50,9 +51,9 @@ func FrontController(
 			}
         }
     }()
-  
+  ctx := appengine.NewContext(r)
 	var sys ISystem
-	sys = AppEngineSystem{Request: r, Response: w}
+	sys = AppEngineSystem{Request: r, Response: w, Context: ctx}
     r.ParseForm()
     cmd := GetCommand(r, "nocmd")
     result := Call(action, cmd, sys)[0]

@@ -2,6 +2,7 @@ package tool
 
 import (
 	"net/http"
+  "appengine"
 	"appengine/datastore"
 )
 
@@ -31,6 +32,7 @@ type ILogger interface {
 type ISystem interface {
 	GetRequest() *http.Request
 	GetResponse() http.ResponseWriter
+  GetContext() appengine.Context
 	Log(msg interface{})
 }
 

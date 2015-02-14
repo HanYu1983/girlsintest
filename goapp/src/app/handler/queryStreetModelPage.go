@@ -26,6 +26,6 @@ func QueryStreetModelPage(sys tool.ISystem)interface{}{
 	}
 	w := sys.GetResponse()
 	w.Header().Set("Content-Type", "text/html")
-    tool.TemplateWithFile("QueryStreetModel", "app/tmpl/QueryStreetModel.html").Execute(w, model)
+    tool.TemplateWithFile("QueryStreetModel", "src/app/tmpl/QueryStreetModel.html").Execute(w, model)
     return tool.CustomView
 }

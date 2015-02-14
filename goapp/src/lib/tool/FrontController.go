@@ -34,6 +34,7 @@ var CustomView = DefaultResult{Info:"__custom_view__", Code: 0}
 func FrontController(
     w http.ResponseWriter,
     r *http.Request,
+    contextFactory func(*http.Request)appengine.Context,
     action ActionMap){
     defer func(){
         if x:= recover(); x != nil{
@@ -51,9 +52,9 @@ func FrontController(
 			}
         }
     }()
-  ctx := appengine.NewContext(r)
+  //ctx := appengine.NewContext(r)
 	var sys ISystem
-	sys = AppEngineSystem{Request: r, Response: w, Context: ctx}
+	sys = AppEngineSystem{Request: r, Response: w, Context: contextFactory(r)}
     r.ParseForm()
     cmd := GetCommand(r, "nocmd")
     result := Call(action, cmd, sys)[0]
@@ -87,12 +88,16 @@ func Call(m ActionMap, name string, params ... interface{}) (result []reflect.Va
     return
 }
 
-func FrontControllerWith(action ActionMap) func(w http.ResponseWriter, r *http.Request){
+func FrontControllerWith(action ActionMap, contextFactory func(*http.Request)appengine.Context) func(w http.ResponseWriter, r *http.Request){
 	return func(w http.ResponseWriter, r *http.Request){
-		FrontController(w, r, action)
+		FrontController(w, r, contextFactory, action)
 	}
 }
 
 func PanicWhen(cond bool, msg string){
     if cond { panic(msg) }
+}
+
+func AppEngineContextFactory(r *http.Request)appengine.Context{
+  return appengine.NewContext(r)
 }

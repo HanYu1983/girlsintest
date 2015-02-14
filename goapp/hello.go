@@ -34,10 +34,12 @@ func init() {
 		"QueryStreetModelPage": handler.QueryStreetModelPage,
 		"EditStreetModelPage": handler.EditStreetModelPage,
 	}
+  
+  
     http.HandleFunc("/", DefaultHandler)
-    http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions))
-	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions))
-	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions))
+    http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
+	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))
+	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions, tool.AppEngineContextFactory))
 }
 func AdminPage(sys tool.ISystem)interface{}{
 	w := sys.GetResponse()

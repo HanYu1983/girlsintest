@@ -1,7 +1,6 @@
 package bdd
 
 import (
-  "testing"
   "appengine"
   "appengine/aetest"
   "net/http"
@@ -27,28 +26,25 @@ var actions tool.ActionMap = tool.ActionMap{
   "UpdatePhotoWithStreetModel": handler.UpdatePhotoWithStreetModel,
 }
 
-func TestMyFunction(t *testing.T) {
-  c, err := aetest.NewContext(nil)
-  if err != nil {
-    t.Fatal(err)
-  }
+func TestHandler(c aetest.Context) {
   var QueryFn func(http.ResponseWriter,*http.Request) = tool.FrontControllerWith(
     actions, 
     func(r *http.Request)appengine.Context{
       return c
     },
   )
-  defer c.Close()
-  
+    
   r, _ := http.NewRequest("get", "/goapp/Func?cmd=xxxx", nil)
   w := httptest.NewRecorder()
       
   QueryFn(w, r)
   
   body, _ := ioutil.ReadAll(w.Body)
-  t.Fatalf("result:%s", body)
+  c.Debugf("result:%s", body)
+  
+  panic("hahahWow!")
   
   if w.Code != http.StatusOK {
-    t.Fatalf("Non-expected status code%v:\n\tbody: %v", "200", w.Code)
+    panic("Non-expected status code%v:\n\tbody")
   }
 }

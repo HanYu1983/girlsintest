@@ -17,3 +17,14 @@ func TestSuit(t *testing.T){
   // Add your test function here, use Panic() to notify test error!
   TestHandler(c)
 }
+
+func gen(nums ...int) <-chan int {
+    out := make(chan int)
+    go func() {
+        for _, n := range nums {
+            out <- n
+        }
+        close(out)
+    }()
+    return out
+}

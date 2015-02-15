@@ -34,7 +34,7 @@ func TestHandler(c aetest.Context) {
     },
   )
     
-  r, _ := http.NewRequest("get", "/goapp/Func?cmd=xxxx", nil)
+  r, _ := http.NewRequest("get", "/goapp/Func?cmd=QueryStreetModel", nil)
   w := httptest.NewRecorder()
       
   QueryFn(w, r)
@@ -42,7 +42,7 @@ func TestHandler(c aetest.Context) {
   body, _ := ioutil.ReadAll(w.Body)
   c.Debugf("result:%s", body)
   
-  panic("hahahWow!")
+  //panic("hahahWow!")
   
   if w.Code != http.StatusOK {
     panic("Non-expected status code%v:\n\tbody")

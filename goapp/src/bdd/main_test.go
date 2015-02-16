@@ -10,7 +10,7 @@ func TestSuit(t *testing.T){
   if err != nil { t.Fatal(err) }
   defer func(){
     if x:= recover(); x!= nil {
-      t.Fatal("TestError:%s", x)
+      t.Fatal("TestError:", x)
     }
   }()
   defer c.Close()

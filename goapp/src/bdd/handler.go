@@ -39,10 +39,12 @@ func TestHandler(c aetest.Context) {
       
   QueryFn(w, r)
   
-  body, _ := ioutil.ReadAll(w.Body)
-  c.Debugf("result:%s", body)
+  body, err := ioutil.ReadAll(w.Body)
+  if err != nil {
+    panic(err.Error())
+  }
   
-  //panic("hahahWow!")
+  c.Infof("result:%s", body)
   
   if w.Code != http.StatusOK {
     panic("Non-expected status code%v:\n\tbody")

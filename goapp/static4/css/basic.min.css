@@ -1,0 +1,22 @@
+.fixed{position:fixed;}
+.absolute{position:absolute;}
+.relative{position:relative;}
+.hide{display:none;}
+.full{width:100%;height:100%;}
+.w_full{width:100%;}
+.h_full{height:100%;}
+.top{top:0;}
+.left{left:0;}
+.right{right:0;}
+.bottom{bottom:0;}
+.f_right{float:right;}
+.f_left{float:left;}
+.btn{cursor:pointer;}
+.black_cube{background-color:black;}
+.white_cube{background-color:white;}
+.opacity_7{opacity:.7;}
+.opacity_5{opacity:.5;}
+.opacity_3{opacity:.3;}
+.white_outline_1{outline:white solid 1px;}
+.disable{pointer-events:none;}
+

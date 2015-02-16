@@ -1,15 +1,356 @@
 <html>
-  <head>
-  </head>
-  <body>
-    <div id='rxjs' style='width: 200px; height:200px; background: red'></div>
-    
-    <script src='js/lib/rxjs/rx.all.js'></script>
-    <script src='js/lib/jquery/jquery-1.9.min.js'></script>
-    <script src="js/cljslib/goog/base.js" type="text/javascript"></script>
-    <script src='js/cljslib/cljs.js'></script>
-    <script>
-    goog.require("test.rxjs");
-    </script>
-  </body>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>angular test</title>
+		<link href='css/basic.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/app.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/home.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/menubar.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/streetsnap.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/streetsnapSearch.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/bigPhoto.min.css' rel='stylesheet' type='text/css'/>
+		
+		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
+		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
+		<script src="js/lib/sketchfab/sketchfab-iframe.js"></script>
+		<script src='js/lib/underscore/underscore.js'></script>
+		<script src='js/lib/backbone/backbone.js'></script>
+		<script src='js/lib/bacon/Bacon.js'></script>
+		<script src='js/lib/rxjs/rx.all.js'></script>
+		<script src='js/lib/async/async.js'></script>
+		<script src='js/lib/vic/vic.facebook.js'></script>
+		<script src='js/lib/vic/vic.mvc.js'></script>
+		<script>
+		/*
+		window.fbAsyncInit = function() {
+			FB.init({
+			  appId      : '605719376223231',
+			  xfbml      : true,
+			  version    : 'v2.2'
+			});
+			// ADD ADDITIONAL FACEBOOK CODE HERE
+		  };
+			
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+*/
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=605719376223231&version=v2.0";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		</script>
+		<div id="fb-root"></div>
+	</head>
+	<body>
+		<script type='x-jquery-tmpl' id='tmpl_home'>
+			<div class='hide fixed top left full'>
+				<div id="mc_centerLogo" class="absolute full">
+					<img id="mc_backLine" class='absolute' src='images/index/backgroundBigLine.png'/>
+					<img id="mc_bigLogo" class='absolute' src='images/index/big_LOGO.png'/>
+					<div id="mc_3dIframeBorder" class='absolute'>
+						<div id="mc_iframeBack" class='black_cube opacity_5'></div>
+						<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
+						<!--
+						<img id="mc_3dIframeBorderLine" class='absolute top left' src='images/streetSnap/pinkBorder.png'/>
+						-->
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_celebrity'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是名人頁</h1>
+						<ul>
+							<li>會有一個名人稿(可能會有轉轉轉)</li>
+							<li>上一則新聞<button>上一個</button></li>
+							<li>下一則新聞<button>下一個</button></li>
+							<li><button>名人列表</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_celebrity_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是名人列表頁</h1>
+						<ul>
+							<li>一堆名人排排站</li>
+							<li><button>名人詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_news'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是新聞頁</h1>
+						<ul>
+							<li>會有一個新聞稿(可能會有轉轉轉)</li>
+							<li>上一則新聞<button>上一個</button></li>
+							<li>下一則新聞<button>下一個</button></li>
+							<li><button>活動列表</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_news_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是新聞列表頁</h1>
+						<ul>
+							<li>一堆新聞排排站</li>
+							<li><button>新聞詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_models'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是model頁</h1>
+						<ul>
+							<li>model的詳細頁(跟街拍一樣)</li>
+							<li>看更多<button>more</button></li>
+							<li>是否有哪裡不一樣的地方，沒有的話，就會做的跟街拍頁一模一樣</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_models_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是model列表頁</h1>
+						<ul>
+							<li>一堆model排排站</li>
+							<li><button>model詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_event'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是活動頁</h1>
+						<ul>
+							<li>會有一個新聞稿(可能會有轉轉轉)</li>
+							<li>上一則新聞<button>上一個</button></li>
+							<li>下一則新聞<button>下一個</button></li>
+							<li><button>活動列表</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_event_list'>
+			<div class='fixed top left full'>
+				<div style='left:200px; top:100px;' class='absolute'>
+					<div style='font-size:20px; color:white'>
+						<h1>這是活動列表頁</h1>
+						<ul>
+							<li>一堆活動排排站</li>
+							<li><button>活動詳細</button></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
+			<div class="hide full">
+				<div id="mc_center" class="absolute">
+					<div id="mc_background" class="fixed h_full"></div>
+					<div class="mainContainer margin_leftA margin_topA">
+						<div id="txt_name" class="relative f_left txt_size_title textBase">${name}</div>
+						<img id="btn_share" src="images/index/topBtn_04.png" style="margin-top:-23px;" class="btn relative f_right" />
+						<div id="txt_date" class="relative f_right txt_size_title textBase">${date}</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div id="mc_mainContainer" class="relative f_left">
+							<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='relative f_left' width='323px' height='379px'></iframe>
+							<div id="mc_pro" class="relative f_left">
+								<div class="absolute full white_cube opacity_3"></div>
+								<div id="txt_proContent" class="absolute textBase">{{html protalk}}</div>
+							</div>
+							<img id="img_stylePicture" class='relative f_left' src=${styleUrl} />
+							<div id="mc_sideContainer">
+								{{each sideList}}
+								<img id=${id} class='btn relative f_left sidePicture' src=${url} />
+								{{/each}}
+							</div>
+						</div>
+						<!--
+						<div class="relative f_left margin_topB textBase">MODEL照片</div>
+						-->
+						<img class='relative f_left margin_topB mc_line' src='images/streetSnap/line.png'/>
+						
+						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
+							{{each bottomList}}
+								<img id=${id} class='btn relative f_left sidePicture' src=${url} />
+							{{/each}}
+						</div>
+						<div class="relative f_left margin_topB textBase">MODEL資料</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
+							{{html modelDetail }}
+						</div>
+						<div id="txt_name2" class="relative f_left margin_topB textBase">MODEL訪談</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div id="txt_modelMeeting" style="margin-bottom:100px;" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
+							{{html talk}}
+						</div>
+						<!--
+						<div id="fbcommentContainer" class="w_full relative white_cube f_left">
+							<!--
+							<div id="fbcomment" class="fb-comments" data-href="http://test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap" data-numposts="5" data-colorscheme="light"></div>
+							--/>
+						</div>
+						-->
+						<div id="mc_historyList" class="absolute">
+							<div id="mc_historyContainer">
+								{{each historyList}}
+								<img id=${id} class="btn historyImgSize" src=${url} />
+								{{/each}}
+							</div>
+							<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
+			<div class="hide full">
+				<div id="mc_center" class="absolute h_full">
+					<div id="mc_background" class="fixed h_full"></div>
+					<div class="mainContainer margin_leftA margin_topA">
+						<div class="relative f_left textBase">精選</div>
+						<div id="mc_searchbar" class="relative f_right">
+							<input id='input_search' class="relative f_left" />
+							<img id="btn_search" class="btn" src='images/streetSearch/search.png'/>
+						</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div id="mc_modelContainer">
+							{{each streetsnapList}}
+							<div id=${id} class="btn relative f_left singleModel">
+								<div id="mc_modelTitle" class="relative">
+									<div class='full white_cube opacity_5 absolute'></div>
+									<div id='txt_name' class='absolute textBase txt_name'>${name}</div>
+									<div id='txt_date' class='absolute textBase txt_date'>${date}</div>
+								</div>
+								<img id="img_listStylePicture" class='relative f_left' src=${imgStylePath} />
+								<img class='relative f_left listSideSize' src=${imgSideAPath} />
+								<img class='relative f_left listSideSize' src=${imgSideBPath} />
+								<img class='relative f_left listSideSize' src=${imgSideCPath} />
+							</div>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script type="x-jquery-tmpl" id="tmpl_bigPhoto">
+			<div class="hide full">
+				<div id="mc_bigPhotoBack" class='fixed full black_cube opacity_7'></div>
+				<div id="mc_bigPhotoFixPosition" class='fixed full '>
+					<img id='img_photo' src=${url} class='relative'/>
+				</div>
+			</div>
+		</script>
+		<div class="root">
+			<!-- background -->
+			<div class="fixed top left full">
+				<div id="mc_backgroundBack" class='absolute full'></div>
+				<img id="mc_mainBg" class='absolute full'/>
+				<div id="mc_fadeOutTop" class='absolute'></div>
+				<div id="mc_fadeOutBottom" class='absolute bottom'></div>
+			</div>
+			<!-- pages -->
+			<div id='mc_pageContainer' class='absolute full'></div>
+			<!-- header -->
+			<div id="mc_header" class='fixed left top w_full'>
+				<div id="mc_head_background" class='absolute w_full black_cube opacity_3 white_outline_1 top left'></div>
+				<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
+				<img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/>
+				<img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/>
+				<div id="btn_backhome" class="btn">
+					<img id="img_homeLogo" class='relative' src='images/index/small_Logo.png'/>
+					<img id="img_streetSnapLogo" class='relative hide' src='images/index/backhomeStreet.png'/>
+					<img id="img_streetNewsLogo" class='relative hide' src='images/index/backhomeNews.png'/>
+					<img id="img_streetModelsLogo" class='relative hide' src='images/index/backhomeModels.png'/>
+					<img id="img_streetEventLogo" class='relative hide' src='images/index/backhomeEvent.png'/>
+					<img id="img_streetCelebrityLogo" class='relative hide' src='images/index/backhomeCelebrity.png'/>
+				</div>
+			</div>
+			<!-- menubar -->
+			<div id="mc_menubar" class="fixed right">
+				<div id='btn_nav_celebrity' class='hide btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/CELEBRITY.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/CELEBRITY_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_model' class='btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/MODELS.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/MODELS_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_event' class='hide btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/EVENT.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/EVENT_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_streetSnap' class='btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/STREET-SNAP.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/STREET-SNAP_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_news' class='hide btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/NEWS.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/NEWS_over.jpg'/></div>
+				</div>
+				<div style="opacity:0" class='navbarBtnHeight'>
+					<img src='images/navbar/advertise.png'></img>
+				</div>
+			</div>
+			<!-- footer -->
+			<div class="fixed left w_full bottom">
+				<div id="mc_foot_background" class='absolute w_full black_cube opacity_3 white_outline_1'></div>
+				<img class="btn relative" src='images/index/bottomBtn_01.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_02.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_03.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_04.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_05.png'/>
+			</div>
+			<!-- popup -->
+			<div id="mc_popupContainer" class="absolute"></div>
+			<!-- loading -->
+			<div id="mc_loading" class="hide absolute full black_cube opacity_5"></div>
+			<!-- fb plugin -->
+			<!--
+			<div id="fbPluginPool" style="display:none">
+				<div id="fbcomment" style="margin-bottom:100px; margin-left:73px; margin-top:20px;" class="fb-comments" data-href="http://test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap"  data-width="540px" data-numposts="5" data-colorscheme="light"></div>
+			</div>
+			-->
+		</div>
+	</body>
+  <script src="js/cljslib/goog/base.js" type="text/javascript"></script>
+  <script src='js/cljslib/cljs.js'></script>
+  <script>
+  goog.require("app");
+  </script>
 </html>

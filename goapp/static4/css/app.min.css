@@ -1,0 +1,12 @@
+#mc_mainBg{background-image:url( '../images/index/patterm.png' );}
+#mc_backgroundBack{background:-webkit-linear-gradient(#555555,#000000);background:-o-linear-gradient(#555555,#000000);background:-moz-linear-gradient(#555555,#000000);background:linear-gradient(#555555,#000000);}
+#mc_fadeOutTop{width:100%;height:300px;background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,0));pointer-events:none;}
+#mc_fadeOutBottom{width:100%;height:300px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.5));pointer-events:none;}
+#mc_foot_background{height:50px;}
+#mc_head_background{height:50px;}
+#mc_foot_background{height:50px;}
+#mc_loading{top:0;left:0;}
+.fixedTop{top:-12px;}
+.textBase{color:white;font-family:'Microsoft JhengHei'}
+.mainContainer{width:700px;}
+

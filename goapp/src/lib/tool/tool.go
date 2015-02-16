@@ -5,9 +5,9 @@ import (
     "bufio"
     "strings"
     "html/template"
-	"strconv"
+    "strconv"
     "io/ioutil"
-    "appengine"
+    _ "appengine"
     "appengine/urlfetch"
     "encoding/json"
 )
@@ -57,7 +57,7 @@ func (s int64Array) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
 func (s int64Array) Less(i, j int) bool { return s[i] < s[j] }
 
 func HttpGet (sys ISystem, url string) (res []byte, err error){
-    c := appengine.NewContext(sys.GetRequest())
+    c := sys.GetContext()
     client := urlfetch.Client(c)
     resp, err := client.Get(url)
     if err != nil {

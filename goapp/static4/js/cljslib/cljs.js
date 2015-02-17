@@ -1,13 +1,13 @@
 goog.addDependency("base.js", ['goog'], []);
 goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.string.StringBuffer', 'goog.array']);
 goog.addDependency("../test/rxjs.js", ['test.rxjs'], ['cljs.core']);
+goog.addDependency("../app/page/core.js", ['app.page.core'], ['cljs.core']);
 goog.addDependency("../app/event.js", ['app.event'], ['cljs.core']);
-goog.addDependency("../app/page/MenubarView.js", ['app.page.MenubarView'], ['app.event', 'cljs.core']);
+goog.addDependency("../app/page/HeaderView.js", ['app.page.HeaderView'], ['app.page.core', 'app.event', 'cljs.core']);
+goog.addDependency("../app/core.js", ['app.core'], ['app.page.core', 'app.event', 'cljs.core', 'app.page.HeaderView']);
+goog.addDependency("../app/page/MenubarView.js", ['app.page.MenubarView'], ['app.page.core', 'app.event', 'cljs.core']);
 goog.addDependency("../test/ns2.js", ['test.ns2'], ['cljs.core']);
 goog.addDependency("../test/ns1.js", ['test.ns1'], ['app.event', 'cljs.core', 'app.Main', 'test.ns2']);
 goog.addDependency("../app/page/DefaultController.js", ['app.page.DefaultController'], ['cljs.core']);
-goog.addDependency("../app/page.js", ['app.page'], ['cljs.core']);
 goog.addDependency("../app/controller.js", ['app.controller'], ['cljs.core']);
-goog.addDependency("../app/page/HeaderView.js", ['app.page.HeaderView'], ['app.event', 'cljs.core', 'app.page']);
 goog.addDependency("../app/page/HeaderController.js", ['app.page.HeaderController'], ['app.controller', 'cljs.core', 'app.page.DefaultController']);
-goog.addDependency("../app.js", ['app'], ['app.event', 'cljs.core', 'app.page.HeaderView', 'app.page']);

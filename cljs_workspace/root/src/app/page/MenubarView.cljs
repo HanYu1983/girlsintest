@@ -1,5 +1,7 @@
 (ns app.page.MenubarView
-  (:require [app.event :as evt]))
+  (:require 
+    [app.page.core :as page]
+    [app.event :as evt]))
 
 (defrecord MenubarView [])
 

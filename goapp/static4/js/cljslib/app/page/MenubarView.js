@@ -3,6 +3,8 @@ goog.provide('app.page.MenubarView');
 goog.require('cljs.core');
 goog.require('app.event');
 goog.require('app.event');
+goog.require('app.page.core');
+goog.require('app.page.core');
 
 /**
 * @constructor
@@ -27,10 +29,10 @@ this.__extmap=null;
 app.page.MenubarView.MenubarView.prototype.cljs$core$ILookup$_lookup$arity$2 = (function (this__4137__auto__,k__4138__auto__){var self__ = this;
 var this__4137__auto____$1 = this;return cljs.core._lookup.call(null,this__4137__auto____$1,k__4138__auto__,null);
 });
-app.page.MenubarView.MenubarView.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4139__auto__,k4987,else__4140__auto__){var self__ = this;
-var this__4139__auto____$1 = this;var G__4989 = k4987;switch (G__4989) {
+app.page.MenubarView.MenubarView.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4139__auto__,k4986,else__4140__auto__){var self__ = this;
+var this__4139__auto____$1 = this;var G__4988 = k4986;switch (G__4988) {
 default:
-return cljs.core.get.call(null,self__.__extmap,k4987,else__4140__auto__);
+return cljs.core.get.call(null,self__.__extmap,k4986,else__4140__auto__);
 
 }
 });
@@ -76,14 +78,14 @@ var this__4146__auto____$1 = this;if(cljs.core.contains_QMARK_.call(null,cljs.co
 {return (new app.page.MenubarView.MenubarView(self__.__meta,cljs.core.not_empty.call(null,cljs.core.dissoc.call(null,self__.__extmap,k__4147__auto__)),null));
 }
 });
-app.page.MenubarView.MenubarView.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4144__auto__,k__4145__auto__,G__4986){var self__ = this;
-var this__4144__auto____$1 = this;var pred__4990 = cljs.core.keyword_identical_QMARK_;var expr__4991 = k__4145__auto__;return (new app.page.MenubarView.MenubarView(self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4145__auto__,G__4986),null));
+app.page.MenubarView.MenubarView.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4144__auto__,k__4145__auto__,G__4985){var self__ = this;
+var this__4144__auto____$1 = this;var pred__4989 = cljs.core.keyword_identical_QMARK_;var expr__4990 = k__4145__auto__;return (new app.page.MenubarView.MenubarView(self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4145__auto__,G__4985),null));
 });
 app.page.MenubarView.MenubarView.prototype.cljs$core$ISeqable$_seq$arity$1 = (function (this__4149__auto__){var self__ = this;
 var this__4149__auto____$1 = this;return cljs.core.seq.call(null,cljs.core.concat.call(null,cljs.core.PersistentVector.EMPTY,self__.__extmap));
 });
-app.page.MenubarView.MenubarView.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4136__auto__,G__4986){var self__ = this;
-var this__4136__auto____$1 = this;return (new app.page.MenubarView.MenubarView(G__4986,self__.__extmap,self__.__hash));
+app.page.MenubarView.MenubarView.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4136__auto__,G__4985){var self__ = this;
+var this__4136__auto____$1 = this;return (new app.page.MenubarView.MenubarView(G__4985,self__.__extmap,self__.__hash));
 });
 app.page.MenubarView.MenubarView.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__4142__auto__,entry__4143__auto__){var self__ = this;
 var this__4142__auto____$1 = this;if(cljs.core.vector_QMARK_.call(null,entry__4143__auto__))
@@ -99,7 +101,7 @@ app.page.MenubarView.MenubarView.cljs$lang$ctorPrWriter = (function (this__4171_
 });
 app.page.MenubarView.__GT_MenubarView = (function __GT_MenubarView(){return (new app.page.MenubarView.MenubarView());
 });
-app.page.MenubarView.map__GT_MenubarView = (function map__GT_MenubarView(G__4988){return (new app.page.MenubarView.MenubarView(null,cljs.core.dissoc.call(null,G__4988)));
+app.page.MenubarView.map__GT_MenubarView = (function map__GT_MenubarView(G__4987){return (new app.page.MenubarView.MenubarView(null,cljs.core.dissoc.call(null,G__4987)));
 });
 app.page.MenubarView.create = (function create(elem){var this$ = cljs.core.atom.call(null,null);var handleBtnMouseOut = ((function (this$){
 return (function (div){var btnSelf = $(div);var btnOver = btnSelf.find(".navover");return btnOver.animate(new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"width","width",-384071477),"0px"], null),(300));
@@ -119,8 +121,8 @@ app.page.MenubarView.open = (function open(this$){return new cljs.core.Keyword(n
 });
 app.page.MenubarView.close = (function close(this$){return new cljs.core.Keyword(null,"elem","elem",618631056).cljs$core$IFn$_invoke$arity$1(this$).fadeOut((400));
 });
-app.page.MenubarView.MenubarView.prototype.page$IPage$ = true;
-app.page.MenubarView.MenubarView.prototype.page$IPage$open$arity$1 = (function (this$){var this$__$1 = this;return app.page.MenubarView.open.call(null,this$__$1);
+app.page.MenubarView.MenubarView.prototype.app$page$core$IPage$ = true;
+app.page.MenubarView.MenubarView.prototype.app$page$core$IPage$open$arity$1 = (function (this$){var this$__$1 = this;return app.page.MenubarView.open.call(null,this$__$1);
 });
-app.page.MenubarView.MenubarView.prototype.page$IPage$close$arity$1 = (function (this$){var this$__$1 = this;return app.page.MenubarView.close.call(null,this$__$1);
+app.page.MenubarView.MenubarView.prototype.app$page$core$IPage$close$arity$1 = (function (this$){var this$__$1 = this;return app.page.MenubarView.close.call(null,this$__$1);
 });

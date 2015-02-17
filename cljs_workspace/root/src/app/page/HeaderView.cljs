@@ -1,6 +1,6 @@
 (ns app.page.HeaderView
 	(:require 
-    [app.page :as page]
+    [app.page.core :as page]
     [app.event :as evt]))
 
 (defrecord HeaderView [])	

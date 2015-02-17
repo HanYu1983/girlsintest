@@ -1,8 +1,10 @@
-(ns app
+(ns app.core
   (:require 
+    [app.page.core :as page]
     [app.page.HeaderView]
-    [app.page :as page]
     [app.event :as evt]))
+    
+(declare onHeaderBtnBackhomeClick)
 
 (defn main []
   (let [this (atom nil)

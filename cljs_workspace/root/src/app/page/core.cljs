@@ -1,4 +1,4 @@
-(ns app.page)
+(ns app.page.core)
 
 (defprotocol IPage
 	(open [this] "")

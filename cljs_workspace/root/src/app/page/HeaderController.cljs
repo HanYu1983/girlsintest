@@ -6,16 +6,15 @@
 (defrecord HeaderController [])
 
 (defn create []
-  (HeaderController.))
-
-(defn show [this logo]
-  (-> (:view this) (show logo)))
+  (merge
+    (HeaderController.)
+    {:view (atom nil)}))
 
 (defn create-model [this param cb]
   (cb nil))
   
 (defn open [this]
-  (show (:view this) :Home))
+  (-> @(:view this) (app.page.HeaderView/show :Home)))
 
 (extend-type HeaderController
   ctr/IController

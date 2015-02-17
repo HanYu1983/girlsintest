@@ -1,7 +1,7 @@
 // Compiled by ClojureScript 0.0-2268
 goog.provide('app.page');
 goog.require('cljs.core');
-app.page.IPage = (function (){var obj4965 = {};return obj4965;
+app.page.IPage = (function (){var obj5055 = {};return obj5055;
 })();
 app.page.open = (function open(this$){if((function (){var and__3539__auto__ = this$;if(and__3539__auto__)
 {return this$.app$page$IPage$open$arity$1;

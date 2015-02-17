@@ -1,7 +1,8 @@
 (ns app.page.HeaderView
 	(:require 
-    [app.page.core :as page]
-    [app.event :as evt]))
+    [app.page :as page]
+    [app.event :as evt]
+    [app.page.DefaultView :as dview]))
 
 (defrecord HeaderView [])	
 
@@ -37,20 +38,11 @@
           :when (when-not (= logo elem))]
     (.hide (elem this)))
   (.fadeIn (logo this) 400))
-	
-(defn open [this]
-  (when (contains? this :elem)
-    (.fadeIn (:elem this) 400)))
-
-(defn close [this]
-  (when (contains? this :elem)
-    (.fadeOut (:elem this) 400)))
-
 
 (extend-type HeaderView
   page/IPage
   (open [this]
-    (open this))
+    (dview/open this))
 
   (close [this]
-    (close this)))
+    (dview/close this)))

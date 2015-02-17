@@ -29,10 +29,10 @@ this.__extmap=null;
 app.page.HeaderController.HeaderController.prototype.cljs$core$ILookup$_lookup$arity$2 = (function (this__4137__auto__,k__4138__auto__){var self__ = this;
 var this__4137__auto____$1 = this;return cljs.core._lookup.call(null,this__4137__auto____$1,k__4138__auto__,null);
 });
-app.page.HeaderController.HeaderController.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4139__auto__,k4979,else__4140__auto__){var self__ = this;
-var this__4139__auto____$1 = this;var G__4981 = k4979;switch (G__4981) {
+app.page.HeaderController.HeaderController.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__4139__auto__,k4956,else__4140__auto__){var self__ = this;
+var this__4139__auto____$1 = this;var G__4958 = k4956;switch (G__4958) {
 default:
-return cljs.core.get.call(null,self__.__extmap,k4979,else__4140__auto__);
+return cljs.core.get.call(null,self__.__extmap,k4956,else__4140__auto__);
 
 }
 });
@@ -78,14 +78,14 @@ var this__4146__auto____$1 = this;if(cljs.core.contains_QMARK_.call(null,cljs.co
 {return (new app.page.HeaderController.HeaderController(self__.__meta,cljs.core.not_empty.call(null,cljs.core.dissoc.call(null,self__.__extmap,k__4147__auto__)),null));
 }
 });
-app.page.HeaderController.HeaderController.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4144__auto__,k__4145__auto__,G__4978){var self__ = this;
-var this__4144__auto____$1 = this;var pred__4982 = cljs.core.keyword_identical_QMARK_;var expr__4983 = k__4145__auto__;return (new app.page.HeaderController.HeaderController(self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4145__auto__,G__4978),null));
+app.page.HeaderController.HeaderController.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__4144__auto__,k__4145__auto__,G__4955){var self__ = this;
+var this__4144__auto____$1 = this;var pred__4959 = cljs.core.keyword_identical_QMARK_;var expr__4960 = k__4145__auto__;return (new app.page.HeaderController.HeaderController(self__.__meta,cljs.core.assoc.call(null,self__.__extmap,k__4145__auto__,G__4955),null));
 });
 app.page.HeaderController.HeaderController.prototype.cljs$core$ISeqable$_seq$arity$1 = (function (this__4149__auto__){var self__ = this;
 var this__4149__auto____$1 = this;return cljs.core.seq.call(null,cljs.core.concat.call(null,cljs.core.PersistentVector.EMPTY,self__.__extmap));
 });
-app.page.HeaderController.HeaderController.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4136__auto__,G__4978){var self__ = this;
-var this__4136__auto____$1 = this;return (new app.page.HeaderController.HeaderController(G__4978,self__.__extmap,self__.__hash));
+app.page.HeaderController.HeaderController.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__4136__auto__,G__4955){var self__ = this;
+var this__4136__auto____$1 = this;return (new app.page.HeaderController.HeaderController(G__4955,self__.__extmap,self__.__hash));
 });
 app.page.HeaderController.HeaderController.prototype.cljs$core$ICollection$_conj$arity$2 = (function (this__4142__auto__,entry__4143__auto__){var self__ = this;
 var this__4142__auto____$1 = this;if(cljs.core.vector_QMARK_.call(null,entry__4143__auto__))
@@ -101,15 +101,13 @@ app.page.HeaderController.HeaderController.cljs$lang$ctorPrWriter = (function (t
 });
 app.page.HeaderController.__GT_HeaderController = (function __GT_HeaderController(){return (new app.page.HeaderController.HeaderController());
 });
-app.page.HeaderController.map__GT_HeaderController = (function map__GT_HeaderController(G__4980){return (new app.page.HeaderController.HeaderController(null,cljs.core.dissoc.call(null,G__4980)));
+app.page.HeaderController.map__GT_HeaderController = (function map__GT_HeaderController(G__4957){return (new app.page.HeaderController.HeaderController(null,cljs.core.dissoc.call(null,G__4957)));
 });
-app.page.HeaderController.create = (function create(){return (new app.page.HeaderController.HeaderController());
-});
-app.page.HeaderController.show = (function show(this$,logo){return show.call(null,new cljs.core.Keyword(null,"view","view",1247994814).cljs$core$IFn$_invoke$arity$1(this$),logo);
+app.page.HeaderController.create = (function create(){return cljs.core.merge.call(null,(new app.page.HeaderController.HeaderController()),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"view","view",1247994814),cljs.core.atom.call(null,null)], null));
 });
 app.page.HeaderController.create_model = (function create_model(this$,param,cb){return cb.call(null,null);
 });
-app.page.HeaderController.open = (function open(this$){return app.page.HeaderController.show.call(null,new cljs.core.Keyword(null,"view","view",1247994814).cljs$core$IFn$_invoke$arity$1(this$),new cljs.core.Keyword(null,"Home","Home",1521501280));
+app.page.HeaderController.open = (function open(this$){return app.page.HeaderView.show.call(null,cljs.core.deref.call(null,new cljs.core.Keyword(null,"view","view",1247994814).cljs$core$IFn$_invoke$arity$1(this$)),new cljs.core.Keyword(null,"Home","Home",1521501280));
 });
 app.page.HeaderController.HeaderController.prototype.app$controller$IController$ = true;
 app.page.HeaderController.HeaderController.prototype.app$controller$IController$open$arity$1 = (function (this$){var this$__$1 = this;return app.page.HeaderController.open.call(null,this$__$1);

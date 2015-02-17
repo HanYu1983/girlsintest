@@ -1,7 +1,8 @@
 (ns app.page.MenubarView
   (:require 
-    [app.page.core :as page]
-    [app.event :as evt]))
+    [app.page :as page]
+    [app.event :as evt]
+    [app.page.DefaultView :as dview]))
 
 (defrecord MenubarView [])
 
@@ -20,16 +21,10 @@
     (.delegate elem "div" "mouseout" handleBtnMouseOut)
     (reset! this (merge (MenubarView.) {:elem elem}))))
 
-(defn open [this]
-  (.fadeIn (:elem this) 400))
-
-(defn close [this]
-  (.fadeOut (:elem this) 400))
-          
 (extend-type MenubarView
   page/IPage
   (open [this]
-    (open this))
+    (dview/open this))
 
   (close [this]
-    (close this)))
+    (dview/close this)))

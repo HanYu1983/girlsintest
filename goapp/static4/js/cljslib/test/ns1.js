@@ -11,7 +11,7 @@ test.ns1.main = (function main(){return console.log(cljs.core.pr_str.call(null,a
 });
 test.ns1.main2 = (function main2(){app.Main.create.call(null);
 app.Main.create.call(null);
-app.event.on_menu_start_btn_click.subscribe((function (p1__5034_SHARP_){return console.log(p1__5034_SHARP_);
+app.event.on_menu_start_btn_click.subscribe((function (p1__5056_SHARP_){return console.log(p1__5056_SHARP_);
 }));
 console.log(jQuery("<div></div>"));
 return test.ns2.eat.call(null,"choco");

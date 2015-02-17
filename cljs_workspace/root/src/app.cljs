@@ -1,9 +1,10 @@
 (ns app
   (:require 
     [app.controller :as ctr]
+    [app.event :as evt]
+    [app.page.MenubarView]
     [app.page.HeaderView]
-    [app.page.HeaderController]
-    [app.event :as evt]))
+    [app.page.HeaderController]))
     
 (declare onHeaderBtnBackhomeClick)
 
@@ -16,7 +17,8 @@
         header (doto
                   (app.page.HeaderController/create)
                   (ctr/set-view
-                    (app.page.HeaderView/create (js/$ "#mc_header"))))]
+                    (app.page.HeaderView/create (js/$ "#mc_header"))))
+        t1 (app.page.MenubarView/create (js/$ "#mc_menubar"))]
     (.subscribe evt/onHeaderBtnBackhomeClick (partial onHeaderBtnBackhomeClick this))
     (ctr/open header)
     (reset! this {:coll_pages coll_pages

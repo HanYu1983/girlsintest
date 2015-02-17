@@ -11,4 +11,4 @@ goog.addDependency("../app/page/DefaultController.js", ['app.page.DefaultControl
 goog.addDependency("../app/controller.js", ['app.controller'], ['cljs.core']);
 goog.addDependency("../app/page/HeaderView.js", ['app.page.HeaderView'], ['app.page.DefaultView', 'app.event', 'cljs.core', 'app.page']);
 goog.addDependency("../app/page/HeaderController.js", ['app.page.HeaderController'], ['app.controller', 'cljs.core', 'app.page.DefaultController']);
-goog.addDependency("../app.js", ['app'], ['app.controller', 'app.page.HeaderController', 'app.event', 'cljs.core', 'app.page.HeaderView']);
+goog.addDependency("../app.js", ['app'], ['app.controller', 'app.page.HeaderController', 'app.event', 'cljs.core', 'app.page.HeaderView', 'app.page.MenubarView']);

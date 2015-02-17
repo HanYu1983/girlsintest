@@ -8,14 +8,18 @@
 
 (defn create [elem]
   (let [this (atom nil)
-        handleBtnMouseOut (fn [div] 
-                        (let [btnSelf (js/$ div)
-                              btnOver (.find btnSelf ".navover")]
-                          (.animate btnOver {:width "0px"} 300)))
-        handleBtnMouseOver (fn [div]
-                          (let [btnSelf (js/$ div)
-                                btnOver (.find btnSelf ".navover")]
-                            (.animate btnOver {:width "120px"} 300)))]
+        handleBtnMouseOut (fn [evt] 
+                            (this-as that
+                              (let [btnSelf (js/$ that)
+                                    btnOver (.find btnSelf ".navover")]
+                                (.log js/console btnOver)
+                                (.animate btnOver {:width "0px"} 300))))
+        handleBtnMouseOver (fn [evt]
+                              (this-as that
+                                (let [btnSelf (js/$ that)
+                                      btnOver (.find btnSelf ".navover")]
+                                  (.log js/console btnOver)
+                                  (.animate btnOver {:width "120px"} 300))))]
     (.delegate elem "div" "click" (fn [div] (.onNext evt/onMenubarBtnClick (.id div))))
     (.delegate elem "div" "mouseover" handleBtnMouseOver)
     (.delegate elem "div" "mouseout" handleBtnMouseOut)

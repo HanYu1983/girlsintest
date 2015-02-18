@@ -201,9 +201,14 @@
               return _this.onModelsBtnSearchClick.apply(_this, arguments);
             };
           })(this));
-          return controller.event.on('onBtnModelClick', (function(_this) {
+          controller.event.on('onBtnModelClick', (function(_this) {
             return function() {
               return _this.onModelsBtnModelClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onBtnReturnClick', (function(_this) {
+            return function() {
+              return _this.onModelsBtnReturnClick.apply(_this, arguments);
             };
           })(this));
         case PageBigPhoto:
@@ -239,7 +244,8 @@
           return controller.event.off('onModelsBtnMoreClick');
         case PageModelsList:
           controller.event.off('onModelsBtnSearchClick');
-          return controller.event.off('onModelsBtnModelClick');
+          controller.event.off('onModelsBtnModelClick');
+          return controller.event.off('onModelsBtnReturnClick');
         case PageBigPhoto:
           return controller.event.off('onBtnCloseClick');
       }
@@ -394,6 +400,12 @@
 
     Main.prototype.onModelsBtnModelClick = function(evt, params) {
       return this.router.navigate('models/id=' + params.id, {
+        trigger: true
+      });
+    };
+
+    Main.prototype.onModelsBtnReturnClick = function(evt, params) {
+      return this.router.navigate('modelsList', {
         trigger: true
       });
     };

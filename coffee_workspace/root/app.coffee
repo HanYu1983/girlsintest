@@ -119,6 +119,7 @@ class window.app.Main
 			when PageModelsList
 				controller.event.on 'onBtnSearchClick', => @onModelsBtnSearchClick arguments...
 				controller.event.on 'onBtnModelClick', => @onModelsBtnModelClick arguments...
+				controller.event.on 'onBtnReturnClick', => @onModelsBtnReturnClick arguments...
 			when PageBigPhoto
 				controller.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
 	
@@ -146,6 +147,7 @@ class window.app.Main
 			when PageModelsList
 				controller.event.off 'onModelsBtnSearchClick'
 				controller.event.off 'onModelsBtnModelClick'
+				controller.event.off 'onModelsBtnReturnClick'
 			when PageBigPhoto
 				controller.event.off 'onBtnCloseClick'
 				
@@ -240,5 +242,8 @@ class window.app.Main
 	
 	onModelsBtnModelClick: ( evt, params ) ->
 		@router.navigate 'models/id=' + params.id, trigger: true
+		
+	onModelsBtnReturnClick: ( evt, params ) ->
+		@router.navigate 'modelsList', trigger: true
 		
 new window.app.Main app.config.mvcConfig 

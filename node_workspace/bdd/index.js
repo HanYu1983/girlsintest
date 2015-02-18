@@ -83,7 +83,8 @@ describe('街模照片', function(){
   })
 
   var photoKey
-  var base64 = 'testphoto'
+  var base64 = 'test\rphoto\n\n'
+  var normalizedBase64 = 'testphoto'
   
   it('新增照片', function(done){
     helper.getJSON(option, 'POST', {cmd: 'AddPhotoToStreetModel', StreetModelKey: modelKey, Base64:base64}, function(err, res){
@@ -93,18 +94,28 @@ describe('街模照片', function(){
     })
   })
   
-  
   it('查詢照片', function(done){
-    helper.getJSON(option, 'POST', {cmd: 'QueryPhotoWithStreetModel', StreetModelKey: modelKey}, function(err, res){
+    helper.getJSON(option, 'POST', {cmd: 'QueryPhotoWithStreetModel', StreetModelKey: modelKey, Key: photoKey}, function(err, res){
       assert(res.Success)
       var photos = _.filter(res.Info, function(photo){
-        return photo.Base64Str == base64
+        return photo.Key == photoKey
       })
       assert(photos.length == 1)
+      var photo = photos[0]
+      assert(photo.Base64Str == normalizedBase64)
       done()
     })
   })
   
+  var belong = 100
+  
+  it('更改照片所屬', function(done){
+    helper.getJSON(option, 'POST', {cmd: 'UpdatePhotoWithStreetModel', StreetModelKey: modelKey, PhotoKey: photoKey, Belong: belong}, function(err, res){
+      assert(res.Success)
+      assert(res.Info.Belong == 100)
+      done()
+    })
+  })
   
   after(function(done){
     helper.getJSON(option, 'POST', {cmd: 'DeleteStreetModel', Key: modelKey}, function(err, res){

@@ -22,6 +22,7 @@ func (r *PhotoDAO) Init(){
 			entity := PhotoEntity{}
 			err = datastore.Get(ctx, keys[0], &entity)
 			entity.Key = keys[0].IntID()
+      entity.Base64Str = string(entity.Base64)
 			ret = append( ret, entity )
 			return
 			

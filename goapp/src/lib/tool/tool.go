@@ -81,3 +81,7 @@ func Byte2Json(data []byte) (jsonobj map[string]interface{}, err error) {
     }
     return
 }
+
+func NormalizeImageBase64(origin string)string{
+  return strings.Replace(strings.Replace(origin, "\r", "", -1),"\n","", -1) 
+}

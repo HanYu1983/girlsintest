@@ -1,6 +1,7 @@
 var assert = require("assert")
 var http = require("http")
 var helper = require("./helper")
+var _ = require("underscore")
 
 var option = {
   host: 'localhost',
@@ -63,6 +64,62 @@ describe('街模', function(){
     helper.getJSON(option, 'POST', {cmd: 'QueryStreetModel', Key: modelId}, function(err, res){
       assert(res.Success == false)
       assert(res.Info == 'datastore: no such entity')
+      done()
+    })
+  })
+})
+
+
+describe('街模照片', function(){
+  
+  var modelKey
+  
+  before(function(done){
+    helper.getJSON(option, 'POST', {cmd: 'UpdateStreetModel'}, function(err, res){
+      assert(res.Success)
+      modelKey = res.Info
+      done()
+    })
+  })
+
+  var photoKey
+  var base64 = 'test\rphoto\n\n'
+  var normalizedBase64 = 'testphoto'
+  
+  it('新增照片', function(done){
+    helper.getJSON(option, 'POST', {cmd: 'AddPhotoToStreetModel', StreetModelKey: modelKey, Base64:base64}, function(err, res){
+      assert(res.Success)
+      photoKey = res.Info
+      done()
+    })
+  })
+  
+  it('查詢照片', function(done){
+    helper.getJSON(option, 'POST', {cmd: 'QueryPhotoWithStreetModel', StreetModelKey: modelKey, Key: photoKey}, function(err, res){
+      assert(res.Success)
+      var photos = _.filter(res.Info, function(photo){
+        return photo.Key == photoKey
+      })
+      assert(photos.length == 1)
+      var photo = photos[0]
+      assert(photo.Base64Str == normalizedBase64)
+      done()
+    })
+  })
+  
+  var belong = 100
+  
+  it('更改照片所屬', function(done){
+    helper.getJSON(option, 'POST', {cmd: 'UpdatePhotoWithStreetModel', StreetModelKey: modelKey, PhotoKey: photoKey, Belong: belong}, function(err, res){
+      assert(res.Success)
+      assert(res.Info.Belong == 100)
+      done()
+    })
+  })
+  
+  after(function(done){
+    helper.getJSON(option, 'POST', {cmd: 'DeleteStreetModel', Key: modelKey}, function(err, res){
+      assert(res.Success)
       done()
     })
   })

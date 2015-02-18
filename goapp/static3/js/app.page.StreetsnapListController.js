@@ -78,19 +78,20 @@
         var dto, model, photo;
         model = _arg1[0], photo = _arg1[1];
         dto = {
-          searchWord: 'abbc'
-
-          /*
-          					streetsnapList: 
-          						_.map _.zip(model, photo), ([m, p]) ->
-          							id: m.Key
-          							name: m.Caption
-          							date: app.tool.getFullDay m.DateUnix
-          							imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
-          							imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
-          							imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]
-          							imgSideCPath: findFormatedPhoto( p, isSidePhoto )[2]
-           */
+          searchWord: searchKey != null ? searchKey : "",
+          streetsnapList: _.map(_.zip(model, photo), function(_arg2) {
+            var m, p;
+            m = _arg2[0], p = _arg2[1];
+            return {
+              id: m.Key,
+              name: m.Caption,
+              date: app.tool.getFullDay(m.DateUnix),
+              imgStylePath: findFormatedPhoto(p, isStylePhoto)[0],
+              imgSideAPath: findFormatedPhoto(p, isSidePhoto)[0],
+              imgSideBPath: findFormatedPhoto(p, isSidePhoto)[1],
+              imgSideCPath: findFormatedPhoto(p, isSidePhoto)[2]
+            };
+          })
         };
         console.log(dto);
         return callback(dto);

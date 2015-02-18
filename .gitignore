@@ -8,6 +8,7 @@ _obj
 _test
 cljs_workspace/root/target
 node_modules
+components
 
 # Architecture specific extensions/prefixes
 *.[568vq]

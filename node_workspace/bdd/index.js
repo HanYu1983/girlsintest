@@ -1,6 +1,7 @@
 var assert = require("assert")
 var http = require("http")
 var helper = require("./helper")
+var _ = require("underscore")
 
 var option = {
   host: 'localhost',
@@ -63,6 +64,51 @@ describe('街模', function(){
     helper.getJSON(option, 'POST', {cmd: 'QueryStreetModel', Key: modelId}, function(err, res){
       assert(res.Success == false)
       assert(res.Info == 'datastore: no such entity')
+      done()
+    })
+  })
+})
+
+
+describe('街模照片', function(){
+  
+  var modelKey
+  
+  before(function(done){
+    helper.getJSON(option, 'POST', {cmd: 'UpdateStreetModel'}, function(err, res){
+      assert(res.Success)
+      modelKey = res.Info
+      done()
+    })
+  })
+
+  var photoKey
+  var base64 = 'testphoto'
+  
+  it('新增照片', function(done){
+    helper.getJSON(option, 'POST', {cmd: 'AddPhotoToStreetModel', StreetModelKey: modelKey, Base64:base64}, function(err, res){
+      assert(res.Success)
+      photoKey = res.Info
+      done()
+    })
+  })
+  
+  
+  it('查詢照片', function(done){
+    helper.getJSON(option, 'POST', {cmd: 'QueryPhotoWithStreetModel', StreetModelKey: modelKey}, function(err, res){
+      assert(res.Success)
+      var photos = _.filter(res.Info, function(photo){
+        return photo.Base64Str == base64
+      })
+      assert(photos.length == 1)
+      done()
+    })
+  })
+  
+  
+  after(function(done){
+    helper.getJSON(option, 'POST', {cmd: 'DeleteStreetModel', Key: modelKey}, function(err, res){
+      assert(res.Success)
       done()
     })
   })

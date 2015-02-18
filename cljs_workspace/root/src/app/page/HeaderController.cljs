@@ -1,5 +1,6 @@
 (ns app.page.HeaderController
   (:require 
+    [app.page :as page]
     [app.controller :as ctr]
     [app.page.DefaultController :as dctr]))
 
@@ -10,19 +11,15 @@
     (HeaderController.)
     {:view (atom nil)}))
 
-(defn create-model [this param cb]
-  (cb nil))
-  
-(defn open [this]
-  (-> @(:view this) (app.page.HeaderView/show :Home)))
-
 (extend-type HeaderController
   ctr/IController
   (open [this]
-    (open this))
+    (-> @(:view this) (app.page.HeaderView/show :Home)))
+    
   (close [this]
-    (dctr/close this))
+    (page/close @(:view this)))
+    
   (set-view [this view]
-    (dctr/set-view this view))
-  (create-model [this param cb]
-    (create-model this param cb)))
+    (reset! (:view this) view))
+    
+  (create-model [this param cb]))

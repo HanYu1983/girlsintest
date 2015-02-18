@@ -12,15 +12,15 @@
                             (this-as that
                               (let [btnSelf (js/$ that)
                                     btnOver (.find btnSelf ".navover")]
-                                (.log js/console btnOver)
-                                (.animate btnOver {:width "0px"} 300))))
+                                (.animate btnOver (js-obj "width" "0px") 300))))
         handleBtnMouseOver (fn [evt]
                               (this-as that
                                 (let [btnSelf (js/$ that)
                                       btnOver (.find btnSelf ".navover")]
-                                  (.log js/console btnOver)
-                                  (.animate btnOver {:width "120px"} 300))))]
-    (.delegate elem "div" "click" (fn [div] (.onNext evt/onMenubarBtnClick (.id div))))
+                                  (.animate btnOver (js-obj "width" "120px") 300))))]
+    (.delegate elem "div" "click" (fn [evt] 
+                                    (this-as that 
+                                      (.onNext evt/onMenubarBtnClick (.-id that)))))
     (.delegate elem "div" "mouseover" handleBtnMouseOver)
     (.delegate elem "div" "mouseout" handleBtnMouseOut)
     (reset! this (merge (MenubarView.) {:elem elem}))))

@@ -106,15 +106,15 @@ app.page.MenubarView.__GT_MenubarView = (function __GT_MenubarView(){return (new
 app.page.MenubarView.map__GT_MenubarView = (function map__GT_MenubarView(G__4987){return (new app.page.MenubarView.MenubarView(null,cljs.core.dissoc.call(null,G__4987)));
 });
 app.page.MenubarView.create = (function create(elem){var this$ = cljs.core.atom.call(null,null);var handleBtnMouseOut = ((function (this$){
-return (function (evt){var that = this;var btnSelf = $(that);var btnOver = btnSelf.find(".navover");console.log(btnOver);
-return btnOver.animate(new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"width","width",-384071477),"0px"], null),(300));
+return (function (evt){var that = this;var btnSelf = $(that);var btnOver = btnSelf.find(".navover");return btnOver.animate((function (){var obj4998 = {"width":"0px"};return obj4998;
+})(),(300));
 });})(this$))
 ;var handleBtnMouseOver = ((function (this$,handleBtnMouseOut){
-return (function (evt){var that = this;var btnSelf = $(that);var btnOver = btnSelf.find(".navover");console.log(btnOver);
-return btnOver.animate(new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"width","width",-384071477),"120px"], null),(300));
+return (function (evt){var that = this;var btnSelf = $(that);var btnOver = btnSelf.find(".navover");return btnOver.animate((function (){var obj5000 = {"width":"120px"};return obj5000;
+})(),(300));
 });})(this$,handleBtnMouseOut))
 ;elem.delegate("div","click",((function (this$,handleBtnMouseOut,handleBtnMouseOver){
-return (function (div){return app.event.onMenubarBtnClick.onNext(div.id());
+return (function (evt){var that = this;return app.event.onMenubarBtnClick.onNext(that.id);
 });})(this$,handleBtnMouseOut,handleBtnMouseOver))
 );
 elem.delegate("div","mouseover",handleBtnMouseOver);

@@ -245,8 +245,13 @@
 					<div class="mainContainer margin_leftA margin_topA">
 						<div class="relative f_left textBase">精選</div>
 						<div id="mc_searchbar" class="relative f_right">
+							{{if searchWord.length > 0}}
+								<div class="textBase f_left">搜尋:${searchWord}</div>
+								<button id="btn_return">return</button>
+							{{else}}
 							<input id='input_search' class="relative f_left" />
 							<img id="btn_search" class="btn" src='images/streetSearch/search.png'/>
+							{{/if}}
 						</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="mc_modelContainer">

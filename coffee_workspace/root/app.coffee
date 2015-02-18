@@ -111,6 +111,7 @@ class window.app.Main
 			when PageStreetsnapList
 				controller.event.on 'onBtnSearchClick', => @onBtnSearchClick arguments...
 				controller.event.on 'onBtnModelClick', => @onBtnModelClick arguments...
+				controller.event.on 'onBtnReturnClick', => @onBtnReturnClick arguments...
 			when PageModels
 				controller.event.on 'onImgHistoryClick', => @onModelsImgHistoryClick arguments...
 				controller.event.on 'onImgClick', => @onModelsImgClick arguments...
@@ -137,6 +138,7 @@ class window.app.Main
 			when PageStreetsnapList
 				controller.event.off 'onBtnSearchClick'
 				controller.event.off 'onBtnModelClick'
+				controller.event.off 'onBtnReturnClick'
 			when PageModels
 				controller.event.off 'onModelsImgHistoryClick'
 				controller.event.off 'onModelsImgClick'
@@ -229,6 +231,9 @@ class window.app.Main
 		
 	onBtnModelClick: ( evt, params ) ->
 		@router.navigate 'streetsnap/id=' + params.id, trigger: true
+		
+	onBtnReturnClick: ( evt, params ) ->
+		@router.navigate 'streetsnapList', trigger:true
 		
 	onModelsBtnSearchClick: ( evt, params ) ->
 		@router.navigate 'modelsList/search=' + params.search, trigger: true

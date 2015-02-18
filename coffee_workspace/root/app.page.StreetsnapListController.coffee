@@ -72,15 +72,20 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 		fetched = fetchAllModelOnSuccess.zip fetchPhotoOnSuccess, (model, photo) -> [model, photo]
 
 		fetched.subscribe ([model, photo]) ->
-			dto = streetsnapList: 
-					_.map _.zip(model, photo), ([m, p]) ->
-						id: m.Key
-						name: m.Caption
-						date: app.tool.getFullDay m.DateUnix
-						imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
-						imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
-						imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]
-						imgSideCPath: findFormatedPhoto( p, isSidePhoto )[2]
+			dto = 	searchWord:'abbc'
+					###
+					streetsnapList: 
+						_.map _.zip(model, photo), ([m, p]) ->
+							id: m.Key
+							name: m.Caption
+							date: app.tool.getFullDay m.DateUnix
+							imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
+							imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
+							imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]
+							imgSideCPath: findFormatedPhoto( p, isSidePhoto )[2]
+							###
+					
+			console.log dto
 			callback dto
 			
 			
@@ -96,7 +101,9 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 		super()
 		@_view.event.on 'onBtnSearchClick', ( evt, params ) => @event.trigger evt.type, params
 		@_view.event.on 'onBtnModelClick', ( evt, params ) => @event.trigger evt.type, params
+		@_view.event.on 'onBtnReturnClick', ( evt, params ) => @event.trigger evt.type, params
 		
 	removeListener: ->
 		@_view.event.off 'onBtnSearchClick'
 		@_view.event.off 'onBtnModelClick'
+		@_view.event.off 'onBtnReturnClick'

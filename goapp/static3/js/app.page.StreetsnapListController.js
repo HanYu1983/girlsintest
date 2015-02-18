@@ -78,20 +78,21 @@
         var dto, model, photo;
         model = _arg1[0], photo = _arg1[1];
         dto = {
-          streetsnapList: _.map(_.zip(model, photo), function(_arg2) {
-            var m, p;
-            m = _arg2[0], p = _arg2[1];
-            return {
-              id: m.Key,
-              name: m.Caption,
-              date: app.tool.getFullDay(m.DateUnix),
-              imgStylePath: findFormatedPhoto(p, isStylePhoto)[0],
-              imgSideAPath: findFormatedPhoto(p, isSidePhoto)[0],
-              imgSideBPath: findFormatedPhoto(p, isSidePhoto)[1],
-              imgSideCPath: findFormatedPhoto(p, isSidePhoto)[2]
-            };
-          })
+          searchWord: 'abbc'
+
+          /*
+          					streetsnapList: 
+          						_.map _.zip(model, photo), ([m, p]) ->
+          							id: m.Key
+          							name: m.Caption
+          							date: app.tool.getFullDay m.DateUnix
+          							imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
+          							imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
+          							imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]
+          							imgSideCPath: findFormatedPhoto( p, isSidePhoto )[2]
+           */
         };
+        console.log(dto);
         return callback(dto);
       });
       onError.subscribe(function(err) {
@@ -111,7 +112,12 @@
           return _this.event.trigger(evt.type, params);
         };
       })(this));
-      return this._view.event.on('onBtnModelClick', (function(_this) {
+      this._view.event.on('onBtnModelClick', (function(_this) {
+        return function(evt, params) {
+          return _this.event.trigger(evt.type, params);
+        };
+      })(this));
+      return this._view.event.on('onBtnReturnClick', (function(_this) {
         return function(evt, params) {
           return _this.event.trigger(evt.type, params);
         };
@@ -120,7 +126,8 @@
 
     StreetsnapListController.prototype.removeListener = function() {
       this._view.event.off('onBtnSearchClick');
-      return this._view.event.off('onBtnModelClick');
+      this._view.event.off('onBtnModelClick');
+      return this._view.event.off('onBtnReturnClick');
     };
 
     return StreetsnapListController;

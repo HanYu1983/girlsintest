@@ -1,0 +1,8 @@
+{
+	"name":"bdd",
+	"version":"0.0.0",
+	"dependencies":{
+		"mocha": "2.1.0",
+    "rx": "2.3.25"
+	}
+}

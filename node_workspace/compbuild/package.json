@@ -1,0 +1,6 @@
+{
+  "name":"compbuild",
+  "dependencies":{
+    "component":"1.0.2"
+  }
+}

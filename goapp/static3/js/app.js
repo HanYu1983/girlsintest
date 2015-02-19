@@ -270,7 +270,7 @@
         return function(dataDTO) {
           var elem;
           console.log(dataDTO);
-          elem = _this.mvcConfig[name].tmpl.tmpl(dataDTO);
+          elem = _this.mvcConfig[name].tmpl.tmpl(dataDTO, _this);
           elem.__dataDTO__ = dataDTO;
           elem.appendTo(container);
           controller.setView(new _this.mvcConfig[name].view(elem));
@@ -408,6 +408,15 @@
       return this.router.navigate('modelsList', {
         trigger: true
       });
+    };
+
+    Main.prototype.brandToColor = function(brand) {
+      switch (brand) {
+        case 'AAA':
+          return 'yellow';
+        case 'BBB':
+          return 'red';
+      }
     };
 
     return Main;

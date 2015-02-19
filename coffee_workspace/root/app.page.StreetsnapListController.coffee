@@ -79,6 +79,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 						id: m.Key
 						name: m.Caption
 						date: app.tool.getFullDay m.DateUnix
+						brand: m.Brand
 						imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
 						imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
 						imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]

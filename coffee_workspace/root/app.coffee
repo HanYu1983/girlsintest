@@ -166,7 +166,7 @@ class window.app.Main
 		###
 		controller.applyTemplate param, ( dataDTO )=>
 			console.log dataDTO
-			elem = @mvcConfig[ name ].tmpl.tmpl dataDTO
+			elem = @mvcConfig[ name ].tmpl.tmpl dataDTO, this
 			elem.__dataDTO__ = dataDTO
 			elem.appendTo container
 			controller.setView new @mvcConfig[ name ].view elem
@@ -245,5 +245,12 @@ class window.app.Main
 		
 	onModelsBtnReturnClick: ( evt, params ) ->
 		@router.navigate 'modelsList', trigger: true
+		
+	brandToColor: ( brand ) ->
+		switch brand
+			when 'AAA'
+				'yellow'
+			when 'BBB'
+				'red'
 		
 new window.app.Main app.config.mvcConfig 

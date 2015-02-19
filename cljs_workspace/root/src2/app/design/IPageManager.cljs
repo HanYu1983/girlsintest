@@ -1,4 +1,4 @@
-(ns app2.design.IPageManager)
+(ns app.design.IPageManager)
 
 (defprotocol IPageManager
   (open [this key param cb])

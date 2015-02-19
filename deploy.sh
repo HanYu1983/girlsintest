@@ -1,1 +1,1 @@
-../go_appengine/goapp deploy goapp
+../go_appengine/goapp deploy goapp/src

@@ -1,1 +1,1 @@
-..\go_appengine\goapp.bat deploy goapp
+..\go_appengine\goapp.bat deploy goapp\src

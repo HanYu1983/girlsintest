@@ -12,8 +12,19 @@
     (merge
       (PageManager.)
       {:header header})))
+
+(defn templateFor [this key])
+
+(defmulti createModel (fn [page cb] page))
   
 (extend-type PageManager
   pageMgr/IPageManager
-  (open [this key param cb])
+  (open [this key param]
+    (let [tmpl (templateFor this key)
+          thanCreatePage (fn [model]
+                            (let [elem (.tmpl tmpl model)
+                                  page (page/create key {:elem elem})]
+                            (.log js/console page)))]
+      (createModel key thanCreatePage)))
+      
   (close [this key]))

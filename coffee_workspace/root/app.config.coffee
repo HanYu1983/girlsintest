@@ -49,3 +49,4 @@ window.app.config.BelongHead = -1
 window.app.config.BelongStyle = -2
 window.app.config.BelongSide = -3
 window.app.config.BelongNormal = 0
+window.app.config.packageConfigPath = "package/config.json"

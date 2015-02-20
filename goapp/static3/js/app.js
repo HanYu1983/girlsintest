@@ -115,7 +115,7 @@
           return function() {
             console.log('news');
             _this.header.showNews();
-            return _this.openPage(PageNews, '1');
+            return _this.openPage(PageNews);
           };
         })(this),
         "default": (function(_this) {
@@ -260,6 +260,14 @@
       }
       this.openLoading();
       controller = new this.mvcConfig[name].controller;
+
+      /*
+      		controller.applyTemplate @mvcConfig[ name ].tmpl, param, (elem)=>
+      			elem.appendTo container
+      			controller.setView new @mvcConfig[ name ].view elem
+      			controller.open()
+      			@coll_pages[ name ] = controller
+       */
       controller.applyTemplate(param, (function(_this) {
         return function(dataDTO) {
           var elem;

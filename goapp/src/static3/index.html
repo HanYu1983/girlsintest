@@ -95,18 +95,15 @@
 			</div>
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_news'>
-			<div class='fixed top left full'>
-				<div style='left:200px; top:100px;' class='absolute'>
-					<div style='font-size:20px; color:white'>
-						<h1>這是新聞頁</h1>
-						<ul>
-							<li>會有一個新聞稿(可能會有轉轉轉)</li>
-							<li>上一則新聞<button>上一個</button></li>
-							<li>下一則新聞<button>下一個</button></li>
-							<li><button>活動列表</button></li>
-						</ul>
-					</div>
-				</div>
+			<div class='full'>
+				{{each sideList}}
+				<img src=${path} />
+				{{/each}}
+				<h1>${title}</h1>
+				<div>${content}</div>
+				<div>${from}</div>
+				<li>上一則新聞<button>上一個</button></li>
+				<li>下一則新聞<button>下一個</button></li>
 			</div>
 		</script>
 		<script type='x-jquery-tmpl' id='tmpl_news_list'>
@@ -366,6 +363,8 @@
 	<script src='js/app.page.StreetsnapListController.js'></script>
 	<script src='js/app.page.HomeView.js'></script>
 	<script src='js/app.page.HomeController.js'></script>
+	<script src='js/app.page.NewsView.js'></script>
+	<script src='js/app.page.NewsController.js'></script>
 	<script src='js/app.page.HeaderView.js'></script>
 	<script src='js/app.page.HeaderController.js'></script>
 	<script src='js/app.page.MenubarView.js'></script>

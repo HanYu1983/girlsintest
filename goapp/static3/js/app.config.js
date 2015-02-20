@@ -20,8 +20,8 @@
      */
     news: {
       tmpl: $('#tmpl_news'),
-      view: window.app.page.NewsView,
-      controller: window.app.page.NewsController
+      view: window.app.page.HomeView,
+      controller: window.app.page.HomeController
     },
     home: {
       tmpl: $('#tmpl_home'),

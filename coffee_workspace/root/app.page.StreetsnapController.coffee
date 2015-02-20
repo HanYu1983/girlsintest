@@ -7,6 +7,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		@_view.event.on 'onBtnShareClick', => @onBtnShareClick arguments...
 		
 	removeListener: ->
+		super()
 		@_view.event.off 'onImgHistoryClick'
 		@_view.event.off 'onImgClick'
 		@_view.event.off 'onBtnMoreClick'

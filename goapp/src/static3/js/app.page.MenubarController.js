@@ -19,6 +19,10 @@
       });
     };
 
+    MenubarController.prototype.removeListener = function() {
+      return this._view.event.off('onMenubarBtnClick');
+    };
+
     return MenubarController;
 
   })(vic.mvc.Controller);

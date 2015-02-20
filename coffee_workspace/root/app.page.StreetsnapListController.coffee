@@ -85,7 +85,6 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 						imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]
 						imgSideCPath: findFormatedPhoto( p, isSidePhoto )[2]
 					
-			console.log dto
 			callback dto
 			
 			
@@ -104,6 +103,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 		@_view.event.on 'onBtnReturnClick', ( evt, params ) => @event.trigger evt.type, params
 		
 	removeListener: ->
+		super()
 		@_view.event.off 'onBtnSearchClick'
 		@_view.event.off 'onBtnModelClick'
 		@_view.event.off 'onBtnReturnClick'

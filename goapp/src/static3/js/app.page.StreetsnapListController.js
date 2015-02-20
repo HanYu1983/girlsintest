@@ -94,7 +94,6 @@
             };
           })
         };
-        console.log(dto);
         return callback(dto);
       });
       onError.subscribe(function(err) {
@@ -127,6 +126,7 @@
     };
 
     StreetsnapListController.prototype.removeListener = function() {
+      StreetsnapListController.__super__.removeListener.call(this);
       this._view.event.off('onBtnSearchClick');
       this._view.event.off('onBtnModelClick');
       return this._view.event.off('onBtnReturnClick');

@@ -16,7 +16,6 @@
         var btnOver, btnSelf;
         btnSelf = $(this);
         btnOver = btnSelf.find('.navover');
-        console.log(btnOver);
         return btnOver.animate({
           width: '0px'
         }, 300);
@@ -25,7 +24,6 @@
         var btnOver, btnSelf;
         btnSelf = $(this);
         btnOver = btnSelf.find('.navover');
-        console.log(btnOver);
         return btnOver.animate({
           width: '120px'
         }, 300);
@@ -36,6 +34,12 @@
       });
       this._elem.delegate('div', 'mouseover', onBtnMouseOver);
       return this._elem.delegate('div', 'mouseout', onBtnMouseOut);
+    };
+
+    MenubarView.prototype.removeListener = function() {
+      this._elem.undelegate('div', 'click');
+      this._elem.undelegate('div', 'mouseover');
+      return this._elem.undelegate('div', 'mouseout');
     };
 
     return MenubarView;

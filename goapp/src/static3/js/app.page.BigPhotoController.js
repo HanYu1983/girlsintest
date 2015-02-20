@@ -30,7 +30,6 @@
         StreetModelKey: modelKey,
         Belong: belongKey
       }).done(function(photoData) {
-        console.log(photoData);
         if (photoData.Info.length > 0) {
           return callback({
             url: app.tool.getFullBase64str(repairBase64(photoData.Info[0].Base64Str))

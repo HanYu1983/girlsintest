@@ -56,6 +56,7 @@ class window.app.Main
 				'celebrity':'celebrity'
 				'event':'event'
 				'news':'news'
+				'news/id=:id':'news'
 				'':'default'
 			streetsnap: ( id )=>
 				@openPage PageStreetsnap, [ id, 'streetsnap' ]
@@ -79,10 +80,9 @@ class window.app.Main
 			event: =>
 				@header.showEvent()
 				
-			news: =>
-				console.log 'news'
+			news: ( id )=>
 				@header.showNews()
-				@openPage PageNews, '1'
+				@openPage PageNews, [ id ]
 				
 			default: =>
 				@openPage PageHome
@@ -124,6 +124,9 @@ class window.app.Main
 				controller.event.on 'onBtnReturnClick', => @onModelsBtnReturnClick arguments...
 			when PageBigPhoto
 				controller.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
+			when PageNews
+				controller.event.on 'onBtnPrevClick', => @onBtnPrevClick arguments...
+				controller.event.on 'onBtnNextClick', => @onBtnNextClick arguments...
 	
 	# 關閉一個頁面
 	closePage: ( name, container ) ->
@@ -160,7 +163,6 @@ class window.app.Main
 		
 		controller = new @mvcConfig[ name ].controller
 		controller.applyTemplate param, ( dataDTO )=>
-			console.log dataDTO
 			elem = @mvcConfig[ name ].tmpl.tmpl dataDTO, this
 			elem.__dataDTO__ = dataDTO
 			elem.appendTo container
@@ -222,6 +224,12 @@ class window.app.Main
 		
 	onBtnCloseClick: ->
 		@closePopup PageBigPhoto
+		
+	onBtnPrevClick: ( evt, params ) ->
+		@router.navigate 'news/id=' + params.id, trigger: true
+	
+	onBtnNextClick: ( evt, params )->
+		@router.navigate 'news/id=' + params.id, trigger: true
 		
 	onBtnSearchClick: ( evt, params ) ->
 		@router.navigate 'streetsnapList/search=' + params.search, trigger: true

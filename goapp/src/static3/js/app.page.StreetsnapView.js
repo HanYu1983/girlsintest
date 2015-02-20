@@ -28,41 +28,39 @@
       var self;
       self = this;
       this.mc_sideContainer.delegate('img', 'click', function() {
-        console.log('onImgClick', {
+        return {
           id: this.id,
           key: self.dataDTO.key
-        });
-        return self.event.trigger('onImgClick', {
-          id: this.id,
-          key: self.dataDTO.key
-        });
+        };
+      });
+      self.event.trigger('onImgClick', {
+        id: this.id,
+        key: self.dataDTO.key
       });
       this.mc_bottomContainer.delegate('img', 'click', function() {
-        console.log('onImgClick', {
+        return {
           id: this.id,
           key: self.dataDTO.key
-        });
-        return self.event.trigger('onImgClick', {
-          id: this.id,
-          key: self.dataDTO.key
-        });
+        };
+      });
+      self.event.trigger('onImgClick', {
+        id: this.id,
+        key: self.dataDTO.key
       });
       this.mc_historyContainer.delegate('img', 'click', function() {
-        console.log('onImgHistoryClick', {
+        return {
           id: this.id,
           key: self.dataDTO.key
-        });
-        return self.event.trigger('onImgHistoryClick', {
-          id: this.id,
-          key: self.dataDTO.key
-        });
+        };
+      });
+      self.event.trigger('onImgHistoryClick', {
+        id: this.id,
+        key: self.dataDTO.key
       });
       this.btn_more.click(function() {
-        console.log('onBtnMoreClick');
         return self.event.trigger('onBtnMoreClick');
       });
       return this.btn_share.click(function() {
-        console.log('onBtnShareClick');
         return self.event.trigger('onBtnShareClick', {
           key: self.dataDTO.key
         });

@@ -4,3 +4,6 @@ class window.app.page.MenubarController extends vic.mvc.Controller
 		self = this
 		@_view.event.on 'onMenubarBtnClick', ( e, id ) ->
 			self.event.trigger 'onMenubarBtnClick', id
+			
+	removeListener: ->
+		@_view.event.off 'onMenubarBtnClick'

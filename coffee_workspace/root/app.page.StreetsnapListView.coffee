@@ -5,7 +5,7 @@ class window.app.page.StreetsnapListView extends vic.mvc.View
 		@btn_search = elem.find '#btn_search'
 		@btn_return = elem.find '#btn_return'
 		@mc_modelContainer = elem.find '#mc_modelContainer'
-		console.log 'model'
+		
 	addListener: ->
 		super()
 		

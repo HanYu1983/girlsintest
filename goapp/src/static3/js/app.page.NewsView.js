@@ -6,11 +6,29 @@
   window.app.page.NewsView = (function(_super) {
     __extends(NewsView, _super);
 
-    function NewsView() {
-      return NewsView.__super__.constructor.apply(this, arguments);
+    function NewsView(elem) {
+      NewsView.__super__.constructor.call(this, elem);
+      this.btn_prev = elem.find('#btn_prev');
+      this.btn_next = elem.find('#btn_next');
     }
 
-    NewsView.prototype.addListener = function() {};
+    NewsView.prototype.addListener = function() {
+      this.btn_prev.click((function(_this) {
+        return function() {
+          return _this.event.trigger('onBtnPrevClick');
+        };
+      })(this));
+      return this.btn_next.click((function(_this) {
+        return function() {
+          return _this.event.trigger('onBtnNextClick');
+        };
+      })(this));
+    };
+
+    NewsView.prototype.removeListener = function() {
+      this.btn_prev.off('click');
+      return this.btn_next.off('click');
+    };
 
     return NewsView;
 

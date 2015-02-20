@@ -75,6 +75,7 @@
           'celebrity': 'celebrity',
           'event': 'event',
           'news': 'news',
+          'news/id=:id': 'news',
           '': 'default'
         },
         streetsnap: (function(_this) {
@@ -112,10 +113,9 @@
           };
         })(this),
         news: (function(_this) {
-          return function() {
-            console.log('news');
+          return function(id) {
             _this.header.showNews();
-            return _this.openPage(PageNews, '1');
+            return _this.openPage(PageNews, [id]);
           };
         })(this),
         "default": (function(_this) {
@@ -219,6 +219,17 @@
               return _this.onBtnCloseClick.apply(_this, arguments);
             };
           })(this));
+        case PageNews:
+          controller.event.on('onBtnPrevClick', (function(_this) {
+            return function() {
+              return _this.onBtnPrevClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onBtnNextClick', (function(_this) {
+            return function() {
+              return _this.onBtnNextClick.apply(_this, arguments);
+            };
+          })(this));
       }
     };
 
@@ -263,7 +274,6 @@
       controller.applyTemplate(param, (function(_this) {
         return function(dataDTO) {
           var elem;
-          console.log(dataDTO);
           elem = _this.mvcConfig[name].tmpl.tmpl(dataDTO, _this);
           elem.__dataDTO__ = dataDTO;
           elem.appendTo(container);
@@ -366,6 +376,18 @@
 
     Main.prototype.onBtnCloseClick = function() {
       return this.closePopup(PageBigPhoto);
+    };
+
+    Main.prototype.onBtnPrevClick = function(evt, params) {
+      return this.router.navigate('news/id=' + params.id, {
+        trigger: true
+      });
+    };
+
+    Main.prototype.onBtnNextClick = function(evt, params) {
+      return this.router.navigate('news/id=' + params.id, {
+        trigger: true
+      });
     };
 
     Main.prototype.onBtnSearchClick = function(evt, params) {

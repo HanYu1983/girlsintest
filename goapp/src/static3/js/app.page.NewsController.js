@@ -13,6 +13,7 @@
     NewsController.prototype.applyTemplate = function(_arg, callback) {
       var id;
       id = _arg[0];
+      this.id = id != null ? id : 0;
       return callback({
         title: 'title',
         date: 'date',
@@ -26,6 +27,32 @@
         content: 'content',
         from: 'from'
       });
+    };
+
+    NewsController.prototype.addListener = function() {
+      NewsController.__super__.addListener.call(this);
+      this._view.event.on('onBtnPrevClick', (function(_this) {
+        return function(evt) {
+          _this.id--;
+          return _this.event.trigger(evt.type, {
+            id: _this.id
+          });
+        };
+      })(this));
+      return this._view.event.on('onBtnNextClick', (function(_this) {
+        return function(evt) {
+          _this.id++;
+          return _this.event.trigger(evt.type, {
+            id: _this.id
+          });
+        };
+      })(this));
+    };
+
+    NewsController.prototype.removeListener = function() {
+      NewsController.__super__.removeListener.call(this);
+      this._view.event.off('onBtnPrevClick');
+      return this._view.event.off('onBtnNextClick');
     };
 
     return NewsController;

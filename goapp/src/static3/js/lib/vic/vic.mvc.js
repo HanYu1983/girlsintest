@@ -49,7 +49,6 @@
     }
 
     Controller.prototype.open = function() {
-      console.log(this._view);
       this._view.open();
       return this.addListener();
     };

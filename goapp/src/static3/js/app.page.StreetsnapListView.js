@@ -12,7 +12,6 @@
       this.btn_search = elem.find('#btn_search');
       this.btn_return = elem.find('#btn_return');
       this.mc_modelContainer = elem.find('#mc_modelContainer');
-      console.log('model');
     }
 
     StreetsnapListView.prototype.addListener = function() {

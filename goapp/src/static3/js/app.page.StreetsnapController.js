@@ -35,6 +35,7 @@
     };
 
     StreetsnapController.prototype.removeListener = function() {
+      StreetsnapController.__super__.removeListener.call(this);
       this._view.event.off('onImgHistoryClick');
       this._view.event.off('onImgClick');
       this._view.event.off('onBtnMoreClick');

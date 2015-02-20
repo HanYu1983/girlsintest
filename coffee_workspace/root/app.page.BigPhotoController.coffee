@@ -13,7 +13,6 @@ class window.app.page.BigPhotoController extends vic.mvc.Controller
 		
 		query(app.tool.serverapi.QueryPhotoWithStreetModel , { StreetModelKey: modelKey, Belong: belongKey })
 			.done (photoData) ->
-				console.log photoData
 				if photoData.Info.length > 0
 					callback 
 						url: app.tool.getFullBase64str repairBase64( photoData.Info[0].Base64Str )

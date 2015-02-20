@@ -63,4 +63,6 @@
 
   window.app.config.BelongNormal = 0;
 
+  window.app.config.packageConfigPath = "package/config.json";
+
 }).call(this);

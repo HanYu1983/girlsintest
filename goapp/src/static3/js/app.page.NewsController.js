@@ -11,20 +11,70 @@
     }
 
     NewsController.prototype.applyTemplate = function(_arg, callback) {
-      var id;
+      var configPath, convertFormat, done, fetchDetail, fetchEventConfig, fetchPackageConfig, host, id, path, pathname;
       id = _arg[0];
-      return callback({
-        title: 'title',
-        date: 'date',
-        sideList: [
-          {
-            path: ''
-          }, {
-            path: ''
+      id = 0;
+      fetchPackageConfig = function(configPath) {
+        return $.ajax(path);
+      };
+      fetchEventConfig = function(config) {
+        return $.ajax(config.eventConfig + "/config.json");
+      };
+      fetchDetail = function(config) {
+        var count, filepath, prefix, promise, resourcePath;
+        resourcePath = config.resource;
+        prefix = config.prefix;
+        count = config.count;
+        filepath = "" + resourcePath + "/" + prefix + id + "/config.json";
+        promise = $.Deferred();
+        $.ajax(filepath).done(function(detail) {
+          return promise.resolve(config, detail);
+        }).fail(function(err) {
+          return promise.reject(err);
+        });
+        return promise;
+      };
+      convertFormat = function(config, detail) {
+        var count, folderpath, imageId, imageurl, imageurls, prefix, resourcePath;
+        resourcePath = config.resource;
+        prefix = config.prefix;
+        count = config.count;
+        folderpath = "" + resourcePath + "/" + prefix + id;
+        imageurls = (function() {
+          var _i, _ref, _results;
+          _results = [];
+          for (imageId = _i = 1, _ref = detail.count; 1 <= _ref ? _i <= _ref : _i >= _ref; imageId = 1 <= _ref ? ++_i : --_i) {
+            _results.push("" + resourcePath + "/" + prefix + id + "/image_" + (imageId - 1) + ".png");
           }
-        ],
-        content: 'content',
-        from: 'from'
+          return _results;
+        })();
+        return {
+          title: detail.title,
+          date: detail.date,
+          sideList: (function() {
+            var _i, _len, _results;
+            _results = [];
+            for (_i = 0, _len = imageurls.length; _i < _len; _i++) {
+              imageurl = imageurls[_i];
+              _results.push({
+                path: imageurl
+              });
+            }
+            return _results;
+          })(),
+          content: detail.content,
+          from: detail.from
+        };
+      };
+      done = function(model) {
+        return callback(model);
+      };
+      host = window.location.host;
+      pathname = window.location.pathname.split('/').slice(1, window.location.pathname.split('/').length - 1).join('/');
+      configPath = "package/config.json";
+      path = "http://" + host + "/" + pathname + "/" + configPath;
+      return fetchPackageConfig().pipe(fetchEventConfig).pipe(fetchDetail).pipe(convertFormat).then(done, function(err) {
+        return alert(err);
       });
     };
 

@@ -12,10 +12,10 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			return id
 		
 		fetchPackageConfig = (configPath) ->
-			return $.ajax(path)
+			return $.getJSON(path)
 			
 		fetchEventConfig = (config) ->
-			return $.ajax(config.eventConfig+"/config.json")
+			return $.getJSON(config.eventConfig+"/config.json")
 			
 		fetchDetail = (config) ->
 			resourcePath = config.resource
@@ -26,7 +26,7 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			that.count = count
 			filepath = "#{resourcePath}/#{prefix}#{id}/config.json"
 			promise = $.Deferred()
-			$.ajax(filepath)
+			$.getJSON(filepath)
 				.done (detail) ->
 					promise.resolve(config, detail)
 				.fail (err) ->

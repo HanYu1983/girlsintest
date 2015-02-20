@@ -40,8 +40,7 @@ class window.app.Main
 				when 'btn_nav_streetSnap'
 					@router.navigate 'streetsnapList', trigger:true
 				when 'btn_nav_news'
-					#@router.navigate 'news', trigger:true
-					alert '敬請期待'
+					@router.navigate 'news', trigger:true
 					
 		Router = Backbone.Router.extend
 			routes:

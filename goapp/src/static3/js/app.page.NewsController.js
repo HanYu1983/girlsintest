@@ -24,10 +24,10 @@
         return id;
       };
       fetchPackageConfig = function(configPath) {
-        return $.ajax(path);
+        return $.getJSON(path);
       };
       fetchEventConfig = function(config) {
-        return $.ajax(config.eventConfig + "/config.json");
+        return $.getJSON(config.eventConfig + "/config.json");
       };
       fetchDetail = function(config) {
         var count, filepath, prefix, promise, resourcePath;
@@ -39,7 +39,7 @@
         that.count = count;
         filepath = "" + resourcePath + "/" + prefix + id + "/config.json";
         promise = $.Deferred();
-        $.ajax(filepath).done(function(detail) {
+        $.getJSON(filepath).done(function(detail) {
           return promise.resolve(config, detail);
         }).fail(function(err) {
           return promise.reject(err);

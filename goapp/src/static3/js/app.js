@@ -58,7 +58,9 @@
                 trigger: true
               });
             case 'btn_nav_news':
-              return alert('敬請期待');
+              return _this.router.navigate('news', {
+                trigger: true
+              });
           }
         };
       })(this));

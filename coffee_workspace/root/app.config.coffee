@@ -9,12 +9,11 @@ window.app.config.mvcConfig =
 		tmpl: $ '#tmpl_event'
 		view: window.app.event.View
 		controller: window.app.event.Controller
-		
+	###
 	news:
 		tmpl: $ '#tmpl_news'
-		view: window.app.news.View
-		controller: window.app.news.Controller
-	###
+		view: window.app.page.NewsView
+		controller: window.app.page.NewsController
 	
 	home:
 		tmpl: $ '#tmpl_home'

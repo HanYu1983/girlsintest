@@ -80,7 +80,9 @@ class window.app.Main
 				@header.showEvent()
 				
 			news: =>
+				console.log 'news'
 				@header.showNews()
+				@openPage PageNews, '1'
 				
 			default: =>
 				@openPage PageHome
@@ -157,13 +159,6 @@ class window.app.Main
 		@openLoading();
 		
 		controller = new @mvcConfig[ name ].controller
-		###
-		controller.applyTemplate @mvcConfig[ name ].tmpl, param, (elem)=>
-			elem.appendTo container
-			controller.setView new @mvcConfig[ name ].view elem
-			controller.open()
-			@coll_pages[ name ] = controller
-		###
 		controller.applyTemplate param, ( dataDTO )=>
 			console.log dataDTO
 			elem = @mvcConfig[ name ].tmpl.tmpl dataDTO, this

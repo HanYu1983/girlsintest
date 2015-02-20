@@ -15,6 +15,7 @@
       id = _arg[0];
       return callback({
         title: 'title',
+        date: 'date',
         sideList: [
           {
             path: ''

@@ -10,12 +10,20 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			else if id > count
 				id = count
 			return id
-		
+			
+		serverImagePath = (path) ->
+			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
+			return filepath path
+
+		fetchJSON = (configPath) ->
+			query = app.tool.serverapi.query "http://#{window.location.host}"
+			return query app.tool.serverapi.ServeFile, FilePath: configPath
+
 		fetchPackageConfig = (configPath) ->
-			return $.getJSON(path)
+			return fetchJSON(configPath)
 			
 		fetchEventConfig = (config) ->
-			return $.getJSON(config.eventConfig+"/config.json")
+			return fetchJSON(config.eventConfig+"/config.json")
 			
 		fetchDetail = (config) ->
 			resourcePath = config.resource
@@ -26,7 +34,7 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			that.count = count
 			filepath = "#{resourcePath}/#{prefix}#{id}/config.json"
 			promise = $.Deferred()
-			$.getJSON(filepath)
+			fetchJSON(filepath)
 				.done (detail) ->
 					promise.resolve(config, detail)
 				.fail (err) ->
@@ -42,7 +50,7 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			return {
 				title: detail.title
 				date: detail.date
-				sideList: ({path: imageurl} for imageurl in imageurls)
+				sideList: ({path: serverImagePath(imageurl)} for imageurl in imageurls)
 				content: detail.content
 				from: detail.from
 			}
@@ -55,7 +63,7 @@ class window.app.page.NewsController extends vic.mvc.Controller
 		configPath = "package/config.json"
 		path = "http://#{host}/#{pathname}/#{configPath}"
 		
-		fetchPackageConfig()
+		fetchPackageConfig( configPath )
 			.pipe(fetchEventConfig)
 			.pipe(fetchDetail)
 			.pipe(convertFormat)

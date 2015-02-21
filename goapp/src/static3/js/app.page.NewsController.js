@@ -11,7 +11,7 @@
     }
 
     NewsController.prototype.applyTemplate = function(_arg, callback) {
-      var boundIndex, configPath, convertFormat, done, fetchDetail, fetchEventConfig, fetchPackageConfig, host, id, path, pathname, that;
+      var boundIndex, configPath, convertFormat, done, fetchDetail, fetchEventConfig, fetchJSON, fetchPackageConfig, host, id, path, pathname, serverImagePath, that;
       id = _arg[0];
       that = this;
       boundIndex = function(id, count) {
@@ -23,11 +23,23 @@
         }
         return id;
       };
+      serverImagePath = function(path) {
+        var filepath;
+        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
+        return filepath(path);
+      };
+      fetchJSON = function(configPath) {
+        var query;
+        query = app.tool.serverapi.query("http://" + window.location.host);
+        return query(app.tool.serverapi.ServeFile, {
+          FilePath: configPath
+        });
+      };
       fetchPackageConfig = function(configPath) {
-        return $.getJSON(path);
+        return fetchJSON(configPath);
       };
       fetchEventConfig = function(config) {
-        return $.getJSON(config.eventConfig + "/config.json");
+        return fetchJSON(config.eventConfig + "/config.json");
       };
       fetchDetail = function(config) {
         var count, filepath, prefix, promise, resourcePath;
@@ -39,7 +51,7 @@
         that.count = count;
         filepath = "" + resourcePath + "/" + prefix + id + "/config.json";
         promise = $.Deferred();
-        $.getJSON(filepath).done(function(detail) {
+        fetchJSON(filepath).done(function(detail) {
           return promise.resolve(config, detail);
         }).fail(function(err) {
           return promise.reject(err);
@@ -69,7 +81,7 @@
             for (_i = 0, _len = imageurls.length; _i < _len; _i++) {
               imageurl = imageurls[_i];
               _results.push({
-                path: imageurl
+                path: serverImagePath(imageurl)
               });
             }
             return _results;
@@ -85,7 +97,7 @@
       pathname = window.location.pathname.split('/').slice(1, window.location.pathname.split('/').length - 1).join('/');
       configPath = "package/config.json";
       path = "http://" + host + "/" + pathname + "/" + configPath;
-      return fetchPackageConfig().pipe(fetchEventConfig).pipe(fetchDetail).pipe(convertFormat).then(done, function(err) {
+      return fetchPackageConfig(configPath).pipe(fetchEventConfig).pipe(fetchDetail).pipe(convertFormat).then(done, function(err) {
         return alert(err);
       });
     };

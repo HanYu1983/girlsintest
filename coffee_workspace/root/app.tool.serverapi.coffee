@@ -10,6 +10,10 @@ pkg.UpdateStreetModel = 'UpdateStreetModel'
 pkg.AddPhotoToStreetModel = 'AddPhotoToStreetModel'
 pkg.QueryPhotoWithStreetModel = 'QueryPhotoWithStreetModel'
 pkg.DeletePhotoWithStreetModel = 'DeletePhotoWithStreetModel'
+pkg.ServeFile = 'ServeFile'
+
+filepath = ( host ) -> (path) ->
+	return host+"/"+apipath+"?cmd=ServeFile&FilePath="+path
 	
 query = ( host ) -> ( cmd, data ) ->
 	data.cmd = cmd
@@ -28,3 +32,4 @@ querySignal = ( host ) -> (cmd, data) ->
 	
 pkg.query = query
 pkg.querySignal = querySignal
+pkg.filepath = filepath

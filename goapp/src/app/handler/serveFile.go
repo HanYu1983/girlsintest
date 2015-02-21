@@ -3,20 +3,19 @@ package handler
 import (
   "lib/tool"
   "fmt"
+  "path/filepath"
 )
 
 func ServeFile(sys tool.ISystem) interface{}{
   r := sys.GetRequest()
   tool.Verify( tool.ParamShouldExist( r, "FilePath") )
-  tool.Verify( tool.ParamShouldExist( r, "FileType") )
   
-  filepath := r.Form["FilePath"][0]
-  filetype := r.Form["FileType"][0]
+  filePath := r.Form["FilePath"][0]
+  filetype := filepath.Ext( filePath )[1:]  //delete first "."
   
-  // this process not complete yet!
   switch filetype {
   case "png", "jpg", "jpeg":
-    file, err := tool.GetFile(filepath)
+    file, err := tool.GetFile(filePath)
     defer file.Close()
     if err != nil {
       panic( err.Error() )
@@ -30,7 +29,7 @@ func ServeFile(sys tool.ISystem) interface{}{
     return tool.CustomView
     
   case "json":
-    readChannel := tool.GetContent(sys.GetContext(), filepath)
+    readChannel := tool.GetContent(sys.GetContext(), filePath)
     switch info := <-readChannel;info.(type) {
     case error:
       panic(info.(error).Error())

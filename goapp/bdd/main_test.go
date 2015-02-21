@@ -16,6 +16,7 @@ func TestSuit(t *testing.T){
   defer c.Close()
   // Add your test function here, use Panic() to notify test error!
   TestHandler(c)
+  ReadFile(c)
 }
 
 func gen(nums ...int) <-chan int {

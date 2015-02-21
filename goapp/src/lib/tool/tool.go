@@ -1,15 +1,16 @@
 package tool
 
 import (
-    "os"
     "bufio"
     "strings"
     "html/template"
     "strconv"
     "io/ioutil"
-    _ "appengine"
     "appengine/urlfetch"
     "encoding/json"
+    "io"
+    "os"
+    "appengine"
 )
 
 func Str2Int64(str string) int64{
@@ -84,4 +85,58 @@ func Byte2Json(data []byte) (jsonobj map[string]interface{}, err error) {
 
 func NormalizeImageBase64(origin string)string{
   return strings.Replace(strings.Replace(origin, "\r", "", -1),"\n","", -1) 
+}
+
+
+func GetContent(ctx appengine.Context, filepath string)chan interface{}{
+  channel := make(chan interface{})
+  readChannel := GetContentStepByStep(ctx, filepath, 16)
+  go func(){
+    defer close(channel)
+    var loaded []byte
+    var err error = nil
+    for info := range readChannel {
+      switch info.(type) {
+      case []byte:
+        bytes := info.([]byte)
+        loaded = append(loaded, bytes...)
+      case error:
+        err = info.(error)
+      }
+    }
+    if err != nil {
+      channel <- err
+    }else{
+      channel <- loaded
+    }
+  }()
+  return channel
+}
+
+
+func GetContentStepByStep(ctx appengine.Context, filepath string, buffersize int) chan interface{}{
+  channel := make(chan interface{})
+  go func(){
+    defer close(channel)
+    
+    file, err := os.OpenFile(filepath, os.O_RDONLY, 0666)
+    defer file.Close()
+  
+    if err != nil {
+      channel <- err
+    
+    }else{
+      buffer := make([]byte, buffersize)
+      dat, err := file.Read(buffer)
+      for err == nil{
+        channel <- buffer[0:dat]
+        buffer = make([]byte, buffersize)
+        dat, err = file.Read(buffer)
+      }
+      if err != io.EOF {
+        channel <- err
+      }
+    }
+  }()
+  return channel
 }

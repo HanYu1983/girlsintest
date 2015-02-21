@@ -97,21 +97,17 @@ func TestSearchRegular(sys tool.ISystem) interface{} {
 }
 
 func TestReadFile(sys tool.ISystem) interface{} {
-  ctx := sys.GetContext()
-  readChannel := tool.GetContent(ctx, "package/config.json")
-  switch info := <-readChannel;info.(type) {
-  case error:
-    sys.Log(info.(error).Error())
-  case []byte:
-    loaded := info.([]byte)
-    sys.Log(fmt.Sprintf("loaded %s", loaded))
-    json, err := tool.Byte2Json(loaded)
-    if err != nil {
-      sys.Log(err.Error())
-    }else{
-      sys.Log(json)
-    }
+  file, err := tool.GetFile("package/config.json")
+  defer file.Close()
+  if err != nil {
+    panic( err.Error() )
   }
+  bytes, err := tool.File2Bytes(file)
+  if err != nil {
+    panic( err.Error() )
+  }
+  sys.GetResponse().Header().Set("Content-Type", "application/json; charset=utf8")
+  fmt.Fprintf(sys.GetResponse(), "%s", bytes)
   return tool.CustomView
 }
 

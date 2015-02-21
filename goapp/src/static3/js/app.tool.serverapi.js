@@ -36,13 +36,18 @@
 
   query = function(host) {
     return function(cmd, data) {
-      var promise;
+      var option, promise;
       data.cmd = cmd;
       promise = jQuery.Deferred();
-      $.when($.ajax(host + "/" + apipath, {
+      option = cmd === pkg.ServeFile ? {
+        type: 'get',
+        data: data,
+        dataType: 'json'
+      } : {
         type: 'post',
         data: data
-      })).done(function(data) {
+      };
+      $.when($.ajax(host + "/" + apipath, option)).done(function(data) {
         return promise.resolve(data);
       }).fail(function(err) {
         return promise.reject(err);

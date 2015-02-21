@@ -18,7 +18,12 @@ filepath = ( host ) -> (path) ->
 query = ( host ) -> ( cmd, data ) ->
 	data.cmd = cmd
 	promise = jQuery.Deferred()
-	$.when($.ajax(host+"/"+apipath, {type:'post', data: data}))
+	option = 
+		if cmd is pkg.ServeFile
+			{type:'get', data: data, dataType: 'json'}
+		else
+			{type:'post', data: data}
+	$.when($.ajax(host+"/"+apipath, option))
 		.done( (data) ->
 			promise.resolve(data)
 		)

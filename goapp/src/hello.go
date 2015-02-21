@@ -22,12 +22,16 @@ func init() {
 		"QueryPhotoWithStreetModel": handler.QueryPhotoWithStreetModel,
 		"DeletePhotoWithStreetModel": handler.DeletePhotoWithStreetModel,
 		"UpdatePhotoWithStreetModel": handler.UpdatePhotoWithStreetModel,
+    
+    "ServeFile": handler.ServeFile,
 	}
 	testActions := tool.ActionMap{
 		"TestShowImage": test.TestShowImage,
 		"TestBase64": test.TestBase64,
 		"TestRandomModel": test.TestRandomModel,
 		"TestSearchRegular": test.TestSearchRegular,
+    "TestReadFile": test.TestReadFile,
+    "TestPackageImage": test.TestPackageImage,
 	}
 	pageActions := tool.ActionMap{
 		"Admin": AdminPage,
@@ -44,7 +48,7 @@ func init() {
 func AdminPage(sys tool.ISystem)interface{}{
 	w := sys.GetResponse()
 	w.Header().Set("Content-Type", "text/html")
-    tool.TemplateWithFile("EditStreetModel", "src/app/tmpl/Admin.html").Execute(w, nil)
+    tool.TemplateWithFile("EditStreetModel", "app/tmpl/Admin.html").Execute(w, nil)
 	return tool.CustomView
 }
 		

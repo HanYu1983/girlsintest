@@ -24,6 +24,6 @@ func EditStreetModelPage(sys tool.ISystem)interface{}{
 		"PhotoList":photoDAO.ReadAll(sys, allPhotoQuery),
 	}
 	w.Header().Set("Content-Type", "text/html")
-    tool.TemplateWithFile("EditStreetModel", "src/app/tmpl/EditStreetModel.html").Execute(w, model)
+    tool.TemplateWithFile("EditStreetModel", "app/tmpl/EditStreetModel.html").Execute(w, model)
     return tool.CustomView
 }

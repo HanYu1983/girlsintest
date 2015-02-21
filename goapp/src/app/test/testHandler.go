@@ -5,10 +5,11 @@ import (
 	"os"
 	"image"
 	"image/jpeg"
-	_ "image/png"
+	"image/png"
 	"encoding/base64"
 	"bytes"
 	"app"
+  "fmt"
 )
 
 
@@ -93,4 +94,41 @@ func TestSearchRegular(sys tool.ISystem) interface{} {
 	dao := app.GetApp().GetStreetModelDAO()
 	sys.Log( dao.SearchModelWithRegexp(sys, ".a", 2) )
 	return tool.CustomView	
+}
+
+func TestReadFile(sys tool.ISystem) interface{} {
+  ctx := sys.GetContext()
+  readChannel := tool.GetContent(ctx, "package/config.json")
+  switch info := <-readChannel;info.(type) {
+  case error:
+    sys.Log(info.(error).Error())
+  case []byte:
+    loaded := info.([]byte)
+    sys.Log(fmt.Sprintf("loaded %s", loaded))
+    json, err := tool.Byte2Json(loaded)
+    if err != nil {
+      sys.Log(err.Error())
+    }else{
+      sys.Log(json)
+    }
+  }
+  return tool.CustomView
+}
+
+
+func TestPackageImage(sys tool.ISystem) interface{}{
+	file, err := os.Open("package/event/event_1/image_1.png")
+  defer file.Close()
+	if err != nil {
+		panic(err.Error())
+	}
+	img, err := png.Decode(file)
+	if err != nil {
+		panic(err.Error())
+	}
+	
+	sys.GetResponse().Header().Set("Content-Type", "image/png")
+	tool.WritePng(sys.GetResponse(), img)
+  
+	return tool.CustomView
 }

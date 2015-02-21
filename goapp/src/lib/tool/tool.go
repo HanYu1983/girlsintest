@@ -11,6 +11,10 @@ import (
     "io"
     "os"
     "appengine"
+  	"image"
+  	"image/jpeg"
+  	"image/png"
+    "errors"
 )
 
 func Str2Int64(str string) int64{
@@ -139,4 +143,28 @@ func GetContentStepByStep(ctx appengine.Context, filepath string, buffersize int
     }
   }()
   return channel
+}
+
+func GetFile(filepath string) (file *os.File, err error){
+  return os.Open(filepath)
+}
+
+
+func File2Image(file *os.File, imageType string) (img image.Image, err error){
+  DecodeFn := func() func(file *os.File) (img image.Image, err error){
+    switch imageType {
+    case "png":
+      return func(file *os.File) (img image.Image, err error){
+        return png.Decode(file)
+      }
+    case "jpg", "jpeg":
+      return func(file *os.File) (img image.Image, err error){
+        return jpeg.Decode(file)
+      }
+    }
+    return func(file *os.File) (img image.Image, err error){
+      return nil, errors.New("image type not found")
+    }
+  }()
+  return DecodeFn(file)
 }

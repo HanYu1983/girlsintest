@@ -20,9 +20,12 @@ query = ( host ) -> ( cmd, data ) ->
 	promise = jQuery.Deferred()
 	option = 
 		if cmd is pkg.ServeFile
-			{type:'get', data: data, dataType: 'json'}
+			data: data,
+			type: 'get'
 		else
-			{type:'post', data: data}
+			data: data,
+			type: 'post'
+			
 	$.when($.ajax(host+"/"+apipath, option))
 		.done( (data) ->
 			promise.resolve(data)

@@ -1,100 +1,71 @@
 class window.app.page.StreetsnapListController extends vic.mvc.Controller
 	applyTemplate: ( [searchKey, modelType], callback ) ->
 		
-		modelType = 
-			if modelType is "models"
-				"m"
-			else
-				"s"
-		
-		isStylePhoto = (photo) ->
-			photo.Belong is -2
+		serverImagePath = (path) ->
+			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
+			return filepath path
 			
-		isSidePhoto = (photo) ->
-			photo.Belong is -3
-			
-		isHeadPhoto = (photo) ->
-			photo.Belong is -1
-			
-		isBottomPhoto = (photo) ->
-			photo.Belong is 0
-			
-		repairBase64 = (base64) ->
-			base64.replace('\r', '').replace('\n', '')
-			
-		formatPhoto = (photo) ->
-			app.tool.getFullBase64str repairBase64 photo.Base64Str
-			
-		findFormatedPhoto = (photoData, filterFn) ->
-			_.map( _.filter( photoData, filterFn), formatPhoto )
-			
-			
-		
-		fetchAllModelOnSuccess = new Rx.Subject	
-		fetchPhotoOnSuccess = new Rx.Subject
-		onError= new Rx.Subject
-		
-		query = app.tool.serverapi.query "http://#{window.location.host}"
-		
-		fetchAllModel = ( searchKey )->
-			option = 
-				if searchKey?
-					Regexp: searchKey
-					ModelType: modelType
-				else
-					ModelType: modelType
-					
-			query(app.tool.serverapi.QueryStreetModel , option)
-				.done (data) ->
-					fetchAllModelOnSuccess.onNext data.Info
-					
-				.fail (err) ->
-					onError.onNext err
-		
-		fetchPhoto = (modelList) ->
-			async.map modelList,
-				(model, sink) ->
-					 query(app.tool.serverapi.QueryPhotoWithStreetModel , { StreetModelKey: model.Key })
-						.done (data) ->
-							sink null, data.Info
-							
-						.fail (err) ->
-							sink err
-				,
-				(err, results) ->
-					if err?
-						onError.onNext err
-					else
-						fetchPhotoOnSuccess.onNext results
-					
-		fetchAllModelOnSuccess.subscribe fetchPhoto
-		
-		fetched = fetchAllModelOnSuccess.zip fetchPhotoOnSuccess, (model, photo) -> [model, photo]
+		fetchJSON = (configPath) ->
+			query = app.tool.serverapi.query "http://#{window.location.host}"
+			return query app.tool.serverapi.ServeFile, FilePath: configPath
 
-		fetched.subscribe ([model, photo]) ->
+		fetchPackageConfig = (configPath) ->
+			return fetchJSON(configPath)
+			
+		fetchModelConfig = (config) ->
+			return fetchJSON(config.model+"/config.json")
+		
+		fetchModelList = (config) ->
+			promise = $.Deferred()
+			fetchJSON(config.model)
+				.done (data) ->
+					if data.Success
+						promise.resolve config, (modelKey for modelKey in data.Info when modelKey isnt 'config.json')
+					else
+						promise.reject data.Info
+				.fail (err) ->
+					promise.reject err
+			return promise
+			
+		fetchModelDetail = (modelPath, modelKey) ->
+			path = "#{modelPath}/#{modelKey}/config.json"
+			return fetchJSON path
+			
+		fetchDetail = (config, modelList) ->
+			promise = $.Deferred()
+			ajaxs = (fetchModelDetail(config.model, modelKey) for modelKey in modelList)
+			$.when.apply($, ajaxs)
+				.done ()->
+					promise.resolve config, modelList, arguments
+				.fail (err)->
+					promise.reject err
+			return promise
+		
+		done = (config, modelList, modelDetails) ->
+			models = _.zip( modelList, modelDetails )
+			convertDTO = ([model, detail]) ->
+				id: model
+				name: detail.Caption
+				date: detail.Date
+				brand: detail.Brand
+				imgStylePath: serverImagePath "#{config.model}/#{model}/image_1.jpg"
+				imgSideAPath: serverImagePath "#{config.model}/#{model}/image_2.jpg"
+				imgSideBPath: serverImagePath "#{config.model}/#{model}/image_3.jpg"
+				imgSideCPath: serverImagePath "#{config.model}/#{model}/image_4.jpg"
 			dto =
 				searchWord:searchKey ? ""
-				streetsnapList:
-					_.map _.zip(model, photo), ([m, p]) ->
-						id: m.Key
-						name: m.Caption
-						date: app.tool.getFullDay m.DateUnix
-						brand: m.Brand
-						imgStylePath: findFormatedPhoto( p, isStylePhoto )[0]
-						imgSideAPath: findFormatedPhoto( p, isSidePhoto )[0]
-						imgSideBPath: findFormatedPhoto( p, isSidePhoto )[1]
-						imgSideCPath: findFormatedPhoto( p, isSidePhoto )[2]
-					
+				streetsnapList: _.map models, convertDTO
 			callback dto
-			
-			
-		onError.subscribe (err) ->
-			console.log err
+				
 		
-		if searchKey?
-			fetchAllModel( searchKey )
-		else
-			fetchAllModel()
+		configPath = "package/config.json"
+		
+		fetchPackageConfig( configPath )
+			.pipe(fetchModelList)
+			.pipe(fetchDetail)
+			.then done, (err) ->
+				alert err
+				
 			
 	addListener: ->
 		super()

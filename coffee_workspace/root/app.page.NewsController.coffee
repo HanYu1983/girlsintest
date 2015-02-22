@@ -23,7 +23,7 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			return fetchJSON(configPath)
 			
 		fetchEventConfig = (config) ->
-			return fetchJSON(config.eventConfig+"/config.json")
+			return fetchJSON(config.event+"/config.json")
 			
 		fetchDetail = (config) ->
 			resourcePath = config.resource

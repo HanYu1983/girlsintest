@@ -40,12 +40,11 @@
       data.cmd = cmd;
       promise = jQuery.Deferred();
       option = cmd === pkg.ServeFile ? {
-        type: 'get',
         data: data,
-        dataType: 'json'
+        type: 'get'
       } : {
-        type: 'post',
-        data: data
+        data: data,
+        type: 'post'
       };
       $.when($.ajax(host + "/" + apipath, option)).done(function(data) {
         return promise.resolve(data);

@@ -79,7 +79,7 @@ type IApp interface {
 	GetPhotoDAO() IPhotoDAO
 	GetSessionManager() ISessionManager
 	GetCookieManager() tool.ICookieManager
-    GetFBManager() IFBManager
+  GetFBManager() IFBManager
 }
 
 func GetApp() IApp{

@@ -11,99 +11,103 @@
     }
 
     StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
-      var fetchAllModel, fetchAllModelOnSuccess, fetchPhoto, fetchPhotoOnSuccess, fetched, findFormatedPhoto, formatPhoto, isBottomPhoto, isHeadPhoto, isSidePhoto, isStylePhoto, modelType, onError, query, repairBase64, searchKey;
+      var configPath, done, fetchDetail, fetchJSON, fetchModelConfig, fetchModelDetail, fetchModelList, fetchPackageConfig, modelType, searchKey, serverImagePath;
       searchKey = _arg[0], modelType = _arg[1];
-      modelType = modelType === "models" ? "m" : "s";
-      isStylePhoto = function(photo) {
-        return photo.Belong === -2;
+      serverImagePath = function(path) {
+        var filepath;
+        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
+        return filepath(path);
       };
-      isSidePhoto = function(photo) {
-        return photo.Belong === -3;
-      };
-      isHeadPhoto = function(photo) {
-        return photo.Belong === -1;
-      };
-      isBottomPhoto = function(photo) {
-        return photo.Belong === 0;
-      };
-      repairBase64 = function(base64) {
-        return base64.replace('\r', '').replace('\n', '');
-      };
-      formatPhoto = function(photo) {
-        return app.tool.getFullBase64str(repairBase64(photo.Base64Str));
-      };
-      findFormatedPhoto = function(photoData, filterFn) {
-        return _.map(_.filter(photoData, filterFn), formatPhoto);
-      };
-      fetchAllModelOnSuccess = new Rx.Subject;
-      fetchPhotoOnSuccess = new Rx.Subject;
-      onError = new Rx.Subject;
-      query = app.tool.serverapi.query("http://" + window.location.host);
-      fetchAllModel = function(searchKey) {
-        var option;
-        option = searchKey != null ? {
-          Regexp: searchKey,
-          ModelType: modelType
-        } : {
-          ModelType: modelType
-        };
-        return query(app.tool.serverapi.QueryStreetModel, option).done(function(data) {
-          return fetchAllModelOnSuccess.onNext(data.Info);
-        }).fail(function(err) {
-          return onError.onNext(err);
+      fetchJSON = function(configPath) {
+        var query;
+        query = app.tool.serverapi.query("http://" + window.location.host);
+        return query(app.tool.serverapi.ServeFile, {
+          FilePath: configPath
         });
       };
-      fetchPhoto = function(modelList) {
-        return async.map(modelList, function(model, sink) {
-          return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
-            StreetModelKey: model.Key
-          }).done(function(data) {
-            return sink(null, data.Info);
-          }).fail(function(err) {
-            return sink(err);
-          });
-        }, function(err, results) {
-          if (err != null) {
-            return onError.onNext(err);
+      fetchPackageConfig = function(configPath) {
+        return fetchJSON(configPath);
+      };
+      fetchModelConfig = function(config) {
+        return fetchJSON(config.model + "/config.json");
+      };
+      fetchModelList = function(config) {
+        var promise;
+        promise = $.Deferred();
+        fetchJSON(config.model).done(function(data) {
+          var modelKey;
+          if (data.Success) {
+            return promise.resolve(config, (function() {
+              var _i, _len, _ref, _results;
+              _ref = data.Info;
+              _results = [];
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                modelKey = _ref[_i];
+                if (modelKey !== 'config.json') {
+                  _results.push(modelKey);
+                }
+              }
+              return _results;
+            })());
           } else {
-            return fetchPhotoOnSuccess.onNext(results);
+            return promise.reject(data.Info);
           }
+        }).fail(function(err) {
+          return promise.reject(err);
         });
+        return promise;
       };
-      fetchAllModelOnSuccess.subscribe(fetchPhoto);
-      fetched = fetchAllModelOnSuccess.zip(fetchPhotoOnSuccess, function(model, photo) {
-        return [model, photo];
-      });
-      fetched.subscribe(function(_arg1) {
-        var dto, model, photo;
-        model = _arg1[0], photo = _arg1[1];
+      fetchModelDetail = function(modelPath, modelKey) {
+        var path;
+        path = "" + modelPath + "/" + modelKey + "/config.json";
+        return fetchJSON(path);
+      };
+      fetchDetail = function(config, modelList) {
+        var ajaxs, modelKey, promise;
+        promise = $.Deferred();
+        ajaxs = (function() {
+          var _i, _len, _results;
+          _results = [];
+          for (_i = 0, _len = modelList.length; _i < _len; _i++) {
+            modelKey = modelList[_i];
+            _results.push(fetchModelDetail(config.model, modelKey));
+          }
+          return _results;
+        })();
+        $.when.apply($, ajaxs).done(function() {
+          return promise.resolve(config, modelList, arguments);
+        }).fail(function(err) {
+          return promise.reject(err);
+        });
+        return promise;
+      };
+      done = function(config, modelList, modelDetails) {
+        var convertDTO, dto, models;
+        models = _.zip(modelList, modelDetails);
+        convertDTO = function(_arg1) {
+          var detail, model;
+          model = _arg1[0], detail = _arg1[1];
+          return {
+            id: model,
+            name: detail.Caption,
+            date: detail.Date,
+            brand: detail.Brand,
+            imgStylePath: serverImagePath("" + config.model + "/" + model + "/image_1.jpg"),
+            imgSideAPath: serverImagePath("" + config.model + "/" + model + "/image_2.jpg"),
+            imgSideBPath: serverImagePath("" + config.model + "/" + model + "/image_3.jpg"),
+            imgSideCPath: serverImagePath("" + config.model + "/" + model + "/image_4.jpg")
+          };
+        };
         dto = {
           searchWord: searchKey != null ? searchKey : "",
-          streetsnapList: _.map(_.zip(model, photo), function(_arg2) {
-            var m, p;
-            m = _arg2[0], p = _arg2[1];
-            return {
-              id: m.Key,
-              name: m.Caption,
-              date: app.tool.getFullDay(m.DateUnix),
-              brand: m.Brand,
-              imgStylePath: findFormatedPhoto(p, isStylePhoto)[0],
-              imgSideAPath: findFormatedPhoto(p, isSidePhoto)[0],
-              imgSideBPath: findFormatedPhoto(p, isSidePhoto)[1],
-              imgSideCPath: findFormatedPhoto(p, isSidePhoto)[2]
-            };
-          })
+          streetsnapList: _.map(models, convertDTO)
         };
         return callback(dto);
+      };
+      configPath = "package/config.json";
+      return fetchPackageConfig(configPath).pipe(fetchModelList).pipe(fetchDetail).then(done, function(err) {
+        return alert(err);
       });
-      onError.subscribe(function(err) {
-        return console.log(err);
-      });
-      if (searchKey != null) {
-        return fetchAllModel(searchKey);
-      } else {
-        return fetchAllModel();
-      }
     };
 
     StreetsnapListController.prototype.addListener = function() {

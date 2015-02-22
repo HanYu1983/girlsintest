@@ -39,7 +39,7 @@
         return fetchJSON(configPath);
       };
       fetchEventConfig = function(config) {
-        return fetchJSON(config.eventConfig + "/config.json");
+        return fetchJSON(config.event + "/config.json");
       };
       fetchDetail = function(config) {
         var count, filepath, prefix, promise, resourcePath;

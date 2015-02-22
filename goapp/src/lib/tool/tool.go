@@ -14,6 +14,7 @@ import (
   	"image/jpeg"
   	"image/png"
     "errors"
+    "net/http"
 )
 
 func Str2Int64(str string) int64{
@@ -129,3 +130,17 @@ func File2Image(file *os.File, imageType string) (img image.Image, err error){
   }()
   return DecodeFn(file)
 }
+
+func UseETag(etag string) func(w http.ResponseWriter, r *http.Request) bool{
+  return func(w http.ResponseWriter, r *http.Request) bool{
+    ifNoneMatch := r.Header.Get("If-None-Match")
+    if ifNoneMatch == etag {
+      w.WriteHeader(http.StatusNotModified)
+      return true
+    }else{
+      w.Header().Set("ETag", etag)
+      return false
+    }
+  }
+}
+

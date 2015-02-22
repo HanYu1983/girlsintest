@@ -1,3 +1,4 @@
 {
-  "eventConfig": "package/event"
+  "eventConfig": "package/event",
+  "modelPath": "package/model"
 }

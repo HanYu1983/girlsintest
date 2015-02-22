@@ -13,6 +13,11 @@ func ServeFile(sys tool.ISystem) interface{}{
   filePath := r.Form["FilePath"][0]
   filetype := filepath.Ext( filePath )[1:]  //delete first "."
   
+  IsMatchCache := tool.UseETag( fmt.Sprintf("ServeFile:%s", filePath) )
+  if IsMatchCache( sys.GetResponse(), r ) {
+    return tool.CustomView
+  }
+  
   switch filetype {
   case "png", "jpg", "jpeg":
     file, err := tool.GetFile(filePath)

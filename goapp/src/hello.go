@@ -40,8 +40,9 @@ func init() {
 	}
   
   
-    http.HandleFunc("/", DefaultHandler)
-    http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
+  http.HandleFunc("/goapp/redirect", DefaultHandler)
+  http.HandleFunc("/goapp/cache", DefaultHandler2)
+  http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions, tool.AppEngineContextFactory))
 }
@@ -53,5 +54,17 @@ func AdminPage(sys tool.ISystem)interface{}{
 }
 		
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, "Hello, world!")
+  http.Redirect(w, r, "/goapp/cache", http.StatusSeeOther)
+}
+
+func DefaultHandler2(w http.ResponseWriter, r *http.Request) {
+  etag := "xxade"
+  noneMatch := r.Header.Get("If-None-Match")
+  
+  if noneMatch == etag {
+    w.WriteHeader(http.StatusNotModified)
+  }
+  // browser看到ETag的話，在下一次呼叫同一個網址時，會在request中的header中If-None-Match代入這個欄位的值，所以可以用這個欄位來決定browser要不要從快取中抓取資料
+  w.Header().Set("ETag", etag)
+  fmt.Fprint(w, "Hello, world2!")
 }

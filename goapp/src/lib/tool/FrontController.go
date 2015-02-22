@@ -63,7 +63,7 @@ func FrontController(
         // nothing todo
 	}else if formatResult.Code == -1 {
 		url := formatResult.Info.(string)
-		http.Redirect(w, r, url, 302)
+		http.Redirect(w, r, url, http.StatusSeeOther)
 	}else{
         js, _ := json.Marshal(formatResult)
         w.Header().Set("Content-Type", "application/json; charset=utf8")

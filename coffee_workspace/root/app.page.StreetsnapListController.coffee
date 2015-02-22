@@ -56,7 +56,6 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 				searchWord:searchKey ? ""
 				streetsnapList: _.map models, convertDTO
 			callback dto
-				
 		
 		configPath = "package/config.json"
 		

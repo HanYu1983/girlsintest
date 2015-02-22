@@ -48,10 +48,10 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 				name: detail.Caption
 				date: detail.Date
 				brand: detail.Brand
-				imgStylePath: serverImagePath "#{config.model}/#{model}/image_1.jpg"
-				imgSideAPath: serverImagePath "#{config.model}/#{model}/image_2.jpg"
-				imgSideBPath: serverImagePath "#{config.model}/#{model}/image_3.jpg"
-				imgSideCPath: serverImagePath "#{config.model}/#{model}/image_4.jpg"
+				imgStylePath: serverImagePath "#{config.model}/#{model}/image_2.jpg"
+				imgSideAPath: serverImagePath "#{config.model}/#{model}/image_3.jpg"
+				imgSideBPath: serverImagePath "#{config.model}/#{model}/image_4.jpg"
+				imgSideCPath: serverImagePath "#{config.model}/#{model}/image_5.jpg"
 			dto =
 				searchWord:searchKey ? ""
 				streetsnapList: _.map models, convertDTO

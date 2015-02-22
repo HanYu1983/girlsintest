@@ -60,14 +60,18 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		done = (config, detail, list) ->
 			convertHeadDTO = (key) ->
 				id: key
-				url: serverImagePath "#{config.model}/#{key}/image_1.png"
+				url: serverImagePath "#{config.model}/#{key}/image_1.jpg"
+			
+			convertImageId2DTO = (ids) ->
+				({id: detail.Key, url: url} for url in (serverImagePath "#{config.model}/#{key}/image_#{id}.jpg" for id in ids))
+			
 			dto = 
 				historyList: _.map list, convertHeadDTO
 				name: detail.Caption
-				date: app.tool.getFullDay detail.DateUnix
-				styleUrl: serverImagePath "#{config.model}/#{detail.Key}/image_1.png"
-				sideList: (serverImagePath "#{config.model}/#{key}/image_#{id}.png" for id in [1..3])
-				bottomList: (serverImagePath "#{config.model}/#{key}/image_#{id}.png" for id in [4..5])
+				date: detail.Date
+				styleUrl: serverImagePath "#{config.model}/#{detail.Key}/image_1.jpg"
+				sideList: convertImageId2DTO [2..4]
+				bottomList: convertImageId2DTO [5..detail.ImageCount]
 				modelDetail: detail.Description
 				talk: detail.Talk
 				protalk: detail.Comment

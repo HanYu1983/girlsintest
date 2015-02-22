@@ -111,37 +111,45 @@
         return $.when(config, fetchModelDetail(config), fetchModelList(config));
       };
       done = function(config, detail, list) {
-        var convertHeadDTO, dto, id;
-        console.log(config);
-        console.log(detail);
-        console.log(list);
+        var convertHeadDTO, convertImageId2DTO, dto, _i, _ref, _results;
         convertHeadDTO = function(key) {
           return {
             id: key,
-            url: serverImagePath("" + config.model + "/" + key + "/image_1.png")
+            url: serverImagePath("" + config.model + "/" + key + "/image_1.jpg")
           };
+        };
+        convertImageId2DTO = function(ids) {
+          var id, url, _i, _len, _ref, _results;
+          _ref = (function() {
+            var _j, _len, _results1;
+            _results1 = [];
+            for (_j = 0, _len = ids.length; _j < _len; _j++) {
+              id = ids[_j];
+              _results1.push(serverImagePath("" + config.model + "/" + key + "/image_" + id + ".jpg"));
+            }
+            return _results1;
+          })();
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            url = _ref[_i];
+            _results.push({
+              id: detail.Key,
+              url: url
+            });
+          }
+          return _results;
         };
         dto = {
           historyList: _.map(list, convertHeadDTO),
           name: detail.Caption,
-          date: app.tool.getFullDay(detail.DateUnix),
-          styleUrl: serverImagePath("" + config.model + "/" + detail.Key + "/image_1.png"),
-          sideList: (function() {
-            var _i, _results;
+          date: detail.Date,
+          styleUrl: serverImagePath("" + config.model + "/" + detail.Key + "/image_1.jpg"),
+          sideList: convertImageId2DTO([2, 3, 4]),
+          bottomList: convertImageId2DTO((function() {
             _results = [];
-            for (id = _i = 1; _i <= 3; id = ++_i) {
-              _results.push(serverImagePath("" + config.model + "/" + key + "/image_" + id + ".png"));
-            }
+            for (var _i = 5, _ref = detail.ImageCount; 5 <= _ref ? _i <= _ref : _i >= _ref; 5 <= _ref ? _i++ : _i--){ _results.push(_i); }
             return _results;
-          })(),
-          bottomList: (function() {
-            var _i, _results;
-            _results = [];
-            for (id = _i = 4; _i <= 5; id = ++_i) {
-              _results.push(serverImagePath("" + config.model + "/" + key + "/image_" + id + ".png"));
-            }
-            return _results;
-          })(),
+          }).apply(this)),
           modelDetail: detail.Description,
           talk: detail.Talk,
           protalk: detail.Comment,

@@ -59,19 +59,100 @@
     };
 
     StreetsnapController.prototype.applyTemplate = function(_arg, callback) {
-      var key, modelType;
+      var configPath, done, fetchAllModelKeyAndModelDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, key, modelType, serverImagePath;
       key = _arg[0], modelType = _arg[1];
-      return callback({
-        name: 'name',
-        date: 'date',
-        styleUrl: '',
-        sideList: '',
-        bottomList: '',
-        modelDetail: '',
-        talk: 'asdafd',
-        protalk: 'dad',
-        modelKey: '',
-        key: ''
+      serverImagePath = function(path) {
+        var filepath;
+        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
+        return filepath(path);
+      };
+      fetchJSON = function(configPath) {
+        var query;
+        query = app.tool.serverapi.query("http://" + window.location.host);
+        return query(app.tool.serverapi.ServeFile, {
+          FilePath: configPath
+        });
+      };
+      fetchPackageConfig = function(configPath) {
+        return fetchJSON(configPath);
+      };
+      fetchModelDetail = function(config) {
+        var path;
+        path = "" + config.model + "/" + key + "/config.json";
+        return fetchJSON(path);
+      };
+      fetchModelList = function(config) {
+        var promise;
+        promise = $.Deferred();
+        fetchJSON(config.model).done(function(data) {
+          var modelKey;
+          if (data.Success) {
+            return promise.resolve((function() {
+              var _i, _len, _ref, _results;
+              _ref = data.Info;
+              _results = [];
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                modelKey = _ref[_i];
+                if (modelKey !== 'config.json') {
+                  _results.push(modelKey);
+                }
+              }
+              return _results;
+            })());
+          } else {
+            return promise.reject(data.Info);
+          }
+        }).fail(function(err) {
+          return promise.reject(err);
+        });
+        return promise;
+      };
+      fetchAllModelKeyAndModelDetail = function(config) {
+        return $.when(config, fetchModelDetail(config), fetchModelList(config));
+      };
+      done = function(config, detail, list) {
+        var convertHeadDTO, dto, id;
+        console.log(config);
+        console.log(detail);
+        console.log(list);
+        convertHeadDTO = function(key) {
+          return {
+            id: key,
+            url: serverImagePath("" + config.model + "/" + key + "/image_1.png")
+          };
+        };
+        dto = {
+          historyList: _.map(list, convertHeadDTO),
+          name: detail.Caption,
+          date: app.tool.getFullDay(detail.DateUnix),
+          styleUrl: serverImagePath("" + config.model + "/" + detail.Key + "/image_1.png"),
+          sideList: (function() {
+            var _i, _results;
+            _results = [];
+            for (id = _i = 1; _i <= 3; id = ++_i) {
+              _results.push(serverImagePath("" + config.model + "/" + key + "/image_" + id + ".png"));
+            }
+            return _results;
+          })(),
+          bottomList: (function() {
+            var _i, _results;
+            _results = [];
+            for (id = _i = 4; _i <= 5; id = ++_i) {
+              _results.push(serverImagePath("" + config.model + "/" + key + "/image_" + id + ".png"));
+            }
+            return _results;
+          })(),
+          modelDetail: detail.Description,
+          talk: detail.Talk,
+          protalk: detail.Comment,
+          modelKey: detail.ModelKey,
+          key: detail.Key
+        };
+        return callback(dto);
+      };
+      configPath = "package/config.json";
+      return fetchPackageConfig(configPath).pipe(fetchAllModelKeyAndModelDetail).then(done, function(err) {
+        return alert(err);
       });
     };
 

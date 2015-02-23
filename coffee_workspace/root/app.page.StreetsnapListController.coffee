@@ -1,6 +1,12 @@
 class window.app.page.StreetsnapListController extends vic.mvc.Controller
 	applyTemplate: ( [searchKey, modelType], callback ) ->
 		
+		configKey = 
+			if modelType is 'models'
+				'model'
+			else
+				'street'
+		
 		serverImagePath = (path) ->
 			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
 			return filepath path
@@ -12,12 +18,9 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 		fetchPackageConfig = (configPath) ->
 			return fetchJSON(configPath)
 			
-		fetchModelConfig = (config) ->
-			return fetchJSON(config.model+"/config.json")
-		
 		fetchModelList = (config) ->
 			promise = $.Deferred()
-			fetchJSON(config.model)
+			fetchJSON(config[configKey])
 				.done (data) ->
 					if data.Success
 						promise.resolve config, (modelKey for modelKey in data.Info when modelKey isnt 'config.json')
@@ -33,7 +36,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 			
 		fetchDetail = (config, modelList) ->
 			promise = $.Deferred()
-			ajaxs = (fetchModelDetail(config.model, modelKey) for modelKey in modelList)
+			ajaxs = (fetchModelDetail(config[configKey], modelKey) for modelKey in modelList)
 			$.when.apply($, ajaxs)
 				.done ()->
 					promise.resolve config, modelList, arguments
@@ -48,10 +51,10 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 				name: detail.Caption
 				date: detail.Date
 				brand: detail.Brand
-				imgStylePath: serverImagePath "#{config.model}/#{model}/image_2.jpg"
-				imgSideAPath: serverImagePath "#{config.model}/#{model}/image_3.jpg"
-				imgSideBPath: serverImagePath "#{config.model}/#{model}/image_4.jpg"
-				imgSideCPath: serverImagePath "#{config.model}/#{model}/image_5.jpg"
+				imgStylePath: serverImagePath "#{config[configKey]}/#{model}/image_2.jpg"
+				imgSideAPath: serverImagePath "#{config[configKey]}/#{model}/image_3.jpg"
+				imgSideBPath: serverImagePath "#{config[configKey]}/#{model}/image_4.jpg"
+				imgSideCPath: serverImagePath "#{config[configKey]}/#{model}/image_5.jpg"
 			dto =
 				searchWord:searchKey ? ""
 				streetsnapList: _.map models, convertDTO

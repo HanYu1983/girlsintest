@@ -11,8 +11,9 @@
     }
 
     StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
-      var configPath, done, fetchDetail, fetchJSON, fetchModelConfig, fetchModelDetail, fetchModelList, fetchPackageConfig, modelType, searchKey, serverImagePath;
+      var configKey, configPath, done, fetchDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, modelType, searchKey, serverImagePath;
       searchKey = _arg[0], modelType = _arg[1];
+      configKey = modelType === 'models' ? 'model' : 'street';
       serverImagePath = function(path) {
         var filepath;
         filepath = app.tool.serverapi.filepath("http://" + window.location.host);
@@ -28,13 +29,10 @@
       fetchPackageConfig = function(configPath) {
         return fetchJSON(configPath);
       };
-      fetchModelConfig = function(config) {
-        return fetchJSON(config.model + "/config.json");
-      };
       fetchModelList = function(config) {
         var promise;
         promise = $.Deferred();
-        fetchJSON(config.model).done(function(data) {
+        fetchJSON(config[configKey]).done(function(data) {
           var modelKey;
           if (data.Success) {
             return promise.resolve(config, (function() {
@@ -70,7 +68,7 @@
           _results = [];
           for (_i = 0, _len = modelList.length; _i < _len; _i++) {
             modelKey = modelList[_i];
-            _results.push(fetchModelDetail(config.model, modelKey));
+            _results.push(fetchModelDetail(config[configKey], modelKey));
           }
           return _results;
         })();
@@ -92,10 +90,10 @@
             name: detail.Caption,
             date: detail.Date,
             brand: detail.Brand,
-            imgStylePath: serverImagePath("" + config.model + "/" + model + "/image_2.jpg"),
-            imgSideAPath: serverImagePath("" + config.model + "/" + model + "/image_3.jpg"),
-            imgSideBPath: serverImagePath("" + config.model + "/" + model + "/image_4.jpg"),
-            imgSideCPath: serverImagePath("" + config.model + "/" + model + "/image_5.jpg")
+            imgStylePath: serverImagePath("" + config[configKey] + "/" + model + "/image_2.jpg"),
+            imgSideAPath: serverImagePath("" + config[configKey] + "/" + model + "/image_3.jpg"),
+            imgSideBPath: serverImagePath("" + config[configKey] + "/" + model + "/image_4.jpg"),
+            imgSideCPath: serverImagePath("" + config[configKey] + "/" + model + "/image_5.jpg")
           };
         };
         dto = {

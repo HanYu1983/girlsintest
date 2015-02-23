@@ -1,4 +1,5 @@
 {
   "event": "package/event",
-  "model": "package/model"
+  "model": "package/model",
+  "street": "package/street"
 }

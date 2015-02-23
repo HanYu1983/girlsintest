@@ -11,7 +11,7 @@
     }
 
     StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
-      var configKey, configPath, done, fetchDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, modelType, searchKey, serverImagePath;
+      var configKey, configPath, done, fetchDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, filterTag, modelType, searchKey, serverImagePath;
       searchKey = _arg[0], modelType = _arg[1];
       configKey = modelType === 'models' ? 'model' : 'street';
       serverImagePath = function(path) {
@@ -79,9 +79,20 @@
         });
         return promise;
       };
+      filterTag = function(tag) {
+        return function(_arg1) {
+          var detail, model, pattern;
+          model = _arg1[0], detail = _arg1[1];
+          pattern = RegExp(".?" + tag + ".?");
+          return detail.Tag.match(pattern);
+        };
+      };
       done = function(config, modelList, modelDetails) {
         var convertDTO, dto, models;
         models = _.zip(modelList, modelDetails);
+        if (searchKey != null) {
+          models = _.filter(models, filterTag(searchKey));
+        }
         convertDTO = function(_arg1) {
           var detail, model;
           model = _arg1[0], detail = _arg1[1];

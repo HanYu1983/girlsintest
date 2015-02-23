@@ -11,7 +11,6 @@ type SimpleBrowserCacheManager struct{
 
 func (mgr *SimpleBrowserCacheManager) HandleCacheAndShouldReturn(sys tool.ISystem) bool{
   etag := fmt.Sprintf("SimpleBrowserCacheManager: %d", mgr.etagIdx)
-  sys.GetContext().Infof("etag:"+etag)
   IsMatchCache := tool.UseETag( etag )
   return IsMatchCache( sys.GetResponse(), sys.GetRequest() )
 }

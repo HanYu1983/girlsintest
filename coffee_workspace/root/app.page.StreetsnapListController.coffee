@@ -43,9 +43,15 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 				.fail (err)->
 					promise.reject err
 			return promise
+			
+		filterTag = (tag) -> ([model, detail]) ->
+			pattern = ///.?#{tag}.?///
+			return detail.Tag.match pattern
 		
 		done = (config, modelList, modelDetails) ->
-			models = _.zip( modelList, modelDetails )
+			models = _.zip modelList, modelDetails
+			if searchKey?
+				models = _.filter models, filterTag(searchKey)
 			convertDTO = ([model, detail]) ->
 				id: model
 				name: detail.Caption

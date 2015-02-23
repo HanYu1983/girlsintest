@@ -22,31 +22,34 @@ class window.app.page.NewsController extends vic.mvc.Controller
 		fetchPackageConfig = (configPath) ->
 			return fetchJSON(configPath)
 			
-		fetchEventConfig = (config) ->
-			return fetchJSON(config.event+"/config.json")
+		fetchEventList = (config) ->
+			promise = $.Deferred()
+			fetchJSON(config.event)
+				.done (data) ->
+					if data.Success
+						promise.resolve config, (key for key in data.Info when key isnt 'config.json')
+					else
+						promise.reject data.Info
+				.fail (err) ->
+					promise.reject err
+			return promise
 			
-		fetchDetail = (config) ->
-			resourcePath = config.resource
-			prefix = config.prefix
-			count = config.count
+		fetchDetail = (config, list) ->
+			count = list.length
 			id = boundIndex id, count
 			that.id = id
 			that.count = count
-			filepath = "#{resourcePath}/#{prefix}#{id}/config.json"
+			filepath = "#{config.event}/#{list[id-1]}/config.json"
 			promise = $.Deferred()
 			fetchJSON(filepath)
 				.done (detail) ->
-					promise.resolve(config, detail)
+					promise.resolve(config, list, detail)
 				.fail (err) ->
 					promise.reject(err)
 			return promise
 			
-		convertFormat = (config, detail) ->
-			resourcePath = config.resource
-			prefix = config.prefix
-			count = config.count
-			folderpath = "#{resourcePath}/#{prefix}#{id}"
-			imageurls = ("#{resourcePath}/#{prefix}#{id}/image_#{imageId}.png" for imageId in [1..detail.count])
+		convertFormat = (config, list, detail) ->
+			imageurls = ("#{config.event}/#{list[id-1]}/image_#{imageId}.png" for imageId in [1..detail.count])
 			return {
 				title: detail.title
 				date: detail.date
@@ -57,13 +60,10 @@ class window.app.page.NewsController extends vic.mvc.Controller
 		done = (model) ->
 			callback model
 			
-		host = window.location.host
-		pathname = window.location.pathname.split('/').slice(1, window.location.pathname.split('/').length-1).join('/')
 		configPath = "package/config.json"
-		path = "http://#{host}/#{pathname}/#{configPath}"
 		
 		fetchPackageConfig( configPath )
-			.pipe(fetchEventConfig)
+			.pipe(fetchEventList)
 			.pipe(fetchDetail)
 			.pipe(convertFormat)
 			.then done, (err) ->

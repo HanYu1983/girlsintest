@@ -11,7 +11,7 @@
     }
 
     NewsController.prototype.applyTemplate = function(_arg, callback) {
-      var boundIndex, configPath, convertFormat, done, fetchDetail, fetchEventConfig, fetchJSON, fetchPackageConfig, host, id, path, pathname, serverImagePath, that;
+      var boundIndex, configPath, convertFormat, done, fetchDetail, fetchEventList, fetchJSON, fetchPackageConfig, id, serverImagePath, that;
       id = _arg[0];
       that = this;
       boundIndex = function(id, count) {
@@ -38,37 +38,54 @@
       fetchPackageConfig = function(configPath) {
         return fetchJSON(configPath);
       };
-      fetchEventConfig = function(config) {
-        return fetchJSON(config.event + "/config.json");
-      };
-      fetchDetail = function(config) {
-        var count, filepath, prefix, promise, resourcePath;
-        resourcePath = config.resource;
-        prefix = config.prefix;
-        count = config.count;
-        id = boundIndex(id, count);
-        that.id = id;
-        that.count = count;
-        filepath = "" + resourcePath + "/" + prefix + id + "/config.json";
+      fetchEventList = function(config) {
+        var promise;
         promise = $.Deferred();
-        fetchJSON(filepath).done(function(detail) {
-          return promise.resolve(config, detail);
+        fetchJSON(config.event).done(function(data) {
+          var key;
+          if (data.Success) {
+            return promise.resolve(config, (function() {
+              var _i, _len, _ref, _results;
+              _ref = data.Info;
+              _results = [];
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                key = _ref[_i];
+                if (key !== 'config.json') {
+                  _results.push(key);
+                }
+              }
+              return _results;
+            })());
+          } else {
+            return promise.reject(data.Info);
+          }
         }).fail(function(err) {
           return promise.reject(err);
         });
         return promise;
       };
-      convertFormat = function(config, detail) {
-        var count, folderpath, imageId, imageurl, imageurls, prefix, resourcePath;
-        resourcePath = config.resource;
-        prefix = config.prefix;
-        count = config.count;
-        folderpath = "" + resourcePath + "/" + prefix + id;
+      fetchDetail = function(config, list) {
+        var count, filepath, promise;
+        count = list.length;
+        id = boundIndex(id, count);
+        that.id = id;
+        that.count = count;
+        filepath = "" + config.event + "/" + list[id - 1] + "/config.json";
+        promise = $.Deferred();
+        fetchJSON(filepath).done(function(detail) {
+          return promise.resolve(config, list, detail);
+        }).fail(function(err) {
+          return promise.reject(err);
+        });
+        return promise;
+      };
+      convertFormat = function(config, list, detail) {
+        var imageId, imageurl, imageurls;
         imageurls = (function() {
           var _i, _ref, _results;
           _results = [];
           for (imageId = _i = 1, _ref = detail.count; 1 <= _ref ? _i <= _ref : _i >= _ref; imageId = 1 <= _ref ? ++_i : --_i) {
-            _results.push("" + resourcePath + "/" + prefix + id + "/image_" + imageId + ".png");
+            _results.push("" + config.event + "/" + list[id - 1] + "/image_" + imageId + ".png");
           }
           return _results;
         })();
@@ -93,11 +110,8 @@
       done = function(model) {
         return callback(model);
       };
-      host = window.location.host;
-      pathname = window.location.pathname.split('/').slice(1, window.location.pathname.split('/').length - 1).join('/');
       configPath = "package/config.json";
-      path = "http://" + host + "/" + pathname + "/" + configPath;
-      return fetchPackageConfig(configPath).pipe(fetchEventConfig).pipe(fetchDetail).pipe(convertFormat).then(done, function(err) {
+      return fetchPackageConfig(configPath).pipe(fetchEventList).pipe(fetchDetail).pipe(convertFormat).then(done, function(err) {
         return alert(err);
       });
     };

@@ -437,6 +437,23 @@
       }
     };
 
+    Main.prototype.checkHot = function(timestr) {
+      var difftime, nowUnixTime, unixTime;
+      timestr = timestr.split('/');
+      nowUnixTime = app.tool.getUnixTime();
+      unixTime = app.tool.getUnixTimeByYMD(timestr[0], timestr[1], timestr[2]);
+      difftime = nowUnixTime - unixTime;
+      if (difftime < 60 * 60 * 24 * 1) {
+        return 'new';
+      } else {
+        return 'old';
+      }
+    };
+
+    Main.prototype.unixtimeToYMD = function(unixtime) {
+      return app.tool.getFullDay(unixtime);
+    };
+
     return Main;
 
   })();

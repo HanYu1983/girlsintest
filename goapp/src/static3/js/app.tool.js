@@ -14,4 +14,14 @@
     return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
   };
 
+  app.tool.getUnixTimeByYMD = function(year, month, day) {
+    var datum;
+    datum = new Date(Date.UTC(year, month - 1, day, 0, 0, 0));
+    return datum.getTime() / 1000;
+  };
+
+  app.tool.getUnixTime = function() {
+    return Math.round((new Date()).getTime() / 1000);
+  };
+
 }).call(this);

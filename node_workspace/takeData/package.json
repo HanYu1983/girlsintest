@@ -1,0 +1,8 @@
+{
+  "name": "takeData",
+  "dependencies": {
+    "underscore": "1.7.0",
+    "async": "0.9.0"
+  },
+  "main": "index.js"
+}

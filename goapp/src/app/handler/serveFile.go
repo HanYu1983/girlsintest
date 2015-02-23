@@ -6,6 +6,7 @@ import (
   "fmt"
   "path/filepath"
   "io/ioutil"
+  "strings"
 )
 
 func ServeFile(sys tool.ISystem) interface{}{
@@ -35,7 +36,10 @@ func ServeFile(sys tool.ISystem) interface{}{
     
     var paths []string
     for _, info := range infos {
-      paths = append( paths, info.Name() )
+      isHiddenFile := strings.HasPrefix(info.Name(), ".")
+      if isHiddenFile == false {
+        paths = append( paths, info.Name() )
+      }
     }
     return tool.Success(paths)
   }

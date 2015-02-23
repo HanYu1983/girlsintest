@@ -69,9 +69,9 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				historyList: _.map list, convertHeadDTO
 				name: detail.Caption
 				date: detail.Date
-				styleUrl: serverImagePath "#{config.model}/#{detail.Key}/image_1.jpg"
-				sideList: convertImageId2DTO [2..4]
-				bottomList: convertImageId2DTO [5..detail.ImageCount]
+				styleUrl: serverImagePath "#{config.model}/#{key}/image_2.jpg"
+				sideList: convertImageId2DTO [3..5]
+				bottomList: convertImageId2DTO([6..detail.ImageCount]) if detail.ImageCount > 5
 				modelDetail: detail.Description
 				talk: detail.Talk
 				protalk: detail.Comment

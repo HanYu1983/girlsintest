@@ -143,13 +143,13 @@
           historyList: _.map(list, convertHeadDTO),
           name: detail.Caption,
           date: detail.Date,
-          styleUrl: serverImagePath("" + config.model + "/" + detail.Key + "/image_1.jpg"),
-          sideList: convertImageId2DTO([2, 3, 4]),
-          bottomList: convertImageId2DTO((function() {
+          styleUrl: serverImagePath("" + config.model + "/" + key + "/image_2.jpg"),
+          sideList: convertImageId2DTO([3, 4, 5]),
+          bottomList: detail.ImageCount > 5 ? convertImageId2DTO((function() {
             _results = [];
-            for (var _i = 5, _ref = detail.ImageCount; 5 <= _ref ? _i <= _ref : _i >= _ref; 5 <= _ref ? _i++ : _i--){ _results.push(_i); }
+            for (var _i = 6, _ref = detail.ImageCount; 6 <= _ref ? _i <= _ref : _i >= _ref; 6 <= _ref ? _i++ : _i--){ _results.push(_i); }
             return _results;
-          }).apply(this)),
+          }).apply(this)) : void 0,
           modelDetail: detail.Description,
           talk: detail.Talk,
           protalk: detail.Comment,

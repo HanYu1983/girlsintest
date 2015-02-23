@@ -57,7 +57,6 @@ class window.app.page.NewsController extends vic.mvc.Controller
 		done = (model) ->
 			callback model
 			
-			
 		host = window.location.host
 		pathname = window.location.pathname.split('/').slice(1, window.location.pathname.split('/').length-1).join('/')
 		configPath = "package/config.json"

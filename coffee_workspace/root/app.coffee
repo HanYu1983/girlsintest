@@ -11,6 +11,7 @@ CloseablePageList = [PageHome, PageCelebrity, PageModels, PageModelsList, PageEv
 
 class window.app.Main
 	constructor: (@mvcConfig)->
+	
 		@coll_pages = {}
 		#頁面的container	
 		@mc_pageContainer = $ '#mc_pageContainer'
@@ -254,5 +255,18 @@ class window.app.Main
 				'yellow'
 			when 'BBB'
 				'red'
+				
+	checkHot: ( timestr ) ->
+		timestr = timestr.split '/'
+		nowUnixTime = app.tool.getUnixTime()
+		unixTime = app.tool.getUnixTimeByYMD timestr[0], timestr[1], timestr[2]
+		difftime = nowUnixTime - unixTime
+		if difftime < 60 * 60 * 24 * 1
+			'new'
+		else
+			'old'
+			
+	unixtimeToYMD: ( unixtime ) ->
+		app.tool.getFullDay( unixtime )
 		
 new window.app.Main app.config.mvcConfig 

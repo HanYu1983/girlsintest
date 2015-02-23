@@ -28,34 +28,22 @@
       var self;
       self = this;
       this.mc_sideContainer.delegate('img', 'click', function() {
-        return {
+        return self.event.trigger('onImgClick', {
           id: this.id,
           key: self.dataDTO.key
-        };
-      });
-      self.event.trigger('onImgClick', {
-        id: this.id,
-        key: self.dataDTO.key
+        });
       });
       this.mc_bottomContainer.delegate('img', 'click', function() {
-        return {
+        return self.event.trigger('onImgClick', {
           id: this.id,
           key: self.dataDTO.key
-        };
-      });
-      self.event.trigger('onImgClick', {
-        id: this.id,
-        key: self.dataDTO.key
+        });
       });
       this.mc_historyContainer.delegate('img', 'click', function() {
-        return {
+        return self.event.trigger('onImgHistoryClick', {
           id: this.id,
           key: self.dataDTO.key
-        };
-      });
-      self.event.trigger('onImgHistoryClick', {
-        id: this.id,
-        key: self.dataDTO.key
+        });
       });
       this.btn_more.click(function() {
         return self.event.trigger('onBtnMoreClick');

@@ -19,20 +19,14 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 	addListener: ->
 		self = this
 		@mc_sideContainer.delegate 'img', 'click', -> 
-				id:this.id 
-				key:self.dataDTO.key
 			self.event.trigger 'onImgClick', 
 				id:this.id
 				key:self.dataDTO.key
 		@mc_bottomContainer.delegate 'img', 'click', -> 
-				id:this.id 
-				key:self.dataDTO.key
 			self.event.trigger 'onImgClick', 
 				id:this.id
 				key:self.dataDTO.key
 		@mc_historyContainer.delegate 'img', 'click', -> 
-				id:this.id 
-				key:self.dataDTO.key
 			self.event.trigger 'onImgHistoryClick', 
 				id:this.id
 				key:self.dataDTO.key

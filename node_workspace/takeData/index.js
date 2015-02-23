@@ -73,6 +73,15 @@ function adjustPhotoOrderAndMark(photos){
   return photos
 }
 
+function formatModel(model){
+  var ret = JSON.parse(JSON.stringify(model)) //copy
+  var date = new Date(ret.DateUnix* 1000)
+  ret.Date = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')
+  delete ret.DateUnix
+  delete ret.Key
+  return ret
+}
+
 function writeModel(modelPhotoPair){
   return function(callback){
     var model = modelPhotoPair[0]
@@ -83,7 +92,8 @@ function writeModel(modelPhotoPair){
     
     function writeConfig(path){
       return function(callback){
-        fs.writeFile(path, JSON.stringify(model), 'utf8', function(err) {
+        var formated = formatModel(model)
+        fs.writeFile(path, JSON.stringify(formated), 'utf8', function(err) {
           callback(err)
         });
       }

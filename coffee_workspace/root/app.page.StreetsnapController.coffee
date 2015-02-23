@@ -27,6 +27,12 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		
 	applyTemplate: ([key, modelType], callback)->
 		
+		configKey = 
+			if modelType is 'models'
+				'model'
+			else
+				'street'
+				
 		serverImagePath = (path) ->
 			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
 			return filepath path
@@ -39,12 +45,12 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			return fetchJSON(configPath)
 			
 		fetchModelDetail = (config) ->
-			path = "#{config.model}/#{key}/config.json"
+			path = "#{config[configKey]}/#{key}/config.json"
 			return fetchJSON path
 			
 		fetchModelList = (config) ->
 			promise = $.Deferred()
-			fetchJSON(config.model)
+			fetchJSON(config[configKey])
 				.done (data) ->
 					if data.Success
 						promise.resolve (modelKey for modelKey in data.Info when modelKey isnt 'config.json')
@@ -60,16 +66,16 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		done = (config, detail, list) ->
 			convertHeadDTO = (key) ->
 				id: key
-				url: serverImagePath "#{config.model}/#{key}/image_1.jpg"
+				url: serverImagePath "#{config[configKey]}/#{key}/image_1.jpg"
 			
 			convertImageId2DTO = (ids) ->
-				({id: key, url: url} for url in (serverImagePath "#{config.model}/#{key}/image_#{id}.jpg" for id in ids))
+				({id: key, url: url} for url in (serverImagePath "#{config[configKey]}/#{key}/image_#{id}.jpg" for id in ids))
 			
 			dto = 
 				historyList: _.map list, convertHeadDTO
 				name: detail.Caption
 				date: detail.Date
-				styleUrl: serverImagePath "#{config.model}/#{key}/image_2.jpg"
+				styleUrl: serverImagePath "#{config[configKey]}/#{key}/image_2.jpg"
 				sideList: convertImageId2DTO [3..5]
 				bottomList: convertImageId2DTO([6..detail.ImageCount]) if detail.ImageCount > 5
 				modelDetail: detail.Description

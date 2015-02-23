@@ -59,8 +59,9 @@
     };
 
     StreetsnapController.prototype.applyTemplate = function(_arg, callback) {
-      var configPath, done, fetchAllModelKeyAndModelDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, key, modelType, serverImagePath;
+      var configKey, configPath, done, fetchAllModelKeyAndModelDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, key, modelType, serverImagePath;
       key = _arg[0], modelType = _arg[1];
+      configKey = modelType === 'models' ? 'model' : 'street';
       serverImagePath = function(path) {
         var filepath;
         filepath = app.tool.serverapi.filepath("http://" + window.location.host);
@@ -78,13 +79,13 @@
       };
       fetchModelDetail = function(config) {
         var path;
-        path = "" + config.model + "/" + key + "/config.json";
+        path = "" + config[configKey] + "/" + key + "/config.json";
         return fetchJSON(path);
       };
       fetchModelList = function(config) {
         var promise;
         promise = $.Deferred();
-        fetchJSON(config.model).done(function(data) {
+        fetchJSON(config[configKey]).done(function(data) {
           var modelKey;
           if (data.Success) {
             return promise.resolve((function() {
@@ -115,7 +116,7 @@
         convertHeadDTO = function(key) {
           return {
             id: key,
-            url: serverImagePath("" + config.model + "/" + key + "/image_1.jpg")
+            url: serverImagePath("" + config[configKey] + "/" + key + "/image_1.jpg")
           };
         };
         convertImageId2DTO = function(ids) {
@@ -125,7 +126,7 @@
             _results1 = [];
             for (_j = 0, _len = ids.length; _j < _len; _j++) {
               id = ids[_j];
-              _results1.push(serverImagePath("" + config.model + "/" + key + "/image_" + id + ".jpg"));
+              _results1.push(serverImagePath("" + config[configKey] + "/" + key + "/image_" + id + ".jpg"));
             }
             return _results1;
           })();
@@ -143,7 +144,7 @@
           historyList: _.map(list, convertHeadDTO),
           name: detail.Caption,
           date: detail.Date,
-          styleUrl: serverImagePath("" + config.model + "/" + key + "/image_2.jpg"),
+          styleUrl: serverImagePath("" + config[configKey] + "/" + key + "/image_2.jpg"),
           sideList: convertImageId2DTO([3, 4, 5]),
           bottomList: detail.ImageCount > 5 ? convertImageId2DTO((function() {
             _results = [];

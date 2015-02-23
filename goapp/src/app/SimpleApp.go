@@ -15,6 +15,7 @@ type SimpleApp struct{
 	UserDAO UserDAO
 	StreetModelDAO StreetModelDAO
 	PhotoDAO PhotoDAO
+  SimpleBrowserCacheManager SimpleBrowserCacheManager
 }
 
 func (app *SimpleApp) Init(){
@@ -44,6 +45,10 @@ func (app *SimpleApp) GetCookieManager() tool.ICookieManager{
 }
 
 func (app *SimpleApp) GetFBManager() IFBManager{
-    mgr := FBManagerWithGraphAPI(GraphApi)
-    return &mgr
+  mgr := FBManagerWithGraphAPI(GraphApi)
+  return &mgr
+}
+
+func (app *SimpleApp) GetBrowserCacheManager() IBrowserCacheManager{
+  return &app.SimpleBrowserCacheManager
 }

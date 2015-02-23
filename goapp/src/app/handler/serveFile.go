@@ -1,6 +1,7 @@
 package handler
 
 import (
+  "app"
   "lib/tool"
   "lib/assert"
   "fmt"
@@ -16,12 +17,10 @@ func ServeFile(sys tool.ISystem) interface{}{
   
   filePath := r.Form["FilePath"][0]
   
-  /*
-  IsMatchCache := tool.UseETag( fmt.Sprintf("ServeFile2:%s", filePath) )
-  if IsMatchCache( w, r ) {
+  cacheMgr := app.GetApp().GetBrowserCacheManager()
+  if cacheMgr.HandleCacheAndShouldReturn(sys) {
     return tool.CustomView
   }
-  */
   
   file, err := tool.GetFile(filePath)
   assert.IfError(err)

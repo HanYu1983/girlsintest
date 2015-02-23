@@ -24,6 +24,7 @@ func init() {
 		"UpdatePhotoWithStreetModel": handler.UpdatePhotoWithStreetModel,
     
     "ServeFile": handler.ServeFile,
+    "RefreshCache": handler.RefreshCache,
 	}
 	testActions := tool.ActionMap{
 		"TestShowImage": test.TestShowImage,

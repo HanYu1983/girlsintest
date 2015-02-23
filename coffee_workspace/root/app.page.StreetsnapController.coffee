@@ -63,7 +63,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				url: serverImagePath "#{config.model}/#{key}/image_1.jpg"
 			
 			convertImageId2DTO = (ids) ->
-				({id: detail.Key, url: url} for url in (serverImagePath "#{config.model}/#{key}/image_#{id}.jpg" for id in ids))
+				({id: key, url: url} for url in (serverImagePath "#{config.model}/#{key}/image_#{id}.jpg" for id in ids))
 			
 			dto = 
 				historyList: _.map list, convertHeadDTO
@@ -76,7 +76,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				talk: detail.Talk
 				protalk: detail.Comment
 				modelKey: detail.ModelKey
-				key: detail.Key
+				key: key
 			callback dto
 		
 		configPath = "package/config.json"

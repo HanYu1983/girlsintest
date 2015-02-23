@@ -133,7 +133,7 @@
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             url = _ref[_i];
             _results.push({
-              id: detail.Key,
+              id: key,
               url: url
             });
           }
@@ -154,7 +154,7 @@
           talk: detail.Talk,
           protalk: detail.Comment,
           modelKey: detail.ModelKey,
-          key: detail.Key
+          key: key
         };
         return callback(dto);
       };

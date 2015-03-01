@@ -11,12 +11,17 @@
     }
 
     StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
-      var configKey, configPath, done, fetchDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, filterTag, modelType, searchKey, serverImagePath;
+      var configKey, configPath, done, fetchDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, filterTag, modelType, searchKey, serverImagePath, serverImagePath100;
       searchKey = _arg[0], modelType = _arg[1];
       configKey = modelType === 'models' ? 'model' : 'street';
       serverImagePath = function(path) {
         var filepath;
         filepath = app.tool.serverapi.filepath("http://" + window.location.host);
+        return filepath(path);
+      };
+      serverImagePath100 = function(path) {
+        var filepath;
+        filepath = app.tool.serverapi.filepathWithSize("http://" + window.location.host, 100, 100);
         return filepath(path);
       };
       fetchJSON = function(configPath) {
@@ -102,9 +107,9 @@
             date: detail.Date,
             brand: detail.Brand,
             imgStylePath: serverImagePath("" + config[configKey] + "/" + model + "/image_2.jpg"),
-            imgSideAPath: serverImagePath("" + config[configKey] + "/" + model + "/image_3.jpg"),
-            imgSideBPath: serverImagePath("" + config[configKey] + "/" + model + "/image_4.jpg"),
-            imgSideCPath: serverImagePath("" + config[configKey] + "/" + model + "/image_5.jpg")
+            imgSideAPath: serverImagePath100("" + config[configKey] + "/" + model + "/image_3.jpg"),
+            imgSideBPath: serverImagePath100("" + config[configKey] + "/" + model + "/image_4.jpg"),
+            imgSideCPath: serverImagePath100("" + config[configKey] + "/" + model + "/image_5.jpg")
           };
         };
         dto = {

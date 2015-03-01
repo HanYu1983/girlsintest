@@ -37,6 +37,10 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
 			return filepath path
 			
+		serverImagePath100 = (path) ->
+			filepath = app.tool.serverapi.filepathWithSize "http://#{window.location.host}", 100, 100
+			return filepath path
+			
 		fetchJSON = (configPath) ->
 			query = app.tool.serverapi.query "http://#{window.location.host}"
 			return query app.tool.serverapi.ServeFile, FilePath: configPath
@@ -69,14 +73,18 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				url: serverImagePath "#{config[configKey]}/#{key}/image_1.jpg"
 			
 			convertImageId2DTO = (ids) ->
-				({id: key, url: url} for url in (serverImagePath "#{config[configKey]}/#{key}/image_#{id}.jpg" for id in ids))
+				({id: basic, url: serverImagePath basic} for basic in ("#{config[configKey]}/#{key}/image_#{id}.jpg" for id in ids))
+			
+			convertImageId2DTOForSize = (ids) ->
+				({id: basic, url: serverImagePath100 basic} for basic in ("#{config[configKey]}/#{key}/image_#{id}.jpg" for id in ids))
+			
 			
 			dto = 
 				historyList: _.map list, convertHeadDTO
 				name: detail.Caption
 				date: detail.Date
 				styleUrl: serverImagePath "#{config[configKey]}/#{key}/image_2.jpg"
-				sideList: convertImageId2DTO [3..5]
+				sideList: convertImageId2DTOForSize [3..5]
 				bottomList: convertImageId2DTO([6..detail.ImageCount]) if detail.ImageCount > 5
 				modelDetail: detail.Description
 				talk: detail.Talk

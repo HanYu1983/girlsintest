@@ -59,12 +59,17 @@
     };
 
     StreetsnapController.prototype.applyTemplate = function(_arg, callback) {
-      var configKey, configPath, done, fetchAllModelKeyAndModelDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, key, modelType, serverImagePath;
+      var configKey, configPath, done, fetchAllModelKeyAndModelDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, key, modelType, serverImagePath, serverImagePath100;
       key = _arg[0], modelType = _arg[1];
       configKey = modelType === 'models' ? 'model' : 'street';
       serverImagePath = function(path) {
         var filepath;
         filepath = app.tool.serverapi.filepath("http://" + window.location.host);
+        return filepath(path);
+      };
+      serverImagePath100 = function(path) {
+        var filepath;
+        filepath = app.tool.serverapi.filepathWithSize("http://" + window.location.host, 100, 100);
         return filepath(path);
       };
       fetchJSON = function(configPath) {
@@ -112,7 +117,7 @@
         return $.when(config, fetchModelDetail(config), fetchModelList(config));
       };
       done = function(config, detail, list) {
-        var convertHeadDTO, convertImageId2DTO, dto, _i, _ref, _results;
+        var convertHeadDTO, convertImageId2DTO, convertImageId2DTOForSize, dto, _i, _ref, _results;
         convertHeadDTO = function(key) {
           return {
             id: key,
@@ -120,22 +125,43 @@
           };
         };
         convertImageId2DTO = function(ids) {
-          var id, url, _i, _len, _ref, _results;
+          var basic, id, _i, _len, _ref, _results;
           _ref = (function() {
             var _j, _len, _results1;
             _results1 = [];
             for (_j = 0, _len = ids.length; _j < _len; _j++) {
               id = ids[_j];
-              _results1.push(serverImagePath("" + config[configKey] + "/" + key + "/image_" + id + ".jpg"));
+              _results1.push("" + config[configKey] + "/" + key + "/image_" + id + ".jpg");
             }
             return _results1;
           })();
           _results = [];
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            url = _ref[_i];
+            basic = _ref[_i];
             _results.push({
-              id: key,
-              url: url
+              id: basic,
+              url: serverImagePath(basic)
+            });
+          }
+          return _results;
+        };
+        convertImageId2DTOForSize = function(ids) {
+          var basic, id, _i, _len, _ref, _results;
+          _ref = (function() {
+            var _j, _len, _results1;
+            _results1 = [];
+            for (_j = 0, _len = ids.length; _j < _len; _j++) {
+              id = ids[_j];
+              _results1.push("" + config[configKey] + "/" + key + "/image_" + id + ".jpg");
+            }
+            return _results1;
+          })();
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            basic = _ref[_i];
+            _results.push({
+              id: basic,
+              url: serverImagePath100(basic)
             });
           }
           return _results;
@@ -145,7 +171,7 @@
           name: detail.Caption,
           date: detail.Date,
           styleUrl: serverImagePath("" + config[configKey] + "/" + key + "/image_2.jpg"),
-          sideList: convertImageId2DTO([3, 4, 5]),
+          sideList: convertImageId2DTOForSize([3, 4, 5]),
           bottomList: detail.ImageCount > 5 ? convertImageId2DTO((function() {
             _results = [];
             for (var _i = 6, _ref = detail.ImageCount; 6 <= _ref ? _i <= _ref : _i >= _ref; 6 <= _ref ? _i++ : _i--){ _results.push(_i); }

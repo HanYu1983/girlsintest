@@ -8,7 +8,26 @@ import (
   "path/filepath"
   "io/ioutil"
   "strings"
+  "github.com/nfnt/resize"
+  "image"
 )
+
+func filterResizeImage(sys tool.ISystem, img image.Image) image.Image {
+  ow, oh := img.Bounds().Max.X - img.Bounds().Min.X, img.Bounds().Max.Y - img.Bounds().Min.Y
+  r := sys.GetRequest()
+  hasWidth := len(r.Form["Width"]) > 0
+  if hasWidth {
+    ow = int(tool.Str2Int64(r.Form["Width"][0]))
+  }
+  hasHeight := len(r.Form["Height"]) > 0
+  if hasHeight {
+    oh = int(tool.Str2Int64(r.Form["Height"][0]))
+  }
+  if hasWidth || hasHeight {
+    img = resize.Resize(uint(ow), uint(oh), img, resize.Lanczos3)
+  }
+  return img
+}
 
 func ServeFile(sys tool.ISystem) interface{}{
   r := sys.GetRequest()
@@ -54,8 +73,15 @@ func ServeFile(sys tool.ISystem) interface{}{
     img, err := tool.File2Image(file, filetype)
     assert.IfError(err)
     
+    img = filterResizeImage( sys, img )
+    
     w.Header().Set("Content-Type", fmt.Sprintf("image/%s; charset=utf8", filetype))
-    tool.WritePng(w, img)
+    
+    if filetype == "jpg" || filetype == "jpeg" {
+      tool.WriteJpg(w, img)
+    }else{
+      tool.WritePng(w, img)
+    }
     return tool.CustomView
     
   case "json":

@@ -6,6 +6,7 @@ import (
 	"os"
 	"encoding/base64"
 	"image/png"
+  "image/jpeg"
 	"io"
 )
 
@@ -41,6 +42,13 @@ func DecodeBase64ToImage(b64 string) image.Image{
 
 func WritePng(writer io.Writer, img image.Image){
 	err := png.Encode(writer, img)
+	if err != nil {
+		panic(err.Error())
+	}
+}
+
+func WriteJpg(writer io.Writer, img image.Image){
+	err := jpeg.Encode(writer, img, nil)
 	if err != nil {
 		panic(err.Error())
 	}

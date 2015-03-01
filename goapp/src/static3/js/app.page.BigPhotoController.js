@@ -20,28 +20,15 @@
     };
 
     BigPhotoController.prototype.applyTemplate = function(_arg, callback) {
-      var belongKey, modelKey, query, repairBase64;
-      modelKey = _arg[0], belongKey = _arg[1];
-      repairBase64 = function(base64) {
-        return base64.replace('\r', '').replace('\n', '');
+      var modelKey, photoPath, serverImagePath;
+      modelKey = _arg[0], photoPath = _arg[1];
+      serverImagePath = function(path) {
+        var filepath;
+        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
+        return filepath(path);
       };
-      query = app.tool.serverapi.query("http://" + window.location.host);
-      return query(app.tool.serverapi.QueryPhotoWithStreetModel, {
-        StreetModelKey: modelKey,
-        Belong: belongKey
-      }).done(function(photoData) {
-        if (photoData.Info.length > 0) {
-          return callback({
-            url: app.tool.getFullBase64str(repairBase64(photoData.Info[0].Base64Str))
-          });
-        } else {
-          alert('data error, no picture');
-          return callback({
-            url: ''
-          });
-        }
-      }).fail(function(err) {
-        return callback(err);
+      return callback({
+        url: serverImagePath(photoPath)
       });
     };
 

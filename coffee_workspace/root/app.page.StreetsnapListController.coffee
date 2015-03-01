@@ -11,6 +11,10 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
 			return filepath path
 			
+		serverImagePath100 = (path) ->
+			filepath = app.tool.serverapi.filepathWithSize "http://#{window.location.host}", 100, 100
+			return filepath path
+			
 		fetchJSON = (configPath) ->
 			query = app.tool.serverapi.query "http://#{window.location.host}"
 			return query app.tool.serverapi.ServeFile, FilePath: configPath
@@ -58,9 +62,9 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 				date: detail.Date
 				brand: detail.Brand
 				imgStylePath: serverImagePath "#{config[configKey]}/#{model}/image_2.jpg"
-				imgSideAPath: serverImagePath "#{config[configKey]}/#{model}/image_3.jpg"
-				imgSideBPath: serverImagePath "#{config[configKey]}/#{model}/image_4.jpg"
-				imgSideCPath: serverImagePath "#{config[configKey]}/#{model}/image_5.jpg"
+				imgSideAPath: serverImagePath100 "#{config[configKey]}/#{model}/image_3.jpg"
+				imgSideBPath: serverImagePath100 "#{config[configKey]}/#{model}/image_4.jpg"
+				imgSideCPath: serverImagePath100 "#{config[configKey]}/#{model}/image_5.jpg"
 			dto =
 				searchWord:searchKey ? ""
 				streetsnapList: _.map models, convertDTO

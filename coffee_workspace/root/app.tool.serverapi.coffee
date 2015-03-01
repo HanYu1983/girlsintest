@@ -15,6 +15,9 @@ pkg.ServeFile = 'ServeFile'
 filepath = ( host ) -> (path) ->
 	return host+"/"+apipath+"?cmd=ServeFile&FilePath="+path
 	
+filepathWithSize = (host, w, h) -> (path) ->
+	return "#{host}/#{apipath}?cmd=ServeFile&FilePath=#{path}&Width=#{w}&Height=#{h}"
+	
 query = ( host ) -> ( cmd, data ) ->
 	data.cmd = cmd
 	promise = jQuery.Deferred()
@@ -41,3 +44,4 @@ querySignal = ( host ) -> (cmd, data) ->
 pkg.query = query
 pkg.querySignal = querySignal
 pkg.filepath = filepath
+pkg.filepathWithSize = filepathWithSize

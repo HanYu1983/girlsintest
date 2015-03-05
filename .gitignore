@@ -9,6 +9,7 @@ _test
 cljs_workspace/root/target
 node_modules
 components
+goapp/src/package
 
 # Architecture specific extensions/prefixes
 *.[568vq]

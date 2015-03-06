@@ -120,6 +120,7 @@
       };
       configPath = "package/config.json";
       return fetchPackageConfig(configPath).pipe(fetchModelList).pipe(fetchDetail).then(done, function(err) {
+        console.log(err);
         return alert(err);
       });
     };

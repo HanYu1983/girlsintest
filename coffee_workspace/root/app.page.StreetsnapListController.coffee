@@ -76,6 +76,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 			.pipe(fetchModelList)
 			.pipe(fetchDetail)
 			.then done, (err) ->
+				console.log err
 				alert err
 				
 			

@@ -36,11 +36,6 @@ func ServeFile(sys tool.ISystem) interface{}{
   
   filePath := r.Form["FilePath"][0]
   
-  cacheMgr := app.GetApp().GetBrowserCacheManager()
-  if cacheMgr.HandleCacheAndShouldReturn(sys) {
-    return tool.CustomView
-  }
-  
   file, err := tool.GetFile(filePath)
   assert.IfError(err)
   
@@ -66,6 +61,12 @@ func ServeFile(sys tool.ISystem) interface{}{
   
   switch filetype {
   case "png", "jpg", "jpeg":
+    
+    cacheMgr := app.GetApp().GetBrowserCacheManager()
+    if cacheMgr.HandleCacheAndShouldReturn(sys) {
+      return tool.CustomView
+    }
+    
     file, err := tool.GetFile(filePath)
     defer file.Close()
     assert.IfError(err)

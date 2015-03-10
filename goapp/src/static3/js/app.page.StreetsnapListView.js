@@ -34,7 +34,7 @@
           return _this.event.trigger('onBtnReturnClick');
         };
       })(this));
-      return this.mc_modelContainer.delegate('div', 'click', function() {
+      return this.mc_modelContainer.delegate('div[modelFrame]', 'click', function() {
         if (this.id === '' || this.id === 'mc_modelTitle') {
           return;
         }

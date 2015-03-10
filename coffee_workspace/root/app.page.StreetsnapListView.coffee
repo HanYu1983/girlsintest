@@ -17,8 +17,8 @@ class window.app.page.StreetsnapListView extends vic.mvc.View
 				
 		@btn_return.click =>
 			@event.trigger 'onBtnReturnClick'
-				
-		@mc_modelContainer.delegate 'div', 'click', ->
+		
+		@mc_modelContainer.delegate 'div[modelFrame]', 'click', ->
 			return if this.id == '' or this.id == 'mc_modelTitle'
 			self.event.trigger 'onBtnModelClick', id:this.id
 			

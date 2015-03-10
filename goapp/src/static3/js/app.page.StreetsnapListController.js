@@ -13,7 +13,7 @@
     StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
       var configKey, configPath, done, fetchDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, filterTag, modelType, searchKey, serverImagePath, serverImagePath100;
       searchKey = _arg[0], modelType = _arg[1];
-      configKey = modelType === 'models' ? 'model' : 'street';
+      configKey = modelType === 'models' ? 'model' : modelType === 'streetsnap' ? 'street' : 'product';
       serverImagePath = function(path) {
         var filepath;
         filepath = app.tool.serverapi.filepath("http://" + window.location.host);

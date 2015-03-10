@@ -5,9 +5,21 @@ PageModelsList = 'modelsList'
 PageEvent = 'event'
 PageStreetsnap = 'streetsnap'
 PageStreetsnapList = 'streetsnapList'
+PageProduct = 'product'
+PageProductList = 'productList'
 PageNews = 'news'
 PageBigPhoto = 'bigPhoto'
-CloseablePageList = [PageHome, PageCelebrity, PageModels, PageModelsList, PageEvent ,PageStreetsnap ,PageStreetsnapList ,PageNews ]
+CloseablePageList = [
+	PageHome, 
+	PageCelebrity, 
+	PageModels, 
+	PageModelsList, 
+	PageEvent ,
+	PageStreetsnap ,
+	PageStreetsnapList ,
+	PageProduct ,
+	PageProductList ,
+	PageNews ]
 
 class window.app.Main
 	constructor: (@mvcConfig)->
@@ -40,6 +52,8 @@ class window.app.Main
 					alert '敬請期待'
 				when 'btn_nav_streetSnap'
 					@router.navigate 'streetsnapList', trigger:true
+				when 'btn_nav_product'
+					@router.navigate 'productList', trigger:true
 				when 'btn_nav_news'
 					@router.navigate 'news', trigger:true
 					
@@ -53,6 +67,10 @@ class window.app.Main
 				'models/id=:id':'models'
 				'modelsList':'modelsList'
 				'modelsList/search=:search':'modelsList'
+				'product':'product'
+				'product/id=:id':'product'
+				'productList':'productList'
+				'productList/search=:search':'productList'
 				'celebrity':'celebrity'
 				'event':'event'
 				'news':'news'
@@ -72,6 +90,14 @@ class window.app.Main
 				
 			modelsList: ( search ) =>
 				@openPage PageModelsList, [ search, 'models']
+				@header.showModels()
+				
+			product: ( id ) =>
+				@openPage PageProduct, [ id, 'product' ]	
+				@header.showModels()
+				
+			productList: ( search ) =>
+				@openPage PageProductList, [ search, 'product']
 				@header.showModels()
 				
 			celebrity: =>
@@ -122,6 +148,14 @@ class window.app.Main
 				controller.event.on 'onBtnSearchClick', => @onModelsBtnSearchClick arguments...
 				controller.event.on 'onBtnModelClick', => @onModelsBtnModelClick arguments...
 				controller.event.on 'onBtnReturnClick', => @onModelsBtnReturnClick arguments...
+			when PageProduct
+				controller.event.on 'onImgHistoryClick', => @onProductImgHistoryClick arguments...
+				controller.event.on 'onImgClick', => @onProductImgClick arguments...
+				controller.event.on 'onBtnMoreClick', => @onProductBtnMoreClick arguments...
+			when PageProductList
+				controller.event.on 'onBtnSearchClick', => @onProductBtnSearchClick arguments...
+				controller.event.on 'onBtnModelClick', => @onProductBtnModelClick arguments...
+				controller.event.on 'onBtnReturnClick', => @onProductBtnReturnClick arguments...
 			when PageBigPhoto
 				controller.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
 			when PageNews
@@ -212,15 +246,6 @@ class window.app.Main
 				console.log 'success'
 			error: ->
 				console.log 'error'
-			
-	onModelsImgHistoryClick: ( evt, {id})->
-		@router.navigate "models/id=#{id}", trigger: true
-		
-	onModelsImgClick: (evt, {id, key})->
-		@openPopup PageBigPhoto, [key, id]
-		
-	onModelsBtnMoreClick: ( evt ) ->
-		@router.navigate 'modelsList', trigger: true
 		
 	onBtnCloseClick: ->
 		@closePopup PageBigPhoto
@@ -239,6 +264,16 @@ class window.app.Main
 		
 	onBtnReturnClick: ( evt, params ) ->
 		@router.navigate 'streetsnapList', trigger:true
+	 
+	# ----- model page ----- #
+	onModelsImgHistoryClick: ( evt, {id})->
+		@router.navigate "models/id=#{id}", trigger: true
+		
+	onModelsImgClick: (evt, {id, key})->
+		@openPopup PageBigPhoto, [key, id]
+		
+	onModelsBtnMoreClick: ( evt ) ->
+		@router.navigate 'modelsList', trigger: true
 		
 	onModelsBtnSearchClick: ( evt, params ) ->
 		@router.navigate 'modelsList/search=' + params.search, trigger: true
@@ -249,13 +284,35 @@ class window.app.Main
 	onModelsBtnReturnClick: ( evt, params ) ->
 		@router.navigate 'modelsList', trigger: true
 		
+	# ----- product page ----- #
+	onProductImgHistoryClick: ( evt, {id})->
+		@router.navigate "product/id=#{id}", trigger: true
+		
+	onProductImgClick: (evt, {id, key})->
+		@openPopup PageBigPhoto, [key, id]
+		
+	onProductBtnMoreClick: ( evt ) ->
+		@router.navigate 'productList', trigger: true
+		
+	onProductBtnSearchClick: ( evt, params ) ->
+		@router.navigate 'productList/search=' + params.search, trigger: true
+	
+	onProductBtnModelClick: ( evt, params ) ->
+		@router.navigate 'product/id=' + params.id, trigger: true
+		
+	onProductBtnReturnClick: ( evt, params ) ->
+		@router.navigate 'productList', trigger: true
+		
 	brandToColor: ( brand ) ->
+		hasBrand = brand.length > 0
+		return 'yellow' if hasBrand
+		###
 		switch brand
 			when 'AAA'
 				'yellow'
 			when 'BBB'
 				'red'
-				
+		###	
 	checkHot: ( timestr ) ->
 		timestr = timestr.split '/'
 		nowUnixTime = app.tool.getUnixTime()

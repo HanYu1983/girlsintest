@@ -30,8 +30,10 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		configKey = 
 			if modelType is 'models'
 				'model'
-			else
+			else if modelType is 'streetsnap'
 				'street'
+			else
+				'product'
 				
 		serverImagePath = (path) ->
 			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"

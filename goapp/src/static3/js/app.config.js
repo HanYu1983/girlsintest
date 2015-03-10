@@ -43,6 +43,16 @@
       view: window.app.page.StreetsnapView,
       controller: window.app.page.StreetsnapController
     },
+    productList: {
+      tmpl: $('#tmpl_streetsnap_list'),
+      view: window.app.page.StreetsnapListView,
+      controller: window.app.page.StreetsnapListController
+    },
+    product: {
+      tmpl: $('#tmpl_streetsnap'),
+      view: window.app.page.StreetsnapView,
+      controller: window.app.page.StreetsnapController
+    },
     modelsList: {
       tmpl: $('#tmpl_streetsnap_list'),
       view: window.app.page.StreetsnapListView,

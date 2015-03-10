@@ -58,6 +58,10 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 			models = _.zip modelList, modelDetails
 			if searchKey?
 				models = _.filter models, filterTag(searchKey)
+			### 排序功能，後來可能會加在後台
+			models = _.sortBy models, ([model, detail]) -> new Date(detail.Date).getTime()
+			models.reverse()
+			###
 			convertDTO = ([model, detail]) ->
 				id: model
 				name: detail.Caption

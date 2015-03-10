@@ -98,6 +98,12 @@
         if (searchKey != null) {
           models = _.filter(models, filterTag(searchKey));
         }
+        models = _.sortBy(models, function(_arg1) {
+          var detail, model;
+          model = _arg1[0], detail = _arg1[1];
+          return new Date(detail.Date).getTime();
+        });
+        models.reverse();
         convertDTO = function(_arg1) {
           var detail, model;
           model = _arg1[0], detail = _arg1[1];

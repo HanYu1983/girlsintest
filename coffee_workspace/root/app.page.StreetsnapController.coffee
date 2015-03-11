@@ -59,7 +59,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				modelDetail: detail.Description
 				talk: detail.Talk
 				protalk: detail.Comment
-				modelKey: ''
+				modelKey: detail.ModelKey
 				key: key
 			callback dto
 			

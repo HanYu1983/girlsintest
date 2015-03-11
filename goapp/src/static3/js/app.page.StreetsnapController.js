@@ -133,7 +133,7 @@
           modelDetail: detail.Description,
           talk: detail.Talk,
           protalk: detail.Comment,
-          modelKey: '',
+          modelKey: detail.ModelKey,
           key: key
         };
         return callback(dto);

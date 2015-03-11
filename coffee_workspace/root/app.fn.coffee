@@ -51,17 +51,18 @@ getAllModelBy = (configPath) -> (type) ->
 			promise.reject err
 	return promise
 	
-memorizeGetAllModel = (cache) -> (configPath) -> (type) ->
+memorizeGetAllModel = (cache, fn) -> (configPath) -> (type) ->
 	cacheKey = "#{configPath}/#{type}"
 	promise = $.Deferred()
 	if cache[cacheKey]?
 		setTimeout ()->
-			promise.resolve cache[cacheKey]
+			promise.resolve.apply promise, cache[cacheKey]
 		,0
 	else
 		getAllModelBy( configPath ) ( type )
-			.done (ret) ->
-				promise.resolve ret
+			.done () ->
+				cache[cacheKey] = arguments
+				promise.resolve.apply promise, arguments
 			.fail (err) ->
 				promise.reject err
 	return promise
@@ -69,3 +70,4 @@ memorizeGetAllModel = (cache) -> (configPath) -> (type) ->
 pkg.getAllModelBy = getAllModelBy
 pkg.serverImagePath = serverImagePath
 pkg.serverImagePath100 = serverImagePath100
+pkg.memorizeGetAllModel = memorizeGetAllModel

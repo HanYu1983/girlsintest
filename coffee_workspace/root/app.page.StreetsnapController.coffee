@@ -64,7 +64,11 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			callback dto
 			
 		configPath = "package/config.json"
-		app.fn.getAllModelBy( configPath ) configKey
+		
+		app.cache ?= {}
+		getAllModel = app.fn.memorizeGetAllModel( app.cache )
+		
+		getAllModel( configPath ) configKey
 			.done done
 			.fail (err) ->
 				alert err

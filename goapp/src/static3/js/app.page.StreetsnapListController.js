@@ -11,7 +11,7 @@
     }
 
     StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
-      var configKey, configPath, done, filterTag, modelType, searchKey;
+      var configKey, configPath, done, filterTag, getAllModel, modelType, searchKey;
       searchKey = _arg[0], modelType = _arg[1];
       configKey = modelType === 'models' ? 'model' : modelType === 'streetsnap' ? 'street' : 'product';
       filterTag = function(tag) {
@@ -54,7 +54,11 @@
         return callback(dto);
       };
       configPath = "package/config.json";
-      return app.fn.getAllModelBy(configPath)(configKey).done(done).fail(function(err) {
+      if (app.cache == null) {
+        app.cache = {};
+      }
+      getAllModel = app.fn.memorizeGetAllModel(app.cache);
+      return getAllModel(configPath)(configKey).done(done).fail(function(err) {
         return alert(err);
       });
     };

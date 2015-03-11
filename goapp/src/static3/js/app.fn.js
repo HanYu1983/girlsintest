@@ -97,7 +97,7 @@
     };
   };
 
-  memorizeGetAllModel = function(cache) {
+  memorizeGetAllModel = function(cache, fn) {
     return function(configPath) {
       return function(type) {
         var cacheKey, promise;
@@ -105,11 +105,12 @@
         promise = $.Deferred();
         if (cache[cacheKey] != null) {
           setTimeout(function() {
-            return promise.resolve(cache[cacheKey]);
+            return promise.resolve.apply(promise, cache[cacheKey]);
           }, 0);
         } else {
-          getAllModelBy(configPath)(type).done(function(ret) {
-            return promise.resolve(ret);
+          getAllModelBy(configPath)(type).done(function() {
+            cache[cacheKey] = arguments;
+            return promise.resolve.apply(promise, arguments);
           }).fail(function(err) {
             return promise.reject(err);
           });
@@ -124,5 +125,7 @@
   pkg.serverImagePath = serverImagePath;
 
   pkg.serverImagePath100 = serverImagePath100;
+
+  pkg.memorizeGetAllModel = memorizeGetAllModel;
 
 }).call(this);

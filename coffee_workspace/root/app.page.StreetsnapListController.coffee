@@ -13,7 +13,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 			pattern = ///.?#{tag}.?///
 			return detail.Tag.match pattern
 		
-		done = (config, models) ->
+		done = (config, models) ->	
 			if searchKey?
 				models = _.filter models, filterTag(searchKey)
 			
@@ -35,7 +35,11 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 			callback dto
 			
 		configPath = "package/config.json"
-		app.fn.getAllModelBy( configPath ) configKey
+		
+		app.cache ?= {}
+		getAllModel = app.fn.memorizeGetAllModel( app.cache )
+		
+		getAllModel( configPath ) (configKey)
 			.done done
 			.fail (err) ->
 				alert err

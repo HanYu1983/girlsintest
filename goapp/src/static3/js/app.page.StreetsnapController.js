@@ -59,74 +59,27 @@
     };
 
     StreetsnapController.prototype.applyTemplate = function(_arg, callback) {
-      var configKey, configPath, done, fetchAllModelKeyAndModelDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, key, modelType, serverImagePath, serverImagePath100;
+      var configKey, configPath, done, key, modelType;
       key = _arg[0], modelType = _arg[1];
       configKey = modelType === 'models' ? 'model' : modelType === 'streetsnap' ? 'street' : 'product';
-      serverImagePath = function(path) {
-        var filepath;
-        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
-        return filepath(path);
-      };
-      serverImagePath100 = function(path) {
-        var filepath;
-        filepath = app.tool.serverapi.filepathWithSize("http://" + window.location.host, 100, 100);
-        return filepath(path);
-      };
-      fetchJSON = function(configPath) {
-        var query;
-        query = app.tool.serverapi.query("http://" + window.location.host);
-        return query(app.tool.serverapi.ServeFile, {
-          FilePath: configPath
-        });
-      };
-      fetchPackageConfig = function(configPath) {
-        return fetchJSON(configPath);
-      };
-      fetchModelDetail = function(config) {
-        var path;
-        path = "" + config[configKey] + "/" + key + "/config.json";
-        return fetchJSON(path);
-      };
-      fetchModelList = function(config) {
-        var promise;
-        promise = $.Deferred();
-        fetchJSON(config[configKey]).done(function(data) {
-          var modelKey;
-          if (data.Success) {
-            return promise.resolve((function() {
-              var _i, _len, _ref, _results;
-              _ref = data.Info;
-              _results = [];
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                modelKey = _ref[_i];
-                if (modelKey !== 'config.json') {
-                  _results.push(modelKey);
-                }
-              }
-              return _results;
-            })());
-          } else {
-            return promise.reject(data.Info);
-          }
-        }).fail(function(err) {
-          return promise.reject(err);
-        });
-        return promise;
-      };
-      fetchAllModelKeyAndModelDetail = function(config) {
-        return $.when(config, fetchModelDetail(config), fetchModelList(config));
-      };
-      done = function(config, detail, list) {
-        var convertHeadDTO, convertImageId2DTO, convertImageId2DTOForSize, dto, _i, _ref, _results;
-        convertHeadDTO = function(key) {
+      done = function(config, models) {
+        var convertHeadDTO, convertImageId2DTO, convertImageId2DTOForSize, detail, dto, _i, _ref, _ref1, _results;
+        _ref = _.filter(models, function(_arg1) {
+          var detail, modelKey;
+          modelKey = _arg1[0], detail = _arg1[1];
+          return modelKey === key;
+        })[0], key = _ref[0], detail = _ref[1];
+        convertHeadDTO = function(_arg1) {
+          var detail, key;
+          key = _arg1[0], detail = _arg1[1];
           return {
             id: key,
-            url: serverImagePath("" + config[configKey] + "/" + key + "/image_1.jpg")
+            url: app.fn.serverImagePath("" + config[configKey] + "/" + key + "/image_1.jpg")
           };
         };
         convertImageId2DTO = function(ids) {
-          var basic, id, _i, _len, _ref, _results;
-          _ref = (function() {
+          var basic, id, _i, _len, _ref1, _results;
+          _ref1 = (function() {
             var _j, _len, _results1;
             _results1 = [];
             for (_j = 0, _len = ids.length; _j < _len; _j++) {
@@ -136,18 +89,18 @@
             return _results1;
           })();
           _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            basic = _ref[_i];
+          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+            basic = _ref1[_i];
             _results.push({
               id: basic,
-              url: serverImagePath(basic)
+              url: app.fn.serverImagePath(basic)
             });
           }
           return _results;
         };
         convertImageId2DTOForSize = function(ids) {
-          var basic, id, _i, _len, _ref, _results;
-          _ref = (function() {
+          var basic, id, _i, _len, _ref1, _results;
+          _ref1 = (function() {
             var _j, _len, _results1;
             _results1 = [];
             for (_j = 0, _len = ids.length; _j < _len; _j++) {
@@ -157,36 +110,36 @@
             return _results1;
           })();
           _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            basic = _ref[_i];
+          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+            basic = _ref1[_i];
             _results.push({
               id: basic,
-              url: serverImagePath100(basic)
+              url: app.fn.serverImagePath100(basic)
             });
           }
           return _results;
         };
         dto = {
-          historyList: _.map(list, convertHeadDTO),
+          historyList: _.map(models, convertHeadDTO),
           name: detail.Caption,
           date: detail.Date,
-          styleUrl: serverImagePath("" + config[configKey] + "/" + key + "/image_2.jpg"),
+          styleUrl: app.fn.serverImagePath("" + config[configKey] + "/" + key + "/image_2.jpg"),
           sideList: convertImageId2DTOForSize([3, 4, 5]),
           bottomList: detail.ImageCount > 5 ? convertImageId2DTO((function() {
             _results = [];
-            for (var _i = 6, _ref = detail.ImageCount; 6 <= _ref ? _i <= _ref : _i >= _ref; 6 <= _ref ? _i++ : _i--){ _results.push(_i); }
+            for (var _i = 6, _ref1 = detail.ImageCount; 6 <= _ref1 ? _i <= _ref1 : _i >= _ref1; 6 <= _ref1 ? _i++ : _i--){ _results.push(_i); }
             return _results;
           }).apply(this)) : void 0,
           modelDetail: detail.Description,
           talk: detail.Talk,
           protalk: detail.Comment,
-          modelKey: detail.ModelKey,
+          modelKey: '',
           key: key
         };
         return callback(dto);
       };
       configPath = "package/config.json";
-      return fetchPackageConfig(configPath).pipe(fetchAllModelKeyAndModelDetail).then(done, function(err) {
+      return app.fn.getAllModelBy(configPath)(configKey).done(done).fail(function(err) {
         return alert(err);
       });
     };

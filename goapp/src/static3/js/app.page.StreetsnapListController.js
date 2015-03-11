@@ -11,79 +11,9 @@
     }
 
     StreetsnapListController.prototype.applyTemplate = function(_arg, callback) {
-      var configKey, configPath, done, fetchDetail, fetchJSON, fetchModelDetail, fetchModelList, fetchPackageConfig, filterTag, modelType, searchKey, serverImagePath, serverImagePath100;
+      var configKey, configPath, done, filterTag, modelType, searchKey;
       searchKey = _arg[0], modelType = _arg[1];
       configKey = modelType === 'models' ? 'model' : modelType === 'streetsnap' ? 'street' : 'product';
-      serverImagePath = function(path) {
-        var filepath;
-        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
-        return filepath(path);
-      };
-      serverImagePath100 = function(path) {
-        var filepath;
-        filepath = app.tool.serverapi.filepathWithSize("http://" + window.location.host, 100, 100);
-        return filepath(path);
-      };
-      fetchJSON = function(configPath) {
-        var query;
-        query = app.tool.serverapi.query("http://" + window.location.host);
-        return query(app.tool.serverapi.ServeFile, {
-          FilePath: configPath
-        });
-      };
-      fetchPackageConfig = function(configPath) {
-        return fetchJSON(configPath);
-      };
-      fetchModelList = function(config) {
-        var promise;
-        promise = $.Deferred();
-        fetchJSON(config[configKey]).done(function(data) {
-          var modelKey;
-          if (data.Success) {
-            return promise.resolve(config, (function() {
-              var _i, _len, _ref, _results;
-              _ref = data.Info;
-              _results = [];
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                modelKey = _ref[_i];
-                if (modelKey !== 'config.json') {
-                  _results.push(modelKey);
-                }
-              }
-              return _results;
-            })());
-          } else {
-            return promise.reject(data.Info);
-          }
-        }).fail(function(err) {
-          return promise.reject(err);
-        });
-        return promise;
-      };
-      fetchModelDetail = function(modelPath, modelKey) {
-        var path;
-        path = "" + modelPath + "/" + modelKey + "/config.json";
-        return fetchJSON(path);
-      };
-      fetchDetail = function(config, modelList) {
-        var ajaxs, modelKey, promise;
-        promise = $.Deferred();
-        ajaxs = (function() {
-          var _i, _len, _results;
-          _results = [];
-          for (_i = 0, _len = modelList.length; _i < _len; _i++) {
-            modelKey = modelList[_i];
-            _results.push(fetchModelDetail(config[configKey], modelKey));
-          }
-          return _results;
-        })();
-        $.when.apply($, ajaxs).done(function() {
-          return promise.resolve(config, modelList, arguments);
-        }).fail(function(err) {
-          return promise.reject(err);
-        });
-        return promise;
-      };
       filterTag = function(tag) {
         return function(_arg1) {
           var detail, model, pattern;
@@ -92,9 +22,8 @@
           return detail.Tag.match(pattern);
         };
       };
-      done = function(config, modelList, modelDetails) {
-        var convertDTO, dto, models;
-        models = _.zip(modelList, modelDetails);
+      done = function(config, models) {
+        var convertDTO, dto;
         if (searchKey != null) {
           models = _.filter(models, filterTag(searchKey));
         }
@@ -112,10 +41,10 @@
             name: detail.Caption,
             date: detail.Date,
             brand: detail.Brand,
-            imgStylePath: serverImagePath("" + config[configKey] + "/" + model + "/image_2.jpg"),
-            imgSideAPath: serverImagePath100("" + config[configKey] + "/" + model + "/image_3.jpg"),
-            imgSideBPath: serverImagePath100("" + config[configKey] + "/" + model + "/image_4.jpg"),
-            imgSideCPath: serverImagePath100("" + config[configKey] + "/" + model + "/image_5.jpg")
+            imgStylePath: app.fn.serverImagePath("" + config[configKey] + "/" + model + "/image_2.jpg"),
+            imgSideAPath: app.fn.serverImagePath100("" + config[configKey] + "/" + model + "/image_3.jpg"),
+            imgSideBPath: app.fn.serverImagePath100("" + config[configKey] + "/" + model + "/image_4.jpg"),
+            imgSideCPath: app.fn.serverImagePath100("" + config[configKey] + "/" + model + "/image_5.jpg")
           };
         };
         dto = {
@@ -125,8 +54,7 @@
         return callback(dto);
       };
       configPath = "package/config.json";
-      return fetchPackageConfig(configPath).pipe(fetchModelList).pipe(fetchDetail).then(done, function(err) {
-        console.log(err);
+      return app.fn.getAllModelBy(configPath)(configKey).done(done).fail(function(err) {
         return alert(err);
       });
     };

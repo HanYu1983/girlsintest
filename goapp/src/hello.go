@@ -41,13 +41,12 @@ func init() {
 	}
 	
 	restpath := "./package"
-	// todo: add curry function
 	handlers := map[string]func(http.ResponseWriter,*http.Request){
-		"png": rest.HandleImage,
-		"jpg": rest.HandleImage,
-		"jpeg": rest.HandleImage,
-		"json": rest.HandleJson,
-		"cmd": rest.HandleCmd,
+		"png": rest.HandleImageForPath(restpath),
+		"jpg": rest.HandleImageForPath(restpath),
+		"jpeg": rest.HandleImageForPath(restpath),
+		"json": rest.HandleJsonForPath(restpath),
+		"cmd": rest.HandleCmdForPath(restpath),
 	}
 	
   http.HandleFunc("/", rest.RestWithConfig(restpath, handlers) )

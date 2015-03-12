@@ -69,6 +69,12 @@
           modelKey = _arg1[0], detail = _arg1[1];
           return modelKey === key;
         })[0], key = _ref[0], detail = _ref[1];
+        models = _.sortBy(models, function(_arg1) {
+          var detail, model;
+          model = _arg1[0], detail = _arg1[1];
+          return new Date(detail.Date).getTime();
+        });
+        models.reverse();
         convertHeadDTO = function(_arg1) {
           var detail, key;
           key = _arg1[0], detail = _arg1[1];

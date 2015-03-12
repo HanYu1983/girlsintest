@@ -39,6 +39,9 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 			
 			[key, detail] = _.filter( models, ([modelKey, detail]) -> modelKey is key )[0]
 			
+			models = _.sortBy models, ([model, detail]) -> new Date(detail.Date).getTime()
+			models.reverse()
+			
 			convertHeadDTO = ([key, detail]) ->
 				id: key
 				url: app.fn.serverImagePath "#{config[configKey]}/#{key}/image_1.jpg"

@@ -32,5 +32,8 @@ func TestSuit(t *testing.T){
       defer Recover()
       TestPromise(c)
     })
+    g.It("done", func(done goblin.Done){
+      done()
+    })
   })
 }

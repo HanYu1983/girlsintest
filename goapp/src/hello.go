@@ -5,6 +5,7 @@ import (
 	"lib/tool"
 	"app/test"
 	"app/handler"
+  "lib/rest"
 )
 
 func init() {
@@ -38,6 +39,19 @@ func init() {
 		"QueryStreetModelPage": handler.QueryStreetModelPage,
 		"EditStreetModelPage": handler.EditStreetModelPage,
 	}
+	
+	restpath := "./package"
+	// todo: add curry function
+	handlers := map[string]func(http.ResponseWriter,*http.Request){
+		"png": rest.HandleImage,
+		"jpg": rest.HandleImage,
+		"jpeg": rest.HandleImage,
+		"json": rest.HandleJson,
+		"cmd": rest.HandleCmd,
+	}
+	
+  http.HandleFunc("/", rest.RestWithConfig(restpath, handlers) )
+	
 	http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions, tool.AppEngineContextFactory))

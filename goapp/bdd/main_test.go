@@ -3,6 +3,7 @@ package bdd
 import (
   "fmt"
   "testing"
+  "appengine"
   "appengine/aetest"
   "github.com/franela/goblin"
 )
@@ -13,27 +14,35 @@ func TestSuit(t *testing.T){
   defer c.Close()
   
   g := goblin.Goblin(t)
-  Recover := func (){
-    if x:= recover(); x!= nil {
-      g.Fail( fmt.Sprintf("%s", x) )
-    }
+  
+  Describe := func( msg string, fn func() ){
+    g.Describe( msg, fn )
   }
   
-  g.Describe("Numbers", func() {
-    g.It("handler", func() {
-      defer Recover()
-      TestHandler(c)
+  It := func( msg string, fn func()){
+    g.It( msg, func(){
+      if x:= recover(); x!= nil {
+        g.Fail( fmt.Sprintf("%s", x) )
+      }
+      fn()
     })
-    g.It("read file", func() {
-      defer Recover()
-      ReadFile(c)
+  }
+  
+  Restful( Describe, It, c )
+}
+
+
+func Restful( Describe func(string, func()), It func(string, func()), c appengine.Context ){
+  
+  Describe("Test Restful url", func(){
+    
+    It("hahah", func(){
+      
+      
+      
+      
     })
-    g.It("promise", func() {
-      defer Recover()
-      TestPromise(c)
-    })
-    g.It("done", func(done goblin.Done){
-      done()
-    })
+    
   })
+  
 }

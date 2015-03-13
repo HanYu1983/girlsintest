@@ -66,7 +66,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				key: key
 			callback dto
 			
-		configPath = "package/config.json"
+		configPath = "config.json"
 		
 		app.cache ?= {}
 		getAllModel = app.fn.memorizeGetAllModel( app.cache )

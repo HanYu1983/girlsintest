@@ -144,7 +144,7 @@
         };
         return callback(dto);
       };
-      configPath = "package/config.json";
+      configPath = "config.json";
       if (app.cache == null) {
         app.cache = {};
       }

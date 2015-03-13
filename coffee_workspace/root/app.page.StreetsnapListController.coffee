@@ -34,7 +34,7 @@ class window.app.page.StreetsnapListController extends vic.mvc.Controller
 				streetsnapList: _.map models, convertDTO
 			callback dto
 			
-		configPath = "package/config.json"
+		configPath = "config.json"
 		
 		app.cache ?= {}
 		getAllModel = app.fn.memorizeGetAllModel( app.cache )

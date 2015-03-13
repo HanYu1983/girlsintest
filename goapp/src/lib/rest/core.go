@@ -49,8 +49,10 @@ func RestWithConfig(path string, handlers map[string]func(string, *os.File, http
           paths = append( paths, info.Name() )
         }
       }
-    
-      fmt.Fprintf(w, "%s", strings.Join(paths, ","))
+      jsonstr, _ := json.Marshal( paths )
+      w.Header().Set("Content-Type", "application/json; charset=utf8")
+      fmt.Fprintf(w, "%s", jsonstr)
+      
     } else {
       filetype := filepath.Ext( filePath )[1:]  //delete first "."
   

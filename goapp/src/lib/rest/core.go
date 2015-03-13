@@ -31,6 +31,11 @@ func RestWithConfig(path string, handlers map[string]func(string, *os.File, http
   
     info, err := file.Stat()
     assert.IfError(err)
+    
+    isMatch := tool.UseETag( fmt.Sprintf("%s:%s", path+r.URL.Path, info.ModTime()) )
+    if isMatch( w, r ) {
+      return
+    }
   
     isDir := info.IsDir()
     if isDir {
@@ -133,14 +138,6 @@ func HandleJson() func(string, *os.File, http.ResponseWriter,*http.Request){
 
 func HandleImage() func(string, *os.File, http.ResponseWriter,*http.Request){
   return func(path string, file *os.File, w http.ResponseWriter,r *http.Request){
-    
-    info, err := file.Stat()
-    assert.IfError(err)
-    
-    isMatch := tool.UseETag( fmt.Sprintf("%s:%s", path+r.URL.Path, info.ModTime()) )
-    if isMatch( w, r ) {
-      return
-    }
     
     filePath := path+r.URL.Path
     filetype := filepath.Ext( filePath )[1:]  //delete first "."

@@ -77,6 +77,7 @@ memorizeGetAllModel = (cache, fn) -> (configPath) -> (type) ->
 				promise.reject err
 	return promise
 	
+pkg.fetchFile = fetchFile
 pkg.getAllModelBy = getAllModelBy
 pkg.serverImagePath = serverImagePath
 pkg.serverImagePath100 = serverImagePath100

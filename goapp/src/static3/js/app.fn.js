@@ -130,6 +130,8 @@
     };
   };
 
+  pkg.fetchFile = fetchFile;
+
   pkg.getAllModelBy = getAllModelBy;
 
   pkg.serverImagePath = serverImagePath;

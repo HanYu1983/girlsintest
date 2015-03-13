@@ -11,7 +11,7 @@
     }
 
     NewsController.prototype.applyTemplate = function(_arg, callback) {
-      var boundIndex, configPath, convertFormat, done, fetchDetail, fetchEventList, fetchJSON, fetchPackageConfig, id, serverImagePath, that;
+      var boundIndex, configPath, convertFormat, done, fetchDetail, fetchEventList, id, that;
       id = _arg[0];
       that = this;
       boundIndex = function(id, count) {
@@ -23,42 +23,22 @@
         }
         return id;
       };
-      serverImagePath = function(path) {
-        var filepath;
-        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
-        return filepath(path);
-      };
-      fetchJSON = function(configPath) {
-        var query;
-        query = app.tool.serverapi.query("http://" + window.location.host);
-        return query(app.tool.serverapi.ServeFile, {
-          FilePath: configPath
-        });
-      };
-      fetchPackageConfig = function(configPath) {
-        return fetchJSON(configPath);
-      };
       fetchEventList = function(config) {
         var promise;
         promise = $.Deferred();
-        fetchJSON(config.event).done(function(data) {
+        app.fn.fetchFile(config.event).done(function(keys) {
           var key;
-          if (data.Success) {
-            return promise.resolve(config, (function() {
-              var _i, _len, _ref, _results;
-              _ref = data.Info;
-              _results = [];
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                key = _ref[_i];
-                if (key !== 'config.json') {
-                  _results.push(key);
-                }
+          return promise.resolve(config, (function() {
+            var _i, _len, _results;
+            _results = [];
+            for (_i = 0, _len = keys.length; _i < _len; _i++) {
+              key = keys[_i];
+              if (key !== 'config.json') {
+                _results.push(key);
               }
-              return _results;
-            })());
-          } else {
-            return promise.reject(data.Info);
-          }
+            }
+            return _results;
+          })());
         }).fail(function(err) {
           return promise.reject(err);
         });
@@ -72,7 +52,7 @@
         that.count = count;
         filepath = "" + config.event + "/" + list[id - 1] + "/config.json";
         promise = $.Deferred();
-        fetchJSON(filepath).done(function(detail) {
+        app.fn.fetchFile(filepath).done(function(detail) {
           return promise.resolve(config, list, detail);
         }).fail(function(err) {
           return promise.reject(err);
@@ -85,7 +65,7 @@
           var _i, _ref, _results;
           _results = [];
           for (imageId = _i = 1, _ref = detail.count; 1 <= _ref ? _i <= _ref : _i >= _ref; imageId = 1 <= _ref ? ++_i : --_i) {
-            _results.push("" + config.event + "/" + list[id - 1] + "/image_" + imageId + ".png");
+            _results.push("" + config.event + "/" + list[id - 1] + "/image_" + imageId + ".jpg");
           }
           return _results;
         })();
@@ -98,7 +78,7 @@
             for (_i = 0, _len = imageurls.length; _i < _len; _i++) {
               imageurl = imageurls[_i];
               _results.push({
-                path: serverImagePath(imageurl)
+                path: app.fn.serverImagePath(imageurl)
               });
             }
             return _results;
@@ -110,8 +90,8 @@
       done = function(model) {
         return callback(model);
       };
-      configPath = "package/config.json";
-      return fetchPackageConfig(configPath).pipe(fetchEventList).pipe(fetchDetail).pipe(convertFormat).then(done, function(err) {
+      configPath = "config.json";
+      return app.fn.fetchFile(configPath).pipe(fetchEventList).pipe(fetchDetail).pipe(convertFormat).then(done, function(err) {
         return alert(err);
       });
     };

@@ -11,25 +11,12 @@ class window.app.page.NewsController extends vic.mvc.Controller
 				id = count
 			return id
 			
-		serverImagePath = (path) ->
-			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
-			return filepath path
-
-		fetchJSON = (configPath) ->
-			query = app.tool.serverapi.query "http://#{window.location.host}"
-			return query app.tool.serverapi.ServeFile, FilePath: configPath
-
-		fetchPackageConfig = (configPath) ->
-			return fetchJSON(configPath)
-			
 		fetchEventList = (config) ->
 			promise = $.Deferred()
-			fetchJSON(config.event)
-				.done (data) ->
-					if data.Success
-						promise.resolve config, (key for key in data.Info when key isnt 'config.json')
-					else
-						promise.reject data.Info
+			app.fn.fetchFile config.event
+				.done (keys) ->
+					promise.resolve config, (key for key in keys when key isnt 'config.json')
+					
 				.fail (err) ->
 					promise.reject err
 			return promise
@@ -41,7 +28,7 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			that.count = count
 			filepath = "#{config.event}/#{list[id-1]}/config.json"
 			promise = $.Deferred()
-			fetchJSON(filepath)
+			app.fn.fetchFile filepath
 				.done (detail) ->
 					promise.resolve(config, list, detail)
 				.fail (err) ->
@@ -49,20 +36,20 @@ class window.app.page.NewsController extends vic.mvc.Controller
 			return promise
 			
 		convertFormat = (config, list, detail) ->
-			imageurls = ("#{config.event}/#{list[id-1]}/image_#{imageId}.png" for imageId in [1..detail.count])
+			imageurls = ("#{config.event}/#{list[id-1]}/image_#{imageId}.jpg" for imageId in [1..detail.count])
 			return {
 				title: detail.title
 				date: detail.date
-				sideList: ({path: serverImagePath(imageurl)} for imageurl in imageurls)
+				sideList: ({path: app.fn.serverImagePath(imageurl)} for imageurl in imageurls)
 				content: detail.content
 				from: detail.from
 			}
 		done = (model) ->
 			callback model
 			
-		configPath = "package/config.json"
+		configPath = "config.json"
 		
-		fetchPackageConfig( configPath )
+		app.fn.fetchFile configPath
 			.pipe(fetchEventList)
 			.pipe(fetchDetail)
 			.pipe(convertFormat)

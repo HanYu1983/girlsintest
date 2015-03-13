@@ -15,15 +15,24 @@
     };
 
     HomeController.prototype.applyTemplate = function(param, callback) {
-      var query;
-      query = app.tool.serverapi.query("http://" + window.location.host);
-      return query(app.tool.serverapi.QueryStreetModel, {
-        Rand: 0
-      }).done(function(data) {
-        return callback({
-          modelKey: data.Info.ModelKey
+      var configPath, done, getAllModel;
+      done = function(config, models) {
+        models = _.sortBy(models, function(_arg) {
+          var detail, model;
+          model = _arg[0], detail = _arg[1];
+          return new Date(detail.Date).getTime();
         });
-      }).fail(function(err) {
+        models.reverse();
+        return callback({
+          modelKey: models[0][1].ModelKey
+        });
+      };
+      configPath = "config.json";
+      if (app.cache == null) {
+        app.cache = {};
+      }
+      getAllModel = app.fn.memorizeGetAllModel(app.cache);
+      return getAllModel(configPath)('model').done(done).fail(function(err) {
         return alert(err);
       });
     };

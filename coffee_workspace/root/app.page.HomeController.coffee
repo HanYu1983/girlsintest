@@ -3,10 +3,20 @@ class window.app.page.HomeController extends vic.mvc.Controller
 		super()
 		
 	applyTemplate: (param, callback)->
-		query = app.tool.serverapi.query "http://#{window.location.host}"
-		query(app.tool.serverapi.QueryStreetModel, { Rand: 0 })
-			.done (data) ->
-				callback
-					modelKey: data.Info.ModelKey
+		
+		done = (config, models) ->	
+			models = _.sortBy models, ([model, detail]) -> new Date(detail.Date).getTime()
+			models.reverse()
+			
+			callback
+				modelKey: models[0][1].ModelKey
+			
+		configPath = "config.json"
+		
+		app.cache ?= {}
+		getAllModel = app.fn.memorizeGetAllModel( app.cache )
+		
+		getAllModel( configPath ) ('model')
+			.done done
 			.fail (err) ->
 				alert err

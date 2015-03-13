@@ -20,15 +20,10 @@
     };
 
     BigPhotoController.prototype.applyTemplate = function(_arg, callback) {
-      var modelKey, photoPath, serverImagePath;
+      var modelKey, photoPath;
       modelKey = _arg[0], photoPath = _arg[1];
-      serverImagePath = function(path) {
-        var filepath;
-        filepath = app.tool.serverapi.filepath("http://" + window.location.host);
-        return filepath(path);
-      };
       return callback({
-        url: serverImagePath(photoPath)
+        url: app.fn.serverImagePath(photoPath)
       });
     };
 

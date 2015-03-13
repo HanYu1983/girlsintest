@@ -5,13 +5,8 @@ class window.app.page.BigPhotoController extends vic.mvc.Controller
 		@_view.event.on 'onBtnCloseClick', => @onBtnCloseClick arguments...
 		
 	applyTemplate: ( [modelKey, photoPath], callback )->
-		
-		serverImagePath = (path) ->
-			filepath = app.tool.serverapi.filepath "http://#{window.location.host}"
-			return filepath path
-				
 		callback
-			url: serverImagePath photoPath
+			url: app.fn.serverImagePath photoPath
 	
 		
 	onBtnCloseClick: (evt) ->

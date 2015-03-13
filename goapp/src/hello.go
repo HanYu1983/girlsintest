@@ -39,6 +39,11 @@ func init() {
 		"QueryStreetModelPage": handler.QueryStreetModelPage,
 		"EditStreetModelPage": handler.EditStreetModelPage,
 	}
+  
+  // rest style setting
+  cmdhandlers := map[string]func(sys tool.ISystem)interface{}{
+    "RefreshCache": handler.RefreshCache,
+  }
 	
 	restpath := "./package"
 	handlers := map[string]func(http.ResponseWriter,*http.Request){
@@ -46,7 +51,7 @@ func init() {
 		"jpg": rest.HandleImageForPath(restpath),
 		"jpeg": rest.HandleImageForPath(restpath),
 		"json": rest.HandleJsonForPath(restpath),
-		"cmd": rest.HandleCmdForPath(restpath),
+		"cmd": rest.HandleCmdForPath(restpath, tool.AppEngineContextFactory, cmdhandlers),
 	}
 	
   http.HandleFunc("/", rest.RestWithConfig(restpath, handlers) )

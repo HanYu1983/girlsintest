@@ -10,6 +10,7 @@ import (
   "lib/assert"
   "github.com/nfnt/resize"
   "encoding/json"
+  "appengine"
 )
 
 
@@ -56,7 +57,7 @@ func RestWithConfig(path string, handlers map[string]func(http.ResponseWriter,*h
   }
 }
 
-func HandleCmdForPath(path string) func(http.ResponseWriter,*http.Request){
+func HandleCmdForPath(path string, ctxFactory func(r *http.Request)appengine.Context, handlers map[string]func(sys tool.ISystem)interface{}) func(http.ResponseWriter,*http.Request){
   return func(w http.ResponseWriter,r *http.Request){
     filePath := path+r.URL.Path
     file, err := tool.GetFile(filePath)
@@ -65,7 +66,15 @@ func HandleCmdForPath(path string) func(http.ResponseWriter,*http.Request){
   
     bytes, err := tool.File2Bytes(file)
     assert.IfError(err)
-  
+    
+    result := struct {
+      Success bool
+      Info interface{}
+    } {
+      false,
+      nil,
+    }
+    
     var cmd struct {
       Cmd string
       Description string
@@ -75,16 +84,40 @@ func HandleCmdForPath(path string) func(http.ResponseWriter,*http.Request){
   
     err = json.Unmarshal(bytes, &cmd)
     assert.IfError(err)
-  
-    r.ParseForm()
+    
+    defer func(){
+      if x:= recover(); x!= nil {
+        result.Info = x
+        jsonstr, _ := json.Marshal( result )
+        w.Header().Set("Content-Type", "application/json; charset=utf8")
+        fmt.Fprintf(w, "%s", jsonstr)
+      }
+    } ()
   
     for _, p := range cmd.Params {
       if len(r.Form[p]) == 0 {
         panic("no enough param "+p)
       }
     }
-  
-    fmt.Fprintf(w, "exec cmd %s", cmd.Cmd)
+    
+    fn, exist := handlers[cmd.Cmd]
+    if exist {
+      var sys tool.ISystem
+      sys = tool.AppEngineSystem{Request: r, Response: w, Context: ctxFactory(r)}
+      cmdresult := fn( sys )
+      if cmdresult != nil {
+        result.Success = true
+        result.Info = cmdresult
+        jsonstr, _ := json.Marshal( result )
+        w.Header().Set("Content-Type", "application/json; charset=utf8")
+        fmt.Fprintf(w, "%s", jsonstr)
+      } else {  
+        
+      }
+      
+    } else {
+      panic(fmt.Sprintf("cmd not exist [%s]", cmd.Cmd))
+    }
   }
 }
 

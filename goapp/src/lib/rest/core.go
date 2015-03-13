@@ -5,6 +5,7 @@ import (
   "fmt"
   "strings"
   "path/filepath"
+  "os"
   "io/ioutil"
   "lib/tool"
   "lib/assert"
@@ -14,7 +15,7 @@ import (
 )
 
 
-func RestWithConfig(path string, handlers map[string]func(http.ResponseWriter,*http.Request) ) func(http.ResponseWriter,*http.Request){
+func RestWithConfig(path string, handlers map[string]func(string, *os.File, http.ResponseWriter,*http.Request) ) func(http.ResponseWriter,*http.Request){
   return func(w http.ResponseWriter,r *http.Request){
     defer func(){
       if x:= recover(); x!= nil {
@@ -26,6 +27,7 @@ func RestWithConfig(path string, handlers map[string]func(http.ResponseWriter,*h
   
     file, err := tool.GetFile(filePath)
     assert.IfError(err)
+    defer file.Close()
   
     info, err := file.Stat()
     assert.IfError(err)
@@ -49,7 +51,7 @@ func RestWithConfig(path string, handlers map[string]func(http.ResponseWriter,*h
   
       handler, exist := handlers[filetype]
       if exist {
-        handler( w, r )
+        handler( path, file, w, r )
       }
       
     }
@@ -57,13 +59,9 @@ func RestWithConfig(path string, handlers map[string]func(http.ResponseWriter,*h
   }
 }
 
-func HandleCmdForPath(path string, ctxFactory func(r *http.Request)appengine.Context, handlers map[string]func(sys tool.ISystem)interface{}) func(http.ResponseWriter,*http.Request){
-  return func(w http.ResponseWriter,r *http.Request){
-    filePath := path+r.URL.Path
-    file, err := tool.GetFile(filePath)
-    defer file.Close()
-    assert.IfError(err)
-  
+func HandleCmd(ctxFactory func(r *http.Request)appengine.Context, handlers map[string]func(sys tool.ISystem)interface{}) func(string,*os.File, http.ResponseWriter,*http.Request){
+  return func(path string, file *os.File, w http.ResponseWriter,r *http.Request){
+
     bytes, err := tool.File2Bytes(file)
     assert.IfError(err)
     
@@ -121,13 +119,9 @@ func HandleCmdForPath(path string, ctxFactory func(r *http.Request)appengine.Con
   }
 }
 
-func HandleJsonForPath(path string) func(http.ResponseWriter,*http.Request){
-  return func(w http.ResponseWriter,r *http.Request){
-    filePath := "./package"+r.URL.Path
-    file, err := tool.GetFile(filePath)
-    defer file.Close()
-    assert.IfError(err)
-  
+func HandleJson() func(string, *os.File, http.ResponseWriter,*http.Request){
+  return func(path string, file *os.File, w http.ResponseWriter,r *http.Request){
+
     bytes, err := tool.File2Bytes(file)
     assert.IfError(err)
   
@@ -137,14 +131,19 @@ func HandleJsonForPath(path string) func(http.ResponseWriter,*http.Request){
 }
 
 
-func HandleImageForPath(path string) func(http.ResponseWriter,*http.Request){
-  return func(w http.ResponseWriter,r *http.Request){
-    filePath := "./package"+r.URL.Path
-    filetype := filepath.Ext( filePath )[1:]  //delete first "."
-  
-    file, err := tool.GetFile(filePath)
-    defer file.Close()
+func HandleImage() func(string, *os.File, http.ResponseWriter,*http.Request){
+  return func(path string, file *os.File, w http.ResponseWriter,r *http.Request){
+    
+    info, err := file.Stat()
     assert.IfError(err)
+    
+    isMatch := tool.UseETag( fmt.Sprintf("%s:%s", path+r.URL.Path, info.ModTime()) )
+    if isMatch( w, r ) {
+      return
+    }
+    
+    filePath := path+r.URL.Path
+    filetype := filepath.Ext( filePath )[1:]  //delete first "."
   
     img, err := tool.File2Image(file, filetype)
     assert.IfError(err)

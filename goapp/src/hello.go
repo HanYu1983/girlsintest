@@ -6,6 +6,7 @@ import (
 	"app/test"
 	"app/handler"
   "lib/rest"
+  "os"
 )
 
 func init() {
@@ -45,16 +46,15 @@ func init() {
     "RefreshCache": handler.RefreshCache,
   }
 	
-	restpath := "./package"
-	handlers := map[string]func(http.ResponseWriter,*http.Request){
-		"png": rest.HandleImageForPath(restpath),
-		"jpg": rest.HandleImageForPath(restpath),
-		"jpeg": rest.HandleImageForPath(restpath),
-		"json": rest.HandleJsonForPath(restpath),
-		"cmd": rest.HandleCmdForPath(restpath, tool.AppEngineContextFactory, cmdhandlers),
+	handlers := map[string]func(string, *os.File, http.ResponseWriter,*http.Request){
+		"png": rest.HandleImage(),
+		"jpg": rest.HandleImage(),
+		"jpeg": rest.HandleImage(),
+		"json": rest.HandleJson(),
+		"cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
 	}
 	
-  http.HandleFunc("/", rest.RestWithConfig(restpath, handlers) )
+  http.HandleFunc("/", rest.RestWithConfig("./package", handlers) )
 	
 	http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))

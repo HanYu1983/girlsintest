@@ -94,7 +94,7 @@ fetchModelKeyList2 = (path) ->
 	
 fetchAllModel2 = (path) -> (keys) ->
 	promise = $.Deferred()
-	$.when.apply($, (fetchFile("#{path}/#{key}/config.json") for key in keys))
+	$.when.apply($, fetchFile("#{path}/#{key}/config.json") for key in keys )
 		.done () ->
 			if keys.length == 1
 				# 如果輸入的ajax只有一個，則不會回傳array

@@ -79,7 +79,6 @@
         return _results;
       })()).done(function() {
         var details;
-        console.log(arguments);
         details = arguments;
         return promise.resolve(_.zip(keys, details));
       }).fail(function(err) {

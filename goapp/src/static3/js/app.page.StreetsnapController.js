@@ -58,6 +58,11 @@
       return this.event.trigger(evt.type, data);
     };
 
+    StreetsnapController.prototype.open = function() {
+      StreetsnapController.__super__.open.call(this);
+      return this._view.fadeOutMask(1000);
+    };
+
     StreetsnapController.prototype.applyTemplate = function(_arg, callback) {
       var configKey, configPath, done, getAllModel, key, modelType;
       key = _arg[0], modelType = _arg[1];

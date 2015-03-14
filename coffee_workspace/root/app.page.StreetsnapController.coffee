@@ -25,6 +25,10 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 	onBtnShareClick: ( evt, data ) ->
 		@event.trigger evt.type, data
 		
+	open: ()->
+		super()
+		@_view.fadeOutMask 1000
+		
 	applyTemplate: ([key, modelType], callback)->
 		
 		configKey = 

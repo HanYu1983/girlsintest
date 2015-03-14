@@ -8,6 +8,7 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		@img_stylePicture = elem.find '#img_stylePicture'
 		@btn_more = elem.find '#btn_more'
 		@btn_share = elem.find '#btn_share'
+		@mc_3dmask = elem.find '#mc_3dmask'
 		
 		###
 		fbcon = elem.find '#fbcommentContainer'
@@ -15,6 +16,12 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 		fbcomment.attr 'data-href', window.location.href
 		fbcon.append fbcomment
 		###
+		
+	fadeOutMask: (delay) ->
+		fadeOut = ()=>
+			@mc_3dmask.fadeOut 2000
+		setTimeout fadeOut, delay
+		
 		
 	addListener: ->
 		self = this

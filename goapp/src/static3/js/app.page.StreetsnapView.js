@@ -15,6 +15,7 @@
       this.img_stylePicture = elem.find('#img_stylePicture');
       this.btn_more = elem.find('#btn_more');
       this.btn_share = elem.find('#btn_share');
+      this.mc_3dmask = elem.find('#mc_3dmask');
 
       /*
       		fbcon = elem.find '#fbcommentContainer'
@@ -23,6 +24,16 @@
       		fbcon.append fbcomment
        */
     }
+
+    StreetsnapView.prototype.fadeOutMask = function(delay) {
+      var fadeOut;
+      fadeOut = (function(_this) {
+        return function() {
+          return _this.mc_3dmask.fadeOut(1000);
+        };
+      })(this);
+      return setTimeout(fadeOut, delay);
+    };
 
     StreetsnapView.prototype.addListener = function() {
       var self;

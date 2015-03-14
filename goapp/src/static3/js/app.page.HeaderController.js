@@ -44,6 +44,10 @@
       return this._view.showCelebrity();
     };
 
+    HeaderController.prototype.showProduct = function() {
+      return this._view.showProduct();
+    };
+
     return HeaderController;
 
   })(vic.mvc.Controller);

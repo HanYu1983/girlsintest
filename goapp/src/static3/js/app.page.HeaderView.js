@@ -15,6 +15,7 @@
       this.img_streetModelsLogo = elem.find('#img_streetModelsLogo');
       this.img_streetEventLogo = elem.find('#img_streetEventLogo');
       this.img_streetCelebrityLogo = elem.find('#img_streetCelebrityLogo');
+      this.img_streetProductLogo = elem.find('#img_streetProductLogo');
     }
 
     HeaderView.prototype.addListener = function() {
@@ -29,58 +30,103 @@
       return this._btn_backhome.off('click');
     };
 
+
+    /*
+    	showHome: ->
+    		@img_streetSnapLogo.hide()
+    		@img_streetNewsLogo.hide()
+    		@img_streetModelsLogo.hide()
+    		@img_streetEventLogo.hide()
+    		@img_streetCelebrityLogo.hide()
+    		@img_homeLogo.fadeIn 400
+    		
+    	showStreetsnap: ->
+    		@img_streetSnapLogo.fadeIn 400
+    		@img_streetNewsLogo.hide()
+    		@img_streetModelsLogo.hide()
+    		@img_streetEventLogo.hide()
+    		@img_streetCelebrityLogo.hide()
+    		@img_homeLogo.hide()
+    		
+    	showNews: ->
+    		@img_streetSnapLogo.hide()
+    		@img_streetNewsLogo.fadeIn 400
+    		@img_streetModelsLogo.hide()
+    		@img_streetEventLogo.hide()
+    		@img_streetCelebrityLogo.hide()
+    		@img_homeLogo.hide()
+    		
+    	showModels: ->
+    		@img_streetSnapLogo.hide()
+    		@img_streetNewsLogo.hide()
+    		@img_streetModelsLogo.fadeIn 400
+    		@img_streetEventLogo.hide()
+    		@img_streetCelebrityLogo.hide()
+    		@img_homeLogo.hide()
+    		
+    	showEvent: ->
+    		@img_streetSnapLogo.hide()
+    		@img_streetNewsLogo.hide()
+    		@img_streetModelsLogo.hide()
+    		@img_streetEventLogo.fadeIn 400
+    		@img_streetCelebrityLogo.hide()
+    		@img_homeLogo.hide()
+    		
+    	showCelebrity: ->
+    		@img_streetSnapLogo.hide()
+    		@img_streetNewsLogo.hide()
+    		@img_streetModelsLogo.hide()
+    		@img_streetEventLogo.hide()
+    		@img_streetCelebrityLogo.fadeIn 400
+    		@img_homeLogo.hide()
+     */
+
     HeaderView.prototype.showHome = function() {
-      this.img_streetSnapLogo.hide();
-      this.img_streetNewsLogo.hide();
-      this.img_streetModelsLogo.hide();
-      this.img_streetEventLogo.hide();
-      this.img_streetCelebrityLogo.hide();
-      return this.img_homeLogo.fadeIn(400);
+      return this.showLogo('img_homeLogo');
     };
 
     HeaderView.prototype.showStreetsnap = function() {
-      this.img_streetSnapLogo.fadeIn(400);
-      this.img_streetNewsLogo.hide();
-      this.img_streetModelsLogo.hide();
-      this.img_streetEventLogo.hide();
-      this.img_streetCelebrityLogo.hide();
-      return this.img_homeLogo.hide();
+      return this.showLogo('img_streetSnapLogo');
     };
 
     HeaderView.prototype.showNews = function() {
-      this.img_streetSnapLogo.hide();
-      this.img_streetNewsLogo.fadeIn(400);
-      this.img_streetModelsLogo.hide();
-      this.img_streetEventLogo.hide();
-      this.img_streetCelebrityLogo.hide();
-      return this.img_homeLogo.hide();
+      return this.showLogo('img_streetNewsLogo');
     };
 
     HeaderView.prototype.showModels = function() {
-      this.img_streetSnapLogo.hide();
-      this.img_streetNewsLogo.hide();
-      this.img_streetModelsLogo.fadeIn(400);
-      this.img_streetEventLogo.hide();
-      this.img_streetCelebrityLogo.hide();
-      return this.img_homeLogo.hide();
+      return this.showLogo('img_streetModelsLogo');
     };
 
     HeaderView.prototype.showEvent = function() {
-      this.img_streetSnapLogo.hide();
-      this.img_streetNewsLogo.hide();
-      this.img_streetModelsLogo.hide();
-      this.img_streetEventLogo.fadeIn(400);
-      this.img_streetCelebrityLogo.hide();
-      return this.img_homeLogo.hide();
+      return this.showLogo('img_streetEventLogo');
     };
 
     HeaderView.prototype.showCelebrity = function() {
-      this.img_streetSnapLogo.hide();
-      this.img_streetNewsLogo.hide();
-      this.img_streetModelsLogo.hide();
-      this.img_streetEventLogo.hide();
-      this.img_streetCelebrityLogo.fadeIn(400);
-      return this.img_homeLogo.hide();
+      return this.showLogo('img_streetCelebrityLogo');
+    };
+
+    HeaderView.prototype.showProduct = function() {
+      return this.showLogo('img_streetProductLogo');
+    };
+
+    HeaderView.prototype.showLogo = function(name) {
+      var logoNames, otherLogo, targetLogo, _i, _len, _ref, _results;
+      logoNames = ['img_streetProductLogo', 'img_streetSnapLogo', 'img_streetNewsLogo', 'img_streetModelsLogo', 'img_streetEventLogo', 'img_streetCelebrityLogo', 'img_homeLogo'];
+      targetLogo = this[name];
+      targetLogo.fadeIn(400);
+      _ref = _.map(logoNames, (function(_this) {
+        return function(name) {
+          return _this[name];
+        };
+      })(this));
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        otherLogo = _ref[_i];
+        if (otherLogo !== targetLogo) {
+          _results.push(otherLogo.hide());
+        }
+      }
+      return _results;
     };
 
     return HeaderView;

@@ -98,7 +98,7 @@ class window.app.Main
 				
 			productList: ( search ) =>
 				@openPage PageProductList, [ search, 'product']
-				@header.showModels()
+				@header.showProduct()
 				
 			celebrity: =>
 				@header.showCelebrity()

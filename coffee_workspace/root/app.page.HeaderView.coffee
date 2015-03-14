@@ -8,6 +8,7 @@ class window.app.page.HeaderView extends window.vic.mvc.View
 		@img_streetModelsLogo = elem.find '#img_streetModelsLogo'
 		@img_streetEventLogo = elem.find '#img_streetEventLogo'
 		@img_streetCelebrityLogo = elem.find '#img_streetCelebrityLogo'
+		@img_streetProductLogo = elem.find '#img_streetProductLogo'
 		
 	addListener: ->
 		@_btn_backhome.click => @event.trigger 'onHeaderBtnBackhomeClick'
@@ -15,6 +16,7 @@ class window.app.page.HeaderView extends window.vic.mvc.View
 	removerListener: ->
 		@_btn_backhome.off 'click'
 		
+	###
 	showHome: ->
 		@img_streetSnapLogo.hide()
 		@img_streetNewsLogo.hide()
@@ -62,4 +64,41 @@ class window.app.page.HeaderView extends window.vic.mvc.View
 		@img_streetEventLogo.hide()
 		@img_streetCelebrityLogo.fadeIn 400
 		@img_homeLogo.hide()
+	###
+	
+	showHome: ->
+		@showLogo 'img_homeLogo'
+		
+	showStreetsnap: ->
+		@showLogo 'img_streetSnapLogo'
+		
+	showNews: ->
+		@showLogo 'img_streetNewsLogo'
+		
+	showModels: ->
+		@showLogo 'img_streetModelsLogo'
+		
+	showEvent: ->
+		@showLogo 'img_streetEventLogo'
+		
+	showCelebrity: ->
+		@showLogo 'img_streetCelebrityLogo'
+	
+	showProduct: ->
+		@showLogo 'img_streetProductLogo'
+	
+	showLogo: (name) ->
+		logoNames = [
+			'img_streetProductLogo', 
+			'img_streetSnapLogo', 
+			'img_streetNewsLogo', 
+			'img_streetModelsLogo', 
+			'img_streetEventLogo', 
+			'img_streetCelebrityLogo', 
+			'img_homeLogo']
+			
+		targetLogo = this[name]
+		targetLogo.fadeIn 400
+		otherLogo.hide() for otherLogo in _.map(logoNames, (name) => this[name]) when otherLogo isnt targetLogo
+		
 

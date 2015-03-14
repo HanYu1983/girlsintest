@@ -23,3 +23,7 @@ class window.app.page.HeaderController extends vic.mvc.Controller
 		
 	showCelebrity: ->
 		@_view.showCelebrity()
+		
+	showProduct: ->
+		@_view.showProduct()
+	

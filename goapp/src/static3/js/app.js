@@ -125,7 +125,7 @@
         productList: (function(_this) {
           return function(search) {
             _this.openPage(PageProductList, [search, 'product']);
-            return _this.header.showModels();
+            return _this.header.showProduct();
           };
         })(this),
         celebrity: (function(_this) {

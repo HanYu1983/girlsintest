@@ -29,7 +29,7 @@
       var fadeOut;
       fadeOut = (function(_this) {
         return function() {
-          return _this.mc_3dmask.fadeOut(1000);
+          return _this.mc_3dmask.fadeOut(2000);
         };
       })(this);
       return setTimeout(fadeOut, delay);

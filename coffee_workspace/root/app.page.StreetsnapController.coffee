@@ -27,7 +27,7 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 		
 	open: ()->
 		super()
-		@_view.fadeOutMask 1000
+		@_view.fadeOutMask 5000
 		
 	applyTemplate: ([key, modelType], callback)->
 		

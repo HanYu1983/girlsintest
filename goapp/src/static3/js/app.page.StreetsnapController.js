@@ -60,7 +60,7 @@
 
     StreetsnapController.prototype.open = function() {
       StreetsnapController.__super__.open.call(this);
-      return this._view.fadeOutMask(1000);
+      return this._view.fadeOutMask(5000);
     };
 
     StreetsnapController.prototype.applyTemplate = function(_arg, callback) {

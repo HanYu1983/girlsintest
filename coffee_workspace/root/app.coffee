@@ -238,8 +238,6 @@ class window.app.Main
 		@router.navigate 'streetsnapList', trigger: true
 		
 	onBtnShareClick: ( evt, info ) ->
-		console.log info
-		console.log window.location.href
 		vic.facebook.postMessageToMyboard
 			name:""
 			link:window.location.href
@@ -247,9 +245,10 @@ class window.app.Main
 			caption:info.name
 			description: info.modelDetail
 			callback: ->
-				console.log 'success'
-			error: ->
-				console.log 'error'
+				alert "分享成功"
+				
+			error: (err) ->
+				alert err
 		
 	onBtnCloseClick: ->
 		@closePopup PageBigPhoto

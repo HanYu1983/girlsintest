@@ -53,8 +53,6 @@ func init() {
 		"json": rest.HandleJson(),
 		"cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
 	}
-  
-  cacheVersion := "4"
 	
   http.HandleFunc("/", rest.RestWithConfig("./package", cacheVersion, handlers) )
 	

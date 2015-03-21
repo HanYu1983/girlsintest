@@ -57,8 +57,16 @@
 					<img id="mc_backLine" class='absolute' src='images/index/backgroundBigLine.png'/>
 					<img id="mc_bigLogo" class='absolute' src='images/index/big_LOGO.png'/>
 					<div id="mc_3dIframeBorder" class='absolute'>
+						<!--
 						<div id="mc_iframeBack" class='black_cube opacity_5'></div>
-						<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
+						-->
+						<div id="mc_3d_container" class="relative f_left fake3Dregion">
+							<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=' + autostart + '&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
+							<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
+							<img class="relative disable" src="images/streetSnap/3d_frame_02.png"/>
+							<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
+							<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
+						</div>
 						<!--
 						<img id="mc_3dIframeBorderLine" class='absolute top left' src='images/streetSnap/pinkBorder.png'/>
 						-->
@@ -203,14 +211,7 @@
 								<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
 								<img class="relative disable" src="images/streetSnap/3d_frame_02.png"/>
 								<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
-									<!--
-								<div id="mc_3dframe" class="absolute disable">
-									<img src="images/streetSnap/3d_frame_01.png"/>
-									<img src="images/streetSnap/3d_frame_02.png"/>
-									<img src="images/streetSnap/3d_frame_03.png"/>
-								</div>
-								-->
-								<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.png" class="absolute"></img>
+								<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
 							</div>
 							
 							<div id="mc_pro" class="relative f_left">
@@ -303,7 +304,7 @@
 			<div class="hide full">
 				<div id="mc_bigPhotoBack" class='fixed full black_cube opacity_7'></div>
 				<div id="mc_bigPhotoFixPosition" class='fixed full '>
-					<img id='img_photo' src=${url} class='relative'/>
+					<img style="top:150px;" id='img_photo' src=${url} class='relative'/>
 				</div>
 			</div>
 		</script>

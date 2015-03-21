@@ -239,9 +239,10 @@ class window.app.Main
 		
 	onBtnShareClick: ( evt, info ) ->
 		console.log info
+		console.log window.location.href
 		vic.facebook.postMessageToMyboard
 			name:""
-			link:"http://#{window.location}"
+			link:window.location.href
 			picture:info.styleUrl
 			caption:info.name
 			description: info.modelDetail

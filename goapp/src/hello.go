@@ -53,8 +53,10 @@ func init() {
 		"json": rest.HandleJson(),
 		"cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
 	}
+  
+  cacheVersion := "4"
 	
-  http.HandleFunc("/", rest.RestWithConfig("./package", handlers) )
+  http.HandleFunc("/", rest.RestWithConfig("./package", cacheVersion, handlers) )
 	
 	http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))

@@ -15,7 +15,7 @@ import (
 )
 
 
-func RestWithConfig(path string, handlers map[string]func(string, *os.File, http.ResponseWriter,*http.Request) ) func(http.ResponseWriter,*http.Request){
+func RestWithConfig(path string, cacheVersion string,handlers map[string]func(string, *os.File, http.ResponseWriter,*http.Request) ) func(http.ResponseWriter,*http.Request){
   return func(w http.ResponseWriter,r *http.Request){
     defer func(){
       if x:= recover(); x!= nil {
@@ -32,7 +32,10 @@ func RestWithConfig(path string, handlers map[string]func(string, *os.File, http
     info, err := file.Stat()
     assert.IfError(err)
     
-    isMatch := tool.UseETag( fmt.Sprintf("%s:%s", path+r.URL.Path, info.ModTime()) )
+    // 應該要用檔案的最後修改時間來做快取的判斷
+    // 但很可惜，appengine上的檔案資訊是有被鎖住的，最後修改時間總是回傳1970/1/1（所有資訊都是0的意思）
+    // 所以只好每次上傳更新時都使用自訂的cacheVersion
+    isMatch := tool.UseETag( fmt.Sprintf("%s:%s", path+r.URL.Path, cacheVersion) )
     if isMatch( w, r ) {
       return
     }

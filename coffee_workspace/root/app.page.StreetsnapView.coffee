@@ -41,8 +41,7 @@ class window.app.page.StreetsnapView extends vic.mvc.View
 			self.event.trigger 'onBtnMoreClick'
 			
 		@btn_share.click ->
-			self.event.trigger 'onBtnShareClick', 
-				key:self.dataDTO.key
+			self.event.trigger 'onBtnShareClick', self.dataDTO
 		
 	removeListener: ->
 		@mc_sideContainer.undelegate 'img', 'click'

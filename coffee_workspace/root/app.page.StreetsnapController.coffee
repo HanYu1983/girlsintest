@@ -22,8 +22,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 	onBtnMoreClick: ( evt ) ->
 		@event.trigger evt.type
 		
-	onBtnShareClick: ( evt, data ) ->
-		@event.trigger evt.type, data
+	onBtnShareClick: ( evt, info ) ->
+		@event.trigger evt.type, info
 		
 	open: ()->
 		super()

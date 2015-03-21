@@ -54,8 +54,8 @@
       return this.event.trigger(evt.type);
     };
 
-    StreetsnapController.prototype.onBtnShareClick = function(evt, data) {
-      return this.event.trigger(evt.type, data);
+    StreetsnapController.prototype.onBtnShareClick = function(evt, info) {
+      return this.event.trigger(evt.type, info);
     };
 
     StreetsnapController.prototype.open = function() {

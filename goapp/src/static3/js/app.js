@@ -394,15 +394,14 @@
       });
     };
 
-    Main.prototype.onBtnShareClick = function(evt, _arg) {
-      var key;
-      key = _arg.key;
+    Main.prototype.onBtnShareClick = function(evt, info) {
+      console.log(info);
       return vic.facebook.postMessageToMyboard({
-        name: 'test-share',
-        link: "http://" + window.location.host + "/angular-test-coffee/index.html#streetsnap/id=" + key,
-        picture: '',
-        caption: 'caption',
-        description: 'description',
+        name: "",
+        link: "http://" + window.location,
+        picture: info.styleUrl,
+        caption: info.name,
+        description: info.modelDetail,
         callback: function() {
           return console.log('success');
         },

@@ -37,6 +37,11 @@
       });
     };
 
+    HomeController.prototype.open = function() {
+      HomeController.__super__.open.call(this);
+      return this._view.fadeOutMask(5000);
+    };
+
     return HomeController;
 
   })(vic.mvc.Controller);

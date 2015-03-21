@@ -235,13 +235,14 @@ class window.app.Main
 	onBtnMoreClick: ( evt ) ->
 		@router.navigate 'streetsnapList', trigger: true
 		
-	onBtnShareClick: ( evt, { key } ) ->
+	onBtnShareClick: ( evt, info ) ->
+		console.log info
 		vic.facebook.postMessageToMyboard
-			name:'test-share'
-			link:"http://#{window.location.host}/angular-test-coffee/index.html#streetsnap/id=#{key}"
-			picture:''
-			caption:'caption'
-			description: 'description'
+			name:""
+			link:"http://#{window.location}"
+			picture:info.styleUrl
+			caption:info.name
+			description: info.modelDetail
 			callback: ->
 				console.log 'success'
 			error: ->

@@ -60,9 +60,7 @@
         return self.event.trigger('onBtnMoreClick');
       });
       return this.btn_share.click(function() {
-        return self.event.trigger('onBtnShareClick', {
-          key: self.dataDTO.key
-        });
+        return self.event.trigger('onBtnShareClick', self.dataDTO);
       });
     };
 

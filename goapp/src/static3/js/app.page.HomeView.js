@@ -8,7 +8,18 @@
 
     function HomeView(elem) {
       HomeView.__super__.constructor.call(this, elem);
+      this.mc_3dmask = elem.find('#mc_3dmask');
     }
+
+    HomeView.prototype.fadeOutMask = function(delay) {
+      var fadeOut;
+      fadeOut = (function(_this) {
+        return function() {
+          return _this.mc_3dmask.fadeOut(2000);
+        };
+      })(this);
+      return setTimeout(fadeOut, delay);
+    };
 
     return HomeView;
 

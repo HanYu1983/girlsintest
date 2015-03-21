@@ -20,3 +20,7 @@ class window.app.page.HomeController extends vic.mvc.Controller
 			.done done
 			.fail (err) ->
 				alert err
+				
+	open: ()->
+		super()
+		@_view.fadeOutMask 5000

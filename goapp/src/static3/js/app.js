@@ -218,9 +218,14 @@
               return _this.onModelsImgClick.apply(_this, arguments);
             };
           })(this));
-          return controller.event.on('onBtnMoreClick', (function(_this) {
+          controller.event.on('onBtnMoreClick', (function(_this) {
             return function() {
               return _this.onModelsBtnMoreClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onBtnShareClick', (function(_this) {
+            return function() {
+              return _this.onBtnShareClick.apply(_this, arguments);
             };
           })(this));
         case PageModelsList:
@@ -250,9 +255,14 @@
               return _this.onProductImgClick.apply(_this, arguments);
             };
           })(this));
-          return controller.event.on('onBtnMoreClick', (function(_this) {
+          controller.event.on('onBtnMoreClick', (function(_this) {
             return function() {
               return _this.onProductBtnMoreClick.apply(_this, arguments);
+            };
+          })(this));
+          return controller.event.on('onBtnShareClick', (function(_this) {
+            return function() {
+              return _this.onBtnShareClick.apply(_this, arguments);
             };
           })(this));
         case PageProductList:

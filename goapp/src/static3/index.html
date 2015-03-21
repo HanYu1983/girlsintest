@@ -43,7 +43,7 @@
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id)) return;
 			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=605719376223231&version=v2.0";
+			js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=820601784681625&version=v2.0";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 		
@@ -200,8 +200,17 @@
 							
 							<div id="mc_3d_container" class="relative f_left fake3Dregion">
 								<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='323px' height='379px' class="absolute"></iframe>
-								<img id="mc_3dframe" src="images/streetSnap/3d_frame.png" class="absolute disable"></img>
-								<img id="mc_3dmask" src="images/streetSnap/3d_mask.png" class="absolute"></img>
+								<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
+								<img class="relative disable" src="images/streetSnap/3d_frame_02.png"/>
+								<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
+									<!--
+								<div id="mc_3dframe" class="absolute disable">
+									<img src="images/streetSnap/3d_frame_01.png"/>
+									<img src="images/streetSnap/3d_frame_02.png"/>
+									<img src="images/streetSnap/3d_frame_03.png"/>
+								</div>
+								-->
+								<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.png" class="absolute"></img>
 							</div>
 							
 							<div id="mc_pro" class="relative f_left">

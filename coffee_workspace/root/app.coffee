@@ -94,7 +94,7 @@ class window.app.Main
 				
 			product: ( id ) =>
 				@openPage PageProduct, [ id, 'product' ]	
-				@header.showModels()
+				@header.showProduct()
 				
 			productList: ( search ) =>
 				@openPage PageProductList, [ search, 'product']
@@ -232,7 +232,8 @@ class window.app.Main
 		@router.navigate "streetsnap/id=#{id}", trigger: true
 		
 	onImgClick: (evt, {id, key})->
-		@openPopup PageBigPhoto, [key, id]
+		window.open("http://#{window.location.host}/#{id}",'_blank');
+		#@openPopup PageBigPhoto, [key, id]
 		
 	onBtnMoreClick: ( evt ) ->
 		@router.navigate 'streetsnapList', trigger: true
@@ -273,7 +274,8 @@ class window.app.Main
 		@router.navigate "models/id=#{id}", trigger: true
 		
 	onModelsImgClick: (evt, {id, key})->
-		@openPopup PageBigPhoto, [key, id]
+		window.open("http://#{window.location.host}/#{id}",'_blank');
+		#@openPopup PageBigPhoto, [key, id]
 		
 	onModelsBtnMoreClick: ( evt ) ->
 		@router.navigate 'modelsList', trigger: true
@@ -292,7 +294,8 @@ class window.app.Main
 		@router.navigate "product/id=#{id}", trigger: true
 		
 	onProductImgClick: (evt, {id, key})->
-		@openPopup PageBigPhoto, [key, id]
+		window.open("http://#{window.location.host}/#{id}",'_blank');
+		#@openPopup PageBigPhoto, [key, id]
 		
 	onProductBtnMoreClick: ( evt ) ->
 		@router.navigate 'productList', trigger: true

@@ -119,7 +119,7 @@
         product: (function(_this) {
           return function(id) {
             _this.openPage(PageProduct, [id, 'product']);
-            return _this.header.showModels();
+            return _this.header.showProduct();
           };
         })(this),
         productList: (function(_this) {
@@ -395,7 +395,7 @@
     Main.prototype.onImgClick = function(evt, _arg) {
       var id, key;
       id = _arg.id, key = _arg.key;
-      return this.openPopup(PageBigPhoto, [key, id]);
+      return window.open("http://" + window.location.host + "/" + id, '_blank');
     };
 
     Main.prototype.onBtnMoreClick = function(evt) {
@@ -405,8 +405,6 @@
     };
 
     Main.prototype.onBtnShareClick = function(evt, info) {
-      console.log(info);
-      console.log(window.location.href);
       return vic.facebook.postMessageToMyboard({
         name: "",
         link: window.location.href,
@@ -414,10 +412,10 @@
         caption: info.name,
         description: info.modelDetail,
         callback: function() {
-          return console.log('success');
+          return alert("分享成功");
         },
-        error: function() {
-          return console.log('error');
+        error: function(err) {
+          return alert(err);
         }
       });
     };
@@ -467,7 +465,7 @@
     Main.prototype.onModelsImgClick = function(evt, _arg) {
       var id, key;
       id = _arg.id, key = _arg.key;
-      return this.openPopup(PageBigPhoto, [key, id]);
+      return window.open("http://" + window.location.host + "/" + id, '_blank');
     };
 
     Main.prototype.onModelsBtnMoreClick = function(evt) {
@@ -505,7 +503,7 @@
     Main.prototype.onProductImgClick = function(evt, _arg) {
       var id, key;
       id = _arg.id, key = _arg.key;
-      return this.openPopup(PageBigPhoto, [key, id]);
+      return window.open("http://" + window.location.host + "/" + id, '_blank');
     };
 
     Main.prototype.onProductBtnMoreClick = function(evt) {

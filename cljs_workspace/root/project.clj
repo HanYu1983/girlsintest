@@ -6,7 +6,7 @@
     :builds [{
         :id "cljstestproject.js"
         ; The path to the top-level ClojureScript source directory:
-        :source-paths ["src2"]
+        :source-paths ["src3"]
         ; The standard ClojureScript compiler options:
         ; (See the ClojureScript compiler documentation for details.)
         :compiler {

@@ -1,13 +1,3 @@
 goog.addDependency("base.js", ['goog'], []);
 goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.string.StringBuffer', 'goog.array']);
-goog.addDependency("../app/design/IPageManager.js", ['app.design.IPageManager'], ['cljs.core']);
-goog.addDependency("../app/design/IPage.js", ['app.design.IPage'], ['cljs.core']);
-goog.addDependency("../app/impl/Page.js", ['app.impl.Page'], ['app.design.IPage', 'cljs.core']);
-goog.addDependency("../app/design/IEvent.js", ['app.design.IEvent'], ['cljs.core']);
-goog.addDependency("../app/impl/HeaderPage.js", ['app.impl.HeaderPage'], ['app.design.IPage', 'cljs.core', 'app.design.IEvent']);
-goog.addDependency("../app/impl/PageManager.js", ['app.impl.PageManager'], ['app.design.IPageManager', 'app.design.IPage', 'app.impl.Page', 'cljs.core', 'app.impl.HeaderPage']);
-goog.addDependency("../app/design/IInjector.js", ['app.design.IInjector'], ['cljs.core']);
-goog.addDependency("../app/impl/Injector.js", ['app.impl.Injector'], ['app.design.IPageManager', 'cljs.core', 'app.impl.PageManager', 'app.design.IInjector']);
-goog.addDependency("../app/design/IApp.js", ['app.design.IApp'], ['cljs.core']);
-goog.addDependency("../app/impl/App.js", ['app.impl.App'], ['cljs.core', 'app.impl.Injector', 'app.design.IApp', 'app.design.IEvent', 'app.design.IInjector']);
-goog.addDependency("../app/main.js", ['app.main'], ['cljs.core', 'app.impl.App', 'app.design.IApp']);
+goog.addDependency("../core/app.js", ['core.app'], ['cljs.core']);

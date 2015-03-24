@@ -1,87 +1,69 @@
 (ns core.app)
 
-(defn emptyModel []
-  (atom nil))
+(defn emptyModel [a-ctx args]
+  (let [promise (new js/$.Deferred)]
+    (js/setTimeout #(.resolve promise nil) 0)
+    promise))
 
-(defn CreateElem [tmpl CreateModel helper]
-  (.tmpl tmpl @(CreateModel) helper))
+(defn CreateElem [tmpl CreateModel helper]  
+  (let [promise (new js/$.Deferred)
+        modelPromise (CreateModel)]
+    (.done modelPromise 
+      (fn [model] 
+        (let [elem (.tmpl tmpl model helper)]
+          (.resolve promise elem))))
+    (.fail modelPromise #(.reject promise %1))
+    promise))
 
 (defn CreateView [CreateElem Open Close]
-  (let [elem (CreateElem)]
-    {:elem elem
-     :Open (partial Open elem)
-     :Close (partial Close elem)}))
+  (let [elemPromise (CreateElem)
+        view (js-obj "elemPromise" elemPromise "Open" Open "Close" Close)]
+    (doto elemPromise
+      (.done 
+        (fn [elem]
+          (set! (.-elem view) elem))))
+    view))
      
 (defn FadeOut [elem]
-  (.log js/console "FadeOut")
-  (.log js/console elem)
   (.fadeOut elem 400))
   
 (defn FadeIn [elem Complete]
-  (.log js/console "FadeIn")
-  (.log js/console elem)
   (.fadeIn elem 400)
   (js/setTimeout Complete 400))
   
-(defmulti CreateAppView (fn [ctx key args] key))
+(defmulti CreateAppView (fn [ctx key CreateModel] key))
 
-(defmethod CreateAppView :Header [ctx key args]
-  (let [elem #(CreateElem (js/$ "#mc_header") emptyModel nil)]
-    (doto #(.find elem)
-      (.click #(.onNext evt/xxx nil)))
-    (.subscribe evt/xxx #())]
-    (CreateView elem FadeIn FadeOut)))
-
-(defn OpenView [{:keys [container views] :as ctx} key args]
-  (let [v (CreateAppView ctx key args)]
-    (doto (:elem v)
-      (.appendTo container))
-    (do (:Open v))
+(defn OpenView [{:keys [container views] :as ctx} key CreateModel]
+  (let [v (CreateAppView ctx key CreateModel)]
+    (doto (.-elemPromise v)
+      (.done (fn [elem] 
+                  (.appendTo elem container)
+                  ((.-Open v) elem)))
+      (.fail (fn [err] (js/alert err))))
     (update-in ctx [:views] assoc key v)))
     
 (defn CloseView [{:keys [container views] :as ctx} key]
   (if-let [v (key views)]
     (do 
-      (:Close v #(.log js/console "delete elem:" (:elem v)))
+      ((.-Close v) (.-elem v) #(.remove (.-elem v)))
       (update-in ctx [:views] dissoc key))
-    ctx)
+    ctx))
     
-(defn ChangeView [{:keys [container views] :as ctx} key args]
+(defn ChangeView [{:keys [container views] :as ctx} key CreateModel]
   (let [closeAll (fn [ctx]
                    (reduce (fn [ctx key] (CloseView ctx key)) ctx (keys views)))
         thenOpen (fn [ctx]
-                (OpenView ctx key args))]
+                (OpenView ctx key CreateModel))]
     (-> ctx
       closeAll
       thenOpen)))
-
-(defn CreateModel [args]
-  (let [model (atom nil)]
-    (reset! model {:x 20})
-    model))
-
-(defn testCreateElem []
-  (let [elem (CreateElem (js/$ "#tmpl_celebrity") (partial CreateModel {}) {})]
-    (.log js/console elem)))
-    
-(defn testCreateElem2 []
-  (let [ctx (atom {
-              :views {}
-              :container (js/$ "#mc_pageContainer")
-              :route {:Header {"ok" [:Step1 CreateStep1Model]
-                               "fail" [:Step2 emptyModel]}
-                      :Step1 {"ok" [:Header emptyModel]}}})]
-    (.subscribe evt/xxx (partial Route ctx :Header "ok"))
-    (.subscribe evt/xxx (partial Route ctx :Header "fail"))
-    
-    (swap! ctx #(OpenView %1 :Header nil))))
     
 (defn Route [a-ctx key whichRoute args]
-  (let [handleRoute (fn [{:keys [route] :as ctx}
-                         [nextPage CreateModel] (-> route (key) (whichRoute))]
-                       (if-let nextPage
-                         (ChangePage ctx nextPage args)
-                         ctx))]
+  (let [handleRoute (fn [{:keys [route] :as ctx}]
+                      (let [[nextPage CreateModel] (-> route key whichRoute)]
+                        (if-not (= nextPage nil)
+                          (ChangeView ctx nextPage (partial CreateModel a-ctx args))
+                          (do
+                            (CreateModel a-ctx)
+                            ctx))))]
     (swap! a-ctx handleRoute)))
-    
-(testCreateElem2)

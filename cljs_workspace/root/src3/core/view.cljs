@@ -22,3 +22,21 @@
         (let [btn_page1 (.find elem "#btn_page1")]
           (.click btn_page1 #(.onNext evt/OnPage2BtnClick "btn_page1"))))))
     view))
+    
+    
+(defmethod app/CreateAppView :Home [ctx key CreateModel]
+  (let [CreateElem #(app/CreateElem (js/$ "#tmpl_home") CreateModel nil)
+        view (app/CreateView CreateElem app/FadeIn app/FadeOut)]
+    (doto (.-elemPromise view)
+      (.done (fn [elem])))
+    view))
+
+
+(defmethod app/CreateAppView :StreetSnap [ctx key CreateModel]
+  (let [CreateElem #(app/CreateElem (js/$ "#tmpl_streetsnap_list") CreateModel nil)
+        view (app/CreateView CreateElem app/FadeIn app/FadeOut)]
+    (doto (.-elemPromise view)
+      (.done (fn [elem])))
+    view))
+    
+    

@@ -24,12 +24,12 @@
           (set! (.-elem view) elem))))
     view))
      
-(defn FadeOut [elem]
-  (.fadeOut elem 400))
-  
-(defn FadeIn [elem Complete]
-  (.fadeIn elem 400)
+(defn FadeOut [elem Complete]
+  (.fadeOut elem 400)
   (js/setTimeout Complete 400))
+  
+(defn FadeIn [elem]
+  (.fadeIn elem 400))
   
 (defmulti CreateAppView (fn [ctx key CreateModel] key))
 

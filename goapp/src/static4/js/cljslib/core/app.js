@@ -24,10 +24,10 @@ return (function (elem){return view.elem = elem;
 );
 return view;
 });
-core.app.FadeOut = (function FadeOut(elem){return elem.fadeOut((400));
-});
-core.app.FadeIn = (function FadeIn(elem,Complete){elem.fadeIn((400));
+core.app.FadeOut = (function FadeOut(elem,Complete){elem.fadeOut((400));
 return setTimeout(Complete,(400));
+});
+core.app.FadeIn = (function FadeIn(elem){return elem.fadeIn((400));
 });
 core.app.CreateAppView = (function (){var method_table__4417__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);var prefer_table__4418__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);var method_cache__4419__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);var cached_hierarchy__4420__auto__ = cljs.core.atom.call(null,cljs.core.PersistentArrayMap.EMPTY);var hierarchy__4421__auto__ = cljs.core.get.call(null,cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"hierarchy","hierarchy",-1053470341),cljs.core.get_global_hierarchy.call(null));return (new cljs.core.MultiFn("CreateAppView",((function (method_table__4417__auto__,prefer_table__4418__auto__,method_cache__4419__auto__,cached_hierarchy__4420__auto__,hierarchy__4421__auto__){
 return (function (ctx,key,CreateModel){return key;

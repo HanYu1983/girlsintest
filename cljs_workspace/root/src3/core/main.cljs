@@ -17,5 +17,35 @@
     (.subscribe evt/OnPage2BtnClick (partial app/Route ctx :Page2 :topage1))
     (.subscribe evt/OnPage1AddHpBtnClick (partial app/Route ctx :Page1 :addhp))
     (swap! ctx #(app/OpenView %1 :Page1 (partial model/CreatePage1Model ctx)))))
+    
+    
 
-(testCreateElem2)
+(defn initHeader [root]
+  (let [menubar (.find root "#mc_menubar")]
+    (.delegate menubar "div" "click" 
+      (fn [evt] 
+        (this-as that
+          (.onNext evt/OnMenubarBtnClick (.-id that)))))))
+
+
+(defn testIndex3 []
+  (let [root (js/$ ".root")
+        ctx (atom {
+              :views {}
+              :container (.find root "#mc_pageContainer")
+              :route {:Home {:toModel [:Model app/emptyModel]
+                             :toStreetSnap [:StreetSnap model/CreateStreetSnapModel]
+                             :toProduct [:Product app/emptyModel]}}})]
+    (initHeader root)
+    (.subscribe evt/OnMenubarBtnClick 
+      (fn [id]
+        (condp = id
+          "btn_nav_celebrity" (app/Route ctx :Home :toCelebrity nil)
+          "btn_nav_event" (app/Route ctx :Home :toEvent nil)
+          "btn_nav_model" (app/Route ctx :Home :toModel nil)
+          "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnap nil)
+          "btn_nav_product" (app/Route ctx :Home :toProduct nil)
+          identity)))
+    (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
+    
+(testIndex3)

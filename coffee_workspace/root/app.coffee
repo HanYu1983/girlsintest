@@ -243,10 +243,10 @@ class window.app.Main
 			name:""
 			link:window.location.href
 			picture:info.styleUrl
-			caption:info.name
+			caption:"#{info.name} in sdyle"
 			description: info.modelDetail
-			callback: ->
-				alert "分享成功"
+			callback: (res)->
+				alert "分享成功" if res inst null
 				
 			error: (err) ->
 				alert err

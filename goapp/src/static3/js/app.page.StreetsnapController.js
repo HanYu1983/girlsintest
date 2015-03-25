@@ -64,9 +64,11 @@
     };
 
     StreetsnapController.prototype.applyTemplate = function(_arg, callback) {
-      var configKey, configPath, done, getAllModel, key, modelType;
+      var bottomTab1, bottomTab2, configKey, configPath, done, getAllModel, key, modelType;
       key = _arg[0], modelType = _arg[1];
       configKey = modelType === 'models' ? 'model' : modelType === 'streetsnap' ? 'street' : 'product';
+      bottomTab1 = modelType === 'models' ? 'MODEL資料' : modelType === 'streetsnap' ? 'MODEL資料' : '產品資料';
+      bottomTab2 = modelType === 'models' ? 'MODEL訪談' : modelType === 'streetsnap' ? 'MODEL訪談' : '產品特色';
       done = function(config, models) {
         var convertHeadDTO, convertImageId2DTO, convertImageId2DTOForSize, detail, dto, _i, _ref, _ref1, _results;
         _ref = _.filter(models, function(_arg1) {
@@ -145,7 +147,9 @@
           talk: detail.Talk,
           protalk: detail.Comment,
           modelKey: detail.ModelKey,
-          key: key
+          key: key,
+          bottomTab1: bottomTab1,
+          bottomTab2: bottomTab2
         };
         return callback(dto);
       };

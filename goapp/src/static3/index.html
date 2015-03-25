@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>angular test</title>
+		<title>Sdyle</title>
 		<link href='css/basic.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/app.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/home.min.css' rel='stylesheet' type='text/css'/>
@@ -226,7 +226,7 @@
 							</div>
 						</div>
 						<!--
-						<div class="relative f_left margin_topB textBase">MODEL照片</div>
+						<div class="relative f_left margin_topB textBase">${category}照片</div>
 						-->
 						<img class='relative f_left margin_topB mc_line' src='images/streetSnap/line.png'/>
 						
@@ -235,12 +235,12 @@
 								<img id=${id} class='btn relative f_left bottomPicture' src=${url} />
 							{{/each}}
 						</div>
-						<div class="relative f_left margin_topB textBase">MODEL資料</div>
+							<div class="relative f_left margin_topB textBase">${bottomTab1}</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div style="width:650px" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
 							{{html modelDetail }}
 						</div>
-						<div id="txt_name2" class="relative f_left margin_topB textBase">MODEL訪談</div>
+						<div id="txt_name2" class="relative f_left margin_topB textBase">${bottomTab2}</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="txt_modelMeeting" style="width:650px"  style="margin-bottom:100px;" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
 							{{html talk}}

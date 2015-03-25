@@ -409,10 +409,12 @@
         name: "",
         link: window.location.href,
         picture: info.styleUrl,
-        caption: info.name,
+        caption: "" + info.name + " in sdyle",
         description: info.modelDetail,
-        callback: function() {
-          return alert("分享成功");
+        callback: function(res) {
+          if (res(inst(null))) {
+            return alert("分享成功");
+          }
         },
         error: function(err) {
           return alert(err);

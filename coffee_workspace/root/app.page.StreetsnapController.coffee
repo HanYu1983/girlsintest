@@ -38,7 +38,23 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				'street'
 			else
 				'product'
-		
+				
+		bottomTab1 = 
+			if modelType is 'models'
+				'MODEL資料'
+			else if modelType is 'streetsnap'
+				'MODEL資料'
+			else
+				'產品資料'
+				
+		bottomTab2 = 
+			if modelType is 'models'
+				'MODEL訪談'
+			else if modelType is 'streetsnap'
+				'MODEL訪談'
+			else
+				'產品特色'
+			
 		done = (config, models) ->
 			
 			[key, detail] = _.filter( models, ([modelKey, detail]) -> modelKey is key )[0]
@@ -68,6 +84,8 @@ class window.app.page.StreetsnapController extends vic.mvc.Controller
 				protalk: detail.Comment
 				modelKey: detail.ModelKey
 				key: key
+				bottomTab1: bottomTab1
+				bottomTab2: bottomTab2
 			callback dto
 			
 		configPath = "config.json"

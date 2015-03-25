@@ -1,11 +1,12 @@
 (ns core.main
+  (:require-macros [macro.tool :as tool])
   (:require 
     [core.app :as app]
     [core.model :as model]
     [core.view :as view]
     [core.event :as evt]
     [core.fn :as fn]))
-    
+
 (defn testCreateElem2 []
   (let [ctx (atom {
               :model {:hp 100}

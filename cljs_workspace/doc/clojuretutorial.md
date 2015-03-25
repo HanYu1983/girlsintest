@@ -34,10 +34,23 @@
         (.log js/console args))
         
 > 變數在FP裡的含義是一個記憶體的定點，用來分享資料。基本上FP沒有OOP變數的概念
+> 以下方式不是FP的概念
     
     (def power (atom 0))
     (defn addPower [value]
         (swap! power + value))
-> 沒有這樣使用的!
-
+####arguments和& args
+    (def fn []
+        (.log js/console js/arguments)  ; js的array
+        (.log js/console (aget js/arguments 0)) ; js的array的第一個元素使用aget
+        (->>
+            (.map js/_ js/arguments #(%)) ; 使用underscore處理js的array
+            (apply array)))   ; 將clojure(惰性)序列轉為js的array
+        
+    (def fn [& args]
+        (.log js/console args)  ; clojure的序列
+        (.log js/console (first args))  ; clojure的序列的第一個元素使用first
+        (->>
+            (map #(%) args) ; 使用clojure的map
+            (apply array))) ; 將clojure(惰性)序列轉為js的array
 ###FP如何用常數處理變數

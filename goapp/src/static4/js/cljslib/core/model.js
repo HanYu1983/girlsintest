@@ -25,12 +25,26 @@ return (function (){return promise.resolve((function (){var obj5046 = {"modelKey
 return promise;
 });
 core.model.CreateStreetSnapListModel = (function CreateStreetSnapListModel(a_ctx,args){var promise = (new $.Deferred());var G__5055_5062 = core.fn.GetAllModelBy.call(null,"config.json","street");G__5055_5062.done(((function (G__5055_5062,promise){
-return (function (){var config = (arguments[(0)]);var details = (arguments[(1)]);var ConvertDTO = ((function (config,details,G__5055_5062,promise){
+return (function() { 
+var G__5063__delegate = function (args__$1){var config = cljs.core.first.call(null,args__$1);var details = cljs.core.second.call(null,args__$1);var ConvertDTO = ((function (config,details,G__5055_5062,promise){
 return (function (p__5056){var vec__5057 = p__5056;var model = cljs.core.nth.call(null,vec__5057,(0),null);var detail = cljs.core.nth.call(null,vec__5057,(1),null);var obj5059 = {"id":model,"name":detail.Caption,"date":detail.Date,"brand":detail.Brand,"imgStylePath":core.fn.ServeImagePath.call(null,(''+cljs.core.str.cljs$core$IFn$_invoke$arity$1((config["street"]))+"/"+cljs.core.str.cljs$core$IFn$_invoke$arity$1(model)+"/image_2.jpg")),"imgSideAPath":core.fn.ServeImagePath100.call(null,(''+cljs.core.str.cljs$core$IFn$_invoke$arity$1((config["street"]))+"/"+cljs.core.str.cljs$core$IFn$_invoke$arity$1(model)+"/image_3.jpg")),"imgSideBPath":core.fn.ServeImagePath100.call(null,(''+cljs.core.str.cljs$core$IFn$_invoke$arity$1((config["street"]))+"/"+cljs.core.str.cljs$core$IFn$_invoke$arity$1(model)+"/image_4.jpg")),"imgSideCPath":core.fn.ServeImagePath100.call(null,(''+cljs.core.str.cljs$core$IFn$_invoke$arity$1((config["street"]))+"/"+cljs.core.str.cljs$core$IFn$_invoke$arity$1(model)+"/image_5.jpg"))};return obj5059;
 });})(config,details,G__5055_5062,promise))
 ;var dto = (function (){var obj5061 = {"searchWord":"","streetsnapList":cljs.core.apply.call(null,cljs.core.array,cljs.core.map.call(null,ConvertDTO,details))};return obj5061;
 })();return promise.resolve(dto);
-});})(G__5055_5062,promise))
+};
+var G__5063 = function (var_args){
+var args__$1 = null;if (arguments.length > 0) {
+  args__$1 = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0),0);} 
+return G__5063__delegate.call(this,args__$1);};
+G__5063.cljs$lang$maxFixedArity = 0;
+G__5063.cljs$lang$applyTo = (function (arglist__5064){
+var args__$1 = cljs.core.seq(arglist__5064);
+return G__5063__delegate(args__$1);
+});
+G__5063.cljs$core$IFn$_invoke$arity$variadic = G__5063__delegate;
+return G__5063;
+})()
+;})(G__5055_5062,promise))
 );
 G__5055_5062.fail(((function (G__5055_5062,promise){
 return (function (p1__5047_SHARP_){return promise.reject(p1__5047_SHARP_);

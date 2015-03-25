@@ -26,9 +26,9 @@
   (let [promise (new js/$.Deferred)]
     (doto (fn/GetAllModelBy "config.json" "street")
       (.done 
-        (fn [] 
-          (let [config (aget js/arguments 0)
-                details (aget js/arguments 1)
+        (fn [& args] 
+          (let [config (first args)
+                details (second args)
                 ConvertDTO (fn [[model detail]]
                               (js-obj
                                 "id" model

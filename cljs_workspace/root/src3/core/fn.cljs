@@ -27,14 +27,14 @@
                            (for [key keys] (FetchFile (str path "/" key "/config.json"))))]
     (doto (.apply js/$.when js/$ fetchFilePromise)
       (.done 
-        (fn []
+        (fn [& args]
           (if (= 1 (count keys))
             ; 如果輸入的ajax只有一個，則不會回傳array
             ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
-            (let [detail (aget js/arguments 0)]
+            (let [detail (first args)]
               (.resolve promise (seq {(first keys) detail})))
             ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
-            (let [details (.map js/_ js/arguments (fn [data] (aget data 0)))]
+            (let [details (map (fn [data] (aget data 0)) args)]
               (.resolve promise (zipmap keys details))))))
       (.fail #(.reject promise %)))
     promise))

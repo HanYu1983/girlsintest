@@ -1,4 +1,5 @@
-(ns core.fn)
+(ns core.fn
+  (:require-macros [macro.tool :as macro]))
 
 (defn ServeImagePath [path]
   (str "http://" window.location.host "/" path))
@@ -8,37 +9,86 @@
 
 (defn FetchFile [path]
   (.getJSON js/$ (str "http://" window.location.host "/" path)))
-  
+    
 (defn FetchModelKeyList [path]
-  (let [promise (new js/$.Deferred)]
-    (doto (FetchFile path)
-      (.done 
-        (fn [data]
-          (let [keylist (for [modelKey data :when (not= modelKey "config.json")] modelKey)]
-            (.resolve promise keylist))))
-      (.fail 
-        (fn [err]
-          (.reject promise err))))
-    promise))
+  (macro/makepromise p
+    (FetchFile path)
+    (fn [data]
+      (let [keylist (for [modelKey data :when (not= modelKey "config.json")] modelKey)]
+        (.resolve p keylist)))))
     
 (defn FetchAllModel [path keys]
-  (let [promise (new js/$.Deferred)
-        fetchFilePromise (apply array 
+  (let [fetchFilePromise (apply array 
                            (for [key keys] (FetchFile (str path "/" key "/config.json"))))]
-    (doto (.apply js/$.when js/$ fetchFilePromise)
-      (.done 
-        (fn [& args]
-          (if (= 1 (count keys))
-            ; 如果輸入的ajax只有一個，則不會回傳array
-            ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
-            (let [detail (first args)]
-              (.resolve promise (seq {(first keys) detail})))
-            ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
-            (let [details (map (fn [data] (aget data 0)) args)]
-              (.resolve promise (zipmap keys details))))))
-      (.fail #(.reject promise %)))
-    promise))
+    (macro/makepromise promise
+      (.apply js/$.when js/$ fetchFilePromise)
+      (fn [& args]
+        (if (= 1 (count keys))
+          ; 如果輸入的ajax只有一個，則不會回傳array
+          ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
+          (let [detail (first args)]
+            (.resolve promise (seq {(first keys) detail})))
+          ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
+          (let [details (map (fn [data] (aget data 0)) args)]
+            (.resolve promise (zipmap keys details))))))))
+    
+(defn GetAllModelBy [configPath type]
+  (macro/makepromise promise
+    (FetchFile configPath)
+    (fn [config]
+      (let [pkgPath (aget config type)]
+        (->
+          (FetchModelKeyList pkgPath)
+          (.pipe (partial FetchAllModel pkgPath))
+          (doto
+            (.done (fn [ret] (.resolve promise config ret)))
+            (.fail (fn [err] (.reject promise err)))))))))
 
+
+
+
+
+
+
+
+
+
+            (comment 
+          (defn FetchModelKeyList [path]
+            (let [promise (new js/$.Deferred)]
+              (doto (FetchFile path)
+                (.done 
+                  (fn [data]
+                    (let [keylist (for [modelKey data :when (not= modelKey "config.json")] modelKey)]
+                      (.resolve promise keylist))))
+                (.fail 
+                  (fn [err]
+                    (.reject promise err))))
+              promise))
+              )
+
+            (comment 
+    (defn FetchAllModel [path keys]
+      (let [promise (new js/$.Deferred)
+            fetchFilePromise (apply array 
+                               (for [key keys] (FetchFile (str path "/" key "/config.json"))))]
+        (doto (.apply js/$.when js/$ fetchFilePromise)
+          (.done 
+            (fn [& args]
+              (if (= 1 (count keys))
+                ; 如果輸入的ajax只有一個，則不會回傳array
+                ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
+                (let [detail (first args)]
+                  (.resolve promise (seq {(first keys) detail})))
+                ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
+                (let [details (map (fn [data] (aget data 0)) args)]
+                  (.resolve promise (zipmap keys details))))))
+          (.fail #(.reject promise %)))
+        promise))
+        )
+        
+        
+    (comment 
 (defn GetAllModelBy [configPath type]
   (let [promise (new js/$.Deferred)]
     (doto (FetchFile configPath)
@@ -55,3 +105,5 @@
         (fn [err]
           (.reject promise err))))
     promise))
+    
+    )

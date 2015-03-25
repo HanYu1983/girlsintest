@@ -15,7 +15,7 @@ core.main.testCreateElem2 = (function testCreateElem2(){var ctx = cljs.core.atom
 core.event.OnPage2BtnClick.subscribe(cljs.core.partial.call(null,core.app.Route,ctx,new cljs.core.Keyword(null,"Page2","Page2",-553759692),new cljs.core.Keyword(null,"topage1","topage1",1739412532)));
 core.event.OnPage1AddHpBtnClick.subscribe(cljs.core.partial.call(null,core.app.Route,ctx,new cljs.core.Keyword(null,"Page1","Page1",-154479013),new cljs.core.Keyword(null,"addhp","addhp",-302288219)));
 return cljs.core.swap_BANG_.call(null,ctx,((function (ctx){
-return (function (p1__5044_SHARP_){return core.app.OpenView.call(null,p1__5044_SHARP_,new cljs.core.Keyword(null,"Page1","Page1",-154479013),cljs.core.partial.call(null,core.model.CreatePage1Model,ctx));
+return (function (p1__5039_SHARP_){return core.app.OpenView.call(null,p1__5039_SHARP_,new cljs.core.Keyword(null,"Page1","Page1",-154479013),cljs.core.partial.call(null,core.model.CreatePage1Model,ctx));
 });})(ctx))
 );
 });
@@ -26,19 +26,19 @@ return (function (evt){var that = this;return core.event.OnMenubarBtnClick.onNex
 });
 core.main.testIndex3 = (function testIndex3(){var root = $(".root");var ctx = cljs.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"views","views",1450155487),cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"container","container",-1736937707),root.find("#mc_pageContainer"),new cljs.core.Keyword(null,"route","route",329891309),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"Home","Home",1521501280),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"toModel","toModel",-1645669175),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"Model","Model",-1633340081),core.app.emptyModel], null),new cljs.core.Keyword(null,"toStreetSnap","toStreetSnap",-1729169818),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"StreetSnap","StreetSnap",-1105926986),core.model.CreateStreetSnapListModel], null),new cljs.core.Keyword(null,"toProduct","toProduct",-912176427),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"Product","Product",1806927075),core.app.emptyModel], null)], null)], null)], null));core.main.initHeader.call(null,root);
 core.event.OnMenubarBtnClick.subscribe(((function (root,ctx){
-return (function (id){var pred__5049 = cljs.core._EQ_;var expr__5050 = id;if(cljs.core.truth_(pred__5049.call(null,"btn_nav_celebrity",expr__5050)))
+return (function (id){var pred__5044 = cljs.core._EQ_;var expr__5045 = id;if(cljs.core.truth_(pred__5044.call(null,"btn_nav_celebrity",expr__5045)))
 {return core.app.Route.call(null,ctx,new cljs.core.Keyword(null,"Home","Home",1521501280),new cljs.core.Keyword(null,"toCelebrity","toCelebrity",1684481862),null);
 } else
-{if(cljs.core.truth_(pred__5049.call(null,"btn_nav_event",expr__5050)))
+{if(cljs.core.truth_(pred__5044.call(null,"btn_nav_event",expr__5045)))
 {return core.app.Route.call(null,ctx,new cljs.core.Keyword(null,"Home","Home",1521501280),new cljs.core.Keyword(null,"toEvent","toEvent",-687326363),null);
 } else
-{if(cljs.core.truth_(pred__5049.call(null,"btn_nav_model",expr__5050)))
+{if(cljs.core.truth_(pred__5044.call(null,"btn_nav_model",expr__5045)))
 {return core.app.Route.call(null,ctx,new cljs.core.Keyword(null,"Home","Home",1521501280),new cljs.core.Keyword(null,"toModel","toModel",-1645669175),null);
 } else
-{if(cljs.core.truth_(pred__5049.call(null,"btn_nav_streetSnap",expr__5050)))
+{if(cljs.core.truth_(pred__5044.call(null,"btn_nav_streetSnap",expr__5045)))
 {return core.app.Route.call(null,ctx,new cljs.core.Keyword(null,"Home","Home",1521501280),new cljs.core.Keyword(null,"toStreetSnap","toStreetSnap",-1729169818),null);
 } else
-{if(cljs.core.truth_(pred__5049.call(null,"btn_nav_product",expr__5050)))
+{if(cljs.core.truth_(pred__5044.call(null,"btn_nav_product",expr__5045)))
 {return core.app.Route.call(null,ctx,new cljs.core.Keyword(null,"Home","Home",1521501280),new cljs.core.Keyword(null,"toProduct","toProduct",-912176427),null);
 } else
 {return cljs.core.identity;
@@ -50,18 +50,18 @@ return (function (id){var pred__5049 = cljs.core._EQ_;var expr__5050 = id;if(clj
 });})(root,ctx))
 );
 return cljs.core.swap_BANG_.call(null,ctx,((function (root,ctx){
-return (function (p1__5045_SHARP_){return core.app.OpenView.call(null,p1__5045_SHARP_,new cljs.core.Keyword(null,"Home","Home",1521501280),cljs.core.partial.call(null,core.model.CreateHomeModel,ctx));
+return (function (p1__5040_SHARP_){return core.app.OpenView.call(null,p1__5040_SHARP_,new cljs.core.Keyword(null,"Home","Home",1521501280),cljs.core.partial.call(null,core.model.CreateHomeModel,ctx));
 });})(root,ctx))
 );
 });
-core.main.testFn = (function testFn(){var G__5053 = core.fn.GetAllModelBy.call(null,"config.json","product");G__5053.done(((function (G__5053){
+core.main.testFn = (function testFn(){var G__5048 = core.fn.GetAllModelBy.call(null,"config.json","product");G__5048.done(((function (G__5048){
 return (function (){return console.log(arguments);
-});})(G__5053))
+});})(G__5048))
 );
-G__5053.fail(((function (G__5053){
+G__5048.fail(((function (G__5048){
 return (function (err){return alert(err);
-});})(G__5053))
+});})(G__5048))
 );
-return G__5053;
+return G__5048;
 });
 core.main.testIndex3.call(null);

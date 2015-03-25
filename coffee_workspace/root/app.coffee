@@ -240,7 +240,7 @@ class window.app.Main
 		
 	onBtnShareClick: ( evt, info ) ->
 		vic.facebook.postMessageToMyboard
-			name:""
+			name:"sdyle"
 			link:window.location.href
 			picture:info.styleUrl
 			caption:"#{info.name} in sdyle"

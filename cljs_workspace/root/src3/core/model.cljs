@@ -22,8 +22,26 @@
       #(.resolve promise (js-obj "modelKey" 0)) 0)
       promise))
 
-(defn CreateStreetSnapModel [a-ctx args]
+(defn CreateStreetSnapListModel [a-ctx args]
   (let [promise (new js/$.Deferred)]
-    (js/setTimeout
-      #(.resolve promise (js-obj "searchWord" "" "streetsnapList" (array))) 0)
+    (doto (fn/GetAllModelBy "config.json" "street")
+      (.done 
+        (fn [] 
+          (let [config (aget js/arguments 0)
+                details (aget js/arguments 1)
+                ConvertDTO (fn [[model detail]]
+                              (js-obj
+                                "id" model
+                                "name" (.-Caption detail)
+                                "date" (.-Date detail)
+                                "brand" (.-Brand detail)
+                                "imgStylePath" (fn/ServeImagePath (str (aget config "street") "/" model "/image_2.jpg"))
+                                "imgSideAPath" (fn/ServeImagePath100 (str (aget config "street") "/" model "/image_3.jpg"))
+                                "imgSideBPath" (fn/ServeImagePath100 (str (aget config "street") "/" model "/image_4.jpg"))
+                                "imgSideCPath" (fn/ServeImagePath100 (str (aget config "street") "/" model "/image_5.jpg"))))
+                dto (js-obj 
+                      "searchWord" ""
+                      "streetsnapList" (->> (map ConvertDTO details) (apply array)))]
+            (.resolve promise dto))))
+      (.fail #(.reject promise %)))
       promise))

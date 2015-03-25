@@ -3,7 +3,8 @@
     [core.app :as app]
     [core.model :as model]
     [core.view :as view]
-    [core.event :as evt]))
+    [core.event :as evt]
+    [core.fn :as fn]))
     
 (defn testCreateElem2 []
   (let [ctx (atom {
@@ -34,7 +35,7 @@
               :views {}
               :container (.find root "#mc_pageContainer")
               :route {:Home {:toModel [:Model app/emptyModel]
-                             :toStreetSnap [:StreetSnap model/CreateStreetSnapModel]
+                             :toStreetSnap [:StreetSnap model/CreateStreetSnapListModel]
                              :toProduct [:Product app/emptyModel]}}})]
     (initHeader root)
     (.subscribe evt/OnMenubarBtnClick 
@@ -47,5 +48,11 @@
           "btn_nav_product" (app/Route ctx :Home :toProduct nil)
           identity)))
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
+
+
+(defn testFn []
+  (doto (fn/GetAllModelBy "config.json" "product")
+    (.done (fn [] (.log js/console js/arguments)))
+    (.fail (fn [err] (js/alert err)))))
     
 (testIndex3)

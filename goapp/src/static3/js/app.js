@@ -406,7 +406,7 @@
 
     Main.prototype.onBtnShareClick = function(evt, info) {
       return vic.facebook.postMessageToMyboard({
-        name: "",
+        name: "sdyle",
         link: window.location.href,
         picture: info.styleUrl,
         caption: "" + info.name + " in sdyle",

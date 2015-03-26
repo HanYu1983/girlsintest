@@ -47,7 +47,75 @@
 			</div>
 		</script>
 							
+		<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
+			<div class="hide full">
+				<div id="mc_center" class="absolute">
+					<div id="mc_background" class="fixed h_full"></div>
+					<div class="mainContainer margin_leftA margin_topA">
+						<div id="txt_name" class="relative f_left txt_size_title textBase">${name}</div>
+						<img id="btn_share" src="images/index/topBtn_04.png" style="margin-top:-23px;" class="btn relative f_right" />
+						<div id="txt_date" class="relative f_right txt_size_title textBase">${date}</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div id="mc_mainContainer" class="relative f_left">
 							
+							<div id="mc_3d_container" class="relative f_left fake3Dregion">
+								<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='323px' height='379px' class="absolute"></iframe>
+								<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
+								<img class="relative disable" src="images/streetSnap/3d_frame_02.png"/>
+								<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
+								<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
+							</div>
+							
+							<div id="mc_pro" class="relative f_left">
+								<div class="absolute full white_cube opacity_3"></div>
+								<div id="txt_proContent" class="absolute textBase">{{html protalk}}</div>
+							</div>
+							<img id="img_stylePicture" class='relative f_left' src=${styleUrl} />
+							<div id="mc_sideContainer">
+								{{each sideList}}
+								<img id=${id} class='btn relative f_left sidePicture' src=${url} />
+								{{/each}}
+							</div>
+						</div>
+						<!--
+						<div class="relative f_left margin_topB textBase">${category}照片</div>
+						-->
+						<img class='relative f_left margin_topB mc_line' src='images/streetSnap/line.png'/>
+						
+						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
+							{{each bottomList}}
+								<img id=${id} class='btn relative f_left bottomPicture' src=${url} />
+							{{/each}}
+						</div>
+							<div class="relative f_left margin_topB textBase">${bottomTab1}</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div style="width:650px" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
+							{{html modelDetail }}
+						</div>
+						<div id="txt_name2" class="relative f_left margin_topB textBase">${bottomTab2}</div>
+						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+						<div id="txt_modelMeeting" style="width:650px"  style="margin-bottom:100px;" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
+							{{html talk}}
+						</div>
+						<!--
+						<div id="fbcommentContainer" class="w_full relative white_cube f_left">
+							<!--
+							<div id="fbcomment" class="fb-comments" data-href="http://test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap" data-numposts="5" data-colorscheme="light"></div>
+							--/>
+						</div>
+						-->
+						<div id="mc_historyList" class="absolute">
+							<div id="mc_historyContainer">
+								{{each historyList}}
+								<img id=${id} class="btn historyImgSize" src=${url} />
+								{{/each}}
+							</div>
+							<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
 		
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
 			<div class="hide full">

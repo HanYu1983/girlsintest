@@ -30,3 +30,28 @@
                     "searchWord" ""
                     "streetsnapList" (->> (map ConvertDTO details) (apply array)))]
           (.resolve p dto))))))
+          
+(defn CreateStreetSnapModel [a-ctx {:keys [view id] :as args}]
+  (let [configType "street"]
+    (macro/makepromise p
+      (fn/GetAllModelBy "config.json" configType)
+      (fn [& args] 
+        (let [config (first args)
+              details (second args)
+              [model detail] (first details)
+              dto (js-obj 
+                    "historyList" (array)
+                    "name" (.-Caption detail)
+                    "date" (.-Date detail)
+                    "styleUrl" ""
+                    "sideList" (array)
+                    "bottomList" (array)
+                    "modelDetail" (.-Description detail)
+                    "talk" (.-Talk detail)
+                    "protalk" (.-Comment detail)
+                    "modelKey" (.-ModelKey detail)
+                    "key" model
+                    "bottomTab1" "bottomTab1"
+                    "bottomTab2" "bottomTab2")]
+          (.resolve p dto))))))
+

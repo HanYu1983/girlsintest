@@ -33,9 +33,10 @@
         ctx (atom {
               :views {}
               :container (.find root "#mc_pageContainer")
-              :route {:Home {:toModel [:StreetSnapList model/CreateStreetSnapListModel]
+              :route {:Home {:toModel [:ModelList model/CreateStreetSnapListModel]
                              :toStreetSnapList [:StreetSnapList model/CreateStreetSnapListModel]
-                             :toProduct [:StreetSnapList model/CreateStreetSnapListModel]}}})]
+                             :toProduct [:ProductList model/CreateStreetSnapListModel]}
+                      :StreetSnapList {:toStreetSnap [:StreetSnap model/CreateStreetSnapModel]}}})]
     (menubar root)
     (.subscribe evt/OnMenubarBtnClick 
       (fn [id]
@@ -46,6 +47,7 @@
           "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnapList [:street])
           "btn_nav_product" (app/Route ctx :Home :toProduct [:product])
           identity)))
+    (.subscribe evt/OnStreetSnapListBtnClick (partial app/Route ctx :StreetSnapList :toStreetSnap))
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
 
 

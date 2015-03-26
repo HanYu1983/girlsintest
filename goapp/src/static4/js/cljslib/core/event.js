@@ -5,3 +5,4 @@ core.event.OnPage1BtnClick = (new Rx.Subject());
 core.event.OnPage2BtnClick = (new Rx.Subject());
 core.event.OnPage1AddHpBtnClick = (new Rx.Subject());
 core.event.OnMenubarBtnClick = (new Rx.Subject());
+core.event.OnStreetSnapListBtnClick = (new Rx.Subject());

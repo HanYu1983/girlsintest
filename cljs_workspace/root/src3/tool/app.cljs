@@ -1,4 +1,4 @@
-(ns core.app)
+(ns tool.app)
 
 (defn emptyModel [a-ctx args]
   (let [promise (new js/$.Deferred)]

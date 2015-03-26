@@ -1,36 +1,34 @@
 (ns core.main
   (:require-macros [macro.core :as tool])
   (:require 
-    [core.app :as app]
+    [tool.app :as app]
     [core.model :as model]
     [core.view :as view]
     [core.event :as evt]
     [core.fn :as fn]))
-
-(defn testCreateElem2 []
-  (let [ctx (atom {
-              :model {:hp 100}
-              :views {}
-              :container (js/$ "#mc_pageContainer")
-              :route {:Page1 {:addhp   [nil model/ChangeHP]
-                              :topage2 [:Page2 app/emptyModel]}
-                      :Page2 {:topage1 [:Page1 model/CreatePage1Model]}}})]
-    (.subscribe evt/OnPage1BtnClick (partial app/Route ctx :Page1 :topage2))
-    (.subscribe evt/OnPage2BtnClick (partial app/Route ctx :Page2 :topage1))
-    (.subscribe evt/OnPage1AddHpBtnClick (partial app/Route ctx :Page1 :addhp))
-    (swap! ctx #(app/OpenView %1 :Page1 (partial model/CreatePage1Model ctx)))))
-    
     
 
-(defn initHeader [root]
-  (let [menubar (.find root "#mc_menubar")]
+(defn menubar [root]
+  (let [menubar (.find root "#mc_menubar")
+        handleBtnMouseOut (fn [evt] 
+                            (this-as that
+                              (let [btnSelf (js/$ that)
+                                    btnOver (.find btnSelf ".navover")]
+                                (.animate btnOver (js-obj "width" "0px") 300))))
+        handleBtnMouseOver (fn [evt]
+                            (this-as that
+                              (let [btnSelf (js/$ that)
+                                    btnOver (.find btnSelf ".navover")]
+                                (.animate btnOver (js-obj "width" "120px") 300))))]
+    (.delegate menubar "div" "mouseover" handleBtnMouseOver)
+    (.delegate menubar "div" "mouseout" handleBtnMouseOut)
     (.delegate menubar "div" "click" 
       (fn [evt] 
         (this-as that
           (.onNext evt/OnMenubarBtnClick (.-id that)))))))
 
 
-(defn testIndex3 []
+(defn main []
   (let [root (js/$ ".root")
         ctx (atom {
               :views {}
@@ -38,7 +36,7 @@
               :route {:Home {:toModel [:StreetSnapList model/CreateStreetSnapListModel]
                              :toStreetSnapList [:StreetSnapList model/CreateStreetSnapListModel]
                              :toProduct [:StreetSnapList model/CreateStreetSnapListModel]}}})]
-    (initHeader root)
+    (menubar root)
     (.subscribe evt/OnMenubarBtnClick 
       (fn [id]
         (condp = id
@@ -51,9 +49,4 @@
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
 
 
-(defn testFn []
-  (doto (fn/GetAllModelBy "config.json" "product")
-    (.done (fn [] (.log js/console js/arguments)))
-    (.fail (fn [err] (js/alert err)))))
-    
-(testIndex3)
+(main)

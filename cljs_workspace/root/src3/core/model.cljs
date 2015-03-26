@@ -39,9 +39,9 @@
                             "imgSideAPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_3.jpg"))
                             "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))
                             "imgSideCPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_5.jpg"))))
-            dto (js-obj 
-                  "searchWord" ""
-                  "streetsnapList" (->> (map ConvertDTO details) (apply array)))]
+              dto (js-obj 
+                    "searchWord" ""
+                    "streetsnapList" (->> (map ConvertDTO details) (apply array)))]
           (.resolve p dto))))))
 
 

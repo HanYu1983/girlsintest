@@ -35,18 +35,18 @@
         ctx (atom {
               :views {}
               :container (.find root "#mc_pageContainer")
-              :route {:Home {:toModel [:Model app/emptyModel]
+              :route {:Home {:toModel [:StreetSnapList model/CreateStreetSnapListModel]
                              :toStreetSnapList [:StreetSnapList model/CreateStreetSnapListModel]
-                             :toProduct [:Product app/emptyModel]}}})]
+                             :toProduct [:StreetSnapList model/CreateStreetSnapListModel]}}})]
     (initHeader root)
     (.subscribe evt/OnMenubarBtnClick 
       (fn [id]
         (condp = id
           "btn_nav_celebrity" (app/Route ctx :Home :toCelebrity nil)
           "btn_nav_event" (app/Route ctx :Home :toEvent nil)
-          "btn_nav_model" (app/Route ctx :Home :toModel nil)
-          "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnapList nil)
-          "btn_nav_product" (app/Route ctx :Home :toProduct nil)
+          "btn_nav_model" (app/Route ctx :Home :toModel [:model])
+          "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnapList [:street])
+          "btn_nav_product" (app/Route ctx :Home :toProduct [:product])
           identity)))
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
 

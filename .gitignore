@@ -2,7 +2,8 @@
 *.o
 *.a
 *.so
-
+.lein-repl-history
+.nrepl-port
 # Folders
 _obj
 _test

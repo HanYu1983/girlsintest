@@ -6,3 +6,4 @@ goog.addDependency("../core/event.js", ['core.event'], ['cljs.core']);
 goog.addDependency("../core/view.js", ['core.view'], ['tool.app', 'cljs.core', 'core.event']);
 goog.addDependency("../core/model.js", ['core.model'], ['core.fn', 'cljs.core']);
 goog.addDependency("../core/main.js", ['core.main'], ['core.view', 'tool.app', 'core.fn', 'cljs.core', 'core.model', 'core.event']);
+goog.addDependency("../temp/core.js", ['temp.core'], ['cljs.core']);

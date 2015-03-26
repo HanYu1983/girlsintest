@@ -1,1 +1,1 @@
-sh ../lein.sh cljsbuild once
+sh ../lein.sh cljsbuild auto

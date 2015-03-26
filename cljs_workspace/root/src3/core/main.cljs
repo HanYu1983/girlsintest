@@ -1,5 +1,5 @@
 (ns core.main
-  (:require-macros [macro.tool :as tool])
+  (:require-macros [macro.core :as tool])
   (:require 
     [core.app :as app]
     [core.model :as model]
@@ -36,7 +36,7 @@
               :views {}
               :container (.find root "#mc_pageContainer")
               :route {:Home {:toModel [:Model app/emptyModel]
-                             :toStreetSnap [:StreetSnap model/CreateStreetSnapListModel]
+                             :toStreetSnapList [:StreetSnapList model/CreateStreetSnapListModel]
                              :toProduct [:Product app/emptyModel]}}})]
     (initHeader root)
     (.subscribe evt/OnMenubarBtnClick 
@@ -45,7 +45,7 @@
           "btn_nav_celebrity" (app/Route ctx :Home :toCelebrity nil)
           "btn_nav_event" (app/Route ctx :Home :toEvent nil)
           "btn_nav_model" (app/Route ctx :Home :toModel nil)
-          "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnap nil)
+          "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnapList nil)
           "btn_nav_product" (app/Route ctx :Home :toProduct nil)
           identity)))
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))

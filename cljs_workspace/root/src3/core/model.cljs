@@ -1,5 +1,5 @@
 (ns core.model
-  (:require-macros [macro.tool :as macro])
+  (:require-macros [macro.core :as macro])
   (:require
     [core.fn :as fn]))
   

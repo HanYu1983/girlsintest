@@ -1,5 +1,5 @@
 (ns core.fn
-  (:require-macros [macro.tool :as macro]))
+  (:require-macros [macro.core :as macro]))
 
 (defn ServeImagePath [path]
   (str "http://" window.location.host "/" path))
@@ -18,19 +18,19 @@
         (.resolve p keylist)))))
     
 (defn FetchAllModel [path keys]
-  (let [fetchFilePromise (apply array 
-                           (for [key keys] (FetchFile (str path "/" key "/config.json"))))]
-    (macro/makepromise promise
-      (.apply js/$.when js/$ fetchFilePromise)
-      (fn [& args]
-        (if (= 1 (count keys))
-          ; 如果輸入的ajax只有一個，則不會回傳array
-          ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
-          (let [detail (first args)]
-            (.resolve promise (seq {(first keys) detail})))
-          ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
-          (let [details (map (fn [data] (aget data 0)) args)]
-            (.resolve promise (zipmap keys details))))))))
+  (macro/makepromise promise
+    (let [fetchFilePromise (apply array 
+                             (for [key keys] (FetchFile (str path "/" key "/config.json"))))]
+      (.apply js/$.when js/$ fetchFilePromise))
+    (fn [& args]
+      (if (= 1 (count keys))
+        ; 如果輸入的ajax只有一個，則不會回傳array
+        ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
+        (let [detail (first args)]
+          (.resolve promise (seq {(first keys) detail})))
+        ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
+        (let [details (map (fn [data] (aget data 0)) args)]
+          (.resolve promise (zipmap keys details)))))))
     
 (defn GetAllModelBy [configPath type]
   (macro/makepromise promise

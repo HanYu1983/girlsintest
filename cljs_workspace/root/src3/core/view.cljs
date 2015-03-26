@@ -1,4 +1,6 @@
 (ns core.view
+  (:require-macros
+    [macro.core :as macro :refer [defview]])
   (:require 
     [core.app :as app]
     [core.event :as evt]))
@@ -24,19 +26,29 @@
     view))
     
     
+(defview :Home "#tmpl_home" app/FadeIn app/FadeOut [ctx]
+  (fn [elem]))
+    
+(defview :StreetSnapList "#tmpl_streetsnap_list" app/FadeIn app/FadeOut [ctx]
+  (fn [elem]))
+  
+  
+  
+  
+    (comment 
 (defmethod app/CreateAppView :Home [ctx key CreateModel]
   (let [CreateElem #(app/CreateElem (js/$ "#tmpl_home") CreateModel nil)
         view (app/CreateView CreateElem app/FadeIn app/FadeOut)]
     (doto (.-elemPromise view)
       (.done (fn [elem])))
     view))
-
-
-(defmethod app/CreateAppView :StreetSnap [ctx key CreateModel]
+    )
+  
+    (comment
+(defmethod app/CreateAppView :StreetSnapList [ctx key CreateModel]
   (let [CreateElem #(app/CreateElem (js/$ "#tmpl_streetsnap_list") CreateModel nil)
         view (app/CreateView CreateElem app/FadeIn app/FadeOut)]
     (doto (.-elemPromise view)
       (.done (fn [elem])))
     view))
-    
-    
+    )

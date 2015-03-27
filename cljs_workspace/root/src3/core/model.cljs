@@ -5,23 +5,23 @@
 
 (defn configType [view]
   (cond
-    (= view :StreetSnap) "street"
-    (= view :Model) "model"
-    (= view :Product) "product"
+    (some #(= view %) [:StreetSnap :StreetSnapList]) "street"
+    (some #(= view %) [:Model :ModelList]) "model"
+    (some #(= view %) [:Product :ProductList]) "product"
     :else (throw (new js/Error (str "no configType with " view)))))
     
 (defn bottomTab1 [view]
   (cond
-    (= view :StreetSnap) "MODEL資料"
-    (= view :Model) "MODEL資料"
-    (= view :Product) "產品資料"
+    (some #(= view %) [:StreetSnap :StreetSnapList]) "MODEL資料"
+    (some #(= view %) [:Model :ModelList]) "MODEL資料"
+    (some #(= view %) [:Product :ProductList]) "產品資料"
     :else (throw (new js/Error (str "no bottomTab1 with " view)))))
     
 (defn bottomTab2 [view]
   (cond
-    (= view :StreetSnap) "MODEL訪談"
-    (= view :Model) "MODEL訪談"
-    (= view :Product) "產品特色"
+    (some #(= view %) [:StreetSnap :StreetSnapList]) "MODEL訪談"
+    (some #(= view %) [:Model :ModelList]) "MODEL訪談"
+    (some #(= view %) [:Product :ProductList]) "產品特色"
     :else (throw (new js/Error (str "no bottomTab2 with " view)))))
     
 (defn CreateHomeModel [a-ctx prev view args]
@@ -30,8 +30,8 @@
       #(.resolve promise (js-obj "modelKey" 0)) 0)
       promise))
       
-(defn CreateStreetSnapListModel [a-ctx prev view [type]]
-  (let [configType (name type)]
+(defn CreateStreetSnapListModel [a-ctx prev view args]
+  (let [configType (configType view)]
     (macro/makepromise p
       (fn/GetAllModelBy "config.json" configType)
       (fn [& args] 

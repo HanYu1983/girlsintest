@@ -28,9 +28,9 @@
                 route (condp = id
                         "btn_nav_celebrity" [:Home :toCelebrity nil]
                         "btn_nav_event" [:Home :toEvent nil]
-                        "btn_nav_model" [:Home :toModelList [:model]]
-                        "btn_nav_streetSnap" [:Home :toStreetSnapList [:street]]
-                        "btn_nav_product" [:Home :toProductList [:product]]
+                        "btn_nav_model" [:Home :toModelList nil]
+                        "btn_nav_streetSnap" [:Home :toStreetSnapList nil]
+                        "btn_nav_product" [:Home :toProductList nil]
                         identity)]
             (.onNext evt/OnRoute route)))))))
 

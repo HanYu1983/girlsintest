@@ -5,32 +5,32 @@
 
 (defn configType [view]
   (cond
-    (= view :StreetSnapList) "street"
-    (= view :ModelList) "model"
-    (= view :ProductList) "product"
+    (= view :StreetSnap) "street"
+    (= view :Model) "model"
+    (= view :Product) "product"
     :else (throw (new js/Error (str "no configType with " view)))))
     
 (defn bottomTab1 [view]
   (cond
-    (= view :StreetSnapList) "MODEL資料"
-    (= view :ModelList) "MODEL資料"
-    (= view :ProductList) "產品資料"
+    (= view :StreetSnap) "MODEL資料"
+    (= view :Model) "MODEL資料"
+    (= view :Product) "產品資料"
     :else (throw (new js/Error (str "no bottomTab1 with " view)))))
     
 (defn bottomTab2 [view]
   (cond
-    (= view :StreetSnapList) "MODEL訪談"
-    (= view :ModelList) "MODEL訪談"
-    (= view :ProductList) "產品特色"
+    (= view :StreetSnap) "MODEL訪談"
+    (= view :Model) "MODEL訪談"
+    (= view :Product) "產品特色"
     :else (throw (new js/Error (str "no bottomTab2 with " view)))))
     
-(defn CreateHomeModel [a-ctx args]
+(defn CreateHomeModel [a-ctx view args]
   (let [promise (new js/$.Deferred)]
     (js/setTimeout
       #(.resolve promise (js-obj "modelKey" 0)) 0)
       promise))
       
-(defn CreateStreetSnapListModel [a-ctx [type]]
+(defn CreateStreetSnapListModel [a-ctx view [type]]
   (let [configType (name type)]
     (macro/makepromise p
       (fn/GetAllModelBy "config.json" configType)
@@ -52,7 +52,7 @@
                     "streetsnapList" (->> (map ConvertDTO details) (apply array)))]
           (.resolve p dto))))))
           
-(defn CreateStreetSnapModel [a-ctx {:keys [view id] :as args}]
+(defn CreateStreetSnapModel [a-ctx view {:keys [id] :as args}]
   (let [configType (configType view)]
     (macro/makepromise p
       (fn/GetAllModelBy "config.json" configType)

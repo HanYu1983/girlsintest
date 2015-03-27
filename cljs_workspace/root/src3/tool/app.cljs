@@ -1,6 +1,6 @@
 (ns tool.app)
 
-(defn emptyModel [a-ctx args]
+(defn emptyModel [a-ctx view args]
   (let [promise (new js/$.Deferred)]
     (js/setTimeout #(.resolve promise nil) 0)
     promise))
@@ -66,8 +66,8 @@
   (let [handleRoute (fn [{:keys [route] :as ctx}]
                       (let [[nextPage CreateModel] (-> route key whichRoute)]
                         (if-not (= nextPage nil)
-                          (ChangeView ctx nextPage (partial CreateModel a-ctx args))
+                          (ChangeView ctx nextPage (partial CreateModel a-ctx nextPage args))
                           (do
-                            (CreateModel a-ctx)
+                            (CreateModel a-ctx nextPage args)
                             ctx))))]
     (swap! a-ctx handleRoute)))

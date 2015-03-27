@@ -48,7 +48,7 @@
                       :ProductList    {:toDetail [:Product model/CreateStreetSnapModel]}}})]
     (menubar root)
     (.subscribe evt/OnRoute #(apply (partial app/Route ctx) %))
-    (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
+    (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx :Home)))))
 
 
 (main)

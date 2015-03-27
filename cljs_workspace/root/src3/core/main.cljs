@@ -46,9 +46,12 @@
                       :StreetSnapList {:toDetail [:StreetSnap model/CreateStreetSnapModel]}
                       :ModelList      {:toDetail [:Model model/CreateStreetSnapModel]}
                       :ProductList    {:toDetail [:Product model/CreateStreetSnapModel]}
-                      :StreetSnap     {:toBig    [:Big app/emptyModel]}
-                      :Model          {:toBig    [:Big app/emptyModel]}
-                      :Product        {:toBig    [:Big app/emptyModel]}}})]
+                      :StreetSnap     {:toDetail [:StreetSnap model/CreateStreetSnapModel]
+                                       :toBig    [:Big app/emptyModel]}
+                      :Model          {:toDetail [:Model model/CreateStreetSnapModel]
+                                       :toBig    [:Big app/emptyModel]}
+                      :Product        {:toDetail [:Product model/CreateStreetSnapModel]
+                                       :toBig    [:Big app/emptyModel]}}})]
     (menubar root)
     (.subscribe evt/OnRoute #(apply (partial app/Route ctx) %))
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx nil :Home nil)))))

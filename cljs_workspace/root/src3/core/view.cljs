@@ -39,9 +39,8 @@
             #(this-as that
               (.onNext evt/OnRoute [viewname :toBig {:id (.-id that) :dto (.-DTO elem)}])))
           (.delegate mc_historyContainer "img" "click"
-            (let [listview (-> (name viewname) (str "List") keyword)]
-              #(this-as that
-                (.onNext evt/OnRoute [listview :toDetail {:id (.-id that) :dto (.-DTO elem)}])))))))))
+            #(this-as that
+              (.onNext evt/OnRoute [viewname :toDetail {:id (.-id that) :dto (.-DTO elem)}]))))))))
                     
                     
 (defcommondetail :StreetSnap)

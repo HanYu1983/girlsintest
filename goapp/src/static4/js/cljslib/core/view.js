@@ -6,9 +6,9 @@ goog.require('core.event');
 goog.require('tool.app');
 goog.require('tool.app');
 cljs.core._add_method.call(null,tool.app.CreateAppView,new cljs.core.Keyword(null,"Home","Home",1521501280),(function (ctx,key,CreateModel){var CreateElem = (function (){return tool.app.CreateElem.call(null,$("#tmpl_home"),CreateModel,null);
-});var view = tool.app.CreateView.call(null,CreateElem,cljs.core.partial.call(null,tool.app.FadeIn,(400)),tool.app.NormalOut);var G__10021_10022 = view.elemPromise;G__10021_10022.done(((function (G__10021_10022,CreateElem,view){
+});var view = tool.app.CreateView.call(null,CreateElem,cljs.core.partial.call(null,tool.app.FadeIn,(400)),tool.app.NormalOut);var G__5267_5268 = view.elemPromise;G__5267_5268.done(((function (G__5267_5268,CreateElem,view){
 return (function (elem){return null;
-});})(G__10021_10022,CreateElem,view))
+});})(G__5267_5268,CreateElem,view))
 );
 return view;
 }));
@@ -19,12 +19,12 @@ return Complete.call(null);
 return (function (ctx,key,CreateModel){var CreateElem = ((function (CloseFn){
 return (function (){return tool.app.CreateElem.call(null,$("#tmpl_streetsnap_list"),CreateModel,null);
 });})(CloseFn))
-;var view = tool.app.CreateView.call(null,CreateElem,cljs.core.partial.call(null,tool.app.FadeIn,(400)),CloseFn);var G__10024_10025 = view.elemPromise;G__10024_10025.done(((function (G__10024_10025,CreateElem,view,CloseFn){
-return (function (elem){var mc_modelContainer = elem.find("#mc_modelContainer");return mc_modelContainer.delegate("div[modelFrame]","click",((function (mc_modelContainer,G__10024_10025,CreateElem,view,CloseFn){
-return (function (){var that = this;return core.event.OnListBtnClick.onNext(new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),that.id,new cljs.core.Keyword(null,"view","view",1247994814),name], null));
-});})(mc_modelContainer,G__10024_10025,CreateElem,view,CloseFn))
+;var view = tool.app.CreateView.call(null,CreateElem,cljs.core.partial.call(null,tool.app.FadeIn,(400)),CloseFn);var G__5270_5271 = view.elemPromise;G__5270_5271.done(((function (G__5270_5271,CreateElem,view,CloseFn){
+return (function (elem){var mc_modelContainer = elem.find("#mc_modelContainer");return mc_modelContainer.delegate("div[modelFrame]","click",((function (mc_modelContainer,G__5270_5271,CreateElem,view,CloseFn){
+return (function (){var that = this;return core.event.OnRoute.onNext(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [name,new cljs.core.Keyword(null,"toDetail","toDetail",1490871748),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"id","id",-1388402092),that.id,new cljs.core.Keyword(null,"view","view",1247994814),name], null)], null));
+});})(mc_modelContainer,G__5270_5271,CreateElem,view,CloseFn))
 );
-});})(G__10024_10025,CreateElem,view,CloseFn))
+});})(G__5270_5271,CreateElem,view,CloseFn))
 );
 return view;
 });})(CloseFn))
@@ -40,13 +40,13 @@ return Complete.call(null);
 return (function (ctx,key,CreateModel){var CreateElem = ((function (CloseFn){
 return (function (){return tool.app.CreateElem.call(null,$("#tmpl_streetsnap"),CreateModel,null);
 });})(CloseFn))
-;var view = tool.app.CreateView.call(null,CreateElem,cljs.core.partial.call(null,tool.app.FadeIn,(400)),CloseFn);var G__10027_10028 = view.elemPromise;G__10027_10028.done(((function (G__10027_10028,CreateElem,view,CloseFn){
-return (function (elem){var mc_historyContainer = elem.find("#mc_historyContainer");return mc_historyContainer.delegate("img","click",(function (){var listview = cljs.core.keyword.call(null,(''+cljs.core.str.cljs$core$IFn$_invoke$arity$1(cljs.core.name.call(null,viewname))+"List"));return ((function (listview,mc_historyContainer,G__10027_10028,CreateElem,view,CloseFn){
-return (function (){var that = this;return core.event.OnImgHistoryClick.onNext(new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"view","view",1247994814),listview,new cljs.core.Keyword(null,"id","id",-1388402092),that.id,new cljs.core.Keyword(null,"dto","dto",-2048364190),elem.DTO], null));
+;var view = tool.app.CreateView.call(null,CreateElem,cljs.core.partial.call(null,tool.app.FadeIn,(400)),CloseFn);var G__5273_5274 = view.elemPromise;G__5273_5274.done(((function (G__5273_5274,CreateElem,view,CloseFn){
+return (function (elem){var mc_historyContainer = elem.find("#mc_historyContainer");return mc_historyContainer.delegate("img","click",(function (){var listview = cljs.core.keyword.call(null,(''+cljs.core.str.cljs$core$IFn$_invoke$arity$1(cljs.core.name.call(null,viewname))+"List"));return ((function (listview,mc_historyContainer,G__5273_5274,CreateElem,view,CloseFn){
+return (function (){var that = this;return core.event.OnRoute.onNext(new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [listview,new cljs.core.Keyword(null,"toDetail","toDetail",1490871748),new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"id","id",-1388402092),that.id,new cljs.core.Keyword(null,"view","view",1247994814),listview,new cljs.core.Keyword(null,"dto","dto",-2048364190),elem.DTO], null)], null));
 });
-;})(listview,mc_historyContainer,G__10027_10028,CreateElem,view,CloseFn))
+;})(listview,mc_historyContainer,G__5273_5274,CreateElem,view,CloseFn))
 })());
-});})(G__10027_10028,CreateElem,view,CloseFn))
+});})(G__5273_5274,CreateElem,view,CloseFn))
 );
 return view;
 });})(CloseFn))

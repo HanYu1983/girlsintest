@@ -1,7 +1,2 @@
 (ns core.event)
-(def OnPage1BtnClick (new js/Rx.Subject))
-(def OnPage2BtnClick (new js/Rx.Subject))
-(def OnPage1AddHpBtnClick (new js/Rx.Subject))
-(def OnMenubarBtnClick (new js/Rx.Subject))
-(def OnListBtnClick (new js/Rx.Subject))
-(def OnImgHistoryClick (new js/Rx.Subject))
+(def OnRoute (new js/Rx.Subject))

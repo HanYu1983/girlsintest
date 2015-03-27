@@ -6,7 +6,6 @@
     [core.view :as view]
     [core.event :as evt]
     [core.fn :as fn]))
-    
 
 (defn menubar [root]
   (let [menubar (.find root "#mc_menubar")
@@ -23,9 +22,17 @@
     (.delegate menubar "div" "mouseover" handleBtnMouseOver)
     (.delegate menubar "div" "mouseout" handleBtnMouseOut)
     (.delegate menubar "div" "click" 
-      (fn [evt] 
+      (fn [evt]
         (this-as that
-          (.onNext evt/OnMenubarBtnClick (.-id that)))))))
+          (let [id (.-id that)
+                route (condp = id
+                        "btn_nav_celebrity" [:Home :toCelebrity nil]
+                        "btn_nav_event" [:Home :toEvent nil]
+                        "btn_nav_model" [:Home :toModelList [:model]]
+                        "btn_nav_streetSnap" [:Home :toStreetSnapList [:street]]
+                        "btn_nav_product" [:Home :toProductList [:product]]
+                        identity)]
+            (.onNext evt/OnRoute route)))))))
 
 
 (defn main []
@@ -40,25 +47,7 @@
                       :ModelList      {:toDetail [:Model model/CreateStreetSnapModel]}
                       :ProductList    {:toDetail [:Product model/CreateStreetSnapModel]}}})]
     (menubar root)
-    
-    (.subscribe evt/OnMenubarBtnClick 
-      (fn [id]
-        (condp = id
-          "btn_nav_celebrity" (app/Route ctx :Home :toCelebrity nil)
-          "btn_nav_event" (app/Route ctx :Home :toEvent nil)
-          "btn_nav_model" (app/Route ctx :Home :toModelList [:model])
-          "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnapList [:street])
-          "btn_nav_product" (app/Route ctx :Home :toProductList [:product])
-          identity)))
-          
-    (.subscribe evt/OnListBtnClick
-      (fn [{:keys [view] :as args}]
-        (app/Route ctx view :toDetail args)))
-        
-    (.subscribe evt/OnImgHistoryClick
-      (fn [{:keys [view] :as args}]
-        (app/Route ctx view :toDetail args)))
-    
+    (.subscribe evt/OnRoute #(apply (partial app/Route ctx) %))
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
 
 

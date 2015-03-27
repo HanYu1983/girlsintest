@@ -19,7 +19,7 @@
         (let [mc_modelContainer (.find elem "#mc_modelContainer")]
           (.delegate mc_modelContainer "div[modelFrame]" "click"
             #(this-as that
-              (.onNext evt/OnListBtnClick {:id (.-id that) :view name}))))))))
+              (.onNext evt/OnRoute [name :toDetail {:id (.-id that) :view name}]))))))))
           
 (defcommonlist :StreetSnapList)
 (defcommonlist :ModelList)
@@ -37,7 +37,7 @@
           (.delegate mc_historyContainer "img" "click"
             (let [listview (-> (name viewname) (str "List") keyword)]
               #(this-as that
-                (.onNext evt/OnImgHistoryClick {:view listview :id (.-id that) :dto (.-DTO elem)})))))))))
+                (.onNext evt/OnRoute [listview :toDetail {:id (.-id that) :view listview :dto (.-DTO elem)}])))))))))
             
 (defcommondetail :StreetSnap)
 (defcommondetail :Model)

@@ -2,6 +2,27 @@
   (:require-macros [macro.core :as macro])
   (:require
     [core.fn :as fn]))
+
+(defn configType [view]
+  (cond
+    (= view :StreetSnapList) "street"
+    (= view :ModelList) "model"
+    (= view :ProductList) "product"
+    :else (throw (new js/Error (str "no configType with " view)))))
+    
+(defn bottomTab1 [view]
+  (cond
+    (= view :StreetSnapList) "MODEL資料"
+    (= view :ModelList) "MODEL資料"
+    (= view :ProductList) "產品資料"
+    :else (throw (new js/Error (str "no bottomTab1 with " view)))))
+    
+(defn bottomTab2 [view]
+  (cond
+    (= view :StreetSnapList) "MODEL訪談"
+    (= view :ModelList) "MODEL訪談"
+    (= view :ProductList) "產品特色"
+    :else (throw (new js/Error (str "no bottomTab2 with " view)))))
     
 (defn CreateHomeModel [a-ctx args]
   (let [promise (new js/$.Deferred)]
@@ -32,26 +53,32 @@
           (.resolve p dto))))))
           
 (defn CreateStreetSnapModel [a-ctx {:keys [view id] :as args}]
-  (let [configType "street"]
+  (let [configType (configType view)]
     (macro/makepromise p
       (fn/GetAllModelBy "config.json" configType)
       (fn [& args] 
         (let [config (first args)
+              dir (aget config configType)
               details (second args)
-              [model detail] (first details)
+              detail (get details id)
+              ConvertHeadDTO (fn [[key, detail]]
+                              (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg"))))
+              CreateImageDTO (fn [ServeFn idxs]
+                                (let [urls (for [idx idxs] (str dir "/" id "/image_" idx ".jpg"))
+                                      dtos (for [url urls] (js-obj "id" url "url" (ServeFn url)))]
+                                  (apply array dtos)))
               dto (js-obj 
-                    "historyList" (array)
+                    "historyList" (->> (map ConvertHeadDTO details) (apply array))
                     "name" (.-Caption detail)
                     "date" (.-Date detail)
-                    "styleUrl" ""
-                    "sideList" (array)
-                    "bottomList" (array)
+                    "styleUrl" (fn/ServeImagePath (str dir "/" id "/image_2.jpg"))
+                    "sideList" (CreateImageDTO fn/ServeImagePath100 (range 3 6)) 
+                    "bottomList" (CreateImageDTO fn/ServeImagePath100 (range 6 (inc (.-ImageCount detail)))) 
                     "modelDetail" (.-Description detail)
                     "talk" (.-Talk detail)
                     "protalk" (.-Comment detail)
                     "modelKey" (.-ModelKey detail)
-                    "key" model
-                    "bottomTab1" "bottomTab1"
-                    "bottomTab2" "bottomTab2")]
+                    "key" id
+                    "bottomTab1" (bottomTab1 view)
+                    "bottomTab2" (bottomTab2 view))]
           (.resolve p dto))))))
-

@@ -5,7 +5,7 @@
   (str "http://" window.location.host "/" path))
   
 (defn ServeImagePath100 [path]
-  (str "http://" window.location.host "/" path "?Width=" 100 "&Height" 100))
+  (str "http://" window.location.host "/" path "?Width=" 100 "&Height=" 100))
 
 (defn FetchFile [path]
   (.getJSON js/$ (str "http://" window.location.host "/" path)))
@@ -27,7 +27,7 @@
         ; 如果輸入的ajax只有一個，則不會回傳array
         ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
         (let [detail (first args)]
-          (.resolve promise (seq {(first keys) detail})))
+          (.resolve promise {(first keys) detail}))
         ; 每一個ajax不知為何會回傳3個物件(result, "success", response)
         (let [details (map (fn [data] (aget data 0)) args)]
           (.resolve promise (zipmap keys details)))))))
@@ -43,3 +43,5 @@
           (doto
             (.done (fn [ret] (.resolve promise config ret)))
             (.fail (fn [err] (.reject promise err)))))))))
+            
+(def GetAllModelBy (memoize GetAllModelBy))

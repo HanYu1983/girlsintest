@@ -23,22 +23,25 @@
         (fn [elem]
           (set! (.-elem view) elem))))
     view))
+    
+(defn NormalOut [elem Complete]
+  (Complete))
      
-(defn FadeOut [elem Complete]
-  (.fadeOut elem 400)
-  (js/setTimeout Complete 400))
+(defn FadeOut [time elem Complete]
+  (.fadeOut elem time)
+  (js/setTimeout Complete time))
   
-(defn FadeIn [elem]
-  (.fadeIn elem 400))
+(defn FadeIn [time elem]
+  (.fadeIn elem time))
   
 (defmulti CreateAppView (fn [ctx key CreateModel] key))
 
 (defn OpenView [{:keys [container views] :as ctx} key CreateModel]
   (let [v (CreateAppView ctx key CreateModel)]
     (doto (.-elemPromise v)
-      (.done (fn [elem] 
-                  (.appendTo elem container)
-                  ((.-Open v) elem)))
+      (.done (fn [elem]
+                (.appendTo elem container)
+                ((.-Open v) elem)))
       (.fail (fn [err] (js/alert err))))
     (update-in ctx [:views] assoc key v)))
     
@@ -53,7 +56,7 @@
   (let [closeAll (fn [ctx]
                    (reduce (fn [ctx key] (CloseView ctx key)) ctx (keys views)))
         thenOpen (fn [ctx]
-                (OpenView ctx key CreateModel))]
+                   (OpenView ctx key CreateModel))]
     (-> ctx
       closeAll
       thenOpen)))

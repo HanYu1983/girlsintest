@@ -24,13 +24,13 @@
     (= view :Product) "產品特色"
     :else (throw (new js/Error (str "no bottomTab2 with " view)))))
     
-(defn CreateHomeModel [a-ctx view args]
+(defn CreateHomeModel [a-ctx prev view args]
   (let [promise (new js/$.Deferred)]
     (js/setTimeout
       #(.resolve promise (js-obj "modelKey" 0)) 0)
       promise))
       
-(defn CreateStreetSnapListModel [a-ctx view [type]]
+(defn CreateStreetSnapListModel [a-ctx prev view [type]]
   (let [configType (name type)]
     (macro/makepromise p
       (fn/GetAllModelBy "config.json" configType)
@@ -52,7 +52,7 @@
                     "streetsnapList" (->> (map ConvertDTO details) (apply array)))]
           (.resolve p dto))))))
           
-(defn CreateStreetSnapModel [a-ctx view {:keys [id] :as args}]
+(defn CreateStreetSnapModel [a-ctx prev view {:keys [id] :as args}]
   (let [configType (configType view)]
     (macro/makepromise p
       (fn/GetAllModelBy "config.json" configType)

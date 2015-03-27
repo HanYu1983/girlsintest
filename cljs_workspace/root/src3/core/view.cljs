@@ -33,12 +33,17 @@
                       (Complete))))]
     (defview viewname "#tmpl_streetsnap" (partial app/FadeIn 400) CloseFn [ctx]
       (fn [elem]
-        (let [mc_historyContainer (.find elem "#mc_historyContainer")]
+        (let [mc_historyContainer (.find elem "#mc_historyContainer")
+              mc_sideContainer (.find elem "#mc_sideContainer")]
+          (.delegate mc_sideContainer "img" "click"
+            #(this-as that
+              (.onNext evt/OnRoute [viewname :toBig {:id (.-id that) :dto (.-DTO elem)}])))
           (.delegate mc_historyContainer "img" "click"
             (let [listview (-> (name viewname) (str "List") keyword)]
               #(this-as that
                 (.onNext evt/OnRoute [listview :toDetail {:id (.-id that) :dto (.-DTO elem)}])))))))))
-            
+                    
+                    
 (defcommondetail :StreetSnap)
 (defcommondetail :Model)
 (defcommondetail :Product)

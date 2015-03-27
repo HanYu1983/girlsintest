@@ -40,15 +40,18 @@
         ctx (atom {
               :views {}
               :container (.find root "#mc_pageContainer")
-              :route {:Home {:toModelList [:ModelList model/CreateStreetSnapListModel]
-                             :toStreetSnapList [:StreetSnapList model/CreateStreetSnapListModel]
-                             :toProductList [:ProductList model/CreateStreetSnapListModel]}
+              :route {:Home           {:toModelList       [:ModelList model/CreateStreetSnapListModel]
+                                       :toStreetSnapList  [:StreetSnapList model/CreateStreetSnapListModel]
+                                       :toProductList     [:ProductList model/CreateStreetSnapListModel]}
                       :StreetSnapList {:toDetail [:StreetSnap model/CreateStreetSnapModel]}
                       :ModelList      {:toDetail [:Model model/CreateStreetSnapModel]}
-                      :ProductList    {:toDetail [:Product model/CreateStreetSnapModel]}}})]
+                      :ProductList    {:toDetail [:Product model/CreateStreetSnapModel]}
+                      :StreetSnap     {:toBig    [:Big app/emptyModel]}
+                      :Model          {:toBig    [:Big app/emptyModel]}
+                      :Product        {:toBig    [:Big app/emptyModel]}}})]
     (menubar root)
     (.subscribe evt/OnRoute #(apply (partial app/Route ctx) %))
-    (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx :Home)))))
+    (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx nil :Home nil)))))
 
 
 (main)

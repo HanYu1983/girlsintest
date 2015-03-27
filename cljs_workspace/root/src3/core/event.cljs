@@ -3,4 +3,5 @@
 (def OnPage2BtnClick (new js/Rx.Subject))
 (def OnPage1AddHpBtnClick (new js/Rx.Subject))
 (def OnMenubarBtnClick (new js/Rx.Subject))
-(def OnStreetSnapListBtnClick (new js/Rx.Subject))
+(def OnListBtnClick (new js/Rx.Subject))
+(def OnImgHistoryClick (new js/Rx.Subject))

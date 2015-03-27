@@ -62,7 +62,7 @@
               details (second args)
               detail (get details id)
               ConvertHeadDTO (fn [[key, detail]]
-                              (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg"))))
+                               (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg"))))
               CreateImageDTO (fn [ServeFn idxs]
                                 (let [urls (for [idx idxs] (str dir "/" id "/image_" idx ".jpg"))
                                       dtos (for [url urls] (js-obj "id" url "url" (ServeFn url)))]

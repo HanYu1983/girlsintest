@@ -11,6 +11,7 @@
     (.done modelPromise 
       (fn [model] 
         (let [elem (.tmpl tmpl model helper)]
+          (set! (.-DTO elem) model)
           (.resolve promise elem))))
     (.fail modelPromise #(.reject promise %1))
     promise))

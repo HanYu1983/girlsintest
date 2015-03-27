@@ -8,7 +8,7 @@
 (defview :Home "#tmpl_home" (partial app/FadeIn 400) app/NormalOut [ctx]
   (fn [elem]))
 
-(defn defcommonview [name]
+(defn defcommonlist [name]
   (let [CloseFn (fn [elem Complete]
                   (app/NormalOut elem
                     #(let [mc_modelContainer (.find elem "#mc_modelContainer")]
@@ -19,12 +19,26 @@
         (let [mc_modelContainer (.find elem "#mc_modelContainer")]
           (.delegate mc_modelContainer "div[modelFrame]" "click"
             #(this-as that
-              (.onNext evt/OnStreetSnapListBtnClick {:id (.-id that) :view name}))))))))
+              (.onNext evt/OnListBtnClick {:id (.-id that) :view name}))))))))
           
-(defcommonview :StreetSnapList)
-(defcommonview :ModelList)
-(defcommonview :ProductList)
+(defcommonlist :StreetSnapList)
+(defcommonlist :ModelList)
+(defcommonlist :ProductList)
 
-(defview :StreetSnap "#tmpl_streetsnap" (partial app/FadeIn 400) app/NormalOut [ctx]
-  (fn [elem]
-    (.log js/console elem)))
+(defn defcommondetail [viewname]
+  (let [CloseFn (fn [elem Complete]
+                  (app/NormalOut elem
+                    #(let [mc_modelContainer (.find elem "#mc_historyContainer")]
+                      (.undelegate mc_modelContainer "img" "click")
+                      (Complete))))]
+    (defview viewname "#tmpl_streetsnap" (partial app/FadeIn 400) CloseFn [ctx]
+      (fn [elem]
+        (let [mc_historyContainer (.find elem "#mc_historyContainer")]
+          (.delegate mc_historyContainer "img" "click"
+            (let [listview (-> (name viewname) (str "List") keyword)]
+              #(this-as that
+                (.onNext evt/OnImgHistoryClick {:view listview :id (.-id that) :dto (.-DTO elem)})))))))))
+            
+(defcommondetail :StreetSnap)
+(defcommondetail :Model)
+(defcommondetail :Product)

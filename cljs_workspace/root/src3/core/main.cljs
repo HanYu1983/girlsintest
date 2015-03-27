@@ -33,21 +33,32 @@
         ctx (atom {
               :views {}
               :container (.find root "#mc_pageContainer")
-              :route {:Home {:toModel [:ModelList model/CreateStreetSnapListModel]
+              :route {:Home {:toModelList [:ModelList model/CreateStreetSnapListModel]
                              :toStreetSnapList [:StreetSnapList model/CreateStreetSnapListModel]
-                             :toProduct [:ProductList model/CreateStreetSnapListModel]}
-                      :StreetSnapList {:toStreetSnap [:StreetSnap model/CreateStreetSnapModel]}}})]
+                             :toProductList [:ProductList model/CreateStreetSnapListModel]}
+                      :StreetSnapList {:toDetail [:StreetSnap model/CreateStreetSnapModel]}
+                      :ModelList      {:toDetail [:Model model/CreateStreetSnapModel]}
+                      :ProductList    {:toDetail [:Product model/CreateStreetSnapModel]}}})]
     (menubar root)
+    
     (.subscribe evt/OnMenubarBtnClick 
       (fn [id]
         (condp = id
           "btn_nav_celebrity" (app/Route ctx :Home :toCelebrity nil)
           "btn_nav_event" (app/Route ctx :Home :toEvent nil)
-          "btn_nav_model" (app/Route ctx :Home :toModel [:model])
+          "btn_nav_model" (app/Route ctx :Home :toModelList [:model])
           "btn_nav_streetSnap" (app/Route ctx :Home :toStreetSnapList [:street])
-          "btn_nav_product" (app/Route ctx :Home :toProduct [:product])
+          "btn_nav_product" (app/Route ctx :Home :toProductList [:product])
           identity)))
-    (.subscribe evt/OnStreetSnapListBtnClick (partial app/Route ctx :StreetSnapList :toStreetSnap))
+          
+    (.subscribe evt/OnListBtnClick
+      (fn [{:keys [view] :as args}]
+        (app/Route ctx view :toDetail args)))
+        
+    (.subscribe evt/OnImgHistoryClick
+      (fn [{:keys [view] :as args}]
+        (app/Route ctx view :toDetail args)))
+    
     (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx)))))
 
 

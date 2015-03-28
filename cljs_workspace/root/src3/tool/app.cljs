@@ -1,6 +1,6 @@
 (ns tool.app)
 
-(defn emptyModel [a-ctx prev view args]
+(defn emptyModel [ctx prev view args]
   (let [promise (new js/$.Deferred)]
     (js/setTimeout #(.resolve promise nil) 0)
     promise))
@@ -61,13 +61,23 @@
     (-> ctx
       closeAll
       thenOpen)))
+      
+(defn React [ctx [key whichRoute args]]
+  (let [handleRoute (fn [{:keys [route] :as ctx}]
+                      (let [[nextPage CreateModel] (-> route key whichRoute)]
+                        (if nextPage
+                          (ChangeView ctx nextPage (partial CreateModel ctx key nextPage args))
+                          (if CreateModel
+                            (CreateModel ctx key nextPage args)
+                            (throw (new js/Error (str "route error, " key " do " whichRoute)))))))]
+    (handleRoute ctx)))
     
 (defn Route [a-ctx key whichRoute args]
   (let [handleRoute (fn [{:keys [route] :as ctx}]
                       (let [[nextPage CreateModel] (-> route key whichRoute)]
                         (if nextPage
-                          (ChangeView ctx nextPage (partial CreateModel a-ctx key nextPage args))
+                          (ChangeView ctx nextPage (partial CreateModel ctx key nextPage args))
                           (if CreateModel
-                            (CreateModel a-ctx key nextPage args)
+                            (CreateModel ctx key nextPage args)
                             (throw (new js/Error (str "route error, " key " do " whichRoute)))))))]
     (swap! a-ctx handleRoute)))

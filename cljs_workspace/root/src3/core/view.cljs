@@ -1,5 +1,6 @@
 (ns core.view
   (:require-macros
+    [cljs.core.async.macros :refer [go]]
     [macro.core :as macro :refer [defview]])
   (:require 
     [tool.app :as app]
@@ -19,7 +20,7 @@
         (let [mc_modelContainer (.find elem "#mc_modelContainer")]
           (.delegate mc_modelContainer "div[modelFrame]" "click"
             #(this-as that
-              (.onNext evt/OnRoute [name :toDetail {:id (.-id that)}]))))))))
+              (go (>! evt/OnReact [name :toDetail {:id (.-id that)}])))))))))
           
 (defcommonlist :StreetSnapList)
 (defcommonlist :ModelList)
@@ -37,10 +38,10 @@
               mc_sideContainer (.find elem "#mc_sideContainer")]
           (.delegate mc_sideContainer "img" "click"
             #(this-as that
-              (.onNext evt/OnRoute [viewname :toBig {:id (.-id that) :dto (.-DTO elem)}])))
+              (go (>! evt/OnReact [viewname :toBig {:id (.-id that) :dto (.-DTO elem)}]))))
           (.delegate mc_historyContainer "img" "click"
             #(this-as that
-              (.onNext evt/OnRoute [viewname :toDetail {:id (.-id that) :dto (.-DTO elem)}]))))))))
+              (go (>! evt/OnReact [viewname :toDetail {:id (.-id that) :dto (.-DTO elem)}])))))))))
                     
                     
 (defcommondetail :StreetSnap)

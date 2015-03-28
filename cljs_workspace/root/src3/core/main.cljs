@@ -1,6 +1,9 @@
 (ns core.main
-  (:require-macros [macro.core :as tool])
+  (:require-macros 
+    [cljs.core.async.macros :refer [go]]
+    [macro.core :as tool])
   (:require 
+    [cljs.core.async :as async :refer [chan <!]]
     [tool.app :as app]
     [core.model :as model]
     [core.view :as view]
@@ -32,13 +35,12 @@
                         "btn_nav_streetSnap" [:Home :toStreetSnapList nil]
                         "btn_nav_product" [:Home :toProductList nil]
                         identity)]
-            (.onNext evt/OnRoute route)))))))
+            (go (>! evt/OnReact route))))))))
 
 
 (defn main []
   (let [root (js/$ ".root")
-        ctx (atom {
-              :views {}
+        ctx { :views {}
               :container (.find root "#mc_pageContainer")
               :route {:Home           {:toModelList       [:ModelList model/CreateStreetSnapListModel]
                                        :toStreetSnapList  [:StreetSnapList model/CreateStreetSnapListModel]
@@ -51,10 +53,13 @@
                       :Model          {:toDetail [:Model model/CreateStreetSnapModel]
                                        :toBig    [:Big app/emptyModel]}
                       :Product        {:toDetail [:Product model/CreateStreetSnapModel]
-                                       :toBig    [:Big app/emptyModel]}}})]
+                                       :toBig    [:Big app/emptyModel]}}}]
     (menubar root)
-    (.subscribe evt/OnRoute #(apply (partial app/Route ctx) %))
-    (swap! ctx #(app/OpenView %1 :Home (partial model/CreateHomeModel ctx nil :Home nil)))))
+    (let [OpenHome (fn [ctx] (app/OpenView ctx :Home (partial model/CreateHomeModel ctx nil :Home nil)))
+          React (fn [ctx] (go (<! (async/reduce app/React ctx evt/OnReact))))]
+      (-> ctx
+        OpenHome
+        React))))
 
 
 (main)

@@ -14,4 +14,5 @@ goog.addDependency("../core/event.js", ['core.event'], ['cljs.core', 'cljs.core.
 goog.addDependency("../core/view.js", ['core.view'], ['tool.app', 'cljs.core', 'core.event']);
 goog.addDependency("../core/model.js", ['core.model'], ['core.fn', 'cljs.core']);
 goog.addDependency("../core/main.js", ['core.main'], ['core.view', 'tool.app', 'core.fn', 'cljs.core', 'cljs.core.async', 'core.model', 'core.event']);
+goog.addDependency("../core2/main.js", ['core2.main'], ['cljs.core', 'cljs.core.async', 'tool.react']);
 goog.addDependency("../temp/core.js", ['temp.core'], ['cljs.core']);

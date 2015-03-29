@@ -1,11 +1,11 @@
-(ns core2.main
+(ns app.main
   (:require-macros 
     [cljs.core.async.macros :refer [go]])
   (:require
     [cljs.core.async :as async :refer [chan <!]]
     [tool.react :as react]
-    [core2.model :as model]
-    [core2.view :as view]))
+    [app.model :as model]
+    [app.view :as view]))
 
 (defn menubar [root]
   (let [menubar (.find root "#mc_menubar")

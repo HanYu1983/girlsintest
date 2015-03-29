@@ -1,4 +1,4 @@
-(ns core2.view
+(ns app.view
   (:require-macros
     [cljs.core.async.macros :refer [go]])
   (:require

@@ -1,10 +1,9 @@
-(ns core2.model
+(ns app.model
   (:require-macros
-    [macro.core :as macro]
     [cljs.core.async.macros :refer [go]])
   (:require
     [cljs.core.async :refer [chan >! <! close!]]
-    [core.fn :as fn]
+    [app.fn :as fn]
     [tool.react :as react]))
     
 (defn configType [view]

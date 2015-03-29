@@ -1,5 +1,5 @@
-(ns core.fn
-  (:require-macros [macro.core :as macro]))
+(ns app.fn
+  (:require-macros [tool.macro :as macro]))
 
 (defn ServeImagePath [path]
   (str "http://" window.location.host "/" path))

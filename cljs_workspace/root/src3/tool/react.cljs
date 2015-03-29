@@ -8,6 +8,9 @@
 (defmulti view-ch (fn [ctx key modelChan] key))
 (defmulti AnimateOpen (fn [ctx key view] key))
 (defmulti AnimateClose (fn [ctx key view] key))
+
+(defmethod AnimateOpen :default [ctx key view])
+(defmethod AnimateClose :default [ctx key view])
         
 (defn OpenView [{:keys [views] :as ctx} {:keys [react-curr] :as args}]
   (let [a-view (atom {})
@@ -25,11 +28,11 @@
     (assoc-in ctx [:views react-curr] a-view)))
     
 (defn CloseView [{:keys [container views] :as ctx} {:keys [react-curr] :as args}]
-  (if-not (nil? (react-curr views))
+  (if (some? (react-curr views))
     (let [{:keys [view promise]} @(react-curr views)]
-      (if (nil? view)
-        (.reject promise "CloseView")
-        (AnimateClose ctx react-curr view))
+      (if (some? view)
+        (AnimateClose ctx react-curr view)
+        (.reject promise "CloseView"))
       (update-in ctx [:views] dissoc react-curr))
     ctx))
     
@@ -38,7 +41,6 @@
                    (reduce (fn [ctx key] (CloseView ctx {:react-curr key})) ctx (keys views)))
         thenOpen (fn [ctx]
                    (OpenView ctx args))]
-    (.log js/console (pr-str args))
     (-> ctx
       closeAll
       thenOpen)))

@@ -9,10 +9,12 @@ goog.addDependency("../cljs/core/async/impl/timers.js", ['cljs.core.async.impl.t
 goog.addDependency("../cljs/core/async.js", ['cljs.core.async'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.buffers', 'cljs.core.async.impl.protocols', 'cljs.core.async.impl.ioc_helpers', 'cljs.core.async.impl.timers']);
 goog.addDependency("../tool/react.js", ['tool.react'], ['cljs.core', 'cljs.core.async']);
 goog.addDependency("../core/fn.js", ['core.fn'], ['cljs.core']);
+goog.addDependency("../core2/view.js", ['core2.view'], ['cljs.core', 'cljs.core.async', 'tool.react']);
 goog.addDependency("../tool/app.js", ['tool.app'], ['cljs.core']);
 goog.addDependency("../core/event.js", ['core.event'], ['cljs.core', 'cljs.core.async']);
 goog.addDependency("../core/view.js", ['core.view'], ['tool.app', 'cljs.core', 'core.event']);
 goog.addDependency("../core/model.js", ['core.model'], ['core.fn', 'cljs.core']);
 goog.addDependency("../core/main.js", ['core.main'], ['core.view', 'tool.app', 'core.fn', 'cljs.core', 'cljs.core.async', 'core.model', 'core.event']);
-goog.addDependency("../core2/main.js", ['core2.main'], ['cljs.core', 'cljs.core.async', 'tool.react']);
+goog.addDependency("../core2/model.js", ['core2.model'], ['core.fn', 'cljs.core', 'cljs.core.async', 'tool.react']);
+goog.addDependency("../core2/main.js", ['core2.main'], ['cljs.core', 'cljs.core.async', 'core2.model', 'core2.view', 'tool.react']);
 goog.addDependency("../temp/core.js", ['temp.core'], ['cljs.core']);

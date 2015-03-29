@@ -3,7 +3,9 @@
     [cljs.core.async.macros :refer [go]])
   (:require
     [cljs.core.async :as async :refer [chan <!]]
-    [tool.react :as react]))
+    [tool.react :as react]
+    [core2.model :as model]
+    [core2.view :as view]))
 
 (defn menubar [root]
   (let [menubar (.find root "#mc_menubar")
@@ -51,7 +53,6 @@
                                        :toBig    [:Big react/ChangeView]}}}]
     (menubar root)
     (go (<! (async/reduce react/React ctx react/OnReact)))
-    ;(go (>! react/OnReact [:Home :Open nil]))
-    ))
+    (go (>! react/OnReact [:Home :Open nil]))))
     
 (main)

@@ -35,24 +35,23 @@
             (go (>! react/OnReact route))))))))
 
 (defn main []
-  (let [root (js/$ ".root")
-        ctx { :views {}
-              :container (.find root "#mc_pageContainer")
-              :route {:Home           {:Open              [:Home react/OpenView]
-                                       :toModelList       [:ModelList react/ChangeView]
-                                       :toStreetSnapList  [:StreetSnapList react/ChangeView]
-                                       :toProductList     [:ProductList react/ChangeView]}
-                      :StreetSnapList {:toDetail [:StreetSnap react/ChangeView]}
-                      :ModelList      {:toDetail [:Model react/ChangeView]}
-                      :ProductList    {:toDetail [:Product react/ChangeView]}
-                      :StreetSnap     {:toDetail [:StreetSnap react/ChangeView]
-                                       :toBig    [:Big react/ChangeView]}
-                      :Model          {:toDetail [:Model react/ChangeView]
-                                       :toBig    [:Big react/ChangeView]}
-                      :Product        {:toDetail [:Product react/ChangeView]
-                                       :toBig    [:Big react/ChangeView]}}}]
+  (let [route { :Home           {:Open              [:Home react/OpenView]
+                                 :toModelList       [:ModelList react/ChangeView]
+                                 :toStreetSnapList  [:StreetSnapList react/ChangeView]
+                                 :toProductList     [:ProductList react/ChangeView]}
+                :StreetSnapList {:toDetail [:StreetSnap react/ChangeView]}
+                :ModelList      {:toDetail [:Model react/ChangeView]}
+                :ProductList    {:toDetail [:Product react/ChangeView]}
+                :StreetSnap     {:toDetail [:StreetSnap react/ChangeView]
+                                 :toBig    [:Big react/ChangeView]}
+                :Model          {:toDetail [:Model react/ChangeView]
+                                 :toBig    [:Big react/ChangeView]}
+                :Product        {:toDetail [:Product react/ChangeView]
+                                 :toBig    [:Big react/ChangeView]}}
+        root (js/$ ".root")
+        ctx {:views {} :container (.find root "#mc_pageContainer")}]
     (menubar root)
-    (go (<! (async/reduce react/React ctx react/OnReact)))
+    (go (async/reduce (partial react/React route) ctx react/OnReact))
     (go (>! react/OnReact [:Home :Open nil]))))
     
 (main)

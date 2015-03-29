@@ -45,7 +45,7 @@
       closeAll
       thenOpen)))
 
-(defn React [{:keys [route] :as ctx} [key whichRoute args]]
+(defn React [route ctx [key whichRoute args]]
   (let [[curr Operation] (-> route key whichRoute)]
     (Operation ctx (merge args {:react-prev key :react-curr curr}))))
 

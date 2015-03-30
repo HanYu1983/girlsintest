@@ -50,16 +50,3 @@
     (Operation ctx (merge args {:react-prev key :react-curr curr}))))
 
 (def OnReact (chan))
-
-
-(defn async-when [& chans]
-  (go 
-    (let [HasError (fn [[err _]] (some? err))
-          mergeall (apply async/when (fn [& args] (apply list args)) chans)
-          alldata (<! mergeall)]
-      (if (some HasError alldata)
-        (->>
-          alldata 
-          (filter HasError)
-          first)
-        (map second alldata)))))

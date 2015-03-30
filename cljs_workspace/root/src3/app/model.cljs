@@ -27,15 +27,34 @@
     (some #(= view %) [:Product :ProductList]) "產品特色"
     :else (throw (new js/Error (str "no bottomTab2 with " view)))))
 
+(defn SortByDate [details]
+  (->> details
+    (sort-by
+      (fn [[model detail]]
+        (doto
+          (js/Date. (.-Date detail)) 
+          (.getTime))))
+    reverse))
+
+(defn FilterBySearch [searchKey details]
+  (if (some? searchKey)
+    (->> details
+      (filter (fn [[model detail]]
+        (some? (re-find (re-pattern (str ".?" searchKey ".?")) (.-Tag detail))))))
+    details))
+
 (defn defcommonlistmodel [name]
-  (defmethod react/model-ch name [ctx key args]
-    (let [ret (chan)
-          configType (configType name)]
+  (defmethod react/model-ch name [ctx key {:keys [searchKey] :as args}]
+    (let [configType (configType name)
+          ret (chan)]
       (doto (fn/GetAllModelBy "config.json" configType)
         (.done 
           (fn [& args] 
             (let [config (first args)
                   details (second args)
+                  filtered (->> details  ;注意！本來為map，被轉為seq
+                             SortByDate
+                             (FilterBySearch searchKey))
                   ConvertDTO (fn [[model detail]]
                               (js-obj
                                 "id" model
@@ -47,8 +66,8 @@
                                 "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))
                                 "imgSideCPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_5.jpg"))))
                   dto (js-obj 
-                        "searchWord" ""
-                        "streetsnapList" (->> (map ConvertDTO details) (apply array)))]
+                        "searchWord" (if (some? searchKey) searchKey "")
+                        "streetsnapList" (->> (map ConvertDTO filtered) (apply array)))]
               (go 
                 (>! ret [nil dto])
                 (close! ret)))))
@@ -70,6 +89,8 @@
                   dir (aget config configType)
                   details (second args)
                   detail (get details id)
+                  filtered (->> details  ;注意！本來為map，被轉為seq
+                             SortByDate)
                   ConvertHeadDTO (fn [[key, detail]]
                                    (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg"))))
                   CreateImageDTO (fn [ServeFn idxs]
@@ -77,7 +98,7 @@
                                          dtos (for [url urls] (js-obj "id" url "url" (ServeFn url)))]
                                      (apply array dtos)))
                   dto (js-obj 
-                        "historyList" (->> (map ConvertHeadDTO details) (apply array))
+                        "historyList" (->> (map ConvertHeadDTO filtered) (apply array))
                         "name" (.-Caption detail)
                         "date" (.-Date detail)
                         "styleUrl" (fn/ServeImagePath (str dir "/" id "/image_2.jpg"))

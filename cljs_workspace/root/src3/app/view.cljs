@@ -16,7 +16,9 @@
       
 (defn defcommonlist [name]  
   (defmethod react/AnimateClose name [ctx key view]
-    (let [mc_modelContainer (.find (:elem view) "#mc_modelContainer")]
+    (let [mc_modelContainer (.find (:elem view) "#mc_modelContainer")
+          btn_search (.find (:elem view) "#btn_search")]
+      (.off btn_search "click")
       (.undelegate mc_modelContainer "div[modelFrame]" "click"))
     (react/AnimateClose name :default view))
     
@@ -25,7 +27,12 @@
       (let [[err model] (<! modelChan)
             tmpl (js/$ "#tmpl_streetsnap_list")
             elem (.tmpl tmpl model nil)
-            mc_modelContainer (.find elem "#mc_modelContainer")]
+            mc_modelContainer (.find elem "#mc_modelContainer")
+            btn_search (.find elem "#btn_search")]
+        (.click btn_search
+          #(let [searchKey (-> (.find elem "#input_search") (.val))]
+            (when (> (.-length searchKey) 0)
+              (go (>! react/OnReact [name :search {:searchKey searchKey}])))))
         (.delegate mc_modelContainer "div[modelFrame]" "click"
           #(this-as that
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))

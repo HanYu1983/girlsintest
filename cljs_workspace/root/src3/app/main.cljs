@@ -39,7 +39,8 @@
                                  :toModelList       [:ModelList react/ChangeView]
                                  :toStreetSnapList  [:StreetSnapList react/ChangeView]
                                  :toProductList     [:ProductList react/ChangeView]}
-                :StreetSnapList {:toDetail [:StreetSnap react/ChangeView]}
+                :StreetSnapList {:toDetail [:StreetSnap react/ChangeView]
+                                 :search   [:StreetSnapList react/ChangeView]}
                 :ModelList      {:toDetail [:Model react/ChangeView]}
                 :ProductList    {:toDetail [:Product react/ChangeView]}
                 :StreetSnap     {:toDetail [:StreetSnap react/ChangeView]

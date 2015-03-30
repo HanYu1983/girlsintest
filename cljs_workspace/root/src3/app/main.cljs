@@ -40,9 +40,14 @@
                                  :toStreetSnapList  [:StreetSnapList react/ChangeView]
                                  :toProductList     [:ProductList react/ChangeView]}
                 :StreetSnapList {:toDetail [:StreetSnap react/ChangeView]
-                                 :search   [:StreetSnapList react/ChangeView]}
-                :ModelList      {:toDetail [:Model react/ChangeView]}
-                :ProductList    {:toDetail [:Product react/ChangeView]}
+                                 :search   [:StreetSnapList react/ChangeView]
+                                 :reset    [:StreetSnapList react/ChangeView]}
+                :ModelList      {:toDetail [:Model react/ChangeView]
+                                 :search   [:ModelList react/ChangeView]
+                                 :reset    [:ModelList react/ChangeView]}
+                :ProductList    {:toDetail [:Product react/ChangeView]
+                                 :search   [:ProductList react/ChangeView]
+                                 :reset    [:ProductList react/ChangeView]}
                 :StreetSnap     {:toDetail [:StreetSnap react/ChangeView]
                                  :toBig    [:Big react/ChangeView]}
                 :Model          {:toDetail [:Model react/ChangeView]

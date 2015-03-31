@@ -47,7 +47,14 @@
   (defmethod react/AnimateClose name [ctx key {:keys [elem] :as view}]
     (let [mc_modelContainer (.find elem "#mc_historyContainer")]
       (.undelegate mc_modelContainer "img" "click"))
-    (react/AnimateClose name :default view))
+    (react/AnimateClose ctx :default view))
+    
+  (defmethod react/AnimateOpen name [ctx key {:keys [elem] :as view}]
+    (let [mc_3dmask (.find elem "#mc_3dmask")]
+      (go 
+        (<! (async/timeout 5000))
+        (.fadeOut mc_3dmask 400)))
+    (react/AnimateOpen ctx :default view))
     
   (defmethod react/view-ch name [ctx key modelChan]
     (go
@@ -64,9 +71,16 @@
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))
         {:elem elem}))))
 
+(defmethod react/AnimateOpen :Home [ctx key {:keys [elem] :as view}]
+  (let [mc_3dmask (.find elem "#mc_3dmask")]
+    (go 
+      (<! (async/timeout 5000))
+      (.fadeOut mc_3dmask 400)))
+  (react/AnimateOpen ctx :default view))
+          
 (defmethod react/view-ch :Home [ctx key modelChan]
   (go
-    (let [model (<! modelChan)
+    (let [[err model] (<! modelChan)
           tmpl (js/$ "#tmpl_home")
           elem (.tmpl tmpl model nil)]
       {:elem elem})))

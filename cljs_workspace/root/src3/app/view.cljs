@@ -58,7 +58,7 @@
             mc_sideContainer (.find elem "#mc_sideContainer")]
         (.delegate mc_sideContainer "img" "click"
           #(this-as that
-            (go (>! react/OnReact [name :toBig {:id (.-id that)}]))))
+            (go (>! react/OnReact [name :toBig {:basicUrl (.-id that)}]))))
         (.delegate mc_historyContainer "img" "click"
           #(this-as that
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))
@@ -77,3 +77,17 @@
 (defcommondetail :StreetSnap)
 (defcommondetail :Model)
 (defcommondetail :Product)
+
+(defmethod react/AnimateClose :Big [ctx key {:keys [elem] :as view}]
+  (.off elem "click")
+  (react/AnimateClose name :default view))
+
+; 沒有使用
+(comment 
+  (defmethod react/view-ch :Big [ctx key model-ch]
+    (go
+      (let [model (<! model-ch)
+            tmpl (js/$ "#tmpl_bigPhoto")
+            elem (.tmpl tmpl model nil)]
+        (.click elem #(go (>! react/OnReact [:Big :Close nil])))
+        {:elem elem}))))

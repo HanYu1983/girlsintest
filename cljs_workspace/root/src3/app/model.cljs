@@ -123,9 +123,15 @@
 
 (defmethod react/model-ch :Home [ctx key args]
   (go (js-obj "modelKey" "")))
+  
 (defcommonlistmodel :StreetSnapList)
 (defcommonlistmodel :ModelList)
 (defcommonlistmodel :ProductList)
 (defcommonmodel :StreetSnap)
 (defcommonmodel :Model)
 (defcommonmodel :Product)
+
+; 沒有使用
+(comment 
+  (defmethod react/model-ch :Big [ctx key {:keys [basicUrl] :as args}]
+    (go (js-obj "url" (fn/ServeImagePath basicUrl)))))

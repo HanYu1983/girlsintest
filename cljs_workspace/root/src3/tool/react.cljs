@@ -47,6 +47,10 @@
 
 (defn React [route ctx [key whichRoute args]]
   (let [[curr Operation] (-> route key whichRoute)]
-    (Operation ctx (merge args {:react-prev key :react-curr curr}))))
+    (if (some #(nil? %) [curr Operation])
+      (do
+        (.log js/console (str "from " key " operator " whichRoute " isn't exist!!"))
+        ctx)
+      (Operation ctx (merge args {:react-prev key :react-curr curr})))))
 
 (def OnReact (chan))

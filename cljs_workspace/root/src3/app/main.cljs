@@ -4,6 +4,7 @@
   (:require
     [cljs.core.async :as async :refer [chan <!]]
     [tool.react :as react]
+    [app.fn :as fn]
     [app.model :as model]
     [app.view :as view]))
 
@@ -33,6 +34,11 @@
                         "btn_nav_product" [:Home :toProductList nil]
                         identity)]
             (go (>! react/OnReact route))))))))
+            
+  
+(defn OpenPhotoUrl [ctx {:keys [basicUrl] :as args}]
+  (.open js/window (fn/ServeImagePath basicUrl) "_blank")
+  ctx)
 
 (defn main []
   (let [route { :Home           {:Open              [:Home react/OpenView]
@@ -49,11 +55,11 @@
                                  :search   [:ProductList react/ChangeView]
                                  :reset    [:ProductList react/ChangeView]}
                 :StreetSnap     {:toDetail [:StreetSnap react/ChangeView]
-                                 :toBig    [:Big react/ChangeView]}
+                                 :toBig    [:Big OpenPhotoUrl]}
                 :Model          {:toDetail [:Model react/ChangeView]
-                                 :toBig    [:Big react/ChangeView]}
+                                 :toBig    [:Big OpenPhotoUrl]}
                 :Product        {:toDetail [:Product react/ChangeView]
-                                 :toBig    [:Big react/ChangeView]}}
+                                 :toBig    [:Big OpenPhotoUrl]}}
         root (js/$ ".root")
         ctx {:views {} :container (.find root "#mc_pageContainer")}]
     (menubar root)

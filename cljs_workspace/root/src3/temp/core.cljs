@@ -57,24 +57,13 @@
           (sort-by (fn [[find route]] (if find (count route) 9999)))
           first)
         (route-it face)))))
-
-(defn main []
-  (let [root (js/$ "#root")
-        car (.find root "#car")
-        x 10
-        y 40
-        ary (array x y)
-        multiTwo (fn [v] (* v v))
-        ary2 (.map js/_ ary multiTwo)
         
-        ary3 [10 100]
-        ary4 (->> (map multiTwo ary3)
-                (apply array))
-        ary5 [100 120]
-        ary6 (apply array (map multiTwo ary3))]
-    (.log js/console ary4)
-    (.log js/console ary2)
-    (.log js/console ary)
-    (.log js/console root car x y)))
+(defn main []
+  (let [ary [1 2 3]
+        total (reduce (fn [sum curr] (+ sum curr)) 0 ary)
+        ary2 (map (fn [v] {:id v :value (* v v)}) ary)]
+    (.log js/console total)
+    (.log js/console (pr-str ary2))))
+
 
 (main)

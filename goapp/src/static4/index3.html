@@ -137,7 +137,7 @@
 							{{each streetsnapList}}
 							<div id=${id} class="btn relative f_left singleModel" modelFrame>
 								<div id="mc_modelTitle" class="relative">
-									<div style=${'background-color:'+ $item.brandToColor(brand)} class='full white_cube opacity_5 absolute'></div>
+									<div style=${'background-color:'+ $item.brandToColor(brand)} class='full white_cube absolute'></div>
 									<div id='txt_name' class='absolute textBase txt_name'>${name}</div>
 									<div id='txt_date' class='absolute textBase txt_date'>${date}</div>
 									<!--
@@ -223,7 +223,7 @@
 				</div>
 			</div>
 			<!-- footer -->
-			<div class="fixed left w_full bottom">
+			<div id="mc_footer" class="fixed left w_full bottom">
 				<div id="mc_foot_background" class='absolute w_full black_cube opacity_3 white_outline_1'></div>
 				<img class="btn relative" src='images/index/bottomBtn_01.png'/>
 				<img class="btn relative" src='images/index/bottomBtn_02.png'/>

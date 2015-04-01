@@ -12,4 +12,5 @@ goog.addDependency("../app/view.js", ['app.view'], ['cljs.core', 'cljs.core.asyn
 goog.addDependency("../app/fn.js", ['app.fn'], ['cljs.core']);
 goog.addDependency("../app/model.js", ['app.model'], ['app.fn', 'cljs.core', 'cljs.core.async', 'tool.react']);
 goog.addDependency("../temp/core.js", ['temp.core'], ['cljs.core']);
-goog.addDependency("../app/main.js", ['app.main'], ['app.fn', 'cljs.core', 'cljs.core.async', 'app.model', 'tool.react', 'app.view']);
+goog.addDependency("../app/action.js", ['app.action'], ['app.fn', 'cljs.core']);
+goog.addDependency("../app/main.js", ['app.main'], ['app.fn', 'app.action', 'cljs.core', 'cljs.core.async', 'app.model', 'tool.react', 'app.view']);

@@ -6,7 +6,62 @@
     [tool.react :as react]
     [app.fn :as fn]
     [app.model :as model]
-    [app.view :as view]))
+    [app.view :as view]
+    [app.action :as act]))
+
+(declare 
+  menubar
+  header
+  create-router)
+
+(defn main []
+  (let [urlRouter (create-router)
+        route { :Router         {:toHome            [:Home react/ChangeView]
+                                 :toModelList       [:ModelList react/ChangeView]
+                                 :toStreetSnapList  [:StreetSnapList react/ChangeView]
+                                 :toProductList     [:ProductList react/ChangeView]
+                                 :toStreetSnap      [:StreetSnap react/ChangeView]
+                                 :toModel           [:Model react/ChangeView]
+                                 :toProduct         [:Product react/ChangeView]}
+                :Event          {:onOpen            [:nil (act/ComposeAction 
+                                                            act/ChangeLogo
+                                                            act/ShowFooterOrNot)]}
+                :Home           {:reset             [:Home act/Navigate]
+                                 :toModelList       [:ModelList act/Navigate]
+                                 :toStreetSnapList  [:StreetSnapList act/Navigate]
+                                 :toProductList     [:ProductList act/Navigate]}
+                :StreetSnapList {:toDetail [:StreetSnap act/Navigate]
+                                 :search   [:StreetSnapList act/Navigate]
+                                 :reset    [:StreetSnapList act/Navigate]}
+                :ModelList      {:toDetail [:Model act/Navigate]
+                                 :search   [:ModelList act/Navigate]
+                                 :reset    [:ModelList act/Navigate]}
+                :ProductList    {:toDetail [:Product act/Navigate]
+                                 :search   [:ProductList act/Navigate]
+                                 :reset    [:ProductList act/Navigate]}
+                :StreetSnap     {:toDetail [:StreetSnap act/Navigate]
+                                 :toBig    [:Big act/OpenPhotoUrl]}
+                :Model          {:toDetail [:Model act/Navigate]
+                                 :toBig    [:Big act/OpenPhotoUrl]}
+                :Product        {:toDetail [:Product act/Navigate]
+                                 :toBig    [:Big act/OpenPhotoUrl]}}
+        sdyleColor "rgb(185,71,132)"
+        root (js/$ ".root")
+        tmpl-item (js-obj 
+                    "brandToColor" 
+                    (fn [brand] 
+                      (if (-> (.-length brand) (> 0))
+                        sdyleColor
+                        "rgb(122,122,122)")))
+        ctx {:root root
+             :router urlRouter
+             :views {} 
+             :container (.find root "#mc_pageContainer")
+             :tmpl-item tmpl-item}]
+    (menubar root)
+    (header urlRouter root)
+    (go (async/reduce (partial react/React route) ctx react/OnReact))
+    (.start js/Backbone.history)))
 
 (defn menubar [root]
   (let [menubar (.find root "#mc_menubar")
@@ -72,87 +127,5 @@
                 (.extend js/Backbone.Router))
         router (new Router)]
     router))
-
-(defn OpenPhotoUrl [ctx {:keys [basicUrl] :as args}]
-  (.open js/window (fn/ServeImagePath basicUrl) "_blank")
-  ctx)
-  
-(defn ShowLogo [{:keys [root] :as ctx} {:keys [curr-view] :as args}]
-  (let [logoNames [[[:Product :ProductList] "#img_streetProductLogo"]
-                   [[:StreetSnap :StreetSnapList] "#img_streetSnapLogo"]
-                   [[:Model :ModelList] "#img_streetModelsLogo"]
-                   [[:Home :default] "#img_homeLogo"]]]
-    (doseq [[names logoName] logoNames]
-      (if (some #(= % curr-view) names)
-        (doto (.find root logoName)
-          (.fadeIn 400))
-        (doto (.find root logoName)
-          (.hide)))))
-  ctx)
-  
-(defn Navigate [{:keys [router] :as ctx} {:keys [react-action id searchKey] :as args}]
-  (-> router
-    (.navigate 
-      (cond 
-        (= :Home react-action)
-        ""
-        
-        (some #(= % react-action) [:StreetSnap :Model :Product])
-        (str (name react-action) "/id=" id)
-        
-        (some #(= % react-action) [:StreetSnapList :ModelList :ProductList])
-        (if (some? searchKey)
-          (str (name react-action) "/search=" searchKey)
-          (name react-action))
-        
-        :else
-        (name react-action))
-      (js-obj "trigger" true)))
-  ctx)
-  
-
-(defn main []
-  (let [urlRouter (create-router)
-        route { :Router         {:toHome            [:Home react/ChangeView]
-                                 :toModelList       [:ModelList react/ChangeView]
-                                 :toStreetSnapList  [:StreetSnapList react/ChangeView]
-                                 :toProductList     [:ProductList react/ChangeView]
-                                 :toStreetSnap      [:StreetSnap react/ChangeView]
-                                 :toModel           [:Model react/ChangeView]
-                                 :toProduct         [:Product react/ChangeView]}
-                :Event          {:onOpen            [:nil ShowLogo]}
-                :Home           {:reset             [:Home Navigate]
-                                 :toModelList       [:ModelList Navigate]
-                                 :toStreetSnapList  [:StreetSnapList Navigate]
-                                 :toProductList     [:ProductList Navigate]}
-                :StreetSnapList {:toDetail [:StreetSnap Navigate]
-                                 :search   [:StreetSnapList Navigate]
-                                 :reset    [:StreetSnapList Navigate]}
-                :ModelList      {:toDetail [:Model Navigate]
-                                 :search   [:ModelList Navigate]
-                                 :reset    [:ModelList Navigate]}
-                :ProductList    {:toDetail [:Product Navigate]
-                                 :search   [:ProductList Navigate]
-                                 :reset    [:ProductList Navigate]}
-                :StreetSnap     {:toDetail [:StreetSnap Navigate]
-                                 :toBig    [:Big OpenPhotoUrl]}
-                :Model          {:toDetail [:Model Navigate]
-                                 :toBig    [:Big OpenPhotoUrl]}
-                :Product        {:toDetail [:Product Navigate]
-                                 :toBig    [:Big OpenPhotoUrl]}}
-        sdyleColor "rgb(185,71,132)"
-        root (js/$ ".root")
-        tmpl-item (js-obj 
-                    "brandToColor" 
-                    (fn [brand] (when (-> (.-length brand) (> 0)) sdyleColor)))
-        ctx {:root root
-             :router urlRouter
-             :views {} 
-             :container (.find root "#mc_pageContainer")
-             :tmpl-item tmpl-item}]
-    (menubar root)
-    (header urlRouter root)
-    (go (async/reduce (partial react/React route) ctx react/OnReact))
-    (.start js/Backbone.history)))
     
 (main)

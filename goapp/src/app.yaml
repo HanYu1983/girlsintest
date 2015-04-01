@@ -5,7 +5,7 @@ api_version: go1
 
 handlers:
 - url: /sdyle
-  static_dir: static3
+  static_dir: static4
 - url: /cljs
   static_dir: static4
 - url: /angular-test-coffee

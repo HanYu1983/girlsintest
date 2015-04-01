@@ -40,11 +40,14 @@
                                  :search   [:ProductList act/Navigate]
                                  :reset    [:ProductList act/Navigate]}
                 :StreetSnap     {:toDetail [:StreetSnap act/Navigate]
-                                 :toBig    [:Big act/OpenPhotoUrl]}
+                                 :toBig    [:Big act/OpenPhotoUrl]
+                                 :shareFB  [:Model act/ShareFB]}
                 :Model          {:toDetail [:Model act/Navigate]
-                                 :toBig    [:Big act/OpenPhotoUrl]}
+                                 :toBig    [:Big act/OpenPhotoUrl]
+                                 :shareFB  [:Model act/ShareFB]}
                 :Product        {:toDetail [:Product act/Navigate]
-                                 :toBig    [:Big act/OpenPhotoUrl]}}
+                                 :toBig    [:Big act/OpenPhotoUrl]
+                                 :shareFB  [:Model act/ShareFB]}}
         sdyleColor "rgb(185,71,132)"
         root (js/$ ".root")
         tmpl-item (js-obj 

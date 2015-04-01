@@ -46,7 +46,9 @@
 
 (defn defcommondetail [name]
   (defmethod react/AnimateClose name [ctx key {:keys [elem] :as view}]
-    (let [mc_modelContainer (.find elem "#mc_historyContainer")]
+    (let [mc_modelContainer (.find elem "#mc_historyContainer")
+          btn_share (.find elem "#btn_share")]
+      (.off btn_share "click")
       (.undelegate mc_modelContainer "img" "click"))
     (react/AnimateClose ctx :default view))
     
@@ -63,7 +65,10 @@
             tmpl (js/$ "#tmpl_streetsnap")
             elem (.tmpl tmpl model tmpl-item)
             mc_historyContainer (.find elem "#mc_historyContainer")
-            mc_sideContainer (.find elem "#mc_sideContainer")]
+            mc_sideContainer (.find elem "#mc_sideContainer")
+            btn_share (.find elem "#btn_share")]
+        (.click btn_share
+          #(go (>! react/OnReact [name :shareFB {:model model}])))
         (.delegate mc_sideContainer "img" "click"
           #(this-as that
             (go (>! react/OnReact [name :toBig {:basicUrl (.-id that)}]))))

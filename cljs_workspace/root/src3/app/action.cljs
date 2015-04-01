@@ -1,7 +1,13 @@
 (ns app.action
   (:require
     [app.fn :as fn]))
-
+    
+(defn ComposeAction [& fns]
+  (fn [ctx args]
+    (->>
+      (apply vector fns)
+      (reduce (fn [ctx f] (f ctx args)) ctx))))
+      
 (defn OpenPhotoUrl [ctx {:keys [basicUrl] :as args}]
   (.open js/window (fn/ServeImagePath basicUrl) "_blank")
   ctx)
@@ -50,8 +56,16 @@
       (js-obj "trigger" true)))
   ctx)
 
-(defn ComposeAction [& fns]
-  (fn [ctx args]
-    (->>
-      (apply vector fns)
-      (reduce (fn [ctx f] (f ctx args)) ctx))))
+(defn ShareFB [ctx {:keys [model] :as args}]
+  (->>
+    (js-obj
+      "name" "sdyle"
+      "link" (aget js/window "location" "href")
+      "picture" (aget model "styleUrl")
+      "caption" (str (aget model "name") " in sdyle")
+      "description" (aget model "modelDetail")
+      "callback" (fn [res]
+                   (when res (js/alert "share success!")))
+      "err" #(js/alert %))
+    (.postMessageToMyboard js/vic.facebook))
+  ctx)

@@ -35,11 +35,29 @@
                         identity)]
             (go (>! react/OnReact route))))))))
             
-(defn header [root]
+(defn header [router root]
   (let [btn_home (.find root "#btn_backhome")]
     (.click btn_home
       #(go (>! react/OnReact [:Home :reset nil])))))
-            
+
+(defn create-router []
+  (let [Router (->>
+                (js-obj
+                  "routes" (js-obj "StreetSnap" "StreetSnap"
+                                   "StreetSnap/id=:id" "StreetSnap"
+                                   "StreetSnapList" "StreetSnapList"
+                                   "StreetSnapList/search=:search" "StreetSnapList"
+                                   "" "default")
+                  "StreetSnap"      (fn [id]
+                                      (go (>! react/OnReact [:Router :toDetail {:id id}])))
+                  "StreetSnapList"  (fn [search]
+                                      (go (>! react/OnReact [:Router :toStreetSnapList {:searchKey search}])))
+                  "default"         #(go (>! react/OnReact [:Router :toHome nil])))
+                (.extend js/Backbone.Router))
+        router (new Router)]
+    (.start js/Backbone.history)
+    router))
+
 (defn OpenPhotoUrl [ctx {:keys [basicUrl] :as args}]
   (.open js/window (fn/ServeImagePath basicUrl) "_blank")
   ctx)
@@ -56,14 +74,28 @@
         (doto (.find root logoName)
           (.hide)))))
   ctx)
+  
+(defn Navigate [{:keys [router] :as ctx} {:keys [react-action] :as args}]
+  (-> router
+    (.navigate 
+      (if (= :Home react-action)
+        ""
+        (name react-action))
+      (js-obj "trigger" true)))
+  ctx)
+  
 
 (defn main []
-  (let [route { :Event          {:onOpen            [:nil ShowLogo]}
-                :Home           {:open              [:Home react/OpenView]
-                                 :reset             [:Home react/ChangeView]
+  (let [urlRouter (create-router)
+        route { :Router         {:toHome            [:Home react/ChangeView]
                                  :toModelList       [:ModelList react/ChangeView]
                                  :toStreetSnapList  [:StreetSnapList react/ChangeView]
                                  :toProductList     [:ProductList react/ChangeView]}
+                :Event          {:onOpen            [:nil ShowLogo]}
+                :Home           {:reset             [:Home Navigate]
+                                 :toModelList       [:ModelList Navigate]
+                                 :toStreetSnapList  [:StreetSnapList Navigate]
+                                 :toProductList     [:ProductList Navigate]}
                 :StreetSnapList {:toDetail [:StreetSnap react/ChangeView]
                                  :search   [:StreetSnapList react/ChangeView]
                                  :reset    [:StreetSnapList react/ChangeView]}
@@ -85,13 +117,12 @@
                     "brandToColor" 
                     (fn [brand] (when (-> (.-length brand) (> 0)) sdyleColor)))
         ctx {:root root
+             :router urlRouter
              :views {} 
              :container (.find root "#mc_pageContainer")
              :tmpl-item tmpl-item}]
     (menubar root)
-    (header root)
-    (go (async/reduce (partial react/React route) ctx react/OnReact))
-    (go 
-      (>! react/OnReact [:Home :open nil]))))
+    (header urlRouter root)
+    (go (async/reduce (partial react/React route) ctx react/OnReact))))
     
 (main)

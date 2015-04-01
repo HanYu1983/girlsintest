@@ -145,8 +145,3 @@
 (defcommonmodel :StreetSnap)
 (defcommonmodel :Model)
 (defcommonmodel :Product)
-
-; 沒有使用
-(comment 
-  (defmethod react/model-ch :Big [ctx key {:keys [basicUrl] :as args}]
-    (go (js-obj "url" (fn/ServeImagePath basicUrl)))))

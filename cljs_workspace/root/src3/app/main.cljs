@@ -60,8 +60,14 @@
                                  :toBig    [:Big OpenPhotoUrl]}
                 :Product        {:toDetail [:Product react/ChangeView]
                                  :toBig    [:Big OpenPhotoUrl]}}
+        sdyleColor "rgb(185,71,132)"
         root (js/$ ".root")
-        ctx {:views {} :container (.find root "#mc_pageContainer")}]
+        tmpl-item (js-obj 
+                    "brandToColor" 
+                    (fn [brand] (when (-> (.-length brand) (> 0)) sdyleColor)))
+        ctx {:views {} 
+             :container (.find root "#mc_pageContainer")
+             :tmpl-item tmpl-item}]
     (menubar root)
     (go (async/reduce (partial react/React route) ctx react/OnReact))
     (go (>! react/OnReact [:Home :Open nil]))))

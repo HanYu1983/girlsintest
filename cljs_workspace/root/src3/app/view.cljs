@@ -24,11 +24,11 @@
       (.undelegate mc_modelContainer "div[modelFrame]" "click"))
     (react/AnimateClose name :default view))
     
-  (defmethod react/view-ch name [ctx key modelChan]
+  (defmethod react/view-ch name [{:keys [tmpl-item] :as ctx} key modelChan]
     (go
       (let [[err model] (<! modelChan)
             tmpl (js/$ "#tmpl_streetsnap_list")
-            elem (.tmpl tmpl model nil)
+            elem (.tmpl tmpl model tmpl-item)
             mc_modelContainer (.find elem "#mc_modelContainer")
             btn_search (.find elem "#btn_search")
             btn_return (.find elem "#btn_return")]
@@ -56,11 +56,11 @@
         (.fadeOut mc_3dmask 400)))
     (react/AnimateOpen ctx :default view))
     
-  (defmethod react/view-ch name [ctx key modelChan]
+  (defmethod react/view-ch name [{:keys [tmpl-item] :as ctx} key modelChan]
     (go
       (let [[err model] (<! modelChan)
             tmpl (js/$ "#tmpl_streetsnap")
-            elem (.tmpl tmpl model nil)
+            elem (.tmpl tmpl model tmpl-item)
             mc_historyContainer (.find elem "#mc_historyContainer")
             mc_sideContainer (.find elem "#mc_sideContainer")]
         (.delegate mc_sideContainer "img" "click"
@@ -78,11 +78,11 @@
       (.fadeOut mc_3dmask 400)))
   (react/AnimateOpen ctx :default view))
           
-(defmethod react/view-ch :Home [ctx key modelChan]
+(defmethod react/view-ch :Home [{:keys [tmpl-item] :as ctx} key modelChan]
   (go
     (let [[err model] (<! modelChan)
           tmpl (js/$ "#tmpl_home")
-          elem (.tmpl tmpl model nil)]
+          elem (.tmpl tmpl model tmpl-item)]
       {:elem elem})))
       
 (defcommonlist :StreetSnapList)
@@ -91,17 +91,3 @@
 (defcommondetail :StreetSnap)
 (defcommondetail :Model)
 (defcommondetail :Product)
-
-(defmethod react/AnimateClose :Big [ctx key {:keys [elem] :as view}]
-  (.off elem "click")
-  (react/AnimateClose name :default view))
-
-; 沒有使用
-(comment 
-  (defmethod react/view-ch :Big [ctx key model-ch]
-    (go
-      (let [model (<! model-ch)
-            tmpl (js/$ "#tmpl_bigPhoto")
-            elem (.tmpl tmpl model nil)]
-        (.click elem #(go (>! react/OnReact [:Big :Close nil])))
-        {:elem elem}))))

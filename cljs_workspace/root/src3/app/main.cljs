@@ -47,15 +47,30 @@
                                    "StreetSnap/id=:id" "StreetSnap"
                                    "StreetSnapList" "StreetSnapList"
                                    "StreetSnapList/search=:search" "StreetSnapList"
+                                   "Model" "Model"
+                                   "Model/id=:id" "Model"
+                                   "ModelList" "ModelList"
+                                   "ModelList/search=:search" "ModelList"
+                                   "Product" "Product"
+                                   "Product/id=:id" "Product"
+                                   "ProductList" "ProductList"
+                                   "ProductList/search=:search" "ProductList"
                                    "" "default")
                   "StreetSnap"      (fn [id]
-                                      (go (>! react/OnReact [:Router :toDetail {:id id}])))
+                                      (go (>! react/OnReact [:Router :toStreetSnap {:id id}])))
                   "StreetSnapList"  (fn [search]
                                       (go (>! react/OnReact [:Router :toStreetSnapList {:searchKey search}])))
+                  "Model"           (fn [id]
+                                      (go (>! react/OnReact [:Router :toModel {:id id}])))
+                  "ModelList"       (fn [search]
+                                      (go (>! react/OnReact [:Router :toModelList {:searchKey search}])))
+                  "Product"         (fn [id]
+                                      (go (>! react/OnReact [:Router :toProduct {:id id}])))
+                  "ProductList"     (fn [search]
+                                      (go (>! react/OnReact [:Router :toProductList {:searchKey search}])))
                   "default"         #(go (>! react/OnReact [:Router :toHome nil])))
                 (.extend js/Backbone.Router))
         router (new Router)]
-    (.start js/Backbone.history)
     router))
 
 (defn OpenPhotoUrl [ctx {:keys [basicUrl] :as args}]
@@ -75,11 +90,22 @@
           (.hide)))))
   ctx)
   
-(defn Navigate [{:keys [router] :as ctx} {:keys [react-action] :as args}]
+(defn Navigate [{:keys [router] :as ctx} {:keys [react-action id searchKey] :as args}]
   (-> router
     (.navigate 
-      (if (= :Home react-action)
+      (cond 
+        (= :Home react-action)
         ""
+        
+        (some #(= % react-action) [:StreetSnap :Model :Product])
+        (str (name react-action) "/id=" id)
+        
+        (some #(= % react-action) [:StreetSnapList :ModelList :ProductList])
+        (if (some? searchKey)
+          (str (name react-action) "/search=" searchKey)
+          (name react-action))
+        
+        :else
         (name react-action))
       (js-obj "trigger" true)))
   ctx)
@@ -90,26 +116,29 @@
         route { :Router         {:toHome            [:Home react/ChangeView]
                                  :toModelList       [:ModelList react/ChangeView]
                                  :toStreetSnapList  [:StreetSnapList react/ChangeView]
-                                 :toProductList     [:ProductList react/ChangeView]}
+                                 :toProductList     [:ProductList react/ChangeView]
+                                 :toStreetSnap      [:StreetSnap react/ChangeView]
+                                 :toModel           [:Model react/ChangeView]
+                                 :toProduct         [:Product react/ChangeView]}
                 :Event          {:onOpen            [:nil ShowLogo]}
                 :Home           {:reset             [:Home Navigate]
                                  :toModelList       [:ModelList Navigate]
                                  :toStreetSnapList  [:StreetSnapList Navigate]
                                  :toProductList     [:ProductList Navigate]}
-                :StreetSnapList {:toDetail [:StreetSnap react/ChangeView]
-                                 :search   [:StreetSnapList react/ChangeView]
-                                 :reset    [:StreetSnapList react/ChangeView]}
-                :ModelList      {:toDetail [:Model react/ChangeView]
-                                 :search   [:ModelList react/ChangeView]
-                                 :reset    [:ModelList react/ChangeView]}
-                :ProductList    {:toDetail [:Product react/ChangeView]
-                                 :search   [:ProductList react/ChangeView]
-                                 :reset    [:ProductList react/ChangeView]}
-                :StreetSnap     {:toDetail [:StreetSnap react/ChangeView]
+                :StreetSnapList {:toDetail [:StreetSnap Navigate]
+                                 :search   [:StreetSnapList Navigate]
+                                 :reset    [:StreetSnapList Navigate]}
+                :ModelList      {:toDetail [:Model Navigate]
+                                 :search   [:ModelList Navigate]
+                                 :reset    [:ModelList Navigate]}
+                :ProductList    {:toDetail [:Product Navigate]
+                                 :search   [:ProductList Navigate]
+                                 :reset    [:ProductList Navigate]}
+                :StreetSnap     {:toDetail [:StreetSnap Navigate]
                                  :toBig    [:Big OpenPhotoUrl]}
-                :Model          {:toDetail [:Model react/ChangeView]
+                :Model          {:toDetail [:Model Navigate]
                                  :toBig    [:Big OpenPhotoUrl]}
-                :Product        {:toDetail [:Product react/ChangeView]
+                :Product        {:toDetail [:Product Navigate]
                                  :toBig    [:Big OpenPhotoUrl]}}
         sdyleColor "rgb(185,71,132)"
         root (js/$ ".root")
@@ -123,6 +152,7 @@
              :tmpl-item tmpl-item}]
     (menubar root)
     (header urlRouter root)
-    (go (async/reduce (partial react/React route) ctx react/OnReact))))
+    (go (async/reduce (partial react/React route) ctx react/OnReact))
+    (.start js/Backbone.history)))
     
 (main)

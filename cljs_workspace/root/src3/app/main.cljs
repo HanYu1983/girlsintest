@@ -35,13 +35,32 @@
                         identity)]
             (go (>! react/OnReact route))))))))
             
-  
+(defn header [root]
+  (let [btn_home (.find root "#btn_backhome")]
+    (.click btn_home
+      #(go (>! react/OnReact [:Home :reset nil])))))
+            
 (defn OpenPhotoUrl [ctx {:keys [basicUrl] :as args}]
   (.open js/window (fn/ServeImagePath basicUrl) "_blank")
   ctx)
+  
+(defn ShowLogo [{:keys [root] :as ctx} {:keys [curr-view] :as args}]
+  (let [logoNames [[[:Product :ProductList] "#img_streetProductLogo"]
+                   [[:StreetSnap :StreetSnapList] "#img_streetSnapLogo"]
+                   [[:Model :ModelList] "#img_streetModelsLogo"]
+                   [[:Home :default] "#img_homeLogo"]]]
+    (doseq [[names logoName] logoNames]
+      (if (some #(= % curr-view) names)
+        (doto (.find root logoName)
+          (.fadeIn 400))
+        (doto (.find root logoName)
+          (.hide)))))
+  ctx)
 
 (defn main []
-  (let [route { :Home           {:Open              [:Home react/OpenView]
+  (let [route { :Event          {:onOpen            [:nil ShowLogo]}
+                :Home           {:open              [:Home react/OpenView]
+                                 :reset             [:Home react/ChangeView]
                                  :toModelList       [:ModelList react/ChangeView]
                                  :toStreetSnapList  [:StreetSnapList react/ChangeView]
                                  :toProductList     [:ProductList react/ChangeView]}
@@ -65,11 +84,14 @@
         tmpl-item (js-obj 
                     "brandToColor" 
                     (fn [brand] (when (-> (.-length brand) (> 0)) sdyleColor)))
-        ctx {:views {} 
+        ctx {:root root
+             :views {} 
              :container (.find root "#mc_pageContainer")
              :tmpl-item tmpl-item}]
     (menubar root)
+    (header root)
     (go (async/reduce (partial react/React route) ctx react/OnReact))
-    (go (>! react/OnReact [:Home :Open nil]))))
+    (go 
+      (>! react/OnReact [:Home :open nil]))))
     
 (main)

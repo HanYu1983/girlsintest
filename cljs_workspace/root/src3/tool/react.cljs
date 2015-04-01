@@ -12,33 +12,33 @@
 (defmethod AnimateOpen :default [ctx key view])
 (defmethod AnimateClose :default [ctx key view])
         
-(defn OpenView [{:keys [views] :as ctx} {:keys [react-curr] :as args}]
+(defn OpenView [{:keys [views] :as ctx} {:keys [react-action] :as args}]
   (let [a-view (atom {})
         viewpromise (doto (new js/$.Deferred)
                       (.done (fn [view]
                         (swap! a-view assoc :view view) 
-                        (AnimateOpen ctx react-curr view))))
+                        (AnimateOpen ctx react-action view))))
         ResolvePromise (fn [chan]
                          (go (.resolve viewpromise (<! chan))))]
     (swap! a-view assoc :promise viewpromise)
     (->> args
-      (model-ch ctx react-curr)
-      (view-ch ctx react-curr)
+      (model-ch ctx react-action)
+      (view-ch ctx react-action)
       ResolvePromise)
-    (assoc-in ctx [:views react-curr] a-view)))
+    (assoc-in ctx [:views react-action] a-view)))
     
-(defn CloseView [{:keys [container views] :as ctx} {:keys [react-curr] :as args}]
-  (if (some? (react-curr views))
-    (let [{:keys [view promise]} @(react-curr views)]
+(defn CloseView [{:keys [container views] :as ctx} {:keys [react-action] :as args}]
+  (if (some? (react-action views))
+    (let [{:keys [view promise]} @(react-action views)]
       (if (some? view)
-        (AnimateClose ctx react-curr view)
+        (AnimateClose ctx react-action view)
         (.reject promise "CloseView"))
-      (update-in ctx [:views] dissoc react-curr))
+      (update-in ctx [:views] dissoc react-action))
     ctx))
     
-(defn ChangeView [{:keys [container views] :as ctx} {:keys [react-curr] :as args}]
+(defn ChangeView [{:keys [container views] :as ctx} {:keys [react-action] :as args}]
   (let [closeAll (fn [ctx]
-                   (reduce (fn [ctx key] (CloseView ctx {:react-curr key})) ctx (keys views)))
+                   (reduce (fn [ctx key] (CloseView ctx {:react-action key})) ctx (keys views)))
         thenOpen (fn [ctx]
                    (OpenView ctx args))]
     (-> ctx
@@ -51,6 +51,6 @@
       (do
         (.log js/console (str "from " key " operator " whichRoute " isn't exist!!"))
         ctx)
-      (Operation ctx (merge args {:react-prev key :react-curr curr})))))
+      (Operation ctx (merge args {:react-where key :react-action curr})))))
 
 (def OnReact (chan))

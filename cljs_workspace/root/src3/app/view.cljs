@@ -6,6 +6,7 @@
     [tool.react :as react]))
 
 (defmethod react/AnimateOpen :default [{:keys [container] :as ctx} key view]
+  (go (>! react/OnReact [:Event :onOpen {:curr-view (:name view)}]))
   (doto (:elem view)
     (.appendTo container)
     (.fadeIn 400)))
@@ -41,7 +42,7 @@
         (.delegate mc_modelContainer "div[modelFrame]" "click"
           #(this-as that
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))
-        {:elem elem}))))
+        {:elem elem :name name}))))
 
 (defn defcommondetail [name]
   (defmethod react/AnimateClose name [ctx key {:keys [elem] :as view}]
@@ -69,7 +70,7 @@
         (.delegate mc_historyContainer "img" "click"
           #(this-as that
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))
-        {:elem elem}))))
+        {:elem elem :name name}))))
 
 (defmethod react/AnimateOpen :Home [ctx key {:keys [elem] :as view}]
   (let [mc_3dmask (.find elem "#mc_3dmask")]
@@ -83,7 +84,7 @@
     (let [[err model] (<! modelChan)
           tmpl (js/$ "#tmpl_home")
           elem (.tmpl tmpl model tmpl-item)]
-      {:elem elem})))
+      {:elem elem :name key})))
       
 (defcommonlist :StreetSnapList)
 (defcommonlist :ModelList)

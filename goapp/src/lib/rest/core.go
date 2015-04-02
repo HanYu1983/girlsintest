@@ -166,7 +166,6 @@ func HandleImage() func(string, *os.File, http.ResponseWriter,*http.Request){
       oh = int(tool.Str2Int64(r.Form["Height"][0]))
     }
     if hasWidth || hasHeight {
-      //img = resize.Resize(uint(ow), uint(oh), img, resize.Lanczos3)
       img = resize.Thumbnail(uint(ow), uint(oh), img, resize.NearestNeighbor)
       nw, nh := img.Bounds().Max.X, img.Bounds().Max.Y
       sx, sy := (ow-nw)>>1, (oh-nh)>>1

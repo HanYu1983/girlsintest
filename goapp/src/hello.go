@@ -1,14 +1,29 @@
 package hello
 
 import (
-	"net/http"
-	"lib/tool"
-	"app/test"
-	"app/handler"
+  "net/http"
+  "lib/tool"
   "lib/rest"
   "os"
 )
 
+func init(){
+  // rest style setting
+  cmdhandlers := map[string]func(sys tool.ISystem)interface{}{}
+
+  handlers := map[string]func(string, *os.File, http.ResponseWriter,*http.Request){
+    "png": rest.HandleImage(),
+    "jpg": rest.HandleImage(),
+    "jpeg": rest.HandleImage(),
+    "json": rest.HandleJson(),
+    "cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
+  }
+  
+  http.HandleFunc("/", rest.RestWithConfig("./package", cacheVersion, handlers) )
+}
+
+// ============== legacy code ===============//
+/*
 func init() {
 	actions := tool.ActionMap{
 		"RegisterUser":handler.RegisterUser,
@@ -60,9 +75,12 @@ func init() {
 	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions, tool.AppEngineContextFactory))
 }
+
 func AdminPage(sys tool.ISystem)interface{}{
 	w := sys.GetResponse()
 	w.Header().Set("Content-Type", "text/html")
 		tool.TemplateWithFile("EditStreetModel", "app/tmpl/Admin.html").Execute(w, nil)
 	return tool.CustomView
 }
+
+*/

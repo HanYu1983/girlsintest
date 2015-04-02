@@ -12,6 +12,8 @@ import (
   "github.com/nfnt/resize"
   "encoding/json"
   "appengine"
+  "image"
+  "image/draw"
 )
 
 
@@ -164,7 +166,15 @@ func HandleImage() func(string, *os.File, http.ResponseWriter,*http.Request){
       oh = int(tool.Str2Int64(r.Form["Height"][0]))
     }
     if hasWidth || hasHeight {
-      img = resize.Resize(uint(ow), uint(oh), img, resize.Lanczos3)
+      //img = resize.Resize(uint(ow), uint(oh), img, resize.Lanczos3)
+      img = resize.Thumbnail(uint(ow), uint(oh), img, resize.NearestNeighbor)
+      nw, nh := img.Bounds().Max.X, img.Bounds().Max.Y
+      sx, sy := (ow-nw)>>1, (oh-nh)>>1
+      
+      newimg := image.NewRGBA(image.Rect(0, 0, ow, oh))
+      draw.Draw(newimg, image.Rect(sx, sy, sx+nw, sy+nh), img, image.Point{0,0}, draw.Src)
+      
+      img = newimg
     }
   
     w.Header().Set("Content-Type", fmt.Sprintf("image/%s; charset=utf8", filetype))

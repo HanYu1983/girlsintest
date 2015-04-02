@@ -1,5 +1,7 @@
 (ns app.fn
-  (:require-macros [tool.macro :as macro]))
+  (:require-macros 
+    [cljs.core.async.macros :refer [go]]
+    [tool.macro :as macro]))
 
 (defn ServeImagePath [path]
   (str "http://" window.location.host "/" path))
@@ -45,3 +47,23 @@
             (.fail (fn [err] (.reject promise err)))))))))
             
 (def GetAllModelBy (memoize GetAllModelBy))
+
+(defn GetHomeModelMaybeKey [configPath]
+  (macro/makepromise promise
+    (FetchFile configPath)
+    (fn [config]
+      (let [pathInfo (aget config "app" "home-model-key")
+            which (aget pathInfo "which")]
+        (condp = which
+          "model" (let [pathPair (aget pathInfo "model")
+                        where (aget config (aget pathPair 0))
+                        modelKey (aget pathPair 1)]
+                    (doto (FetchFile (str where "/" modelKey "/config.json"))
+                      (.done #(.resolve promise %))
+                      (.fail #(.reject promise %))))
+          "key" (go (.resolve promise (js-obj "ModelKey" (aget pathInfo "key"))))
+          (go
+            (.log js/console "which is not right:" which) 
+            (.resolve promise (js-obj "ModelKey" ""))))))))
+
+(def GetHomeModel (memoize GetHomeModel))

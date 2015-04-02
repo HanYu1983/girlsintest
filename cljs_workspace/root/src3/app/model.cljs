@@ -120,20 +120,16 @@
               (>! ret [err nil])
               (close! ret)))))
       ret)))
-
+    
 (defmethod react/model-ch :Home [ctx key args]
-  (let [ret (chan)
-        configType "model"]
-    (doto (fn/GetAllModelBy "config.json" configType)
-      (.done
-        (fn [& args] 
-          (let [config (first args)
-                details (second args)
-                [modelKey detail] (first details)]
-            (go 
-              (>! ret [nil (js-obj "modelKey" (.-ModelKey detail))])
-              (close! ret)))))
-      (.fail 
+  (let [ret (chan)]
+    (doto (fn/GetHomeModelMaybeKey "config.json")
+      (.done 
+        (fn [detail]
+          (go 
+            (>! ret [nil (js-obj "modelKey" (.-ModelKey detail))])
+            (close! ret))))
+      (.fail
         #(go 
           (>! ret [% nil])
           (close! ret))))

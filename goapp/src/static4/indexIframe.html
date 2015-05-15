@@ -1,6 +1,13 @@
 <html>
 	<head></head>
-	<body>
-		<iframe id="iframe_3dIframe" src="http://sketchfab.com/embed/8a264df3a2f245c09f1ce92ec22849b0?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0" width='100%' height='100%' class="absolute"></iframe>
+	<body style="margin:0">
+		<script src='js/lib/jquery/jquery-1.9.min.js'></script>
+		<script src='js/lib/purl.js'></script>
+		<script>
+			var url = $.url(window.location.search)
+			//var key = '8a264df3a2f245c09f1ce92ec22849b0'
+			var key = url.param("key")
+			document.write('<iframe id="iframe_3dIframe" src="http://sketchfab.com/embed/'+ key +'?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0" width="100%" height="100%" class="absolute"></iframe>')
+		</script>
 	</body>
 </html>

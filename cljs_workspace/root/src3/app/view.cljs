@@ -47,9 +47,15 @@
 (defn defcommondetail [name]
   (defmethod react/AnimateClose name [ctx key {:keys [elem] :as view}]
     (let [mc_modelContainer (.find elem "#mc_historyContainer")
+          mc_sideContainer (.find elem "#mc_sideContainer")
+          mc_bottomContainer (.find elem "#mc_bottomContainer")
+          img_stylePicture (.find elem "#img_stylePicture")
           btn_share (.find elem "#btn_share")]
-      (.off btn_share "click")
-      (.undelegate mc_modelContainer "img" "click"))
+      (.undelegate mc_modelContainer "img" "click")
+      (.undelegate mc_sideContainer "img" "click")
+      (.undelegate mc_bottomContainer "img" "click")
+      (.off img_stylePicture "click")
+      (.off btn_share "click"))
     (react/AnimateClose ctx :default view))
     
   (defmethod react/AnimateOpen name [ctx key {:keys [elem] :as view}]
@@ -66,10 +72,17 @@
             elem (.tmpl tmpl model tmpl-item)
             mc_historyContainer (.find elem "#mc_historyContainer")
             mc_sideContainer (.find elem "#mc_sideContainer")
+            mc_bottomContainer (.find elem "#mc_bottomContainer")
+            img_stylePicture (.find elem "#img_stylePicture")
             btn_share (.find elem "#btn_share")]
-        (.click btn_share
+        (.on img_stylePicture "click"
+          #(go (>! react/OnReact [name :toBig {:basicUrl (.-styleUrl model)}])))
+        (.on btn_share "click"
           #(go (>! react/OnReact [name :shareFB {:model model}])))
         (.delegate mc_sideContainer "img" "click"
+          #(this-as that
+            (go (>! react/OnReact [name :toBig {:basicUrl (.-id that)}]))))
+        (.delegate mc_bottomContainer "img" "click"
           #(this-as that
             (go (>! react/OnReact [name :toBig {:basicUrl (.-id that)}]))))
         (.delegate mc_historyContainer "img" "click"
@@ -93,7 +106,6 @@
       
       
 (defmethod react/AnimateOpen :Big [{:keys [popupContainer] :as ctx} key view]
-  (go (>! react/OnReact [:Event :onOpen {:curr-view (:name view)}]))
   (doto (:elem view)
     (.appendTo popupContainer)
     (.fadeIn 400)))
@@ -101,7 +113,7 @@
 (defmethod react/AnimateClose :Big [{:keys [container] :as ctx} key {elem :elem :as view}]
   (let [back (.find elem "#mc_bigPhotoFixPosition")]
     (.off back "click")
-    (.fadeOut elem 400 #(react/AnimateOpen ctx :default view))))
+    (.fadeOut elem 400 #(react/AnimateClose ctx :default view))))
 
 (defmethod react/view-ch :Big [{:keys [tmpl-item] :as ctx} key modelChan]
   (go

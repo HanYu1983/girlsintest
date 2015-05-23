@@ -43,10 +43,10 @@
                                  :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
                 :Model          {:toDetail [:Model act/Navigate]
-                                 :toBig    [:Big act/OpenPhotoUrl]
+                                 :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
                 :Product        {:toDetail [:Product act/Navigate]
-                                 :toBig    [:Big act/OpenPhotoUrl]
+                                 :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
                 :Big            {:close    [:Big react/CloseView]}}
         sdyleColor "rgb(185,71,132)"

@@ -91,6 +91,20 @@
           elem (.tmpl tmpl model tmpl-item)]
       {:elem elem :name key})))
       
+      
+(defmethod react/AnimateOpen :Big [{:keys [popupContainer] :as ctx} key view]
+  (go (>! react/OnReact [:Event :onOpen {:curr-view (:name view)}]))
+  (doto (:elem view)
+    (.appendTo popupContainer)
+    (.fadeIn 400)))
+    
+(defmethod react/view-ch :Big [{:keys [tmpl-item] :as ctx} key modelChan]
+  (go
+    (let [[err model] (<! modelChan)
+          tmpl (js/$ "#tmpl_bigPhoto")
+          elem (.tmpl tmpl model tmpl-item)]
+      {:elem elem :name key})))
+      
 (defcommonlist :StreetSnapList)
 (defcommonlist :ModelList)
 (defcommonlist :ProductList)

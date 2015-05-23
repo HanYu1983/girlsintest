@@ -138,7 +138,7 @@
 								<div class="textBase f_left">搜尋:${searchWord}</div>
 								<button id="btn_return">return</button>
 							{{else}}
-							<input id='input_search' class="relative f_left" />
+							<input id='input_search' class="relative f_left" placeholder='例:東區' />
 							<img id="btn_search" class="btn" src='images/streetSearch/search.png'/>
 							{{/if}}
 						</div>
@@ -170,7 +170,7 @@
 			<div class="hide full">
 				<div id="mc_bigPhotoBack" class='fixed full black_cube opacity_7'></div>
 				<div id="mc_bigPhotoFixPosition" class='fixed full '>
-					<img style="top:150px;" id='img_photo' src=${url} class='relative'/>
+					<img style="position:relative; left:50%; top:50%; width:600px; height:480px; margin-left:-300px; margin-top:-240px;" id='img_photo' src=${url} class='relative'/>
 				</div>
 			</div>
 		</script>

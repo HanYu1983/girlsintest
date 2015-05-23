@@ -40,7 +40,7 @@
                                  :search   [:ProductList act/Navigate]
                                  :reset    [:ProductList act/Navigate]}
                 :StreetSnap     {:toDetail [:StreetSnap act/Navigate]
-                                 :toBig    [:Big act/OpenPhotoUrl]
+                                 :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
                 :Model          {:toDetail [:Model act/Navigate]
                                  :toBig    [:Big act/OpenPhotoUrl]
@@ -60,6 +60,7 @@
              :router urlRouter
              :views {} 
              :container (.find root "#mc_pageContainer")
+             :popupContainer (.find root "#mc_popupContainer")
              :tmpl-item tmpl-item}]
     (menubar root)
     (header urlRouter root)

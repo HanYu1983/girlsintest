@@ -134,6 +134,13 @@
           (>! ret [% nil])
           (close! ret))))
     ret))
+    
+(defmethod react/model-ch :Big [ctx key {url :basicUrl :as args}]
+  (let [ret (chan)]
+    (go 
+      (>! ret [nil (js-obj "url" (str "http://" window.location.host "/" url "?Width=600&Height=480"))])
+      (close! ret))
+    ret))
   
 (defcommonlistmodel :StreetSnapList)
 (defcommonlistmodel :ModelList)

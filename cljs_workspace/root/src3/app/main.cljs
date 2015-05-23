@@ -47,7 +47,8 @@
                                  :shareFB  [:Model act/ShareFB]}
                 :Product        {:toDetail [:Product act/Navigate]
                                  :toBig    [:Big act/OpenPhotoUrl]
-                                 :shareFB  [:Model act/ShareFB]}}
+                                 :shareFB  [:Model act/ShareFB]}
+                :Big            {:close    [:Big react/CloseView]}}
         sdyleColor "rgb(185,71,132)"
         root (js/$ ".root")
         tmpl-item (js-obj 

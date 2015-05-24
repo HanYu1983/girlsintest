@@ -56,7 +56,15 @@
                     (fn [brand] 
                       (if (-> (.-length brand) (> 0))
                         sdyleColor
-                        "rgb(122,122,122)")))
+                        "rgb(122,122,122)"))
+                        
+                    "checkHot"
+                    (fn [timestr]
+                      (let [com (.split timestr "/")
+                            now (js/Date.)
+                            date (js/Date.)]
+                        (.log js/console com)
+                        "new")))
         ctx {:root root
              :router urlRouter
              :views {} 

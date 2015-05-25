@@ -60,11 +60,9 @@
                         
                     "checkHot"
                     (fn [timestr]
-                      (let [com (.split timestr "/")
-                            now (js/Date.)
-                            date (js/Date.)]
-                        (.log js/console com)
-                        "new")))
+                      (let [today (.today js/Date)
+                            date (-> (.parse js/Date timestr) (.at "0:0:0"))]
+                        (.equals today date))))
         ctx {:root root
              :router urlRouter
              :views {} 

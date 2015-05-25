@@ -151,7 +151,9 @@
 									<div style=${'background-color:'+ $item.brandToColor(brand)} class='full white_cube absolute'></div>
 									<div id='txt_name' class='absolute textBase txt_name'>${name}</div>
 									<div id='txt_date' class='absolute textBase txt_date'>${date}</div>
-									<div>${$item.checkHot(date)}</div>
+									{{if true }}
+									<img style="position:absolute; right:-3px; top:-3px;" src="images/index/new_tag.png"></img>
+									{{/if}}
 								</div>
 								<img id="img_listStylePicture" class='relative f_left' src=${imgStylePath} />
 								<img class='relative f_left listSideSize' src=${imgSideAPath} />

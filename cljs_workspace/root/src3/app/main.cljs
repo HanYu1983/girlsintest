@@ -40,7 +40,8 @@
                 :ProductList    {:toDetail [:Product act/Navigate]
                                  :search   [:ProductList act/Navigate]
                                  :reset    [:ProductList act/Navigate]}
-                :StreetSnap     {:toDetail [:StreetSnap act/Navigate]
+                :StreetSnap     {:fullscreen [:nil act/OpenFullScreen]
+                                 :toDetail [:StreetSnap act/Navigate]
                                  :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
                 :Model          {:toDetail [:Model act/Navigate]

@@ -65,5 +65,3 @@
           (go
             (.log js/console "which is not right:" which) 
             (.resolve promise (js-obj "ModelKey" ""))))))))
-
-(def GetHomeModel (memoize GetHomeModel))

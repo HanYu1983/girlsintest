@@ -112,7 +112,7 @@
 							{{html talk}}
 						</div>
 						<div id="fbcommentContainer" style="height:500px;" class="w_full relative white_cube f_left">
-							<iframe class="fb-comments" width=700 height=500 src=${ "comment.html?key=" + key }></iframe>
+							<iframe class="fb-comments" width=700 height=500 src=${ "comment.html?key=" + encodeURIComponent(window.location.href) }></iframe>
 						</div>
 						
 						<!--

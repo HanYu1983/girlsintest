@@ -12,6 +12,10 @@
       (apply vector fns)
       (reduce (fn [ctx f] (f ctx args)) ctx))))
       
+(defn OpenFullScreen [ctx {:keys [model] :as args}]
+  (.open js/window (str "indexIframe.html?key=" (.-modelKey model)))
+  ctx)
+        
 (defn OpenPhotoUrl [ctx {:keys [basicUrl] :as args}]
   (.open js/window (fn/ServeImagePath basicUrl) "_blank")
   ctx)
@@ -75,7 +79,8 @@
   ctx)
   
 (defn ShowLoadingImage [ctx {view-obj :view-obj :as args}]
-  (doto (:elem view-obj)
+  (.log js/console (js/$ "#page_container"))
+  (doto (js/$ "#page_container")
     (.waitForImages
       (js-obj
         "waitForAll" true

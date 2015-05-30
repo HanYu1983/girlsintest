@@ -6,10 +6,10 @@
     [tool.react :as react]))
 
 (defmethod react/AnimateOpen :default [{:keys [container] :as ctx} key view]
-  (go (>! react/OnReact [:Event :onOpen {:curr-view (:name view) :view-obj view}]))
   (doto (:elem view)
     (.appendTo container)
-    (.fadeIn 400)))
+    (.fadeIn 400))
+  (go (>! react/OnReact [:Event :onOpen {:curr-view (:name view) :view-obj view}])))
 
 (defmethod react/AnimateClose :default [{:keys [container] :as ctx} key view]
   (doto (:elem view)
@@ -44,7 +44,9 @@
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))
         {:elem elem :name name}))))
 
-(defn defcommondetail [name]
+(defn defcommondetail
+  "詳細頁"
+  [name]
   (defmethod react/AnimateClose name [ctx key {:keys [elem] :as view}]
     (let [mc_modelContainer (.find elem "#mc_historyContainer")
           mc_sideContainer (.find elem "#mc_sideContainer")
@@ -74,8 +76,10 @@
             mc_sideContainer (.find elem "#mc_sideContainer")
             mc_bottomContainer (.find elem "#mc_bottomContainer")
             img_stylePicture (.find elem "#img_stylePicture")
-            btn_share (.find elem "#btn_share")]
-            (.log js/console model)
+            btn_share (.find elem "#btn_share")
+            btn_fullscreen (.find elem "#btn_fullscreen")]
+        (.on btn_fullscreen "click"
+          #(go (>! react/OnReact [name :fullscreen {:model model}])))
         (.on img_stylePicture "click"
           #(go (>! react/OnReact [name :toBig {:basicUrl (.-styleUrl model)}])))
         (.on btn_share "click"

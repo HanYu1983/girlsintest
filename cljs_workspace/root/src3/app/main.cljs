@@ -24,7 +24,7 @@
                                  :toModel           [:Model react/ChangeView]
                                  :toProduct         [:Product react/ChangeView]}
                 :Event          {:onOpen            [:nil (act/ComposeAction 
-                                                            act/ShowLoadingImage
+                                                            (act/Unuse act/ShowLoadingImage)
                                                             act/ChangeLogo
                                                             (act/Unuse act/ShowFooterOrNot))]}
                 :Home           {:reset             [:Home act/Navigate]
@@ -40,7 +40,8 @@
                 :ProductList    {:toDetail [:Product act/Navigate]
                                  :search   [:ProductList act/Navigate]
                                  :reset    [:ProductList act/Navigate]}
-                :StreetSnap     {:toDetail [:StreetSnap act/Navigate]
+                :StreetSnap     {:fullscreen [:nil act/OpenFullScreen]
+                                 :toDetail [:StreetSnap act/Navigate]
                                  :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
                 :Model          {:toDetail [:Model act/Navigate]

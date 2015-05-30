@@ -111,6 +111,10 @@
 						<div id="txt_modelMeeting" style="width:650px"  style="margin-bottom:100px;" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
 							{{html talk}}
 						</div>
+						<div id="fbcommentContainer" style="height:500px;" class="w_full relative white_cube f_left">
+							<iframe class="fb-comments" width=700 height=500 src=${ "comment.html?key=" + key }></iframe>
+						</div>
+						
 						<!--
 						<div id="fbcommentContainer" class="w_full relative white_cube f_left">
 							<!--
@@ -256,6 +260,7 @@
 					<img style="left:40px; top:93px;" class="absolute" src="images/loading/loading_word.png"/>
 				</div>
 			</div>
+			
 			<!-- fb plugin -->
 			<!--
 			<div id="fbPluginPool" style="display:none">

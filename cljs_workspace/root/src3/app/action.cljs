@@ -73,7 +73,7 @@
       "caption" (str (aget model "name") " in sdyle")
       "description" (aget model "modelDetail")
       "callback" (fn [res]
-                   (when res (js/alert "share success!")))
+                   (when res (js/alert "分享成功！")))
       "err" #(js/alert %))
     (.postMessageToMyboard js/vic.facebook))
   ctx)

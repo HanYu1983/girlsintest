@@ -71,7 +71,7 @@ vic.facebook = vic.facebook || {};
 	}
 	
 	function postOnlyMessageToMyboard( options, error ){
-		login( function( response ){
+		//login( function( response ){
 			FB.ui({
 				method: 'apprequests', // 發布貼文
 				message:options.message,
@@ -79,7 +79,7 @@ vic.facebook = vic.facebook || {};
 			},function(response){
 				options.callback( response );
 			});
-		}, error);
+		//}, error);
 	}
 	
 	vic.facebook.init = init;

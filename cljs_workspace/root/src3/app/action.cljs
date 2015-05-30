@@ -73,3 +73,10 @@
       "err" #(js/alert %))
     (.postMessageToMyboard js/vic.facebook))
   ctx)
+  
+(defn ShowLoadingImage [ctx {view-obj :view-obj :as args}]
+  (doto (:elem view-obj)
+    (.waitForImages
+      (js-obj
+        "waitForAll" true
+        "finished" (fn [] (.log js/console "XXX"))))))

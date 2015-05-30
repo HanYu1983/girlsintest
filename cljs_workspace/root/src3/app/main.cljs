@@ -24,6 +24,7 @@
                                  :toModel           [:Model react/ChangeView]
                                  :toProduct         [:Product react/ChangeView]}
                 :Event          {:onOpen            [:nil (act/ComposeAction 
+                                                            act/ShowLoadingImage
                                                             act/ChangeLogo
                                                             (act/Unuse act/ShowFooterOrNot))]}
                 :Home           {:reset             [:Home act/Navigate]

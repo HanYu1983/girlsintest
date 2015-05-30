@@ -6,7 +6,7 @@
     [tool.react :as react]))
 
 (defmethod react/AnimateOpen :default [{:keys [container] :as ctx} key view]
-  (go (>! react/OnReact [:Event :onOpen {:curr-view (:name view)}]))
+  (go (>! react/OnReact [:Event :onOpen {:curr-view (:name view) :view-obj view}]))
   (doto (:elem view)
     (.appendTo container)
     (.fadeIn 400)))

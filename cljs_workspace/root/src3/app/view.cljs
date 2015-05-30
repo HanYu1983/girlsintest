@@ -75,16 +75,17 @@
             mc_bottomContainer (.find elem "#mc_bottomContainer")
             img_stylePicture (.find elem "#img_stylePicture")
             btn_share (.find elem "#btn_share")]
+            (.log js/console model)
         (.on img_stylePicture "click"
           #(go (>! react/OnReact [name :toBig {:basicUrl (.-styleUrl model)}])))
         (.on btn_share "click"
           #(go (>! react/OnReact [name :shareFB {:model model}])))
         (.delegate mc_sideContainer "img" "click"
           #(this-as that
-            (go (>! react/OnReact [name :toBig {:basicUrl (.-id that)}]))))
+            (go (>! react/OnReact [name :toBig {:basicUrl (str "http://" window.location.host "/" (.-id that))}]))))
         (.delegate mc_bottomContainer "img" "click"
           #(this-as that
-            (go (>! react/OnReact [name :toBig {:basicUrl (.-id that)}]))))
+            (go (>! react/OnReact [name :toBig {:basicUrl (str "http://" window.location.host "/" (.-id that))}]))))
         (.delegate mc_historyContainer "img" "click"
           #(this-as that
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))

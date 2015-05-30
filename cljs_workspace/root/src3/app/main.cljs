@@ -25,7 +25,7 @@
                                  :toProduct         [:Product react/ChangeView]}
                 :Event          {:onOpen            [:nil (act/ComposeAction 
                                                             act/ChangeLogo
-                                                            act/ShowFooterOrNot)]}
+                                                            (act/Unuse act/ShowFooterOrNot))]}
                 :Home           {:reset             [:Home act/Navigate]
                                  :toModelList       [:ModelList act/Navigate]
                                  :toStreetSnapList  [:StreetSnapList act/Navigate]

@@ -138,7 +138,7 @@
 (defmethod react/model-ch :Big [ctx key {url :basicUrl :as args}]
   (let [ret (chan)]
     (go 
-      (>! ret [nil (js-obj "url" (str "http://" window.location.host "/" url "?Width=600&Height=480"))])
+      (>! ret [nil (js-obj "url" (str url "?Width=600&Height=480"))])
       (close! ret))
     ret))
   

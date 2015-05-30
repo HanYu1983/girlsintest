@@ -52,12 +52,16 @@
           mc_sideContainer (.find elem "#mc_sideContainer")
           mc_bottomContainer (.find elem "#mc_bottomContainer")
           img_stylePicture (.find elem "#img_stylePicture")
-          btn_share (.find elem "#btn_share")]
+          btn_share (.find elem "#btn_share")
+          btn_fullscreen (.find elem "#btn_fullscreen")
+          btn_more (.find elem "#btn_more")]
       (.undelegate mc_modelContainer "img" "click")
       (.undelegate mc_sideContainer "img" "click")
       (.undelegate mc_bottomContainer "img" "click")
       (.off img_stylePicture "click")
-      (.off btn_share "click"))
+      (.off btn_share "click")
+      (.off btn_fullscreen "click")
+      (.off btn_more "click"))
     (react/AnimateClose ctx :default view))
     
   (defmethod react/AnimateOpen name [ctx key {:keys [elem] :as view}]
@@ -77,7 +81,10 @@
             mc_bottomContainer (.find elem "#mc_bottomContainer")
             img_stylePicture (.find elem "#img_stylePicture")
             btn_share (.find elem "#btn_share")
-            btn_fullscreen (.find elem "#btn_fullscreen")]
+            btn_fullscreen (.find elem "#btn_fullscreen")
+            btn_more (.find elem "#btn_more")]
+        (.on btn_more "click"
+          #(go (>! react/OnReact [name :toList {}])))
         (.on btn_fullscreen "click"
           #(go (>! react/OnReact [name :fullscreen {:model model}])))
         (.on img_stylePicture "click"

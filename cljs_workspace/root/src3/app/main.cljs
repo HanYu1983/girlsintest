@@ -40,15 +40,18 @@
                 :ProductList    {:toDetail [:Product act/Navigate]
                                  :search   [:ProductList act/Navigate]
                                  :reset    [:ProductList act/Navigate]}
-                :StreetSnap     {:fullscreen [:nil act/OpenFullScreen]
+                :StreetSnap     {:toList   [:StreetSnapList act/Navigate]
+                                 :fullscreen [:nil act/Navigate]
                                  :toDetail [:StreetSnap act/Navigate]
                                  :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
-                :Model          {:fullscreen [:nil act/OpenFullScreen]
+                :Model          {:toList   [:ModelList act/Navigate]
+                                 :fullscreen [:nil act/OpenFullScreen]
                                  :toDetail [:Model act/Navigate]
                                  :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}
-                :Product        {:fullscreen [:nil act/OpenFullScreen]
+                :Product        {:toList   [:ProductList act/Navigate]
+                                 :fullscreen [:nil act/OpenFullScreen]
                                  :toDetail [:Product act/Navigate]
                                  :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}

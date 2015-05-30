@@ -265,18 +265,17 @@
 		</div>
 		
 	</body>
-	
-  <script src="js/cljslib/goog/base.js" type="text/javascript"></script>
-  <script src='js/cljslib/cljs.js'></script>
-  
-  <script>
-	goog.require("app.main");
-	
-	goog.waitForImages = function( cb ){
+	<script>
+	waitForImages = function(){
+		$("#mc_loading").fadeIn(400)
 		$('#mc_pageContainer').waitForImages({ waitForAll : true, finished : function() {
-			cb();
+			$("#mc_loading").fadeOut()
 		}});
 	}
-	
+	</script>
+  <script src="js/cljslib/goog/base.js" type="text/javascript"></script>
+  <script src='js/cljslib/cljs.js'></script>
+  <script>
+	goog.require("app.main");
   </script>
 </html>

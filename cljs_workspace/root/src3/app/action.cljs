@@ -79,9 +79,5 @@
   ctx)
   
 (defn ShowLoadingImage [ctx {view-obj :view-obj :as args}]
-  (.log js/console (js/$ "#page_container"))
-  (doto (js/$ "#page_container")
-    (.waitForImages
-      (js-obj
-        "waitForAll" true
-        "finished" (fn [] (.log js/console "XXX"))))))
+  (js/waitForImages)
+  ctx)

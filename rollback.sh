@@ -1,0 +1,1 @@
+../go_appengine/appcfg.py rollback goapp/src

@@ -12,7 +12,7 @@
 		
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
 		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
-		<script src='js/lib/jquery/jquery.waitforimages.js'></script>
+		<script src="js/lib/jquery/jquery.waitforimages.js"></script>
 		<script src="js/lib/sketchfab/sketchfab-iframe.js"></script>
 		<script src='js/lib/underscore/underscore.js'></script>
 		<script src='js/lib/backbone/backbone.js'></script>
@@ -268,5 +268,9 @@
   <script src='js/cljslib/cljs.js'></script>
   <script>
 	goog.require("app.main");
+	
+	$('body').waitForImages({ waitForAll : true, finished : function() {
+		console.log("FFF");
+	}});
   </script>
 </html>

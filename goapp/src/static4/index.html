@@ -272,8 +272,11 @@
   <script>
 	goog.require("app.main");
 	
-	$('#mc_pageContainer').waitForImages({ waitForAll : true, finished : function() {
-		console.log("FFF");
-	}});
+	goog.waitForImages = function( cb ){
+		$('#mc_pageContainer').waitForImages({ waitForAll : true, finished : function() {
+			cb();
+		}});
+	}
+	
   </script>
 </html>

@@ -1,6 +1,10 @@
 (ns app.action
   (:require
     [app.fn :as fn]))
+
+(defn Unuse [fns]
+  (fn [ctx args]
+    ctx))
     
 (defn ComposeAction [& fns]
   (fn [ctx args]

@@ -41,7 +41,7 @@
                                  :search   [:ProductList act/Navigate]
                                  :reset    [:ProductList act/Navigate]}
                 :StreetSnap     {:toList   [:StreetSnapList act/Navigate]
-                                 :fullscreen [:nil act/Navigate]
+                                 :fullscreen [:nil act/OpenFullScreen]
                                  :toDetail [:StreetSnap act/Navigate]
                                  :toBig    [:Big react/OpenView]
                                  :shareFB  [:Model act/ShareFB]}

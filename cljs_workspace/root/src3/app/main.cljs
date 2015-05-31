@@ -129,16 +129,17 @@
                                    "ProductList" "ProductList"
                                    "ProductList/search=:search" "ProductList"
                                    "" "default")
+                                   ;將key編碼，以支援中文的key
                   "StreetSnap"      (fn [id]
-                                      (go (>! react/OnReact [:Router :toStreetSnap {:id id}])))
+                                      (go (>! react/OnReact [:Router :toStreetSnap {:id (js/encodeURIComponent id)}])))
                   "StreetSnapList"  (fn [search]
                                       (go (>! react/OnReact [:Router :toStreetSnapList {:searchKey search}])))
                   "Model"           (fn [id]
-                                      (go (>! react/OnReact [:Router :toModel {:id id}])))
+                                      (go (>! react/OnReact [:Router :toModel {:id (js/encodeURIComponent id)}])))
                   "ModelList"       (fn [search]
                                       (go (>! react/OnReact [:Router :toModelList {:searchKey search}])))
                   "Product"         (fn [id]
-                                      (go (>! react/OnReact [:Router :toProduct {:id id}])))
+                                      (go (>! react/OnReact [:Router :toProduct {:id (js/encodeURIComponent id)}])))
                   "ProductList"     (fn [search]
                                       (go (>! react/OnReact [:Router :toProductList {:searchKey search}])))
                   "default"         #(go (>! react/OnReact [:Router :toHome nil])))

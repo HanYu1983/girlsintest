@@ -2,6 +2,9 @@
   (:require-macros 
     [cljs.core.async.macros :refer [go]]
     [tool.macro :as macro]))
+    
+(defn encodePath [path]
+  (-> (.map js/_ (.split path "/") js/encodeURIComponent) (.join "/")))
 
 (defn ServeImagePath [path]
   (str "http://" window.location.host "/" path))
@@ -11,12 +14,13 @@
 
 (defn FetchFile [path]
   (.getJSON js/$ (str "http://" window.location.host "/" path)))
-    
+  
+  ;只在取得keylist的時候將key編碼，以支援中文的key
 (defn FetchModelKeyList [path]
   (macro/makepromise p
     (FetchFile path)
     (fn [data]
-      (let [keylist (for [modelKey data :when (not= modelKey "config.json")] modelKey)]
+      (let [keylist (for [modelKey data :when (not= modelKey "config.json")] (js/encodeURIComponent modelKey))]
         (.resolve p keylist)))))
     
 (defn FetchAllModel [path keys]

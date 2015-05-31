@@ -13,7 +13,7 @@
   menubar
   header
   create-router)
-
+  ; goappengine 不支援中文檔案名稱，所以不能使用中文檔名
 (defn main []
   (let [urlRouter (create-router)
         route { :Router         {:toHome            [:Home react/ChangeView]
@@ -129,7 +129,7 @@
                                    "ProductList" "ProductList"
                                    "ProductList/search=:search" "ProductList"
                                    "" "default")
-                                   ;將key編碼，以支援中文的key
+                                   ;將key編碼，以支援中文的key(appengine不支援中文檔名)
                   "StreetSnap"      (fn [id]
                                       (go (>! react/OnReact [:Router :toStreetSnap {:id (js/encodeURIComponent id)}])))
                   "StreetSnapList"  (fn [search]

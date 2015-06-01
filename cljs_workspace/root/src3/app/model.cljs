@@ -47,7 +47,7 @@
   (defmethod react/model-ch name [ctx key {:keys [searchKey] :as args}]
     (let [configType (configType name)
           ret (chan)]
-      (doto (fn/GetAllModelBy "config.json" configType)
+      (doto (fn/GetAllModelOnce "config.json" configType)
         (.done 
           (fn [& args] 
             (let [config (first args)
@@ -82,7 +82,7 @@
   (defmethod react/model-ch name [ctx key {:keys [id] :as args}]
     (let [ret (chan)
           configType (configType name)]
-      (doto (fn/GetAllModelBy "config.json" configType)
+      (doto (fn/GetAllModelOnce "config.json" configType)
         (.done
           (fn [& args] 
             (let [config (first args)

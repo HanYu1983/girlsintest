@@ -58,23 +58,25 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
         
         if( filetype == "json" ){
           w.Header().Set("Content-Type", "application/json; charset=utf8")
-          fmt.Fprint(w, "[")
+          fmt.Fprint(w, "{")
         }
         if exist {
           hasName := len( r.Form["Name"] ) > 0
           if hasName {
             // 處理指定名稱
-            for _, name := range r.Form["Name"] {
+            for idx, name := range r.Form["Name"] {
               targetPath := filePath + name + "/" + subPath
               
               file, err := tool.GetFile(targetPath)
               assert.IfError(err)
               defer file.Close()
               
-              handler( targetPath, file, w, r )
-              if( filetype == "json" ){
+              if( idx > 0 && filetype == "json" ){
                 fmt.Fprint(w, ",")
               }
+              
+              fmt.Fprintf(w, "\"%s\":", name)
+              handler( targetPath, file, w, r )
             }
             
           } else {
@@ -82,7 +84,7 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
             infos, err := ioutil.ReadDir(filePath)
             assert.IfError(err)
 
-            for _, info := range infos {
+            for idx, info := range infos {
               isHiddenFile := strings.HasPrefix(info.Name(), ".")
               if isHiddenFile == false {
                 name := info.Name()
@@ -92,17 +94,19 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
                 assert.IfError(err)
                 defer file.Close()
                 
-                handler( targetPath, file, w, r )
-                if( filetype == "json" ){
+                if( idx > 1 && filetype == "json" ){
                   fmt.Fprint(w, ",")
                 }
+                
+                fmt.Fprintf(w, "\"%s\":", name)
+                handler( targetPath, file, w, r )
               }
             }
             
           }
         }
         if( filetype == "json" ){
-          fmt.Fprint(w, "]")
+          fmt.Fprint(w, "}")
         }
         
       } else {

@@ -38,7 +38,9 @@
         (let [details (map (fn [data] (aget data 0)) args)]
           (.resolve promise (zipmap keys details)))))))
     
-(defn GetAllModelBy [configPath type]
+(defn GetAllModelBy 
+  "多次request"
+  [configPath type]
   (macro/makepromise promise
     (FetchFile configPath)
     (fn [config]
@@ -51,6 +53,24 @@
             (.fail (fn [err] (.reject promise err)))))))))
             
 (def GetAllModelBy (memoize GetAllModelBy))
+
+(defn GetAllModelOnce
+  "一次request"
+  [configPath type]
+  (macro/makepromise promise
+    (FetchFile configPath)
+    (fn [config]
+      (let [pkgPath (aget config type)]
+        (->
+          (FetchFile (str pkgPath "/?Path=config.json"))
+          (doto
+            (.done (fn [ret] 
+              (let [ident (atom {})
+                    process (.mapObject js/_ ret (fn [v k] (swap! ident assoc k v)))]
+                (.resolve promise config @ident))))
+            (.fail (fn [err] (.reject promise err)))))))))
+
+(def GetAllModelOnce (memoize GetAllModelOnce))
 
 (defn GetHomeModelMaybeKey [configPath]
   (macro/makepromise promise

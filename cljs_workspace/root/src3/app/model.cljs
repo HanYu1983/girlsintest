@@ -141,6 +141,25 @@
       (>! ret [nil (js-obj "url" (str url "?Width=600&Height=480"))])
       (close! ret))
     ret))
+    
+(defmethod react/model-ch :Event [ctx key {id :id :as args}]
+  (let [ret (chan)]
+    (go 
+      (>! ret [nil nil])
+      (close! ret))
+    ret))
+    
+(defmethod react/model-ch :News [ctx key {id :id :as args}]
+  (let [ret (chan)]
+    (go 
+      (>! ret [nil (js-obj 
+                      "title" "test title"
+                      "date" "2015/6/1"
+                      "sideList" (array (js-obj "path" ""))
+                      "content" "content"
+                      "form" "form")])
+      (close! ret))
+  ret))
   
 (defcommonlistmodel :StreetSnapList)
 (defcommonlistmodel :ModelList)

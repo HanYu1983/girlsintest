@@ -183,6 +183,32 @@
 			</div>
 		</script>
 							
+		<script type='x-jquery-tmpl' id='tmpl_news'>
+			<div class='full'>
+				<div id="mc_center" class="absolute">
+					<div id="mc_background" class="fixed h_full"></div>
+					<div class="absolute">
+						<div style="height:60px;" class="w_fill"></div>
+						<div style="margin-left:10px;" class="f_left txt_content textBase">{{html title}}</div>
+						<div style="margin-right:10px;" class="f_right txt_content textBase">{{html date}}</div>
+						<img style="margin-bottom:10px;" class='relative w_full f_left' src='images/streetSnap/line.png'/>
+						<div style="width:360px" class="f_left">
+							{{each sideList}}
+							<img style="margin-left:10px; margin-bottom:10px;" src=${path} />
+							{{/each}}
+						</div>
+						<div style="width:580px" class="f_left">
+							<div class="txt_content textBase">{{html content}}</div>
+							<div class="f_right txt_content textBase">{{html from}}</div>
+						</div>
+						<div style="height:100px;" class="f_left w_full"></div>
+						<button style="top:300px; left:-56px;" class="absolute" id="btn_prev">上一個</button>
+						<button style="top:300px; left:960px;" class="absolute" id="btn_next">下一個</button>
+					</div>
+				</div>
+			</div>
+		</script>
+							
 		<div class="root">
 			<!-- background -->
 			<div class="fixed top left full">
@@ -233,7 +259,7 @@
 					<img class="absolute disable" src='images/navbar/PRODUCTS.png'></img>
 					<div class="absolute disable navover"><img src='images/navbar/PRODUCTS_over.jpg'/></div>
 				</div>
-				<div id='btn_nav_news' class='hide btn navbarBtnHeight'>
+				<div id='btn_nav_news' class='btn navbarBtnHeight'>
 					<img class="absolute disable" src='images/navbar/NEWS.png'></img>
 					<div class="absolute disable navover"><img src='images/navbar/NEWS_over.jpg'/></div>
 				</div>

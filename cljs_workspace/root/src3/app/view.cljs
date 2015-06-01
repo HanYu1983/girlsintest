@@ -136,6 +136,13 @@
       (.on back "click" #(go (>! react/OnReact [key :close nil])))
       {:elem elem :name key})))
       
+(defmethod react/view-ch :News [{:keys [tmpl-item] :as ctx} key modelChan]
+  (go
+    (let [[err model] (<! modelChan)
+          tmpl (js/$ "#tmpl_news")
+          elem (.tmpl tmpl model tmpl-item)]
+      {:elem elem :name key})))
+      
 (defcommonlist :StreetSnapList)
 (defcommonlist :ModelList)
 (defcommonlist :ProductList)

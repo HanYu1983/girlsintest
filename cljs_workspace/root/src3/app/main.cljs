@@ -22,12 +22,16 @@
                                  :toProductList     [:ProductList react/ChangeView]
                                  :toStreetSnap      [:StreetSnap react/ChangeView]
                                  :toModel           [:Model react/ChangeView]
-                                 :toProduct         [:Product react/ChangeView]}
+                                 :toProduct         [:Product react/ChangeView]
+                                 :toEvent           [:Event react/ChangeView]
+                                 :toNews            [:News react/ChangeView]}
                 :Event          {:onOpen            [:nil (act/ComposeAction 
                                                             act/ShowLoadingImage
                                                             act/ChangeLogo
                                                             (act/Unuse act/ShowFooterOrNot))]}
                 :Home           {:reset             [:Home act/Navigate]
+                                 :toNews            [:News act/Navigate]
+                                 :toEvent           [:Event act/Navigate]
                                  :toModelList       [:ModelList act/Navigate]
                                  :toStreetSnapList  [:StreetSnapList act/Navigate]
                                  :toProductList     [:ProductList act/Navigate]}
@@ -105,7 +109,9 @@
                         "btn_nav_model" [:Home :toModelList nil]
                         "btn_nav_streetSnap" [:Home :toStreetSnapList nil]
                         "btn_nav_product" [:Home :toProductList nil]
-                        identity)]
+                        "btn_nav_news" [:Home :toNews nil]
+                        (do (.log js/console "no menu " id)
+                            [:Home :toModelList nil]))]
             (go (>! react/OnReact route))))))))
             
 (defn header [router root]
@@ -128,6 +134,9 @@
                                    "Product/id=:id" "Product"
                                    "ProductList" "ProductList"
                                    "ProductList/search=:search" "ProductList"
+                                   "Event" "Event"
+                                   "News" "News"
+                                   "News/id=:id" "News"
                                    "" "default")
                                    ;將key編碼，以支援中文的key(appengine不支援中文檔名)
                   "StreetSnap"      (fn [id]
@@ -142,6 +151,10 @@
                                       (go (>! react/OnReact [:Router :toProduct {:id (js/encodeURIComponent id)}])))
                   "ProductList"     (fn [search]
                                       (go (>! react/OnReact [:Router :toProductList {:searchKey search}])))
+                  "Event"           (fn [id]
+                                      (go (>! react/OnReact [:Router :toEvent {:id (js/encodeURIComponent id)}])))
+                  "News"            (fn [id]
+                                      (go (>! react/OnReact [:Router :toNews {:id (js/encodeURIComponent id)}])))
                   "default"         #(go (>! react/OnReact [:Router :toHome nil])))
                 (.extend js/Backbone.Router))
         router (new Router)]

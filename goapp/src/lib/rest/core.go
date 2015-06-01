@@ -47,6 +47,8 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
     isDir := info.IsDir()
     if isDir {
       r.ParseForm()
+      
+      // 批次處理
       hasSubPath := len(r.Form["Path"]) > 0
       if hasSubPath {
         subPath := r.Form["Path"][0]
@@ -54,20 +56,49 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
         filetype := filepath.Ext( subPath )[1:]  //delete first "."
         handler, exist := handlers[filetype]
         
-        w.Header().Set("Content-Type", "application/json; charset=utf8")
         if( filetype == "json" ){
+          w.Header().Set("Content-Type", "application/json; charset=utf8")
           fmt.Fprint(w, "[")
         }
         if exist {
-          for _, name := range r.Form["Name"] {
-            targetPath := filePath + name + "/" + subPath
-            file, err := tool.GetFile(targetPath)
-            assert.IfError(err)
-            defer file.Close()
-            handler( path, file, w, r )
-            if( filetype == "json" ){
-              fmt.Fprint(w, ",")
+          hasName := len( r.Form["Name"] ) > 0
+          if hasName {
+            // 處理指定名稱
+            for _, name := range r.Form["Name"] {
+              targetPath := filePath + name + "/" + subPath
+              
+              file, err := tool.GetFile(targetPath)
+              assert.IfError(err)
+              defer file.Close()
+              
+              handler( targetPath, file, w, r )
+              if( filetype == "json" ){
+                fmt.Fprint(w, ",")
+              }
             }
+            
+          } else {
+            // 處理全部
+            infos, err := ioutil.ReadDir(filePath)
+            assert.IfError(err)
+
+            for _, info := range infos {
+              isHiddenFile := strings.HasPrefix(info.Name(), ".")
+              if isHiddenFile == false {
+                name := info.Name()
+                targetPath := filePath + name + "/" + subPath
+                
+                file, err := tool.GetFile(targetPath)
+                assert.IfError(err)
+                defer file.Close()
+                
+                handler( targetPath, file, w, r )
+                if( filetype == "json" ){
+                  fmt.Fprint(w, ",")
+                }
+              }
+            }
+            
           }
         }
         if( filetype == "json" ){

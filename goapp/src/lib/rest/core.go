@@ -46,19 +46,49 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
     
     isDir := info.IsDir()
     if isDir {
-      infos, err := ioutil.ReadDir(filePath)
-      assert.IfError(err)
-    
-      var paths []string
-      for _, info := range infos {
-        isHiddenFile := strings.HasPrefix(info.Name(), ".")
-        if isHiddenFile == false {
-          paths = append( paths, info.Name() )
+      r.ParseForm()
+      hasSubPath := len(r.Form["Path"]) > 0
+      if hasSubPath {
+        subPath := r.Form["Path"][0]
+        
+        filetype := filepath.Ext( subPath )[1:]  //delete first "."
+        handler, exist := handlers[filetype]
+        
+        w.Header().Set("Content-Type", "application/json; charset=utf8")
+        if( filetype == "json" ){
+          fmt.Fprint(w, "[")
         }
+        if exist {
+          for _, name := range r.Form["Name"] {
+            targetPath := filePath + name + "/" + subPath
+            file, err := tool.GetFile(targetPath)
+            assert.IfError(err)
+            defer file.Close()
+            handler( path, file, w, r )
+            if( filetype == "json" ){
+              fmt.Fprint(w, ",")
+            }
+          }
+        }
+        if( filetype == "json" ){
+          fmt.Fprint(w, "]")
+        }
+        
+      } else {
+        infos, err := ioutil.ReadDir(filePath)
+        assert.IfError(err)
+    
+        var paths []string
+        for _, info := range infos {
+          isHiddenFile := strings.HasPrefix(info.Name(), ".")
+          if isHiddenFile == false {
+            paths = append( paths, info.Name() )
+          }
+        }
+        jsonstr, _ := json.Marshal( paths )
+        w.Header().Set("Content-Type", "application/json; charset=utf8")
+        fmt.Fprintf(w, "%s", jsonstr)
       }
-      jsonstr, _ := json.Marshal( paths )
-      w.Header().Set("Content-Type", "application/json; charset=utf8")
-      fmt.Fprintf(w, "%s", jsonstr)
       
     } else {
       filetype := filepath.Ext( filePath )[1:]  //delete first "."

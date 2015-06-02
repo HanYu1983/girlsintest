@@ -149,17 +149,46 @@
       (close! ret))
     ret))
     
+(defn indexOf [list id start]
+  (if (= id (ffirst list))
+      start
+      (recur (rest list) id (inc start))))
+    
 (defmethod react/model-ch :News [ctx key {id :id :as args}]
   (let [ret (chan)]
-    (go 
-      (>! ret [nil (js-obj 
-                      "title" "test title"
-                      "date" "2015/6/1"
-                      "sideList" (array (js-obj "path" ""))
-                      "content" "content"
-                      "form" "form")])
-      (close! ret))
-  ret))
+    (doto (fn/GetAllModelOnce "config.json" "event")
+          (.done (fn [config data]
+                    (let [filtered (SortByDate data)
+                          evtId (if (= "null" (str id)) (ffirst filtered) id)
+                          evt (get data evtId)
+                          photos (apply array 
+                                    (map 
+                                      #(js-obj
+                                        "path"
+                                        (fn/ServeImagePath (str (aget config "event") "/" evtId "/image_" (inc %) ".jpg")))
+                                      (range (aget evt "Count"))))
+                          idx (let [find (dec (indexOf filtered evtId 0))]
+                                (cond
+                                  (< find 0) (dec (count filtered))
+                                  (>= find (count filtered)) 0
+                                  :else find))
+                          idx2 (let [find (inc (indexOf filtered evtId 0))]
+                                (cond
+                                  (< find 0) (dec (count filtered))
+                                  (>= find (count filtered)) 0
+                                  :else find))]
+                      (go 
+                        (>! ret [nil (js-obj 
+                                        "prev_href" (str "#News/id=" (first (nth filtered idx)))
+                                        "next_href" (str "#News/id=" (first (nth filtered idx2)))
+                                        "title" (aget evt "Title")
+                                        "date" (aget evt "Date")
+                                        "sideList" photos
+                                        "content" (aget evt "Content")
+                                        "form" (aget evt "Form"))])
+                        (close! ret)))))
+          (.fail (fn [err] (.log js/console err))))
+    ret))
   
 (defcommonlistmodel :StreetSnapList)
 (defcommonlistmodel :ModelList)

@@ -51,8 +51,6 @@
           (doto
             (.done (fn [ret] (.resolve promise config ret)))
             (.fail (fn [err] (.reject promise err)))))))))
-            
-(def GetAllModelBy (memoize GetAllModelBy))
 
 (defn GetAllModelOnce
   "一次request"
@@ -67,12 +65,13 @@
             (.done (fn [ret] 
               (let [ident (atom {})
                     process (.mapObject js/_ ret (fn [v k] (swap! ident assoc k v)))]
+                    (.log js/console @ident)
                 (.resolve promise config @ident))))
             (.fail (fn [err] (.reject promise err)))))))))
 
-(def GetAllModelOnce (memoize GetAllModelOnce))
-
-(defn GetHomeModelMaybeKey [configPath]
+(defn GetHomeModelMaybeKey
+  "用來取得首頁的3D-Key"
+  [configPath]
   (macro/makepromise promise
     (FetchFile configPath)
     (fn [config]
@@ -89,3 +88,8 @@
           (go
             (.log js/console "which is not right:" which) 
             (.resolve promise (js-obj "ModelKey" ""))))))))
+
+            
+(def GetAllModelBy (memoize GetAllModelBy))
+(def GetAllModelOnce (memoize GetAllModelOnce))
+(def GetHomeModelMaybeKey (memoize GetHomeModelMaybeKey))

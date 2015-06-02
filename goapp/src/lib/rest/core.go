@@ -83,8 +83,9 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
             // 處理全部
             infos, err := ioutil.ReadDir(filePath)
             assert.IfError(err)
-
-            for idx, info := range infos {
+            
+            started := false
+            for _, info := range infos {
               isHiddenFile := strings.HasPrefix(info.Name(), ".")
               if isHiddenFile == false {
                 name := info.Name()
@@ -94,12 +95,15 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
                 assert.IfError(err)
                 defer file.Close()
                 
-                if( idx > 1 && filetype == "json" ){
+                // 忽略第一個豆號。注意，無法使用range的idx來判斷，因為有hidden的檔案
+                if( filetype == "json" && started == true){
                   fmt.Fprint(w, ",")
                 }
                 
                 fmt.Fprintf(w, "\"%s\":", name)
                 handler( targetPath, file, w, r )
+                
+                started = true
               }
             }
             

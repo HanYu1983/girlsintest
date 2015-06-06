@@ -44,16 +44,18 @@
     details))
 
 (defn defcommonlistmodel [name]
-  (defmethod react/model-ch name [ctx key {:keys [searchKey] :as args}]
+  (defmethod react/model-ch name [ctx key {:keys [searchKey page] :as args}]
     (let [configType (configType name)
           ret (chan)]
       (doto (fn/GetAllModelOnce "config.json" configType)
         (.done 
           (fn [config details] 
-            (let [filtered (->> details  ;注意！本來為map，被轉為seq
+            (let [modelCountPerPage 6
+                  filtered (->> details  ;注意！本來為map，被轉為seq
                              SortByDate
                              (FilterBySearch searchKey)
-                             (take 6))
+                             (drop (* page modelCountPerPage))
+                             (take modelCountPerPage))
                   ConvertDTO (fn [[model detail]]
                               (js-obj
                                 "id" model
@@ -65,6 +67,8 @@
                                 "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))
                                 "imgSideCPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_5.jpg"))))
                   dto (js-obj 
+                        "prev_href" (str "#" (cljs.core/name key) "/" (dec page))
+                        "next_href" (str "#" (cljs.core/name key) "/" (inc page))
                         "searchWord" (if (some? searchKey) searchKey "")
                         "streetsnapList" (->> (map ConvertDTO filtered) (apply array)))]
               (go 

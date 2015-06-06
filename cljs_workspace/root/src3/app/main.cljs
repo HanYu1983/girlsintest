@@ -125,37 +125,76 @@
                   "routes" (js-obj "StreetSnap" "StreetSnap"
                                    "StreetSnap/id=:id" "StreetSnap"
                                    "StreetSnapList" "StreetSnapList"
-                                   "StreetSnapList/search=:search" "StreetSnapList"
+                                   "StreetSnapList/search=:search/:page" "StreetSnapListSearch"
+                                   "StreetSnapList/:page" "StreetSnapList"
+                                   
                                    "Model" "Model"
                                    "Model/id=:id" "Model"
                                    "ModelList" "ModelList"
-                                   "ModelList/search=:search" "ModelList"
+                                   "ModelList/search=:search/:page" "ModelListSearch"
+                                   "ModelList/:page" "ModelList"
+                                   
                                    "Product" "Product"
                                    "Product/id=:id" "Product"
                                    "ProductList" "ProductList"
-                                   "ProductList/search=:search" "ProductList"
+                                   "ProductList/search=:search/:page" "ProductListSearch"
+                                   "ProductList/:page" "ProductList"
+                                   
                                    "Event" "Event"
                                    "News" "News"
                                    "News/id=:id" "News"
                                    "" "default")
-                                   ;將key編碼，以支援中文的key(appengine不支援中文檔名)
-                  "StreetSnap"      (fn [id]
-                                      (go (>! react/OnReact [:Router :toStreetSnap {:id (js/encodeURIComponent id)}])))
-                  "StreetSnapList"  (fn [search]
-                                      (go (>! react/OnReact [:Router :toStreetSnapList {:searchKey search}])))
-                  "Model"           (fn [id]
-                                      (go (>! react/OnReact [:Router :toModel {:id (js/encodeURIComponent id)}])))
-                  "ModelList"       (fn [search]
-                                      (go (>! react/OnReact [:Router :toModelList {:searchKey search}])))
-                  "Product"         (fn [id]
-                                      (go (>! react/OnReact [:Router :toProduct {:id (js/encodeURIComponent id)}])))
-                  "ProductList"     (fn [search]
-                                      (go (>! react/OnReact [:Router :toProductList {:searchKey search}])))
-                  "Event"           (fn [id]
-                                      (go (>! react/OnReact [:Router :toEvent {:id (js/encodeURIComponent id)}])))
-                  "News"            (fn [id]
-                                      (go (>! react/OnReact [:Router :toNews {:id (js/encodeURIComponent id)}])))
-                  "default"         #(go (>! react/OnReact [:Router :toHome nil])))
+                  ;將key編碼，以支援中文的key(appengine不支援中文檔名)
+                  "StreetSnap"      
+                  (fn [id]
+                    (go (>! react/OnReact [:Router :toStreetSnap {:id (js/encodeURIComponent id)}])))
+                  
+                  "StreetSnapList"
+                  (fn [page]
+                    (let [real (if (nil? page) 0 (int page))]
+                      (go (>! react/OnReact [:Router :toStreetSnapList {:page real}]))))
+                      
+                  "StreetSnapListSearch" 
+                  (fn [search page]
+                    (go (>! react/OnReact [:Router :toStreetSnapList {:searchKey search :page (int page)}])))
+                  
+                  "Model"           
+                  (fn [id]
+                    (go (>! react/OnReact [:Router :toModel {:id (js/encodeURIComponent id)}])))
+                  
+                  "ModelList"       
+                  (fn [page]
+                    (let [real (if (nil? page) 0 (int page))]
+                      (go (>! react/OnReact [:Router :toModelList {:page real}]))))
+                                      
+                  "ModelListSearch" 
+                  (fn [search page]
+                    (go (>! react/OnReact [:Router :toModelList {:searchKey search :page (int page)}])))
+                  
+                  "Product"         
+                  (fn [id]
+                    (go (>! react/OnReact [:Router :toProduct {:id (js/encodeURIComponent id)}])))
+                  
+                  "ProductList"     
+                  (fn [page]
+                    (let [real (if (nil? page) 0 (int page))]
+                      (go (>! react/OnReact [:Router :toProductList {:page real}]))))
+                      
+                  "ProductListSearch" 
+                  (fn [search page]
+                    (go (>! react/OnReact [:Router :toProductList {:searchKey search :page (int page)}])))
+                  
+                  "Event"           
+                  (fn [id]
+                    (go (>! react/OnReact [:Router :toEvent {:id (js/encodeURIComponent id)}])))
+                  
+                  "News"            
+                  (fn [id]
+                    (go (>! react/OnReact [:Router :toNews {:id (js/encodeURIComponent id)}])))
+                  
+                  "default"         
+                  #(go (>! react/OnReact [:Router :toHome nil])))
+                  
                 (.extend js/Backbone.Router))
         router (new Router)]
     router))

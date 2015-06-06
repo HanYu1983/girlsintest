@@ -169,8 +169,8 @@
 							</div>
 							{{/each}}
 						</div>
-						<a style="top:300px; left:-56px;" class="absolute" id="btn_prev" href=${prev_href}>上一個</a>
-						<a style="top:300px; left:960px;" class="absolute" id="btn_next" href=${next_href}>下一個</a>
+						<a style="top:300px;" class="absolute left" id="btn_prev" href=${prev_href}>上一個</a>
+						<a style="top:300px;" class="absolute right" id="btn_next" href=${next_href}>下一個</a>
 					</div>
 				</div>
 			</div>
@@ -189,28 +189,28 @@
 			<div class='full'>
 				<div id="mc_center" class="absolute">
 					<div id="mc_background" class="fixed h_full"></div>
-					<div class="absolute">
+					<div style="width:700px; left:50%; margin-left:-350px;" class="absolute">
 						<div style="height:60px;" class="w_fill"></div>
 						<div style="margin-left:10px;" class="f_left txt_content textBase">{{html title}}</div>
 						<div style="margin-right:10px;" class="f_right txt_content textBase">{{html date}}</div>
 						<img style="margin-bottom:10px;" class='relative w_full f_left' src='images/streetSnap/line.png'/>
-						<div style="width:360px" class="f_left">
+						<div style="width:250px;" class="f_left">
 							{{each sideList}}
 								{{if $index == 0}}
-								<img style="margin-left:10px; margin-bottom:10px; width:95%;" src=${path + "?Width=200&Height=200"} />
+								<img style="margin-bottom:10px; width:95%;" src=${path + "?Width=200&Height=200"} />
 								{{else}}
-								<img style="margin-left:10px; margin-bottom:10px; width:46%;" src=${path + "?Width=200&Height=200"} />
+								<img style="margin-bottom:10px; margin-right:8px; width:45%;" src=${path + "?Width=200&Height=200"} />
 								{{/if}}
 							{{/each}}
 						</div>
-						<div style="width:580px" class="f_left">
+						<div style="width:440px;" class="f_left">
 							<div class="txt_content textBase">{{html content}}</div>
 							<div class="f_right txt_content textBase">{{html from}}</div>
 						</div>
 						<div style="height:100px;" class="f_left w_full"></div>
-						<a style="top:300px; left:-56px;" class="absolute" id="btn_prev" href=${prev_href}>上一個</a>
-						<a style="top:300px; left:960px;" class="absolute" id="btn_next" href=${next_href}>下一個</a>
 					</div>
+					<a style="top:300px;" class="absolute left" id="btn_prev" href=${prev_href}>上一個</a>
+					<a style="top:300px;" class="absolute right" id="btn_next" href=${next_href}>下一個</a>
 				</div>
 			</div>
 		</script>

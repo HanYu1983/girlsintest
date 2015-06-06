@@ -169,6 +169,8 @@
 							</div>
 							{{/each}}
 						</div>
+						<a style="top:300px; left:-56px;" class="absolute" id="btn_prev" href=${prev_href}>上一個</a>
+						<a style="top:300px; left:960px;" class="absolute" id="btn_next" href=${next_href}>下一個</a>
 					</div>
 				</div>
 			</div>
@@ -194,7 +196,11 @@
 						<img style="margin-bottom:10px;" class='relative w_full f_left' src='images/streetSnap/line.png'/>
 						<div style="width:360px" class="f_left">
 							{{each sideList}}
-							<img style="margin-left:10px; margin-bottom:10px;" src=${path} />
+								{{if $index == 0}}
+								<img style="margin-left:10px; margin-bottom:10px; width:95%;" src=${path + "?Width=200&Height=200"} />
+								{{else}}
+								<img style="margin-left:10px; margin-bottom:10px; width:46%;" src=${path + "?Width=200&Height=200"} />
+								{{/if}}
 							{{/each}}
 						</div>
 						<div style="width:580px" class="f_left">

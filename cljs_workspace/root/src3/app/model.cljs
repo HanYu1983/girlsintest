@@ -50,7 +50,7 @@
       (doto (fn/GetAllModelOnce "config.json" configType)
         (.done 
           (fn [config details] 
-            (let [modelCountPerPage 6
+            (let [modelCountPerPage (if (> (.height (js/$ js/window)) 768) 9 6)
                   filtered (->> details  ;注意！本來為map，被轉為seq
                              SortByDate
                              (FilterBySearch searchKey)

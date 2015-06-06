@@ -91,7 +91,8 @@
             (let [dir (aget config configType)
                   detail (get details id)
                   filtered (->> details  ;注意！本來為map，被轉為seq
-                             SortByDate)
+                             SortByDate
+                             (take 6))
                   ConvertHeadDTO (fn [[key, detail]]
                                    (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg"))))
                   CreateImageDTO (fn [ServeFn idxs]

@@ -49,12 +49,11 @@
           ret (chan)]
       (doto (fn/GetAllModelOnce "config.json" configType)
         (.done 
-          (fn [& args] 
-            (let [config (first args)
-                  details (second args)
-                  filtered (->> details  ;注意！本來為map，被轉為seq
+          (fn [config details] 
+            (let [filtered (->> details  ;注意！本來為map，被轉為seq
                              SortByDate
-                             (FilterBySearch searchKey))
+                             (FilterBySearch searchKey)
+                             (take 6))
                   ConvertDTO (fn [[model detail]]
                               (js-obj
                                 "id" model
@@ -84,10 +83,8 @@
           configType (configType name)]
       (doto (fn/GetAllModelOnce "config.json" configType)
         (.done
-          (fn [& args] 
-            (let [config (first args)
-                  dir (aget config configType)
-                  details (second args)
+          (fn [config details] 
+            (let [dir (aget config configType)
                   detail (get details id)
                   filtered (->> details  ;注意！本來為map，被轉為seq
                              SortByDate)

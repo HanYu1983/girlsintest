@@ -47,7 +47,6 @@
 }
 #mc_mainContainer{
 	width:700px;
-	margin-left:34px;
 }
 #txt_proContent{
 	color:white;
@@ -76,7 +75,7 @@
 	
 }
 #mc_pro{
-	width:292px;
+	width:364px;
 	height:91px;
 	margin-bottom:10px;
 }
@@ -85,7 +84,7 @@
 }
 #img_stylePicture{
 	height:282px;
-	width:193px;
+	width:266px;
 	margin-right:5px;
 }
 #fbcomment{

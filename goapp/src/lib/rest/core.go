@@ -86,6 +86,7 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
             
             started := false
             for _, info := range infos {
+              // 防止.DS_Store / _DS_Store. 也要一并修改下面的isHiddenFile
               isHiddenFile := strings.HasPrefix(info.Name(), ".") || strings.HasPrefix(info.Name(), "_")
               if isHiddenFile == false {
                 name := info.Name()
@@ -119,6 +120,7 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
     
         var paths []string
         for _, info := range infos {
+          // 防止.DS_Store / _DS_Store. 也要一并修改上面的isHiddenFile
           isHiddenFile := strings.HasPrefix(info.Name(), ".") || strings.HasPrefix(info.Name(), "_")
           if isHiddenFile == false {
             paths = append( paths, info.Name() )

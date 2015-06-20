@@ -65,7 +65,7 @@
                   totalPage (int (/ (count filtered) modelCountPerPage))
                   ConvertDTO (fn [[model detail]]
                               (js-obj
-                                "visibleDate" (not (= :ProductList ))
+                                "visibleDate" (not (= :ProductList name))
                                 "id" model
                                 "name" (.-Caption detail)
                                 "date" (.-Date detail)

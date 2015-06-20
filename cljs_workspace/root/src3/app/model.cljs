@@ -35,6 +35,11 @@
           (js/Date. (.-Date detail)) 
           (.getTime))))
     reverse))
+    
+(defn AvaliableIs [v details]
+  (filter 
+    (fn [[model detail]] (= v (.-Available detail)))
+    details))
 
 (defn FilterBySearch [searchKey details]
   (if (some? searchKey)
@@ -52,6 +57,7 @@
           (fn [config details] 
             (let [modelCountPerPage (if (> (.height (js/$ js/window)) 768) 9 6)
                   filtered (->> details  ;注意！本來為map，被轉為seq
+                             (AvaliableIs true)
                              SortByDate
                              (FilterBySearch searchKey)
                              (drop (* page modelCountPerPage))
@@ -91,6 +97,7 @@
             (let [dir (aget config configType)
                   detail (get details id)
                   filtered (->> details  ;注意！本來為map，被轉為seq
+                             (AvaliableIs true)
                              SortByDate
                              (take 6))
                   ConvertHeadDTO (fn [[key, detail]]

@@ -86,7 +86,7 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
             
             started := false
             for _, info := range infos {
-              isHiddenFile := strings.HasPrefix(info.Name(), ".")
+              isHiddenFile := strings.HasPrefix(info.Name(), ".") || strings.HasPrefix(info.Name(), "_")
               if isHiddenFile == false {
                 name := info.Name()
                 targetPath := filePath + name + "/" + subPath
@@ -119,7 +119,7 @@ func RestWithConfig(path string, cacheVersion string,handlers map[string]func(st
     
         var paths []string
         for _, info := range infos {
-          isHiddenFile := strings.HasPrefix(info.Name(), ".")
+          isHiddenFile := strings.HasPrefix(info.Name(), ".") || strings.HasPrefix(info.Name(), "_")
           if isHiddenFile == false {
             paths = append( paths, info.Name() )
           }

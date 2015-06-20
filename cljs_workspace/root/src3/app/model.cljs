@@ -64,6 +64,7 @@
                              (take modelCountPerPage))
                   ConvertDTO (fn [[model detail]]
                               (js-obj
+                                "visibleDate" (not (= :ProductList name))
                                 "id" model
                                 "name" (.-Caption detail)
                                 "date" (.-Date detail)

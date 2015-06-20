@@ -55,7 +55,7 @@
         
         (some #(= % react-action) [:StreetSnapList :ModelList :ProductList])
         (if (some? searchKey)
-          (str (name react-action) "/search=" searchKey)
+          (str (name react-action) "/" searchKey "/0")
           (name react-action))
         
         :else

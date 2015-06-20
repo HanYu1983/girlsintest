@@ -125,19 +125,19 @@
                   "routes" (js-obj "StreetSnap" "StreetSnap"
                                    "StreetSnap/id=:id" "StreetSnap"
                                    "StreetSnapList" "StreetSnapList"
-                                   "StreetSnapList/search=:search/:page" "StreetSnapListSearch"
+                                   "StreetSnapList/:search/:page" "StreetSnapListSearch"
                                    "StreetSnapList/:page" "StreetSnapList"
                                    
                                    "Model" "Model"
                                    "Model/id=:id" "Model"
                                    "ModelList" "ModelList"
-                                   "ModelList/search=:search/:page" "ModelListSearch"
+                                   "ModelList/:search/:page" "ModelListSearch"
                                    "ModelList/:page" "ModelList"
                                    
                                    "Product" "Product"
                                    "Product/id=:id" "Product"
                                    "ProductList" "ProductList"
-                                   "ProductList/search=:search/:page" "ProductListSearch"
+                                   "ProductList/:search/:page" "ProductListSearch"
                                    "ProductList/:page" "ProductList"
                                    
                                    "Event" "Event"

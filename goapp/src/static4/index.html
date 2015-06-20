@@ -76,7 +76,9 @@
 								<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
 								<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
 								<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
+								{{if visibleFullscreen}}
 								<img id='btn_fullscreen' style="right:1px; bottom:1px;" class="btn absolute" src="images/streetSnap/full.png"/>
+								{{/if}}
 								<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
 							</div>
 							
@@ -111,9 +113,11 @@
 						<div id="txt_modelMeeting" style="width:650px"  style="margin-bottom:100px;" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
 							{{html talk}}
 						</div>
+						{{if visibleFBComment}}
 						<div id="fbcommentContainer" style="height:500px;" class="w_full relative white_cube f_left">
 							<iframe class="fb-comments" width=700 height=500 src=${ "comment.html?key=" + encodeURIComponent(window.location.href) }></iframe>
 						</div>
+						{{/if}}
 						
 						<!--
 						<div id="fbcommentContainer" class="w_full relative white_cube f_left">

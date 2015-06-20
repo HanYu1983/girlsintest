@@ -100,6 +100,8 @@
                                          dtos (for [url urls] (js-obj "id" url "url" (ServeFn url)))]
                                      (apply array dtos)))
                   dto (js-obj 
+                        "visibleFullscreen" (or (true? (.-Fullscreen detail)) false)
+                        "visibleFBComment" (or (true? (.-FBComment detail)) false)
                         "historyList" (->> (map ConvertHeadDTO filtered) (apply array))
                         "name" (.-Caption detail)
                         "date" (.-Date detail)

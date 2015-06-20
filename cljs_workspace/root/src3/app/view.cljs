@@ -67,7 +67,7 @@
   (defmethod react/AnimateOpen name [ctx key {:keys [elem] :as view}]
     (let [mc_3dmask (.find elem "#mc_3dmask")]
       (go 
-        (<! (async/timeout 2000))
+        (<! (async/timeout 3000))
         (.fadeOut mc_3dmask 400)))
     (react/AnimateOpen ctx :default view))
     
@@ -105,7 +105,7 @@
 (defmethod react/AnimateOpen :Home [ctx key {:keys [elem] :as view}]
   (let [mc_3dmask (.find elem "#mc_3dmask")]
     (go 
-      (<! (async/timeout 2000))
+      (<! (async/timeout 3000))
       (.fadeOut mc_3dmask 400)))
   (react/AnimateOpen ctx :default view))
           

@@ -29,7 +29,8 @@
                                                             act/ShowLoadingImage
                                                             act/ChangeLogo
                                                             (act/Unuse act/ShowFooterOrNot))]}
-                :Home           {:reset             [:Home act/Navigate]
+                :Home           {:nothing           [:nil identity]
+                                 :reset             [:Home act/Navigate]
                                  :toNews            [:News act/Navigate]
                                  :toEvent           [:Event act/Navigate]
                                  :toModelList       [:ModelList act/Navigate]
@@ -111,7 +112,7 @@
                         "btn_nav_product" [:Home :toProductList nil]
                         "btn_nav_news" [:Home :toNews nil]
                         (do (.log js/console "no menu " id)
-                            [:Home :toModelList nil]))]
+                            [:Home :nothing nil]))]
             (go (>! react/OnReact route))))))))
             
 (defn header [router root]

@@ -65,7 +65,6 @@
             (.done (fn [ret] 
               (let [ident (atom {})
                     process (.mapObject js/_ ret (fn [v k] (swap! ident assoc k v)))]
-                    (.log js/console @ident)
                 (.resolve promise config @ident))))
             (.fail (fn [err] (.reject promise err)))))))))
 

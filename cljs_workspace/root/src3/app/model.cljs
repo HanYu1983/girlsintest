@@ -62,9 +62,10 @@
                              (FilterBySearch searchKey)
                              (drop (* page modelCountPerPage))
                              (take modelCountPerPage))
+                  totalPage (int (/ (count filtered) modelCountPerPage))
                   ConvertDTO (fn [[model detail]]
                               (js-obj
-                                "visibleDate" (not (= :ProductList name))
+                                "visibleDate" (not (= :ProductList ))
                                 "id" model
                                 "name" (.-Caption detail)
                                 "date" (.-Date detail)
@@ -74,8 +75,8 @@
                                 "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))
                                 "imgSideCPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_5.jpg"))))
                   dto (js-obj 
-                        "prev_href" (str "#" (cljs.core/name key) "/" (dec page))
-                        "next_href" (str "#" (cljs.core/name key) "/" (inc page))
+                        "prev_href" (str "#" (cljs.core/name key) "/" (if (> page 0) (dec page) page))
+                        "next_href" (str "#" (cljs.core/name key) "/" (if (< page totalPage) (inc page) page))
                         "searchWord" (if (some? searchKey) searchKey "")
                         "streetsnapList" (->> (map ConvertDTO filtered) (apply array)))]
               (go 

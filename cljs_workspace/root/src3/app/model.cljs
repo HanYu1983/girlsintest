@@ -140,7 +140,8 @@
       (.done 
         (fn [detail]
           (go 
-            (>! ret [nil (js-obj "modelKey" (.-ModelKey detail))])
+            (>! ret [nil (js-obj "modelKey" (.-ModelKey detail)
+                                 "moreUrl" "#")])
             (close! ret))))
       (.fail
         #(go 

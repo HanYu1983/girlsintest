@@ -24,7 +24,8 @@
   (let [logoNames [[[:Product :ProductList] "#img_streetProductLogo"]
                    [[:StreetSnap :StreetSnapList] "#img_streetSnapLogo"]
                    [[:Model :ModelList] "#img_streetModelsLogo"]
-                   [[:Home :default] "#img_homeLogo"]]]
+                   [[:Home :default] "#img_homeLogo"]
+                   [[:News] "#img_streetNewsLogo"]]]
     (doseq [[names logoName] logoNames]
       (if (some #(= % curr-view) names)
         (doto (.find root logoName)

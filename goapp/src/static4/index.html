@@ -7,7 +7,7 @@
 		<link href='css/home.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/menubar.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/streetsnap.css' rel='stylesheet' type='text/css'/>
-		<link href='css/streetsnapSearch.min.css' rel='stylesheet' type='text/css'/>
+		<link href='css/streetsnapSearch.css' rel='stylesheet' type='text/css'/>
 		<link href='css/bigPhoto.min.css' rel='stylesheet' type='text/css'/>
 		
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
@@ -51,6 +51,7 @@
 							<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
 							<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
 							<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
+							<img class='absolute right bottom btn' src='images/index/More.png'/>
 						</div>
 						<!--
 						<img id="mc_3dIframeBorderLine" class='absolute top left' src='images/streetSnap/pinkBorder.png'/>
@@ -175,8 +176,8 @@
 							</div>
 							{{/each}}
 						</div>
-						<a style="top:300px;" class="absolute left" id="btn_prev" href=${prev_href}>上一個</a>
-						<a style="top:300px;" class="absolute right" id="btn_next" href=${next_href}>下一個</a>
+						<a id='btn_prev' class="absolute left" href=${prev_href}><div class='btn_prevnext btn_prev'></div></a>
+						<a id='btn_next' class="absolute right" href=${next_href}><div class='btn_prevnext btn_next'></div></a>
 					</div>
 				</div>
 			</div>
@@ -239,6 +240,8 @@
 				</a>
 				<a href="https://www.facebook.com/sdyle.net" target="_blank"><img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/></a>
 				<a href="mailto:sdyle.net@gmail.com"><img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/></a>
+				<img style='top:-7px;' class="relative f_right fixedTop btn" src='images/index/joinMD.png'>
+				<img style='top:-5px; margin-right:10px;' class="relative f_right fixedTop" src='images/index/joinMD_text.png'>
 				<div id="btn_backhome" class="btn">
 					<img id="img_homeLogo" class='relative' src='images/index/small_Logo.png'/>
 					<img id="img_streetSnapLogo" class='relative hide' src='images/index/backhomeStreet.png'/>

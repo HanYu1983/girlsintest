@@ -4,7 +4,8 @@
   (:require
     [cljs.core.async :refer [chan >! <! close!]]
     [app.fn :as fn]
-    [tool.react :as react]))
+    [tool.react :as react]
+    [clojure.string :as cljstr]))
     
 (defn configType [view]
   (cond
@@ -138,10 +139,10 @@
   (let [ret (chan)]
     (doto (fn/GetHomeModelMaybeKey "config.json")
       (.done 
-        (fn [detail]
+        (fn [where modelKey detail]
           (go 
             (>! ret [nil (js-obj "modelKey" (.-ModelKey detail)
-                                 "moreUrl" "#")])
+                                 "moreUrl" (str "#" (cljstr/capitalize where) "/id=" modelKey))])
             (close! ret))))
       (.fail
         #(go 

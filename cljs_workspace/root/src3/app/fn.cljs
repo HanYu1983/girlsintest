@@ -81,7 +81,7 @@
                         where (aget config (aget pathPair 0))
                         modelKey (aget pathPair 1)]
                     (doto (FetchFile (str where "/" modelKey "/config.json"))
-                      (.done #(.resolve promise %))
+                      (.done #(.resolve promise where modelKey %))
                       (.fail #(.reject promise %))))
           "key" (go (.resolve promise (js-obj "ModelKey" (aget pathInfo "key"))))
           (go

@@ -72,9 +72,10 @@
                         
                     "checkHot"
                     (fn [timestr]
-                      (let [today (.today js/Date)
-                            date (-> (.parse js/Date timestr) (.at "0:0:0"))]
-                        (.equals today date))))
+                      (let [tomorrow (.add (.today js/Date) (js-obj "days" 1))
+                            startday (.add (.today js/Date) (js-obj "days" -1))
+                            now (.parse js/Date timestr)]
+                        (.between now startday tomorrow))))
         ctx {:root root
              :router urlRouter
              :views {} 

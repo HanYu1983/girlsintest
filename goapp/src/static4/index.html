@@ -24,13 +24,30 @@
 		<script src='js/lib/date.js'></script>
 		
 		<script>
+		/*
 		(function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
 			if (d.getElementById(id)) return;
 			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=820601784681625&version=v2.0";
+			js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=701105573368357&version=v2.0";
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
+		*/
+		window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '701105573368357',
+		      xfbml      : true,
+		      version    : 'v2.3'
+		    });
+		  };
+
+		  (function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "//connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
 		</script>
 		
 	</head>
@@ -46,7 +63,7 @@
 						<div id="mc_iframeBack" class='black_cube opacity_5'></div>
 						-->
 						<div id="mc_3d_container" class="relative f_left fake3Dregion">
-							<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
+							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
 							<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
 							<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
 							<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
@@ -75,7 +92,7 @@
 						<div id="mc_mainContainer" class="relative f_left">
 							
 							<div id="mc_3d_container" class="relative f_left fake3Dregion">
-								<iframe id="iframe_3dIframe" src=${"http://sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='323px' height='379px' class="absolute"></iframe>
+								<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='323px' height='379px' class="absolute"></iframe>
 								<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
 								<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
 								<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
@@ -125,7 +142,7 @@
 						<!--
 						<div id="fbcommentContainer" class="w_full relative white_cube f_left">
 							<!--
-							<div id="fbcomment" class="fb-comments" data-href="http://test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap" data-numposts="5" data-colorscheme="light"></div>
+							<div id="fbcomment" class="fb-comments" data-href="//test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap" data-numposts="5" data-colorscheme="light"></div>
 							--/>
 						</div>
 						-->
@@ -315,7 +332,7 @@
 			<!-- fb plugin -->
 			<!--
 			<div id="fbPluginPool" style="display:none">
-				<div id="fbcomment" style="margin-bottom:100px; margin-left:73px; margin-top:20px;" class="fb-comments" data-href="http://test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap"  data-width="540px" data-numposts="5" data-colorscheme="light"></div>
+				<div id="fbcomment" style="margin-bottom:100px; margin-left:73px; margin-top:20px;" class="fb-comments" data-href="//test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap"  data-width="540px" data-numposts="5" data-colorscheme="light"></div>
 			</div>
 			-->
 		</div>

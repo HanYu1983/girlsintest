@@ -177,7 +177,7 @@
     
 (defmethod react/model-ch :News [ctx key {id :id :as args}]
   (let [ret (chan)]
-    (doto (fn/GetAllModelOnce "config.json" "event")
+    (doto (fn/GetAllModelOnce "config.json" "news")
           (.done (fn [config data]
                     (let [filtered (SortByDate data)
                           evtId (if (= "null" (str id)) (ffirst filtered) id)
@@ -187,7 +187,7 @@
                             (map 
                               #(js-obj
                                 "path"
-                                (fn/ServeImagePath (str (aget config "event") "/" evtId "/image_" (inc %) ".jpg")))
+                                (fn/ServeImagePath (str (aget config "news") "/" evtId "/image_" (inc %) ".jpg")))
                             (range (aget evt "Count"))))
                                       
                           ; nil 代表不顯示

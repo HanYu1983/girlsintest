@@ -1,0 +1,35 @@
+		<script src="../sdyle/js/lib/jquery/jquery-1.9.min.js"></script>
+		<script src="../sdyle/js/lib/jquery/jquery.tmpl.min.js"></script>
+		<script src="../sdyle/js/lib/sketchfab/sketchfab-iframe.js"></script>
+		<script src='../sdyle/js/lib/underscore/underscore.js'></script>
+		<script src='../sdyle/js/lib/backbone/backbone.js'></script>
+		<script src='../sdyle/js/lib/bacon/Bacon.js'></script>
+		<script src='../sdyle/js/lib/rxjs/rx.all.js'></script>
+		<script src='../sdyle/js/lib/async/async.js'></script>
+<script src='../sdyle/js/lib/digestAuthRequest.js'></script>
+<script src='//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js'></script>
+
+<script>
+/*
+$.ajax({
+	url: "/config.json",
+	success: function(data){
+		console.log(data)
+	},
+	error: function(){
+		console.log(arguments)
+	}
+})
+*/
+
+
+var url = '/auth';
+var req = new digestAuthRequest('GET', url, 'john', 'hello');
+req.request(function(data) { 
+	console.log(data)
+	
+},function(errorCode) { 
+	console.log(errorCode)
+});
+
+</script>

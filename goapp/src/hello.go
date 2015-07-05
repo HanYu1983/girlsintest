@@ -1,11 +1,27 @@
 package hello
 
 import (
+  auth "github.com/abbot/go-http-auth"
   "net/http"
   "lib/tool"
   "lib/rest"
   "os"
+  "fmt"
 )
+
+
+func Secret(user, realm string) string {
+	if user == "john" {
+		// password is "hello"
+		return "b98e16cbc3d01734b264adba7baa3bf9"
+	}
+	return ""
+}
+
+func handle(w http.ResponseWriter, r *auth.AuthenticatedRequest) {
+	fmt.Fprintf(w, "<html><body><h1>Hello, %s!</h1></body></html>", r.Username)
+}
+
 
 func init(){
   // rest style setting
@@ -19,7 +35,17 @@ func init(){
     "cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
   }
   
-  http.HandleFunc("/", rest.RestWithConfig("./package", cacheVersion, handlers) )
+  
+  
+  //http.HandleFunc("/", rest.RestWithConfig("./package", cacheVersion, handlers) )
+  restFn := rest.RestWithConfig("./package", cacheVersion, handlers)
+  //authenticator := auth.NewDigestAuthenticator("example.com", Secret)
+  //restFn = authenticator.JustCheck( restFn )
+  http.HandleFunc("/",  restFn)
+  
+  authenticator := auth.NewDigestAuthenticator("example.com", Secret)
+  authFn := authenticator.Wrap( handle )
+  http.HandleFunc("/auth", authFn)
 }
 
 // ============== legacy code ===============//

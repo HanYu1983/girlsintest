@@ -1,4 +1,5 @@
 export GOPATH=/Users/hanyu/Documents/goapp_workspace/girlsintest/goapp/
+../go_appengine/goapp get github.com/abbot/go-http-auth
 ../go_appengine/goapp get github.com/nfnt/resize
 ../go_appengine/goapp get github.com/tcard/functional
 ../go_appengine/goapp get github.com/jordan-wright/email

@@ -7,13 +7,16 @@
   (-> (.map js/_ (.split path "/") js/encodeURIComponent) (.join "/")))
 
 (defn ServeImagePath [path]
-  (str "https://" window.location.host "/" path))
+  (str "//" window.location.host "/" path))
   
 (defn ServeImagePath100 [path]
-  (str "https://" window.location.host "/" path "?Width=" 100 "&Height=" 100))
+  (str "//" window.location.host "/" path "?Width=" 100 "&Height=" 100))
 
 (defn FetchFile [path]
-  (.getJSON js/$ (str "https://" window.location.host "/" path)))
+  ;(js/digestRequest (str "//" window.location.host "/" path)))
+  (.getJSON js/$ (str "//" window.location.host "/" path)))
+  
+  
   
   ;只在取得keylist的時候將key編碼，以支援中文的key(appengine不支援中文檔名)
 (defn FetchModelKeyList [path]

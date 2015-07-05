@@ -8,6 +8,10 @@ import (
     "appengine/urlfetch"
     "encoding/json"
     "net/http"
+    "net/url"
+    "bytes"
+    "appengine"
+    "fmt"
 )
 
 // tool
@@ -88,6 +92,44 @@ func NormalizeImageBase64(origin string)string{
 }
 
 
+func ReadAjaxPost(r *http.Request) (url.Values, error){
+  body, err := ioutil.ReadAll(r.Body)
+  if err != nil {
+    return nil, err
+  }
+  u, err := url.Parse("?"+string(body))
+  if err != nil {
+    return nil, err
+  }
+  return u.Query(), nil
+}
 
+func GetRequest(url string, data url.Values) (*http.Request, error) {
+  urlPath := url 
+  if data != nil {
+    urlPath = fmt.Sprintf("%s?%s", url, data.Encode())
+  }
+  r, err := http.NewRequest("GET", urlPath, nil)
+  if err != nil {
+    return nil, err
+  }
+  return r, nil
+}
+
+func PostRequest(url string, data url.Values) (*http.Request, error) {
+  databytes := data.Encode()
+  r, err := http.NewRequest("POST", url, bytes.NewBufferString(databytes))
+  if err != nil {
+    return nil, err
+  }
+  r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+  r.Header.Add("Content-Length", strconv.Itoa(len(databytes)))
+  return r, nil
+}
+
+func DoRequest( r *http.Request, ctx appengine.Context ) (*http.Response, error) {
+  client := urlfetch.Client( ctx )
+  return client.Do(r)
+}
 
 

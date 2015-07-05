@@ -76,8 +76,14 @@
                                 "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))
                                 "imgSideCPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_5.jpg"))))
                   dto (js-obj 
-                        "prev_href" (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (> page 0) (dec page) page))
-                        "next_href" (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (< page totalPage) (inc page) page))
+                        "prev_href" 
+                        (if (not (<= page 0))
+                          (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (> page 0) (dec page) page))
+                          nil)
+                        "next_href" 
+                        (if (not (>= page totalPage))
+                          (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (< page totalPage) (inc page) page))
+                          nil)
                         "searchWord" (if (some? searchKey) searchKey "")
                         "streetsnapList" (->> (map ConvertDTO filtered) (apply array)))]
               (go 
@@ -176,26 +182,39 @@
                     (let [filtered (SortByDate data)
                           evtId (if (= "null" (str id)) (ffirst filtered) id)
                           evt (get data evtId)
-                          photos (apply array 
-                                    (map 
-                                      #(js-obj
-                                        "path"
-                                        (fn/ServeImagePath (str (aget config "event") "/" evtId "/image_" (inc %) ".jpg")))
-                                      (range (aget evt "Count"))))
-                          idx (let [find (dec (indexOf filtered evtId 0))]
-                                (cond
-                                  (< find 0) (dec (count filtered))
-                                  (>= find (count filtered)) 0
-                                  :else find))
-                          idx2 (let [find (inc (indexOf filtered evtId 0))]
-                                (cond
-                                  (< find 0) (dec (count filtered))
-                                  (>= find (count filtered)) 0
-                                  :else find))]
+                          photos 
+                          (apply array 
+                            (map 
+                              #(js-obj
+                                "path"
+                                (fn/ServeImagePath (str (aget config "event") "/" evtId "/image_" (inc %) ".jpg")))
+                            (range (aget evt "Count"))))
+                                      
+                          ; nil 代表不顯示
+                          prevId 
+                          (let [find (dec (indexOf filtered evtId 0))]
+                            (cond
+                              (< find 0) nil  ;(dec (count filtered))
+                              (>= find (count filtered)) nil  ;0
+                              :else find))
+                          
+                          ; nil 代表不顯示
+                          nextId 
+                          (let [find (inc (indexOf filtered evtId 0))]
+                            (cond
+                              (< find 0) nil  ;(dec (count filtered))
+                              (>= find (count filtered)) nil  ;0
+                              :else find))]
                       (go 
                         (>! ret [nil (js-obj 
-                                        "prev_href" (str "#News/id=" (first (nth filtered idx)))
-                                        "next_href" (str "#News/id=" (first (nth filtered idx2)))
+                                        "prev_href"
+                                        (when prevId
+                                          (str "#News/id=" (first (nth filtered prevId))))
+                                        
+                                        "next_href" 
+                                        (when nextId
+                                          (str "#News/id=" (first (nth filtered nextId))))
+                                          
                                         "title" (aget evt "Title")
                                         "date" (aget evt "Date")
                                         "sideList" photos

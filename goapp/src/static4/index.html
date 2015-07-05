@@ -178,8 +178,12 @@
 							</div>
 							{{/each}}
 						</div>
+							{{if prev_href != null}}
 						<a class="absolute left btn_prev" href=${prev_href}><div class='btn_prevnext img_prev'></div></a>
+							{{/if}}
+							{{if next_href != null}}
 						<a class="absolute right btn_next" href=${next_href}><div class='btn_prevnext img_next'></div></a>
+							{{/if}}
 					</div>
 				</div>
 			</div>
@@ -218,8 +222,12 @@
 						</div>
 						<div style="height:100px;" class="f_left w_full"></div>
 					</div>
+					{{if prev_href != null}}
 					<a class="absolute left btn_prev" href=${prev_href}><div class='btn_prevnext img_prev'></div></a>
+					{{/if}}
+					{{if next_href != null}}
 					<a class="absolute right btn_next" href=${next_href}><div class='btn_prevnext img_next'></div></a>
+					{{/if}}
 				</div>
 			</div>
 		</script>

@@ -6,6 +6,8 @@ import (
   "lib/rest"
   "os"
   "fmt"
+  _ "appengine"
+  _ "strings"
   auth "lib/auth"
 )
 
@@ -43,12 +45,17 @@ func init(){
     Realm: "sdyle.net",
     Opaque: auth.RandomKey(),
     Secrets: Secret,
+    WhiteList: []string{""},
   })
-  http.HandleFunc("/auth3", AuthWrap( handle2 ))
   
   restFn := rest.RestWithConfig("./package", cacheVersion, handlers)
   restFn = AuthWrap( restFn )
   http.HandleFunc("/",  restFn)
+  
+  http.HandleFunc("/auth3", AuthWrap( handle2 ))
+  http.HandleFunc("/whereami", func(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "addr:[%s]", r.RemoteAddr)
+  })
 }
 
 // ============== legacy code ===============//

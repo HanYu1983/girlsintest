@@ -14,6 +14,7 @@ type Config struct {
   Realm, Opaque string
   //Secrets = MD5(username + ":" + config.Realm + ":" + config.Password)
   Secrets func( username string, realm string )string
+  WhiteList []string
 }
 
 func IsNeedAuth(r *http.Request, realm, opaque string) (bool, map[string]string){
@@ -68,9 +69,24 @@ func Auth(r *http.Request, config Config, auth map[string]string) bool{
   return true
 }
 
+func IsWhiteList(config Config, r *http.Request) bool{
+  for _, ip := range config.WhiteList {
+    if r.RemoteAddr == ip {
+      return true
+    }
+  }
+  return false
+}
+
 func Factory(config Config) func(http.HandlerFunc) http.HandlerFunc {
   return func(handler http.HandlerFunc) http.HandlerFunc{
     return func(w http.ResponseWriter, r *http.Request){
+      
+      if IsWhiteList( config, r ) {
+        handler( w, r )
+        return
+      }
+      
       isNeedAuth, authInfo := IsNeedAuth(r, config.Realm, config.Opaque)
       if isNeedAuth {
         RequireAuth( w, config )

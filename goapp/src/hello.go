@@ -13,6 +13,7 @@ import (
 func Secret(user, realm string) string {
 	if user == "john" {
 		// password is "hello"
+    // md5(name+":"+realm+":"+"hello")
 		return "b98e16cbc3d01734b264adba7baa3bf9"
 	}
 	return ""

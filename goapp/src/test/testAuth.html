@@ -1,3 +1,9 @@
+		<html>
+		<body>
+			<button onclick="invokeCall('/auth'); return false;" >Execute</button> 
+		</body>
+		</html>
+		
 		<script src="../sdyle/js/lib/jquery/jquery-1.9.min.js"></script>
 		<script src="../sdyle/js/lib/jquery/jquery.tmpl.min.js"></script>
 		<script src="../sdyle/js/lib/sketchfab/sketchfab-iframe.js"></script>
@@ -6,13 +12,13 @@
 		<script src='../sdyle/js/lib/bacon/Bacon.js'></script>
 		<script src='../sdyle/js/lib/rxjs/rx.all.js'></script>
 		<script src='../sdyle/js/lib/async/async.js'></script>
-<script src='../sdyle/js/lib/digestAuthRequest.js'></script>
+<script src='../sdyle/js/lib/han_digestAuthRequest.js'></script>
 <script src='//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js'></script>
 
 <script>
 /*
 $.ajax({
-	url: "/config.json",
+	url: "/auth",
 	success: function(data){
 		console.log(data)
 	},
@@ -32,4 +38,68 @@ req.request(function(data) {
 	console.log(errorCode)
 });
 
+</script>
+
+<script>
+ /*
+  * A JavaScript implementation of the Digest Authentication
+  * Digest Authentication, as defined in RFC 2617.
+  * Version 1.0 Copyright (C) Maricn Michalski (http://marcin-michalski.pl) 
+  * Distributed under the BSD License
+  * 
+  * site: http://arrowgroup.eu
+  */
+
+
+  function invokeCall(uri,authorizationHeader){
+    $.ajax({
+          url: uri,
+          type: "GET",
+          beforeSend: function(request){
+           if(typeof authorizationHeader != 'undefined'){
+           request.setRequestHeader("Authorization", authorizationHeader);           
+           }
+          },
+          success: function(response) {
+           console.log(response)
+          },
+          error: function(response) { 
+					 var headerValue = response.getResponseHeader("WWW-Authenticate")
+           var nonce = getParam(headerValue, "nonce");
+           var realm = getParam(headerValue, "realm");
+           var qop = getParam(headerValue, "qop");
+           var response = calculateResponse(uri, nonce, realm, qop);
+           var authorizationHeaderValue = generateAuthorizationHeader(headerValue, response, uri); 
+					 console.log(headerValue)
+           invokeCall(uri, authorizationHeaderValue);
+					 invokeCall = function(){}
+          }             
+      });
+  }
+  function calculateResponse(uri, nonce, realm, qop){
+    var a2 = "GET" + ":" + uri;
+    var a2Md5 = CryptoJS.MD5(a2);
+    var a1Md5 = CryptoJS.MD5("john" + ":" + realm + ":" + "hello");
+    var digest = a1Md5 + ":" + nonce + ":" + "00000001" + ":" + "testCnonce" + ":" + qop + ":" +a2Md5;
+    return CryptoJS.MD5(digest);
+  }
+  function generateAuthorizationHeader(wwwAuthenticationHeader, response, uri){
+    return wwwAuthenticationHeader+', username="'+"john"+'", uri="'+
+       uri+'", response="'+response+'", nc='+
+       "00000001"+', cnonce="'+"testCnonce"+'"';
+   }
+	 
+  function getParam(headerValue, paramName){
+    var paramVal = null;
+		var headerParams = headerValue.split(",");
+    $.each(headerParams, function(index, value){
+      if(value.indexOf(paramName)>0){
+      paramVal = value.split(paramName+"=")[1];
+      paramVal = paramVal.substring(1, paramVal.length-1);
+      }
+    });
+    return paramVal;
+  }
+	
+	
 </script>

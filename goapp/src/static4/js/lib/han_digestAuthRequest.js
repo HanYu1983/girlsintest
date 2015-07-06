@@ -142,13 +142,14 @@ function digestAuthRequest(method, url, username, password) {
 		self.authenticatedRequest.open(method, url, true);
 		self.authenticatedRequest.timeout = self.timeout;
 		var digestAuthHeader = self.scheme+' '+
+			'algorithm="MD5", ' +	//沒有加上這行會被golang的摘要實做擋住
 			'username="'+username+'", '+
 			'realm="'+self.realm+'", '+
 			'nonce="'+self.nonce+'", '+
 			'uri="'+url+'", '+
 			'response="'+self.response+'", '+
 			'opaque="'+self.opaque+'", '+
-			'qop='+self.qop+', '+
+			'qop="'+self.qop+'", '+
 			'nc='+('00000000' + self.nc).slice(-8)+', '+
 			'cnonce="'+self.cnonce+'"';
 		self.authenticatedRequest.setRequestHeader('Authorization', digestAuthHeader);

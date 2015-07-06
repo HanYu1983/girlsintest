@@ -1,0 +1,81 @@
+		<html>
+		<body>
+			<button onclick="invokeCall('/auth'); return false;" >Execute</button> 
+		</body>
+		</html>
+		
+		<script src="../sdyle/js/lib/jquery/jquery-1.9.min.js"></script>
+		<script src="../sdyle/js/lib/jquery/jquery.tmpl.min.js"></script>
+		<script src="../sdyle/js/lib/sketchfab/sketchfab-iframe.js"></script>
+		<script src='../sdyle/js/lib/underscore/underscore.js'></script>
+		<script src='../sdyle/js/lib/backbone/backbone.js'></script>
+		<script src='../sdyle/js/lib/bacon/Bacon.js'></script>
+		<script src='../sdyle/js/lib/rxjs/rx.all.js'></script>
+		<script src='../sdyle/js/lib/async/async.js'></script>
+		<script src='../sdyle/js/lib/jquery.cookie.js'></script>
+<script src='../sdyle/js/lib/han_digestAuthRequest.js'></script>
+<script src='//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js'></script>
+
+<script>
+
+
+
+var url = "/auth3"
+
+$.ajax({
+	url: url,
+	success: function(data){
+		console.log(data)
+	},
+	error: function(xhr, err, res){
+		//var auth = $.cookie("WWW-Authenticate")
+		var auth = xhr.getResponseHeader("WWW-Authenticate")
+		console.log( auth )
+		if( auth != null ){
+			var uri = url
+			var username = "john"
+			var cnonce = "testC"
+			var headerValue = auth
+			var nonce = getParam(headerValue, "nonce");
+			var realm = getParam(headerValue, "realm");
+			var qop = getParam(headerValue, "qop");
+			var a1 = CryptoJS.MD5(username + ":" + realm + ":" + "hello")
+			var response = calculateResponse(a1, "GET", uri, nonce, realm, qop, cnonce);
+			var authorizationHeaderValue = generateAuthorizationHeader(headerValue, response, uri, username, cnonce); 
+			// path == '/'才會自動送出
+			$.cookie("Authorization", authorizationHeaderValue, { expires: 1, path: '/' })
+		}
+	}
+})
+
+function calculateResponse(a1, method, uri, nonce, realm, qop, cnonce){
+	var a2 = method + ":" + uri;
+	var a2Md5 = CryptoJS.MD5(a2);
+	var a1Md5 = a1
+	var digest = a1Md5 + ":" + nonce + ":" + "00000001" + ":" + cnonce + ":" + qop + ":" +a2Md5;
+	return CryptoJS.MD5(digest);
+}
+
+function getParam(headerValue, paramName){
+	var paramVal = null;
+	var headerParams = headerValue.split(",");
+	$.each(headerParams, function(index, value){
+		if(value.indexOf(paramName)>0){
+			paramVal = value.split(paramName+"=")[1];
+			paramVal = paramVal.substring(1, paramVal.length-1);
+		}
+	});
+	return paramVal;
+}
+
+function generateAuthorizationHeader(wwwAuthenticationHeader, response, uri, username, cnonce){
+	return wwwAuthenticationHeader+', username="'+username+'", uri="'+
+		uri+'", response="'+response+'", nc='+
+		"00000001"+', cnonce="'+cnonce+'"';
+}
+
+</script>
+
+<script>
+ 
+</script>

@@ -32,14 +32,16 @@ $.ajax({
 		var auth = xhr.getResponseHeader("WWW-Authenticate")
 		console.log( auth )
 		if( auth != null ){
-			var uri = url
-			var username = "john"
+			var uri = "url"
+			//var username = "john"
+			var username = "hanvic"
+			var password = "gaNGangAnfInAlstEve"
 			var cnonce = "testC"
 			var headerValue = auth
 			var nonce = getParam(headerValue, "nonce");
 			var realm = getParam(headerValue, "realm");
 			var qop = getParam(headerValue, "qop");
-			var a1 = CryptoJS.MD5(username + ":" + realm + ":" + "hello")
+			var a1 = CryptoJS.MD5(username + ":" + realm + ":" + password)
 			var response = calculateResponse(a1, "GET", uri, nonce, realm, qop, cnonce);
 			var authorizationHeaderValue = generateAuthorizationHeader(headerValue, response, uri, username, cnonce); 
 			// path == '/'才會自動送出

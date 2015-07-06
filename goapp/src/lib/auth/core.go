@@ -44,6 +44,7 @@ func Auth(r *http.Request, config Config, auth map[string]string) bool{
     return false
   }
   
+  // 不要驗証uri
   /*
   switch u, err := url.Parse(auth["uri"]); {
   case err != nil:

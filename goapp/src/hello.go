@@ -11,10 +11,15 @@ import (
 
 
 func Secret(user, realm string) string {
-	if user == "john" {
+  // use js console > CryptoJS.MD5("hanvic:sdyle.net:gaNGangAnfInAlstEve").toString()
+  if user == "john" {
     // md5("john:sdyle.net:hello")
-		return "d7369489e93473a54cff9f7df4de5227"
-	}
+    return "d7369489e93473a54cff9f7df4de5227"
+    
+  } else if user == "hanvic" {
+    // md5("hanvic:sdyle.net:gaNGangAnfInAlstEve")
+    return "0c9c73c7af08ea47a7c65c5ed310e4da"
+  }
 	return ""
 }
 
@@ -36,7 +41,7 @@ func init(){
   
   AuthWrap := auth.Factory( auth.Config{
     Realm: "sdyle.net",
-    Opaque: "testOpa",
+    Opaque: auth.RandomKey(),
     Secrets: Secret,
   })
   http.HandleFunc("/auth3", AuthWrap( handle2 ))

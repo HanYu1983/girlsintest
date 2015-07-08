@@ -3,6 +3,22 @@
     [cljs.core.async.macros :refer [go]]
     [tool.macro :as macro]))
     
+(defn cache [f]
+  (let [c (atom {})]
+    (fn [& args]
+      (let [p (.Deferred js/$)
+            ckey (keyword (pr-str args))
+            ret (get @c ckey)]
+        (if ret
+          (.resolve p (aget ret 0) (aget ret 1) (aget ret 2))
+          (doto (apply f args)
+            (.done 
+              (fn []
+                (swap! c assoc ckey (array (aget js/arguments 0) (aget js/arguments 1) (aget js/arguments 2)))
+                (.resolve p (aget js/arguments 0) (aget js/arguments 1) (aget js/arguments 2))))
+            (.fail
+              #(.reject p %))))))))
+    
 (defn encodePath [path]
   (-> (.map js/_ (.split path "/") js/encodeURIComponent) (.join "/")))
 
@@ -38,7 +54,7 @@
         (let [details (map (fn [data] (aget data 0)) args)]
           (.resolve promise (zipmap keys details)))))))
     
-(defn GetAllModelBy 
+(comment (defn GetAllModelBy 
   "多次request"
   [configPath type]
   (macro/makepromise promise
@@ -50,7 +66,7 @@
           (.pipe (partial FetchAllModel pkgPath))
           (doto
             (.done (fn [ret] (.resolve promise config ret)))
-            (.fail (fn [err] (.reject promise err)))))))))
+            (.fail (fn [err] (.reject promise err))))))))))
 
 (defn GetAllModelOnce
   "一次request"
@@ -89,6 +105,5 @@
             (.resolve promise (js-obj "ModelKey" ""))))))))
 
             
-(def GetAllModelBy (memoize GetAllModelBy))
-(def GetAllModelOnce (memoize GetAllModelOnce))
-(def GetHomeModelMaybeKey (memoize GetHomeModelMaybeKey))
+(def GetAllModelOnce (cache GetAllModelOnce))
+(def GetHomeModelMaybeKey (cache GetHomeModelMaybeKey))

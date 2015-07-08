@@ -43,7 +43,7 @@ func init(){
   
   AuthWrap := auth.Factory( auth.Config{
     Realm: "sdyle.net",
-    Opaque: "sdafasdfasdlkwenoid",
+    Opaque: "ad33asf",
     Secrets: Secret,
     WhiteList: []string{""},
   })

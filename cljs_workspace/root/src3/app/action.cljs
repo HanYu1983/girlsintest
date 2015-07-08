@@ -70,7 +70,7 @@
     (js-obj
       "name" "sdyle"
       "link" (aget js/window "location" "href")
-      "picture" (aget model "styleUrl")
+      "picture" (str "https" (aget model "styleUrl"))
       "caption" (str (aget model "name") " in sdyle")
       "description" (aget model "modelDetail")
       "callback" (fn [res]

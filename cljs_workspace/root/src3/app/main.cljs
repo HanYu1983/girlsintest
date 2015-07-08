@@ -7,14 +7,22 @@
     [app.fn :as fn]
     [app.model :as model]
     [app.view :as view]
-    [app.action :as act]))
+    [app.action :as act]
+    [app.auth :as auth]))
 
 (declare 
+  startapp
   menubar
   header
   create-router)
-  ; goappengine 不支援中文檔案名稱，所以不能使用中文檔名
+  
 (defn main []
+  (doto (auth/auth "/")
+    (.done startapp)
+    (.fail #(.log js/console "fail!"))))
+  
+  ; goappengine 不支援中文檔案名稱，所以不能使用中文檔名
+(defn startapp []
   (let [urlRouter (create-router)
         route { :Router         {:toHome            [:Home react/ChangeView]
                                  :toModelList       [:ModelList react/ChangeView]

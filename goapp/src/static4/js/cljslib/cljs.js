@@ -14,4 +14,5 @@ goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', '
 goog.addDependency("../app/model.js", ['app.model'], ['app.fn', 'cljs.core', 'cljs.core.async', 'tool.react', 'clojure.string']);
 goog.addDependency("../temp/core.js", ['temp.core'], ['cljs.core']);
 goog.addDependency("../app/action.js", ['app.action'], ['app.fn', 'cljs.core']);
-goog.addDependency("../app/main.js", ['app.main'], ['app.fn', 'app.action', 'cljs.core', 'cljs.core.async', 'app.model', 'tool.react', 'app.view']);
+goog.addDependency("../app/auth.js", ['app.auth'], ['cljs.core', 'clojure.string']);
+goog.addDependency("../app/main.js", ['app.main'], ['app.fn', 'app.action', 'app.auth', 'cljs.core', 'cljs.core.async', 'app.model', 'tool.react', 'app.view']);

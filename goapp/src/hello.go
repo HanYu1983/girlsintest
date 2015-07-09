@@ -17,7 +17,7 @@ func Secret(user, realm string) string {
   if user == "john" {
     // md5("john:sdyle.net:hello")
     return "d7369489e93473a54cff9f7df4de5227"
-    
+
   } else if user == "hanvic" {
     // md5("hanvic:sdyle.net:gaNGangAnfInAlstEve")
     return "0c9c73c7af08ea47a7c65c5ed310e4da"
@@ -25,8 +25,15 @@ func Secret(user, realm string) string {
 	return ""
 }
 
-func handle2(w http.ResponseWriter, r *http.Request) {
+func responseHello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "<html><body><h1>Hello!</h1></body></html>")
+}
+
+func WrapCacheControl( maxage int, fn http.HandlerFunc ) http.HandlerFunc {
+  return func (w http.ResponseWriter, r *http.Request){
+    w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public", maxage))
+    fn( w, r )
+  }
 }
 
 func init(){
@@ -40,7 +47,7 @@ func init(){
     "json": rest.HandleJson(),
     "cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
   }
-  
+
   AuthWrap := auth.Factory( auth.Config{
     Realm: "sdyle.net",
     Opaque: "ad33asf",
@@ -48,11 +55,15 @@ func init(){
     WhiteList: []string{""},
   })
   
-  restFn := rest.RestWithConfig("./package", cacheVersion, handlers)
-  restFn = AuthWrap( restFn )
+  http.HandleFunc("/auth", AuthWrap( responseHello )) // 認證不能被快取，所以獨立出來
+
+  restFn := rest.RestWithConfig("./package", etagValidator, handlers)
+  restFn = WrapCacheControl( cacheMaxAge, restFn ) // 前台cache就行了，不必使用後台的validator(ETag)
   http.HandleFunc("/",  restFn)
-  
-  http.HandleFunc("/auth3", AuthWrap( handle2 ))
+
+
+  // test code
+  http.HandleFunc("/auth3", AuthWrap( responseHello ))
   http.HandleFunc("/whereami", func(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, "addr:[%s]", r.RemoteAddr)
   })
@@ -66,7 +77,7 @@ func init() {
 		"QueryUser":handler.QueryUser,
 		"Login":handler.Login,
 		"Logout":handler.Logout,
-		
+
 		"UpdateStreetModel": handler.UpdateStreetModel,
 		"QueryStreetModel": handler.QueryStreetModel,
     "DeleteStreetModel": handler.DeleteStreetModel,
@@ -74,7 +85,7 @@ func init() {
 		"QueryPhotoWithStreetModel": handler.QueryPhotoWithStreetModel,
 		"DeletePhotoWithStreetModel": handler.DeletePhotoWithStreetModel,
 		"UpdatePhotoWithStreetModel": handler.UpdatePhotoWithStreetModel,
-    
+
     "ServeFile": handler.ServeFile,
     "RefreshCache": handler.RefreshCache,
 	}
@@ -91,12 +102,12 @@ func init() {
 		"QueryStreetModelPage": handler.QueryStreetModelPage,
 		"EditStreetModelPage": handler.EditStreetModelPage,
 	}
-  
+
   // rest style setting
   cmdhandlers := map[string]func(sys tool.ISystem)interface{}{
     "RefreshCache": handler.RefreshCache,
   }
-	
+
 	handlers := map[string]func(string, *os.File, http.ResponseWriter,*http.Request){
 		"png": rest.HandleImage(),
 		"jpg": rest.HandleImage(),
@@ -104,9 +115,9 @@ func init() {
 		"json": rest.HandleJson(),
 		"cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
 	}
-	
+
   http.HandleFunc("/", rest.RestWithConfig("./package", cacheVersion, handlers) )
-	
+
 	http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))
 	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions, tool.AppEngineContextFactory))

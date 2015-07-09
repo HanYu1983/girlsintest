@@ -1,5 +1,5 @@
 (ns app.main
-  (:require-macros 
+  (:require-macros
     [cljs.core.async.macros :refer [go]])
   (:require
     [cljs.core.async :as async :refer [chan <!]]
@@ -10,17 +10,17 @@
     [app.action :as act]
     [app.auth :as auth]))
 
-(declare 
+(declare
   startapp
   menubar
   header
   create-router)
-  
+
 (defn main []
-  (doto (auth/auth "/")
+  (doto (auth/auth "/auth")
     (.done startapp)
     (.fail #(.log js/console "fail!"))))
-  
+
   ; goappengine 不支援中文檔案名稱，所以不能使用中文檔名
 (defn startapp []
   (let [urlRouter (create-router)
@@ -33,7 +33,7 @@
                                  :toProduct         [:Product react/ChangeView]
                                  :toEvent           [:Event react/ChangeView]
                                  :toNews            [:News react/ChangeView]}
-                :Event          {:onOpen            [:nil (act/ComposeAction 
+                :Event          {:onOpen            [:nil (act/ComposeAction
                                                             act/ShowLoadingImage
                                                             act/ChangeLogo
                                                             (act/Unuse act/ShowFooterOrNot))]}
@@ -71,13 +71,13 @@
                 :Big            {:close    [:Big react/CloseView]}}
         sdyleColor "rgb(185,71,132)"
         root (js/$ ".root")
-        tmpl-item (js-obj 
-                    "brandToColor" 
-                    (fn [brand] 
+        tmpl-item (js-obj
+                    "brandToColor"
+                    (fn [brand]
                       (if (-> (.-length brand) (> 0))
                         sdyleColor
                         "rgb(122,122,122)"))
-                        
+
                     "checkHot"
                     (fn [timestr]
                       (let [tomorrow (.add (.today js/Date) (js-obj "days" 1))
@@ -86,7 +86,7 @@
                         (.between now startday tomorrow))))
         ctx {:root root
              :router urlRouter
-             :views {} 
+             :views {}
              :container (.find root "#mc_pageContainer")
              :popupContainer (.find root "#mc_popupContainer")
              :tmpl-item tmpl-item}]
@@ -97,7 +97,7 @@
 
 (defn menubar [root]
   (let [menubar (.find root "#mc_menubar")
-        handleBtnMouseOut (fn [evt] 
+        handleBtnMouseOut (fn [evt]
                             (this-as that
                               (let [btnSelf (js/$ that)
                                     btnOver (.find btnSelf ".navover")]
@@ -109,7 +109,7 @@
                                 (.animate btnOver (js-obj "width" "120px") 300))))]
     (.delegate menubar "div" "mouseover" handleBtnMouseOver)
     (.delegate menubar "div" "mouseout" handleBtnMouseOut)
-    (.delegate menubar "div" "click" 
+    (.delegate menubar "div" "click"
       (fn [evt]
         (this-as that
           (let [id (.-id that)
@@ -123,7 +123,7 @@
                         (do (.log js/console "no menu " id)
                             [:Home :nothing nil]))]
             (go (>! react/OnReact route))))))))
-            
+
 (defn header [router root]
   (let [btn_home (.find root "#btn_backhome")]
     (.click btn_home
@@ -137,76 +137,76 @@
                                    "StreetSnapList" "StreetSnapList"
                                    "StreetSnapList/:search/:page" "StreetSnapListSearch"
                                    "StreetSnapList/:page" "StreetSnapList"
-                                   
+
                                    "Model" "Model"
                                    "Model/id=:id" "Model"
                                    "ModelList" "ModelList"
                                    "ModelList/:search/:page" "ModelListSearch"
                                    "ModelList/:page" "ModelList"
-                                   
+
                                    "Product" "Product"
                                    "Product/id=:id" "Product"
                                    "ProductList" "ProductList"
                                    "ProductList/:search/:page" "ProductListSearch"
                                    "ProductList/:page" "ProductList"
-                                   
+
                                    "Event" "Event"
                                    "News" "News"
                                    "News/id=:id" "News"
                                    "" "default")
                   ;將key編碼，以支援中文的key(appengine不支援中文檔名)
-                  "StreetSnap"      
+                  "StreetSnap"
                   (fn [id]
                     (go (>! react/OnReact [:Router :toStreetSnap {:id (js/encodeURIComponent id)}])))
-                  
+
                   "StreetSnapList"
                   (fn [page]
                     (let [real (if (nil? page) 0 (int page))]
                       (go (>! react/OnReact [:Router :toStreetSnapList {:page real}]))))
-                      
-                  "StreetSnapListSearch" 
+
+                  "StreetSnapListSearch"
                   (fn [search page]
                     (go (>! react/OnReact [:Router :toStreetSnapList {:searchKey search :page (int page)}])))
-                  
-                  "Model"           
+
+                  "Model"
                   (fn [id]
                     (go (>! react/OnReact [:Router :toModel {:id (js/encodeURIComponent id)}])))
-                  
-                  "ModelList"       
+
+                  "ModelList"
                   (fn [page]
                     (let [real (if (nil? page) 0 (int page))]
                       (go (>! react/OnReact [:Router :toModelList {:page real}]))))
-                                      
-                  "ModelListSearch" 
+
+                  "ModelListSearch"
                   (fn [search page]
                     (go (>! react/OnReact [:Router :toModelList {:searchKey search :page (int page)}])))
-                  
-                  "Product"         
+
+                  "Product"
                   (fn [id]
                     (go (>! react/OnReact [:Router :toProduct {:id (js/encodeURIComponent id)}])))
-                  
-                  "ProductList"     
+
+                  "ProductList"
                   (fn [page]
                     (let [real (if (nil? page) 0 (int page))]
                       (go (>! react/OnReact [:Router :toProductList {:page real}]))))
-                      
-                  "ProductListSearch" 
+
+                  "ProductListSearch"
                   (fn [search page]
                     (go (>! react/OnReact [:Router :toProductList {:searchKey search :page (int page)}])))
-                  
-                  "Event"           
+
+                  "Event"
                   (fn [id]
                     (go (>! react/OnReact [:Router :toEvent {:id (js/encodeURIComponent id)}])))
-                  
-                  "News"            
+
+                  "News"
                   (fn [id]
                     (go (>! react/OnReact [:Router :toNews {:id (js/encodeURIComponent id)}])))
-                  
-                  "default"         
+
+                  "default"
                   #(go (>! react/OnReact [:Router :toHome nil])))
-                  
+
                 (.extend js/Backbone.Router))
         router (new Router)]
     router))
-    
+
 (main)

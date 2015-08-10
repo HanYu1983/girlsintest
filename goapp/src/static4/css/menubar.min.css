@@ -1,3 +1,11 @@
-#mc_menubar{top:50%;margin-top:-200px;}
 .navover{overflow:hidden;width:0;height:40px;}
 .navbarBtnHeight{height:40px;margin-top:5px;margin-right:10px;}
+#btn_nav_news{margin-bottom:20px;}
+@media screen and (min-width:481px){#mc_menubar{top:50%;margin-top:-200px;}}
+@media screen and (max-width:480px){#mc_menubar{left:0;bottom:0;margin-top:0;width:100%;}
+#mc_menubar>div>img{width:100%;position:relative;}
+.navover{overflow:hidden;width:0;height:40px;display:none;}
+.navbarBtnHeight{height:auto;float:left;width:50%;margin-top:0;margin-right:0;}
+#btn_nav_news{margin-bottom:0;}
+#btn_nav_advertise{display:none;}}
+

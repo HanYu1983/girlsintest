@@ -102,3 +102,16 @@
 	height: 379px;
 	margin-right: 10px;
 }
+
+@media screen and (max-width : 480px){
+	.fake3Dregion{
+		width: 100%;
+		height: auto;
+		margin-right: 0;
+		margin-bottom:150px;
+	}
+	
+	#mc_3d_container > img{
+		width:100%;
+	}
+}

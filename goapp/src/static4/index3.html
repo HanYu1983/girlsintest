@@ -374,7 +374,65 @@
 	</style>
 	<!-- streetsnap -->
 	<style>
+	#mc_streetsnap #mc_3d_container{
+		position:relative; 
+		width:380px; 
+		margin-left:10px; 
+		margin-right:10px;
+	}
 	
+	#mc_streetsnap #mc_detailAndImages{
+		position:absolute; 
+		right:10px; 
+		bottom:0; 
+		width:380px;
+	}
+	
+	#mc_streetsnap #mc_detailAndImages #mc_sideContainer{
+		position:absolute;
+		top:23%;
+		left:68%;
+		height:100%;
+	}
+	
+	#mc_streetsnap #mc_detailAndImages #img_stylePicture{
+		position:absolute; 
+		top:23%; 
+		width:65%;
+	}
+	
+	#mc_streetsnap #mc_pro{
+		position:absolute; 
+		right:10px; 
+		top:0; 
+		width:380px; 
+		height:100px;
+	}
+	
+	@media screen and ( max-width:1024px ){
+		#mc_streetsnap #mc_3d_container{
+			width:100%;
+			margin-left:0; 
+			margin-right:0;
+		}
+		
+		#mc_streetsnap #mc_detailAndImages{
+			position:relative; 
+			margin-top:-27%;
+			right:0; 
+			bottom:0; 
+			width:100%;
+		}
+		
+		#mc_streetsnap #mc_pro{
+			position:relative;
+			right:0; 
+			top:0; 
+			margin-top:2%;
+			width:100%; 
+			height:20%;
+		}
+	}
 	</style>
 	<body>
 		
@@ -414,7 +472,7 @@
 					</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
-						<div id="mc_3d_container" style="position:relative; width:380px; margin-left:10px; margin-right:10px;">
+						<div id="mc_3d_container">
 							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
 							<img style="position:absolute; width:100%; top:0; left:0;" src="images/streetSnap/3d_frame_all.png"/>
@@ -424,16 +482,16 @@
 							<img id="mc_3dmask" style="position:absolute; width:100%; height:100%; top:0; left:0;" src="images/streetSnap/3d_mask.jpg"></img>
 						</div>
 						
-						<div id="mc_pro" style="position:absolute; right:10px; top:0; width:380px; height:100px;">
+						<div id="mc_pro">
 							<div style="position:relative; width:100%; height:100%; background-color:white; opacity:.3"></div>
 							<div id="txt_proContent" style="position:absolute; top:5px; left:5px;" class="textBase">{{html protalk}}</div>
 						</div>
-						<div style="position:absolute; right:10px; bottom:0; width:380px;">
+						<div id="mc_detailAndImages">
 							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
-							<img id="img_stylePicture" style="position:absolute; top:23%; width:65%;" src=${styleUrl + "?Width=247&Height=370"} />
-							<div id="mc_sideContainer" style="position:absolute; top:23%; left:68%; height:100%;" >
+							<img id="img_stylePicture" src=${styleUrl + "?Width=247&Height=370"} />
+							<div id="mc_sideContainer" >
 								{{each sideList}}
-								<img id=${id} style="width:100%; height:24.2%; margin-bottom:10px;" src=${url} />
+								<img id=${id} style="width:100%; height:24.3%; margin-bottom:10px;" src=${url} />
 								{{/each}}
 							</div>
 						</div>

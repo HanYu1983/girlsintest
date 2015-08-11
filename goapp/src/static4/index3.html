@@ -55,7 +55,27 @@
 		position:relative;
 		width:100%;
 	}
-
+	
+	.img_next{
+		background:url(images/index/B_Next.png) no-repeat 50% 50%;
+		width:72px;
+		height:72px;
+	}
+	
+	.img_prev{
+		background:url(images/index/B_Front.png) no-repeat 50% 50%;
+		width:72px;
+		height:72px;
+	}
+	
+	.img_prev:hover{
+		background:url(images/index/A_Front.png) no-repeat 50% 50%;
+	}
+	
+	.img_next:hover{
+		background:url(images/index/A_Next.png) no-repeat 50% 50%;
+	}
+	
 	body, 
 	#root{
 		position:relative;
@@ -102,10 +122,22 @@
 		top:40%;
 	}
 	
-	@media screen and ( max-width:480px ){
+	#mc_loading{
+		display:none;
+		position:fixed;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background-color:black;
+		opacity:.7;
+	}
+	
+	@media screen and ( max-width:1024px ){
 		#mc_menubar{
 			left:0;
 			top:0;
+			display:none;
 		}
 	}
 	</style>
@@ -213,8 +245,22 @@
 		top:20%;
 	}
 	
-	.singleModel > #listSideSize{
-		width:30%;
+	.singleModel > .listSideSize{
+		width:32%;
+		height:24%;
+		left:68%;
+	}
+	
+	.singleModel > .l1{
+		top:20%;
+	}
+	
+	.singleModel > .l2{
+		top:46%;
+	}
+	
+	.singleModel > .l3{
+		top:72%;
 	}
 	
 	.singleModel #mc_modelTitle{
@@ -234,11 +280,15 @@
 	#mc_modelTitle > .background > #txt_name{
 		position:relative;
 		float:left;
+		top:30%;
+		margin-left:10px;
 	}
 	
 	#mc_modelTitle > .background > #txt_date{
 		position:relative;
 		float:right;
+		top:30%;
+		margin-right:10px;
 	}
 	
 	.singleModel > img{
@@ -253,7 +303,45 @@
 		background-color:rgb(122,122,122)
 	}
 	
-	@media screen and ( max-width:800px ){
+	.btn_next{
+		position:fixed;
+		right:10%;
+		top:50%;
+	}
+	
+	.btn_prev{
+		position:fixed;
+		left:10%;
+		top:50%;
+	}
+	
+	#btn_prevnextGrouop .btn_prev_2{
+		position:relative;
+		float:left;
+		margin-left:10px;
+		margin-bottom:10px;
+	}
+	
+	#btn_prevnextGrouop .btn_next_2{
+		position:relative;
+		float:right;
+		margin-right:10px;
+		margin-bottom:10px;
+	}
+	
+	#btn_prevnextGrouop,
+	#line_prevnextGrouop{
+		display:none;
+	}
+	
+	@media screen and ( max-width:1024px ){
+		#mc_streetsnap > .background{
+			width:100%;
+			left:0;
+			top:0;
+			margin-left:0;
+		}
+		
 		.content{
 			width:100%;
 			left:0;
@@ -262,6 +350,15 @@
 		.singleModel{
 			width:48%;
 			margin-left:10px;
+		}
+		#btn_prevnextGrouop,
+		#line_prevnextGrouop{
+			display:block;
+		}
+		
+		.btn_next,
+		.btn_prev{
+			display:none;
 		}
 	}
 	
@@ -397,10 +494,19 @@
 						{{/if}}
 					</div>
 					<img class="line" src="images/streetSnap/line.png"/>
+					<div id="btn_prevnextGrouop" class="group">
+						{{if prev_href != null}}
+						<a href=${prev_href}><div class='btn_prev_2 img_prev'></div></a>
+						{{/if}}
+						{{if next_href != null}}
+						<a href=${next_href}><div class='btn_next_2 img_next'></div></a>
+						{{/if}}
+					</div>
+					<img id="line_prevnextGrouop" class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
 						{{each streetsnapList}}
 						<div id=${id} class="singleModel">
-							<img class="ext_singleModel" src="images/test.JPG"/><!-- for extend container -->
+							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 							<div id="mc_modelTitle" class="">
 								<div style=${'background-color:'+ $item.brandToColor(brand)} class='background'>
 									<div id='txt_name' class='textBase'>${name}</div>
@@ -413,53 +519,18 @@
 								{{/if}}
 							</div>
 							<img id="img_listStylePicture" class='relative f_left' src=${imgStylePath + "?Width=193&Height=282"} />
-							<img class='listSideSize' src=${imgSideAPath} />
-							<img class='listSideSize' src=${imgSideBPath} />
-							<img class='listSideSize' src=${imgSideCPath} />
+							<img class='listSideSize l1' src=${imgSideAPath} />
+							<img class='listSideSize l2' src=${imgSideBPath} />
+							<img class='listSideSize l3' src=${imgSideCPath} />
 						</div>
 						{{/each}}
 					</div>
-					<!--
-					<div class="relative f_left textBase">精選</div>
-					<div id="mc_searchbar" class="relative f_right">
-						{{if searchWord.length > 0}}
-							<div class="textBase f_left">搜尋:${searchWord}</div>
-							<button id="btn_return">return</button>
-						{{else}}
-						<input id='input_search' class="relative f_left" placeholder='例:東區,碎花洋裝' />
-						<img id="btn_search" class="btn" src='images/streetSearch/search.png'/>
-						{{/if}}
-					</div>
-					
-					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
-					
-					<div id="mc_modelContainer">
-						{{each streetsnapList}}
-						<div id=${id} class="btn relative f_left singleModel" modelFrame>
-							<div id="mc_modelTitle" class="relative">
-								<div style=${'background-color:'+ $item.brandToColor(brand)} class='full white_cube absolute'></div>
-								<div id='txt_name' class='absolute textBase txt_name'>${name}</div>
-								{{if visibleDate}}
-								<div id='txt_date' class='absolute textBase txt_date'>${date}</div>
-								{{/if}}
-								{{if $item.checkHot(date) }}
-								<img style="position:absolute; right:-3px; top:-3px;" src="images/index/new_tag.png"></img>
-								{{/if}}
-							</div>
-							<img id="img_listStylePicture" class='relative f_left' src=${imgStylePath + "?Width=193&Height=282"} />
-							<img class='relative f_left listSideSize' src=${imgSideAPath} />
-							<img class='relative f_left listSideSize' src=${imgSideBPath} />
-							<img class='relative f_left listSideSize' src=${imgSideCPath} />
-						</div>
-						{{/each}}
-					</div>
-					-->
-						{{if prev_href != null}}
-					<a class="absolute left btn_prev" href=${prev_href}><div class='btn_prevnext img_prev'></div></a>
-						{{/if}}
-						{{if next_href != null}}
-					<a class="absolute right btn_next" href=${next_href}><div class='btn_prevnext img_next'></div></a>
-						{{/if}}
+					{{if prev_href != null}}
+					<a href=${prev_href}><div class='btn_prev img_prev'></div></a>
+					{{/if}}
+					{{if next_href != null}}
+					<a href=${next_href}><div class='btn_next img_next'></div></a>
+					{{/if}}
 				</div>
 			</div>
 		</script>
@@ -498,10 +569,10 @@
 						<div style="height:100px;" class="f_left w_full"></div>
 					</div>
 					{{if prev_href != null}}
-					<a class="absolute left btn_prev" href=${prev_href}><div class='btn_prevnext img_prev'></div></a>
+					<a class="absolute left btn_prev" href=${prev_href}><div class='btn_prev img_prev'></div></a>
 					{{/if}}
 					{{if next_href != null}}
-					<a class="absolute right btn_next" href=${next_href}><div class='btn_prevnext img_next'></div></a>
+					<a class="absolute right btn_next" href=${next_href}><div class='btn_next img_next'></div></a>
 					{{/if}}
 				</div>
 			</div>
@@ -579,11 +650,11 @@
 			<!-- popup -->
 			<div id="mc_popupContainer" class="absolute"></div>
 			<!-- loading -->
-			<div id="mc_loading" class="hide fixed full black_cube opacity_7">
-				<div style="left:50%; top:50%; margin-left:-84px; margin-top:-84px;" class="absolute">
-					<img class="absolute left top" src="images/loading/circle.png"/>
-					<img style="left:58px; top:43px;" class="absolute" src="images/loading/loading.gif"/>
-					<img style="left:40px; top:93px;" class="absolute" src="images/loading/loading_word.png"/>
+			<div id="mc_loading">
+				<div style="position:absolute; left:50%; top:50%; margin-left:-84px; margin-top:-84px;">
+					<img style="position:absolute; left:0; top:0;" src="images/loading/circle.png"/>
+					<img style="position:absolute; left:58px; top:43px;" src="images/loading/loading.gif"/>
+					<img style="position:absolute; left:40px; top:93px;" src="images/loading/loading_word.png"/>
 				</div>
 			</div>
 			

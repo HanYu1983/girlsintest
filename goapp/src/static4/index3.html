@@ -231,6 +231,7 @@
 		float:left;
 		width:31.7%;
 		margin-left:10px;
+		cursor:pointer;
 	}
 	
 	.singleModel #img_listStylePicture,
@@ -503,9 +504,9 @@
 						{{/if}}
 					</div>
 					<img id="line_prevnextGrouop" class="line" src="images/streetSnap/line.png"/>
-					<div class="group">
+					<div id="mc_modelContainer" class="group">
 						{{each streetsnapList}}
-						<div id=${id} class="singleModel">
+						<div id=${id} class="singleModel" modelFrame>
 							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 							<div id="mc_modelTitle" class="">
 								<div style=${'background-color:'+ $item.brandToColor(brand)} class='background'>

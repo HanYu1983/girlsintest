@@ -1,6 +1,8 @@
 <html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width , user-scalable=no">
+
 		<title>Sdyle</title>
 		<link href='css/basic.min.css' rel='stylesheet' type='text/css'/>
 		<link href='css/app.min.css' rel='stylesheet' type='text/css'/>
@@ -9,9 +11,9 @@
 		<link href='css/streetsnap.css' rel='stylesheet' type='text/css'/>
 		<link href='css/streetsnapSearch.css' rel='stylesheet' type='text/css'/>
 		<link href='css/bigPhoto.min.css' rel='stylesheet' type='text/css'/>
-		
-		
-		
+
+
+
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
 		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
 		<script src="js/lib/jquery/jquery.waitforimages.js"></script>
@@ -52,12 +54,12 @@
 		     fjs.parentNode.insertBefore(js, fjs);
 		   }(document, 'script', 'facebook-jssdk'));
 		</script>
-		
+
 	</head>
 	<body>
-		
+
 		<script type='x-jquery-tmpl' id='tmpl_home'>
-			<div class='hide fixed top left full'>
+			<div class='hide top left full'>
 				<div id="mc_centerLogo" class="absolute full">
 					<img id="mc_backLine" class='absolute' src='images/index/backgroundBigLine.png'/>
 					<img id="mc_bigLogo" class='absolute' src='images/index/big_LOGO.png'/>
@@ -66,7 +68,7 @@
 						<div id="mc_iframeBack" class='black_cube opacity_5'></div>
 						-->
 						<div id="mc_3d_container" class="relative f_left fake3Dregion">
-							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
+							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='100%' height='100%'></iframe>
 							<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
 							<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
 							<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
@@ -82,7 +84,7 @@
 				</div>
 			</div>
 		</script>
-							
+
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
 			<div class="hide full">
 				<div id="mc_center" class="absolute">
@@ -93,7 +95,7 @@
 						<div id="txt_date" class="relative f_right txt_size_title textBase">${date}</div>
 						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
 						<div id="mc_mainContainer" class="relative f_left">
-							
+
 							<div id="mc_3d_container" class="relative f_left fake3Dregion">
 								<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='323px' height='379px' class="absolute"></iframe>
 								<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
@@ -104,7 +106,7 @@
 								{{/if}}
 								<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
 							</div>
-							
+
 							<div id="mc_pro" class="relative f_left">
 								<div class="absolute full white_cube opacity_3"></div>
 								<div id="txt_proContent" class="absolute textBase">{{html protalk}}</div>
@@ -120,7 +122,7 @@
 						<div class="relative f_left margin_topB textBase">${category}照片</div>
 						-->
 						<img class='relative f_left margin_topB mc_line' src='images/streetSnap/line.png'/>
-						
+
 						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
 							{{each bottomList}}
 								<img id=${id} class='btn relative f_left bottomPicture' src=${url} />
@@ -141,7 +143,7 @@
 							<iframe class="fb-comments" width=700 height=500 src=${ "comment.html?key=" + encodeURIComponent(window.location.href) }></iframe>
 						</div>
 						{{/if}}
-						
+
 						<!--
 						<div id="fbcommentContainer" class="w_full relative white_cube f_left">
 							<!--
@@ -161,7 +163,7 @@
 				</div>
 			</div>
 		</script>
-		
+
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
 			<div class="hide full">
 				<div id="mc_center" class="absolute h_full">
@@ -208,7 +210,7 @@
 				</div>
 			</div>
 		</script>
-							
+
 		<script type="x-jquery-tmpl" id="tmpl_bigPhoto">
 			<div class="hide full">
 				<div id="mc_bigPhotoBack" class='fixed full black_cube opacity_7'></div>
@@ -217,7 +219,7 @@
 				</div>
 			</div>
 		</script>
-							
+
 		<script type='x-jquery-tmpl' id='tmpl_news'>
 			<div class='full'>
 				<div id="mc_center" class="absolute h_full">
@@ -251,7 +253,7 @@
 				</div>
 			</div>
 		</script>
-							
+
 		<div class="root">
 			<!-- background -->
 			<div class="fixed top left full">
@@ -308,7 +310,7 @@
 					<img class="absolute disable" src='images/navbar/PRODUCTS.png'></img>
 					<div class="absolute disable navover"><img src='images/navbar/PRODUCTS_over.jpg'/></div>
 				</div>
-				<div style="opacity:0" class='navbarBtnHeight'>
+				<div id="btn_nav_advertise" style="opacity:0" class='navbarBtnHeight'>
 					<img src='images/navbar/advertise.png'></img>
 				</div>
 			</div>
@@ -331,7 +333,7 @@
 					<img style="left:40px; top:93px;" class="absolute" src="images/loading/loading_word.png"/>
 				</div>
 			</div>
-			
+
 			<!-- fb plugin -->
 			<!--
 			<div id="fbPluginPool" style="display:none">
@@ -339,7 +341,7 @@
 			</div>
 			-->
 		</div>
-		
+
 	</body>
 	<script>
 	waitForImages = function(){
@@ -353,7 +355,7 @@
 	function digestRequest( url ){
 		var p = $.Deferred()
 		var req = new digestAuthRequest('GET', url, 'john', 'hello');
-		req.request( 
+		req.request(
 			function( data ){
 				p.resolve( data )
 			},

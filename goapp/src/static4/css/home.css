@@ -16,3 +16,37 @@
 	width:323px;
 	height:379px;
 }
+
+/* For ipad: */
+@media screen and (max-width : 768px){
+	#btn_backhome{
+		display:none;
+	}
+} 
+
+@media screen and (max-width : 480px){
+	#mc_centerLogo{
+		left:0;
+		margin-left:0;
+	}
+	#mc_bigLogo{
+		top:10%;
+		left:0;
+		width:100%;
+		margin-top:0;
+		left:0;
+	}
+	#mc_3dIframeBorder{
+		top:28%;
+		width:100%;
+		margin-top:0;
+		left:0;
+	}
+	#mc_iframeBack{
+		width:323px;
+		height:379px;
+	}
+	#mc_backLine{
+		display:none;
+	}
+}

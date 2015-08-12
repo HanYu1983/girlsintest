@@ -49,8 +49,7 @@
 	.line{
 		position:relative;
 		width:100%;
-		margin-top:10px;
-		margin-bottom:10px;
+		padding-bottom:10px;
 	}
 	
 	.ext_singleModel{
@@ -108,6 +107,7 @@
 		width:100%;
 		left:0;
 		top:0;
+		margin-bottom:50px;
 	}
 	
 	.group_full{
@@ -124,6 +124,12 @@
 		top:40%;
 	}
 	
+	#mc_header_right{
+		position:absolute; 
+		right:0; 
+		top:0;
+	}
+	
 	#mc_loading{
 		display:none;
 		position:fixed;
@@ -135,15 +141,39 @@
 		opacity:.7;
 	}
 	
-	@media screen and ( max-width:1000px ){
+	#mc_footer{
+		position:fixed; 
+		left:0; 
+		bottom:0; 
+		width:100%; 
+		height:50px;
+	}
+	
+	.btn_foot{
+		position:relative;
+		float:left;
+		cursor:pointer;
+	}
+	
+	@media screen and ( max-width:1024px ){
 		#mc_menubar{
 			left:0;
 			top:0;
 			display:none;
 		}
 		
+		#mc_header_right{
+			position:relative;
+		}
+		
 		.textBase {
 			font-size:28px;
+		}
+	}
+	
+	@media screen and ( max-width:480px ){
+		#mc_footer{
+			height:100px;
 		}
 	}
 	</style>
@@ -215,10 +245,8 @@
 		height:100%;
 		left:50%;
 		margin-left:-400px;
-	}
-	
-	.content > #mc_title{
-		margin-top:100px;
+		margin-top:60px;
+		margin-bottom:60px;
 	}
 	
 	#txt_title{
@@ -235,7 +263,7 @@
 	
 	.singleModel{
 		position:relative;
-		float:left;
+		display:inline-block;
 		width:31.7%;
 		margin-left:10px;
 		cursor:pointer;
@@ -342,11 +370,7 @@
 		display:none;
 	}
 	
-	@media screen and ( max-width:768px ){
-		
-	}
-	
-	@media screen and ( max-width:1000px ){
+	@media screen and ( max-width:1024px ){
 		#mc_streetsnap > .background,
 		#mc_streetsnap_list > .background{
 			width:100%;
@@ -359,6 +383,8 @@
 			width:100%;
 			left:0;
 			margin-left:0;
+			margin-top:100px;
+			margin-bottom:100px;
 		}
 		
 		#btn_prevnextGrouop,
@@ -400,9 +426,6 @@
 			display:none;
 		}
 		
-		.content > #mc_title{
-			margin-top:30px;
-		}
 	}
 	</style>
 	<!-- streetsnap -->
@@ -443,7 +466,12 @@
 		height:100px;
 	}
 	
-	@media screen and ( max-width:1000px ){
+	.img_refModel{
+		cursor:pointer;
+		width:10%;
+	}
+	
+	@media screen and ( max-width:1024px ){
 		#mc_streetsnap #mc_3d_container{
 			width:100%;
 			margin-left:0; 
@@ -468,6 +496,31 @@
 			margin-top:2%;
 			width:100%; 
 			height:20%;
+		}
+		
+		.img_refModel{
+			width:24%;
+		}
+	}
+	</style>
+	<!-- big photo -->
+	<style>
+	#img_photo{
+		position:absolute; 
+		left:50%; 
+		top:50%; 
+		width:800px; 
+		height:600px; 
+		margin-left:-400px;
+		margin-top:-300px;
+	}
+	
+	@media screen and ( max-width:1024px ){
+		#img_photo{
+			width:480px; 
+			height:360px; 
+			margin-left:-240px;
+			margin-top:-180px;
 		}
 	}
 	</style>
@@ -504,9 +557,7 @@
 			<div id="mc_streetsnap" class="page">
 				<div class="background"></div>
 				<div class="content">
-					<div class="group">
-						<div id="txt_name" class="relative f_left txt_size_title textBase">${name}</div>
-					</div>
+					<div id="txt_name" class="textBase" >${name}</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
 						<div id="mc_3d_container">
@@ -533,6 +584,7 @@
 							</div>
 						</div>
 					</div>
+					<div class="textBase">MODEL相片</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div id="mc_bottomContainer" class="group">
 						{{each bottomList}}
@@ -555,11 +607,13 @@
 					</div>
 					<div class="textBase">相關MODEL</div>
 					<img class="line" src="images/streetSnap/line.png"/>
-					<div class="group">
+					<div id="mc_historyContainer" class="group">
 						{{each historyList}}
-						<img id=${id} style="width:10%;" src=${url} />
+						<img id=${id} class="img_refModel"src=${url} />
 						{{/each}}
+						<!--
 						<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
+						-->
 					</div>
 					{{if visibleFBComment}}
 					<div class="textBase">FB留言</div>
@@ -572,73 +626,6 @@
 					{{/if}}
 				</div>
 			</div>
-			<!--
-			<div class="hide full">
-				<div id="mc_center" class="absolute">
-					<div id="mc_background" class="fixed h_full"></div>
-					<div class="mainContainer margin_leftA margin_topA">
-						<div id="txt_name" class="relative f_left txt_size_title textBase">${name}</div>
-						<img id="btn_share" src="images/index/topBtn_04.png" style="margin-top:-23px;" class="btn relative f_right" />
-						<div id="txt_date" class="relative f_right txt_size_title textBase">${date}</div>
-						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
-						<div id="mc_mainContainer" class="relative f_left">
-							
-							<div id="mc_3d_container" class="relative f_left fake3Dregion">
-								<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='323px' height='379px' class="absolute"></iframe>
-								<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
-								<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
-								<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
-								{{if visibleFullscreen}}
-								<img id='btn_fullscreen' style="right:1px; bottom:1px;" class="btn absolute" src="images/streetSnap/full.png"/>
-								{{/if}}
-								<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
-							</div>
-							
-							<div id="mc_pro" class="relative f_left">
-								<div class="absolute full white_cube opacity_3"></div>
-								<div id="txt_proContent" class="absolute textBase">{{html protalk}}</div>
-							</div>
-							<img id="img_stylePicture" class='btn relative f_left' src=${styleUrl + "?Width=266&Height=282"} />
-							<div id="mc_sideContainer">
-								{{each sideList}}
-								<img id=${id} class='btn relative f_left sidePicture' src=${url} />
-								{{/each}}
-							</div>
-						</div>
-						<img class='relative f_left margin_topB mc_line' src='images/streetSnap/line.png'/>
-						
-						<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
-							{{each bottomList}}
-								<img id=${id} class='btn relative f_left bottomPicture' src=${url} />
-							{{/each}}
-						</div>
-							<div class="relative f_left margin_topB textBase">${bottomTab1}</div>
-						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
-						<div style="width:650px" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
-							{{html modelDetail }}
-						</div>
-						<div id="txt_name2" class="relative f_left margin_topB textBase">${bottomTab2}</div>
-						<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
-						<div id="txt_modelMeeting" style="width:650px"  style="margin-bottom:100px;" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
-							{{html talk}}
-						</div>
-						{{if visibleFBComment}}
-						<div id="fbcommentContainer" style="height:500px;" class="w_full relative white_cube f_left">
-							<iframe class="fb-comments" width=700 height=500 src=${ "comment.html?key=" + encodeURIComponent(window.location.href) }></iframe>
-						</div>
-						{{/if}}
-						<div id="mc_historyList" class="absolute">
-							<div id="mc_historyContainer">
-								{{each historyList}}
-								<img id=${id} class="btn historyImgSize" src=${url} />
-								{{/each}}
-							</div>
-							<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
-						</div>
-					</div>
-				</div>
-			</div>
-			-->
 		</script>
 		
 		<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
@@ -689,22 +676,24 @@
 						</div>
 						{{/each}}
 					</div>
+					<div class="group">
+						<div style="position:relative; width:100%; left:0; top:0; height:60px; "></div>
+					</div>
 					{{if prev_href != null}}
 					<a href=${prev_href}><div class='btn_prev img_prev'></div></a>
 					{{/if}}
 					{{if next_href != null}}
 					<a href=${next_href}><div class='btn_next img_next'></div></a>
 					{{/if}}
+					
 				</div>
 			</div>
 		</script>
 							
 		<script type="x-jquery-tmpl" id="tmpl_bigPhoto">
-			<div class="hide full">
-				<div id="mc_bigPhotoBack" class='fixed full black_cube opacity_7'></div>
-				<div id="mc_bigPhotoFixPosition" class='fixed full '>
-					<img style="position:relative; left:50%; top:50%; width:600px; height:480px; margin-left:-300px; margin-top:-240px;" id='img_photo' src=${url} class='relative'/>
-				</div>
+			<div style="position:fixed; left:0; top:0; width:100%; height:100%;">
+				<div id="mc_bigPhotoBack" style="position:relative; top:0; left:0; width:100%; height:100%; background-color:black; opacity:.7; "></div>
+				<img id='img_photo' src=${url} class='relative'/>
 			</div>
 		</script>
 							
@@ -753,23 +742,33 @@
 			<!-- pages -->
 			<div id='mc_pageContainer' class='absolute full'></div>
 			<!-- header -->
-			<div id="mc_header" class='fixed left top w_full'>
-				<div id="mc_head_background" class='absolute w_full black_cube opacity_3 white_outline_1 top left'></div>
-				<a href="https://www.youtube.com/channel/UCKcij0EBO8ydDAOYDinxTnw/playlists" target="_blank">
-					<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
-				</a>
-				<a href="https://www.facebook.com/sdyle.net" target="_blank"><img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/></a>
-				<a href="mailto:sdyle.net@gmail.com"><img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/></a>
-				<a href="mailto:sdyle.net@gmail.com"><img style='top:-7px;' class="relative f_right fixedTop" src='images/index/joinMD.png'></a>
-				<img style='top:-5px; margin-right:10px;' class="relative f_right fixedTop" src='images/index/joinMD_text.png'>
-				<div id="btn_backhome" class="btn">
-					<img id="img_homeLogo" class='relative' src='images/index/small_Logo.png'/>
-					<img id="img_streetSnapLogo" class='relative hide' src='images/index/backhomeStreet.png'/>
-					<img id="img_streetNewsLogo" class='relative hide' src='images/index/backhomeNews.png'/>
-					<img id="img_streetModelsLogo" class='relative hide' src='images/index/backhomeModels.png'/>
-					<img id="img_streetEventLogo" class='relative hide' src='images/index/backhomeEvent.png'/>
-					<img id="img_streetCelebrityLogo" class='relative hide' src='images/index/backhomeCelebrity.png'/>
-					<img id="img_streetProductLogo" class='relative hide' src='images/index/backhomeProducts.png'/>
+			<div id="mc_header" style="position:fixed; left:0; top:0; width:100%; height:50px; ">
+				<div id="mc_head_background" style="position:relative; width:100%; height:100%; background-color:black; opacity:.3; outline:white 1px solid; left:0; top:0;"></div>
+				<div id="mc_header_right" >
+					<a href="https://www.youtube.com/channel/UCKcij0EBO8ydDAOYDinxTnw/playlists" target="_blank">
+						<img style="position:relative; float:right; top:-10px; " src='images/index/topBtn_05.png'/>
+					</a>
+					<a href="https://www.facebook.com/sdyle.net" target="_blank">
+						<img style="position:relative; float:right; top:-10px; " src='images/index/topBtn_04.png'/>
+					</a>
+					<a href="mailto:sdyle.net@gmail.com">
+						<img style="position:relative; float:right; top:-11px; " src='images/index/topBtn_03.png'/>
+					</a>
+					<a href="mailto:sdyle.net@gmail.com">
+						<img style="position:relative; float:right; top:-5px; " src='images/index/joinMD.png'>
+					</a>
+					<img style='position:relative; float:right; top:-5px; margin-right:10px;' src='images/index/joinMD_text.png'>
+				</div>
+				<div style="position:absolute; left:0; top:0;">
+					<div id="btn_backhome" style="position:relative; float:left; cursor:pointer;">
+						<img id="img_homeLogo" style="position:relative; left:0; top:0;" src='images/index/small_Logo.png'/>
+						<img id="img_streetSnapLogo" style="position:relative; left:0; top:0; display:none;" src='images/index/backhomeStreet.png'/>
+						<img id="img_streetNewsLogo" style="position:relative; left:0; top:0; display:none;" src='images/index/backhomeNews.png'/>
+						<img id="img_streetModelsLogo" style="position:relative; left:0; top:0; display:none;" src='images/index/backhomeModels.png'/>
+						<img id="img_streetEventLogo" style="position:relative; left:0; top:0; display:none;" src='images/index/backhomeEvent.png'/>
+						<img id="img_streetCelebrityLogo" style="position:relative; left:0; top:0; display:none;" src='images/index/backhomeCelebrity.png'/>
+						<img id="img_streetProductLogo" style="position:relative; left:0; top:0; display:none;" src='images/index/backhomeProducts.png'/>
+					</div>
 				</div>
 			</div>
 			<!-- menubar -->
@@ -803,13 +802,15 @@
 				</div>
 			</div>
 			<!-- footer -->
-			<div id="mc_footer" class="hide fixed left w_full bottom">
-				<div id="mc_foot_background" class='absolute w_full black_cube opacity_3 white_outline_1'></div>
-				<img class="btn relative" src='images/index/bottomBtn_01.png'/>
-				<img class="btn relative" src='images/index/bottomBtn_02.png'/>
-				<img class="btn relative" src='images/index/bottomBtn_03.png'/>
-				<img class="btn relative" src='images/index/bottomBtn_04.png'/>
-				<img class="btn relative" src='images/index/bottomBtn_05.png'/>
+			<div id="mc_footer" >
+				<div id="mc_foot_background" style="position:relative; left:0; top:0; width:100%; height:100%; background-color:black; opacity:.3; outline:white 1px solid; "></div>
+				<div style="position:absolute; left:0; top:0; width:100%; height:100%;">
+					<img style="position:relative; float:left; cursor:pointer;" class="btn_foot" src='images/index/bottomBtn_01.png'/>
+					<img style="position:relative; float:left; cursor:pointer;" class="btn_foot" src='images/index/bottomBtn_02.png'/>
+					<img style="position:relative; float:left; cursor:pointer;" class="btn_foot" src='images/index/bottomBtn_03.png'/>
+					<img style="position:relative; float:left; cursor:pointer;" class="btn_foot" src='images/index/bottomBtn_04.png'/>
+					<img class="btn_foot" src='images/index/bottomBtn_05.png'/>
+				</div>
 			</div>
 			<!-- popup -->
 			<div id="mc_popupContainer" class="absolute"></div>

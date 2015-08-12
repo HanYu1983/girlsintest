@@ -41,9 +41,24 @@
 	</head>
 	<!-- framework -->
 	<style>
+	.navover{
+		position:relative;
+		top:0;
+		left:0;
+		overflow:hidden;
+		height:40px;
+		pointer-events:none;
+	}
+	
 	.textBase {
 		color: white;
 		font-family: 'Microsoft JhengHei';
+	}
+	
+	.txt_content {
+		line-height: 23px;
+		letter-spacing: 1px;
+		opacity: .5;
 	}
 	
 	.line{
@@ -122,6 +137,29 @@
 		position:fixed;
 		right:0;
 		top:40%;
+	}
+	
+	#mc_menubar > .navbarBtnHeight{
+		position:relative;
+		left:0;
+		top:0;
+	}
+	
+	#mc_menubar > .navbarBtnHeight > .btn_nav_normal{
+		position:relative;
+		left:0;
+		top:0;
+		margin-bottom:5px;
+		cursor:pointer;
+	}
+	
+	#mc_menubar > .navbarBtnHeight > .btn_nav_over{
+		position:absolute;
+		top:0;
+		left:0;
+		width:0;
+		overflow:hidden;
+		pointer-events:none;
 	}
 	
 	#mc_header_right{
@@ -231,18 +269,18 @@
 	#mc_streetsnap > .background,
 	#mc_streetsnap_list > .background{
 		position:fixed;
-		width:800px;
+		width:860px;
 		height:100%;
 		top:0;
 		left:50%;
-		margin-left:-400px;
+		margin-left:-430px;
 		background-color:#333333;
 	}
 	
 	.content{
 		position:relative;
 		width:800px;
-		height:100%;
+		height:auto;
 		left:50%;
 		margin-left:-400px;
 		margin-top:60px;
@@ -557,13 +595,18 @@
 			<div id="mc_streetsnap" class="page">
 				<div class="background"></div>
 				<div class="content">
-					<div id="txt_name" class="textBase" >${name}</div>
+					<div id="txt_name" style="font-size:20px;" class="textBase" >${name}</div>
+					<div style="position:absolute; right:0; top:0; ">
+						<img id="btn_share" src="images/index/topBtn_04.png" style="position:relative; float:right; top:-29px; cursor:pointer;" />
+						<div id="txt_date" style="position:relative; float:right;"  class="textBase">${date}</div>
+					</div>
+					
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
 						<div id="mc_3d_container">
 							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
-							<img style="position:absolute; width:100%; top:0; left:0;" src="images/streetSnap/3d_frame_all.png"/>
+							<img style="position:absolute; width:100%; top:0; left:0; pointer-events:none;" src="images/streetSnap/3d_frame_all.png"/>
 							{{if visibleFullscreen}}
 							<img style="position:absolute; right:20px; bottom:20px;" id='btn_fullscreen' src="images/streetSnap/full.png"/>
 							{{/if}}
@@ -594,14 +637,14 @@
 					<div class="textBase">${bottomTab1}</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
-						<div style="width:100%" class="textBase">
+						<div style="width:100%" class="textBase txt_content">
 							{{html modelDetail }}
 						</div>
 					</div>
 					<div id="txt_name2" class="textBase">${bottomTab2}</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
-						<div id="txt_modelMeeting" style="width:100%; margin-bottom:100px;" class="textBase">
+						<div id="txt_modelMeeting" style="width:100%; margin-bottom:100px;" class="textBase txt_content">
 							{{html talk}}
 						</div>
 					</div>
@@ -675,9 +718,6 @@
 							<img class='listSideSize l3' src=${imgSideCPath} />
 						</div>
 						{{/each}}
-					</div>
-					<div class="group">
-						<div style="position:relative; width:100%; left:0; top:0; height:60px; "></div>
 					</div>
 					{{if prev_href != null}}
 					<a href=${prev_href}><div class='btn_prev img_prev'></div></a>
@@ -772,30 +812,30 @@
 				</div>
 			</div>
 			<!-- menubar -->
-			<div id="mc_menubar" class="fixed right">
-				<div id='btn_nav_news' class='btn navbarBtnHeight'>
-					<img class="absolute disable" src='images/navbar/NEWS.png'></img>
-					<div class="absolute disable navover"><img src='images/navbar/NEWS_over.jpg'/></div>
+			<div id="mc_menubar">
+				<div id='btn_nav_news' class='navbarBtnHeight'>
+					<img class="btn_nav_normal" src='images/navbar/NEWS.png'></img>
+					<div class="btn_nav_over"><img src='images/navbar/NEWS_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_celebrity' class='hide btn navbarBtnHeight'>
-					<img class="absolute disable" src='images/navbar/CELEBRITY.png'></img>
-					<div class="absolute disable navover"><img src='images/navbar/CELEBRITY_over.jpg'/></div>
+					<img class="btn_nav_normal" src='images/navbar/CELEBRITY.png'></img>
+					<div class="btn_nav_over"><img src='images/navbar/CELEBRITY_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_model' class='btn navbarBtnHeight'>
-					<img class="absolute disable" src='images/navbar/MODELS.png'></img>
-					<div class="absolute disable navover"><img src='images/navbar/MODELS_over.jpg'/></div>
+					<img class="btn_nav_normal" src='images/navbar/MODELS.png'></img>
+					<div class="btn_nav_over"><img src='images/navbar/MODELS_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_event' class='hide btn navbarBtnHeight'>
-					<img class="absolute disable" src='images/navbar/EVENT.png'></img>
-					<div class="absolute disable navover"><img src='images/navbar/EVENT_over.jpg'/></div>
+					<img class="btn_nav_normal" src='images/navbar/EVENT.png'></img>
+					<div class="btn_nav_over"><img src='images/navbar/EVENT_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_streetSnap' class='btn navbarBtnHeight'>
-					<img class="absolute disable" src='images/navbar/STREET-SNAP.png'></img>
-					<div class="absolute disable navover"><img src='images/navbar/STREET-SNAP_over.jpg'/></div>
+					<img class="btn_nav_normal" src='images/navbar/STREET-SNAP.png'></img>
+					<div class="btn_nav_over"><img src='images/navbar/STREET-SNAP_over.jpg'/></div>
 				</div>
 				<div id='btn_nav_product' class='btn navbarBtnHeight'>
-					<img class="absolute disable" src='images/navbar/PRODUCTS.png'></img>
-					<div class="absolute disable navover"><img src='images/navbar/PRODUCTS_over.jpg'/></div>
+					<img class="btn_nav_normal" src='images/navbar/PRODUCTS.png'></img>
+					<div class="btn_nav_over"><img src='images/navbar/PRODUCTS_over.jpg'/></div>
 				</div>
 				<div style="opacity:0" class='navbarBtnHeight'>
 					<img src='images/navbar/advertise.png'></img>

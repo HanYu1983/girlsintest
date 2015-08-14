@@ -100,12 +100,12 @@
         handleBtnMouseOut (fn [evt]
                             (this-as that
                               (let [btnSelf (js/$ that)
-                                    btnOver (.find btnSelf ".navover")]
+                                    btnOver (.find btnSelf ".btn_nav_over")]
                                 (.animate btnOver (js-obj "width" "0px") 300))))
         handleBtnMouseOver (fn [evt]
                             (this-as that
                               (let [btnSelf (js/$ that)
-                                    btnOver (.find btnSelf ".navover")]
+                                    btnOver (.find btnSelf ".btn_nav_over")]
                                 (.animate btnOver (js-obj "width" "120px") 300))))]
     (.delegate menubar "div" "mouseover" handleBtnMouseOver)
     (.delegate menubar "div" "mouseout" handleBtnMouseOut)

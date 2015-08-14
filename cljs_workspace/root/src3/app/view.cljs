@@ -132,7 +132,7 @@
     (let [[err model] (<! modelChan)
           tmpl (js/$ "#tmpl_bigPhoto")
           elem (.tmpl tmpl model tmpl-item)
-          back (.find elem "#mc_bigPhotoFixPosition")]
+          back elem]
       (.on back "click" #(go (>! react/OnReact [key :close nil])))
       {:elem elem :name key})))
       

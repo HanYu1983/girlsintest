@@ -5,7 +5,7 @@ api_version: go1
 
 handlers:
 - url: /sdyle
-  static_dir: static4
+  static_dir: web
 - url: /test
   static_dir: test
 - url: /.*

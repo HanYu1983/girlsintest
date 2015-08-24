@@ -41,10 +41,19 @@
                                  :reset             [:Home act/Navigate]
                                  :toNews            [:News act/Navigate]
                                  :toEvent           [:Event act/Navigate]
-                                 :toModelList       [:ModelList act/Navigate]
-                                 :toStreetSnapList  [:StreetSnapList act/Navigate]
-                                 :toProductList     [:ProductList act/Navigate]
-                                 :taggleMenu        [:nil identity]}
+                                 :toModelList       [:ModelList 
+                                                     (act/ComposeAction
+                                                        act/ToggleMenu
+                                                        act/Navigate)]
+                                 :toStreetSnapList  [:StreetSnapList 
+                                                     (act/ComposeAction
+                                                        act/ToggleMenu
+                                                        act/Navigate)]
+                                 :toProductList     [:ProductList 
+                                                     (act/ComposeAction
+                                                        act/ToggleMenu
+                                                        act/Navigate)]
+                                 :menuClick        [:nil act/ToggleMenu]}
                 :StreetSnapList {:toDetail [:StreetSnap act/Navigate]
                                  :search   [:StreetSnapList act/Navigate]
                                  :reset    [:StreetSnapList act/Navigate]}
@@ -85,20 +94,22 @@
                             startday (.add (.today js/Date) (js-obj "days" -1))
                             now (.parse js/Date timestr)]
                         (.between now startday tomorrow))))
+        
+        menubarElem (.find root "#mc_menubar")
+        
         ctx {:root root
              :router urlRouter
              :views {}
              :container (.find root "#mc_pageContainer")
              :popupContainer (.find root "#mc_popupContainer")
              :tmpl-item tmpl-item}]
-    (menubar root)
+    (menubar menubarElem)
     (header urlRouter root)
     (go (async/reduce (partial react/React route) ctx react/OnReact))
     (.start js/Backbone.history)))
 
-(defn menubar [root]
-  (let [menubar (.find root "#mc_menubar")
-        handleBtnMouseOut (fn [evt]
+(defn menubar [elem]
+  (let [handleBtnMouseOut (fn [evt]
                             (this-as that
                               (let [btnSelf (js/$ that)
                                     btnOver (.find btnSelf ".btn_nav_over")]
@@ -108,9 +119,9 @@
                               (let [btnSelf (js/$ that)
                                     btnOver (.find btnSelf ".btn_nav_over")]
                                 (.animate btnOver (js-obj "width" "120px") 300))))]
-    (.delegate menubar "div" "mouseover" handleBtnMouseOver)
-    (.delegate menubar "div" "mouseout" handleBtnMouseOut)
-    (.delegate menubar "div" "click"
+    (.delegate elem "div" "mouseover" handleBtnMouseOver)
+    (.delegate elem "div" "mouseout" handleBtnMouseOut)
+    (.delegate elem "div" "click"
       (fn [evt]
         (this-as that
           (let [id (.-id that)
@@ -131,7 +142,7 @@
     (.click btn_home
       #(go (>! react/OnReact [:Home :reset nil])))
     (.click btn_menu
-      #(go (>! react/OnReact [:Home :taggleMenu nil])))))
+      #(go (>! react/OnReact [:Home :menuClick nil])))))
 
 (defn create-router []
   (let [Router (->>

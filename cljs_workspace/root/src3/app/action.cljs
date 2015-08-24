@@ -82,3 +82,12 @@
 (defn ShowLoadingImage [ctx {view-obj :view-obj :as args}]
   (js/waitForImages)
   ctx)
+  
+  
+(defn ToggleMenu [{root :root :as ctx} args]
+  (let [menu-elem (.find root "#mc_menubar")
+        isHide (= "none" (.css menu-elem "display"))]
+    (if isHide
+      (.show menu-elem)
+      (.hide menu-elem)))
+  ctx)

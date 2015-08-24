@@ -11,7 +11,7 @@
         ; The standard ClojureScript compiler options:
         ; (See the ClojureScript compiler documentation for details.)
         :compiler {
-          :output-to "../../goapp/src/static4/js/cljslib/cljs.js"  ; default: target/cljsbuild-main.js
-          :output-dir "../../goapp/src/static4/js/cljslib"
+          :output-to "../../goapp/src/web/js/cljslib/cljs.js"  ; default: target/cljsbuild-main.js
+          :output-dir "../../goapp/src/web/js/cljslib"
           :optimizations :none
           :pretty-print false}}]})

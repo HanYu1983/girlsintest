@@ -43,7 +43,8 @@
                                  :toEvent           [:Event act/Navigate]
                                  :toModelList       [:ModelList act/Navigate]
                                  :toStreetSnapList  [:StreetSnapList act/Navigate]
-                                 :toProductList     [:ProductList act/Navigate]}
+                                 :toProductList     [:ProductList act/Navigate]
+                                 :taggleMenu        [:nil identity]}
                 :StreetSnapList {:toDetail [:StreetSnap act/Navigate]
                                  :search   [:StreetSnapList act/Navigate]
                                  :reset    [:StreetSnapList act/Navigate]}
@@ -125,9 +126,12 @@
             (go (>! react/OnReact route))))))))
 
 (defn header [router root]
-  (let [btn_home (.find root "#btn_backhome")]
+  (let [btn_home (.find root "#btn_backhome")
+        btn_menu (.find root "#btn_menu")]
     (.click btn_home
-      #(go (>! react/OnReact [:Home :reset nil])))))
+      #(go (>! react/OnReact [:Home :reset nil])))
+    (.click btn_menu
+      #(go (>! react/OnReact [:Home :taggleMenu nil])))))
 
 (defn create-router []
   (let [Router (->>

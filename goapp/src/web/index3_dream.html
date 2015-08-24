@@ -1,0 +1,395 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Sdyle</title>
+		<link rel="stylesheet" type="text/css" href="css/normalize.min.css">
+			
+		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
+		<script src="js/lib/jquery/jquery.tmpl.min.js"></script>
+		<script src="js/lib/jquery/jquery.waitforimages.js"></script>
+		<script src='js/lib/jquery.cookie.js'></script>
+		<script src="js/lib/sketchfab/sketchfab-iframe.js"></script>
+		<script src='js/lib/underscore/underscore-min.js'></script>
+		<script src='js/lib/backbone/backbone.js'></script>
+		<script src='js/lib/bacon/Bacon.js'></script>
+		<script src='js/lib/rxjs/rx.all.js'></script>
+		<script src='js/lib/async/async.js'></script>
+		<script src='js/lib/vic/vic.facebook.js'></script>
+		<script src='js/lib/vic/vic.mvc.js'></script>
+		<script src='js/lib/date.js'></script>
+		<script src='//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js'></script>
+		<script>
+		window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '701105573368357',
+		      xfbml      : true,
+		      version    : 'v2.3'
+		    });
+		  };
+
+		  (function(d, s, id){
+		     var js, fjs = d.getElementsByTagName(s)[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement(s); js.id = id;
+		     js.src = "//connect.facebook.net/en_US/sdk.js";
+		     fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+		</script>
+		
+	</head>
+	<!-- framework -->
+	<script type='x-jquery-tmpl' id='tmpl_home'>
+		<div class='hide fixed top left full'>
+			<div id="mc_centerLogo" class="absolute full">
+				<img id="mc_backLine" class='absolute' src='images/index/backgroundBigLine.png'/>
+				<img id="mc_bigLogo" class='absolute' src='images/index/big_LOGO.png'/>
+				<div id="mc_3dIframeBorder" class='absolute'>
+					<!--
+					<div id="mc_iframeBack" class='black_cube opacity_5'></div>
+					-->
+					<div id="mc_3d_container" class="relative f_left fake3Dregion">
+						<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
+						<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
+						<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
+						<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
+						<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
+						<a href=${ moreUrl }>
+						<img class='absolute right bottom btn' src='images/index/More.png'/>
+						</a>
+					</div>
+					<!--
+					<img id="mc_3dIframeBorderLine" class='absolute top left' src='images/streetSnap/pinkBorder.png'/>
+					-->
+				</div>
+			</div>
+		</div>
+	</script>
+						
+	<script type='x-jquery-tmpl' id='tmpl_streetsnap'>
+		<div class="hide full">
+			<div id="mc_center" class="absolute">
+				<div id="mc_background" class="fixed h_full"></div>
+				<div class="mainContainer margin_leftA margin_topA">
+					<div id="txt_name" class="relative f_left txt_size_title textBase">${name}</div>
+					<img id="btn_share" src="images/index/topBtn_04.png" style="margin-top:-23px;" class="btn relative f_right" />
+					<div id="txt_date" class="relative f_right txt_size_title textBase">${date}</div>
+					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+					<div id="mc_mainContainer" class="relative f_left">
+						
+						<div id="mc_3d_container" class="relative f_left fake3Dregion">
+							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='323px' height='379px' class="absolute"></iframe>
+							<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
+							<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
+							<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
+							{{if visibleFullscreen}}
+							<img id='btn_fullscreen' style="right:1px; bottom:1px;" class="btn absolute" src="images/streetSnap/full.png"/>
+							{{/if}}
+							<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
+						</div>
+						
+						<div id="mc_pro" class="relative f_left">
+							<div class="absolute full white_cube opacity_3"></div>
+							<div id="txt_proContent" class="absolute textBase">{{html protalk}}</div>
+						</div>
+						<img id="img_stylePicture" class='btn relative f_left' src=${styleUrl + "?Width=266&Height=282"} />
+						<div id="mc_sideContainer">
+							{{each sideList}}
+							<img id=${id} class='btn relative f_left sidePicture' src=${url} />
+							{{/each}}
+						</div>
+					</div>
+					<!--
+					<div class="relative f_left margin_topB textBase">${category}照片</div>
+					-->
+					<img class='relative f_left margin_topB mc_line' src='images/streetSnap/line.png'/>
+					
+					<div id="mc_bottomContainer" class="relative f_left margin_photoLeft sectionBorder">
+						{{each bottomList}}
+							<img id=${id} class='btn relative f_left bottomPicture' src=${url} />
+						{{/each}}
+					</div>
+						<div class="relative f_left margin_topB textBase">${bottomTab1}</div>
+					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+					<div style="width:650px" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
+						{{html modelDetail }}
+					</div>
+					<div id="txt_name2" class="relative f_left margin_topB textBase">${bottomTab2}</div>
+					<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+					<div id="txt_modelMeeting" style="width:650px"  style="margin-bottom:100px;" class="relative f_left margin_photoLeft sectionBorder txt_content textBase">
+						{{html talk}}
+					</div>
+					{{if visibleFBComment}}
+					<div id="fbcommentContainer" style="height:500px;" class="w_full relative white_cube f_left">
+						<iframe class="fb-comments" width=700 height=500 src=${ "comment.html?key=" + encodeURIComponent(window.location.href) }></iframe>
+					</div>
+					{{/if}}
+					
+					<!--
+					<div id="fbcommentContainer" class="w_full relative white_cube f_left">
+						<!--
+						<div id="fbcomment" class="fb-comments" data-href="//test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap" data-numposts="5" data-colorscheme="light"></div>
+						--/>
+					</div>
+					-->
+					<div id="mc_historyList" class="absolute">
+						<div id="mc_historyContainer">
+							{{each historyList}}
+							<img id=${id} class="btn historyImgSize" src=${url} />
+							{{/each}}
+						</div>
+						<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+	
+	<script type='x-jquery-tmpl' id='tmpl_streetsnap_list'>
+		<div id="mc_streetsnap" class="page">
+			<div class="background"></div>
+			<div class="content">
+				<div id="mc_title" class="group">
+					<div id="txt_title" class="textBase">精選</div>
+					{{if searchWord.length > 0}}
+						<div class="textBase f_left">搜尋:${searchWord}</div>
+						<button id="btn_return">return</button>
+					{{else}}
+					<div id="mc_search">
+						<input id='input_search' placeholder='例:東區,碎花洋裝' />
+						<img id="btn_search" src='images/streetSearch/search.png'/>
+					</div>
+					{{/if}}
+				</div>
+				<img class="line" src="images/streetSnap/line.png"/>
+				<div class="group">
+					{{each streetsnapList}}
+					<div id=${id} class="singleModel">
+						<img class="ext_singleModel" src="images/test.JPG"/><!-- for extend container -->
+						<div id="mc_modelTitle" class="">
+							<div style=${'background-color:'+ $item.brandToColor(brand)} class='background'>
+								<div id='txt_name' class='textBase'>${name}</div>
+								{{if visibleDate}}
+								<div id='txt_date' class='textBase'>${date}</div>
+								{{/if}}
+							</div>
+							{{if $item.checkHot(date) }}
+							<img style="position:absolute; right:-3px; top:-3px;" src="images/index/new_tag.png"></img>
+							{{/if}}
+						</div>
+						<img id="img_listStylePicture" class='relative f_left' src=${imgStylePath + "?Width=193&Height=282"} />
+						<img class='listSideSize' src=${imgSideAPath} />
+						<img class='listSideSize' src=${imgSideBPath} />
+						<img class='listSideSize' src=${imgSideCPath} />
+					</div>
+					{{/each}}
+				</div>
+				<!--
+				<div class="relative f_left textBase">精選</div>
+				<div id="mc_searchbar" class="relative f_right">
+					{{if searchWord.length > 0}}
+						<div class="textBase f_left">搜尋:${searchWord}</div>
+						<button id="btn_return">return</button>
+					{{else}}
+					<input id='input_search' class="relative f_left" placeholder='例:東區,碎花洋裝' />
+					<img id="btn_search" class="btn" src='images/streetSearch/search.png'/>
+					{{/if}}
+				</div>
+				
+				<img class='relative f_left mc_line' src='images/streetSnap/line.png'/>
+				
+				<div id="mc_modelContainer">
+					{{each streetsnapList}}
+					<div id=${id} class="btn relative f_left singleModel" modelFrame>
+						<div id="mc_modelTitle" class="relative">
+							<div style=${'background-color:'+ $item.brandToColor(brand)} class='full white_cube absolute'></div>
+							<div id='txt_name' class='absolute textBase txt_name'>${name}</div>
+							{{if visibleDate}}
+							<div id='txt_date' class='absolute textBase txt_date'>${date}</div>
+							{{/if}}
+							{{if $item.checkHot(date) }}
+							<img style="position:absolute; right:-3px; top:-3px;" src="images/index/new_tag.png"></img>
+							{{/if}}
+						</div>
+						<img id="img_listStylePicture" class='relative f_left' src=${imgStylePath + "?Width=193&Height=282"} />
+						<img class='relative f_left listSideSize' src=${imgSideAPath} />
+						<img class='relative f_left listSideSize' src=${imgSideBPath} />
+						<img class='relative f_left listSideSize' src=${imgSideCPath} />
+					</div>
+					{{/each}}
+				</div>
+				-->
+					{{if prev_href != null}}
+				<a class="absolute left btn_prev" href=${prev_href}><div class='btn_prevnext img_prev'></div></a>
+					{{/if}}
+					{{if next_href != null}}
+				<a class="absolute right btn_next" href=${next_href}><div class='btn_prevnext img_next'></div></a>
+					{{/if}}
+			</div>
+		</div>
+	</script>
+						
+	<script type="x-jquery-tmpl" id="tmpl_bigPhoto">
+		<div class="hide full">
+			<div id="mc_bigPhotoBack" class='fixed full black_cube opacity_7'></div>
+			<div id="mc_bigPhotoFixPosition" class='fixed full '>
+				<img style="position:relative; left:50%; top:50%; width:600px; height:480px; margin-left:-300px; margin-top:-240px;" id='img_photo' src=${url} class='relative'/>
+			</div>
+		</div>
+	</script>
+						
+	<script type='x-jquery-tmpl' id='tmpl_news'>
+		<div class='full'>
+			<div id="mc_center" class="absolute h_full">
+				<div id="mc_background" class="fixed h_full"></div>
+				<div style="width:700px; left:50%; margin-left:-350px;" class="absolute">
+					<div style="height:60px;" class="w_fill"></div>
+					<div style="margin-left:10px;" class="f_left txt_content textBase">{{html title}}</div>
+					<div style="margin-right:10px;" class="f_right txt_content textBase">{{html date}}</div>
+					<img style="margin-bottom:10px;" class='relative w_full f_left' src='images/streetSnap/line.png'/>
+					<div style="width:250px;" class="f_left">
+						{{each sideList}}
+							{{if $index == 0}}
+							<img style="margin-bottom:10px; width:95%;" src=${path + "?Width=200&Height=200"} />
+							{{else}}
+							<img style="margin-bottom:10px; margin-right:8px; width:45%;" src=${path + "?Width=200&Height=200"} />
+							{{/if}}
+						{{/each}}
+					</div>
+					<div style="width:440px;" class="f_left">
+						<div class="txt_content textBase">{{html content}}</div>
+						<div class="f_right txt_content textBase">{{html from}}</div>
+					</div>
+					<div style="height:100px;" class="f_left w_full"></div>
+				</div>
+				{{if prev_href != null}}
+				<a class="absolute left btn_prev" href=${prev_href}><div class='btn_prevnext img_prev'></div></a>
+				{{/if}}
+				{{if next_href != null}}
+				<a class="absolute right btn_next" href=${next_href}><div class='btn_prevnext img_next'></div></a>
+				{{/if}}
+			</div>
+		</div>
+	</script>
+			
+	<body>
+		
+		
+							
+		<div class="root">
+			<!-- background -->
+			<div id="mc_background" class="">
+				<div id="mc_backgroundBack" class=''></div>
+				<img id="mc_mainBg" class=''/>
+				<div id="mc_fadeOutTop" class=''></div>
+				<div id="mc_fadeOutBottom" class=''></div>
+			</div>
+			<!-- pages -->
+			<div id='mc_pageContainer' class='absolute full'></div>
+			<!-- header -->
+			<div id="mc_header" class='fixed left top w_full'>
+				<div id="mc_head_background" class='absolute w_full black_cube opacity_3 white_outline_1 top left'></div>
+				<a href="https://www.youtube.com/channel/UCKcij0EBO8ydDAOYDinxTnw/playlists" target="_blank">
+					<img class="relative f_right fixedTop" src='images/index/topBtn_05.png'/>
+				</a>
+				<a href="https://www.facebook.com/sdyle.net" target="_blank"><img class="relative f_right fixedTop" src='images/index/topBtn_04.png'/></a>
+				<a href="mailto:sdyle.net@gmail.com"><img class="relative f_right fixedTop" src='images/index/topBtn_03.png'/></a>
+				<a href="mailto:sdyle.net@gmail.com"><img style='top:-7px;' class="relative f_right fixedTop" src='images/index/joinMD.png'></a>
+				<img style='top:-5px; margin-right:10px;' class="relative f_right fixedTop" src='images/index/joinMD_text.png'>
+				<div id="btn_backhome" class="btn">
+					<img id="img_homeLogo" class='relative' src='images/index/small_Logo.png'/>
+					<img id="img_streetSnapLogo" class='relative hide' src='images/index/backhomeStreet.png'/>
+					<img id="img_streetNewsLogo" class='relative hide' src='images/index/backhomeNews.png'/>
+					<img id="img_streetModelsLogo" class='relative hide' src='images/index/backhomeModels.png'/>
+					<img id="img_streetEventLogo" class='relative hide' src='images/index/backhomeEvent.png'/>
+					<img id="img_streetCelebrityLogo" class='relative hide' src='images/index/backhomeCelebrity.png'/>
+					<img id="img_streetProductLogo" class='relative hide' src='images/index/backhomeProducts.png'/>
+				</div>
+			</div>
+			<!-- menubar -->
+			<div id="mc_menubar" style="position:absolute; left: 445px; top: 275px;">
+				<div id='btn_nav_news' class='btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/NEWS.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/NEWS_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_celebrity' class='hide btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/CELEBRITY.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/CELEBRITY_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_model' class='btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/MODELS.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/MODELS_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_event' class='hide btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/EVENT.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/EVENT_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_streetSnap' class='btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/STREET-SNAP.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/STREET-SNAP_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_product' class='btn navbarBtnHeight'>
+					<img class="absolute disable" src='images/navbar/PRODUCTS.png'></img>
+					<div class="absolute disable navover"><img src='images/navbar/PRODUCTS_over.jpg'/></div>
+				</div>
+				<div style="opacity:0" class='navbarBtnHeight'>
+					<img src='images/navbar/advertise.png'></img>
+				</div>
+			</div>
+			<!-- footer -->
+			<div id="mc_footer" class="hide fixed left w_full bottom">
+				<div id="mc_foot_background" class='absolute w_full black_cube opacity_3 white_outline_1'></div>
+				<img class="btn relative" src='images/index/bottomBtn_01.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_02.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_03.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_04.png'/>
+				<img class="btn relative" src='images/index/bottomBtn_05.png'/>
+		  </div>
+			<!-- popup -->
+			<div id="mc_popupContainer" class="absolute"></div>
+			<!-- loading -->
+			<div id="mc_loading" class="hide fixed full black_cube opacity_7">
+				<div style="left:50%; top:50%; margin-left:-84px; margin-top:-84px;" class="absolute">
+					<img class="absolute left top" src="images/loading/circle.png"/>
+					<img style="left:58px; top:43px;" class="absolute" src="images/loading/loading.gif"/>
+					<img style="left:40px; top:93px;" class="absolute" src="images/loading/loading_word.png"/>
+				</div>
+			</div>
+			
+			<!-- fb plugin -->
+			<!--
+			<div id="fbPluginPool" style="display:none">
+				<div id="fbcomment" style="margin-bottom:100px; margin-left:73px; margin-top:20px;" class="fb-comments" data-href="//test-girlsin3d.appspot.com/angular-test-coffee/index.html#streetsnap"  data-width="540px" data-numposts="5" data-colorscheme="light"></div>
+			</div>
+			-->
+		</div>
+		
+	</body>
+	<script>
+	waitForImages = function(){
+		$("#mc_loading").fadeIn(400)
+		$('#mc_pageContainer').waitForImages({ waitForAll : true, finished : function() {
+			$("#mc_loading").fadeOut()
+		}});
+	}
+	</script>
+	<script>
+	function digestRequest( url ){
+		var p = $.Deferred()
+		var req = new digestAuthRequest('GET', url, 'john', 'hello');
+		req.request( 
+			function( data ){
+				p.resolve( data )
+			},
+			function( err ){
+				p.reject( err )
+			}
+		)
+		return p
+	}
+	</script>
+  <script src="js/cljslib/goog/base.js" type="text/javascript"></script>
+  <script src='js/cljslib/cljs.js'></script>
+  <script>
+	goog.require("app.main");
+  </script>
+</html>

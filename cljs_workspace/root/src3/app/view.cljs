@@ -130,9 +130,11 @@
 (defmethod react/view-ch :Big [{:keys [tmpl-item] :as ctx} key modelChan]
   (go
     (let [[err model] (<! modelChan)
+          root-elem (js/$ "body")
+          _ (set! (.-url model) (str (.-url model) "?Width=" (.width root-elem) "&Height=" (.height root-elem)))
           tmpl (js/$ "#tmpl_bigPhoto")
           elem (.tmpl tmpl model tmpl-item)
-          back (.find elem "#mc_bigPhotoFixPosition")]
+          back elem]
       (.on back "click" #(go (>! react/OnReact [key :close nil])))
       {:elem elem :name key})))
       

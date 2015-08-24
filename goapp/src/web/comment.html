@@ -15,7 +15,7 @@
 	<body>
 		<script>
 		function appendComment(href){
-			document.write('<div id="fbcomment" style="margin-bottom:100px; margin-left:73px; margin-top:20px;" class="fb-comments" data-href="'+href+'" data-width="540px" data-numposts="5" data-colorscheme="light"></div>')
+			document.write('<div id="fbcomment" class="fb-comments" data-href="'+href+'" data-width="100%" data-numposts="5" data-colorscheme="light"></div>')
 		}
 		var url = $.url(window.location.search)
 		var key = decodeURIComponent(url.param("key"))

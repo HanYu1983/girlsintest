@@ -110,7 +110,7 @@
                              SortByDate
                              (take 6))
                   ConvertHeadDTO (fn [[key, detail]]
-                                   (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg"))))
+                                   (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg?Width=200&Height=200"))))
                   CreateImageDTO (fn [ServeFn idxs]
                                    (let [urls (for [idx idxs] (str dir "/" id "/image_" idx ".jpg"))
                                          dtos (for [url urls] (js-obj "id" url "url" (ServeFn url)))]

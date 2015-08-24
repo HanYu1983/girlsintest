@@ -237,6 +237,10 @@
 		}
 	}
 	
+	@media screen and ( max-width:480px ){
+		
+	}
+	
 	@media screen and ( max-width:460px ){
 		#mc_footer{
 			height:100px;
@@ -275,7 +279,13 @@
 		bottom:5px; 
 		right:5px;
 	}
-	 
+	
+	@media screen and ( max-width:1024px ){
+		#mc_bigLogo{
+			display:none;
+		}
+	}
+	
 	@media screen and ( max-width:480px ){
 		#mc_bigLogo,
 		#mc_backLine{
@@ -518,7 +528,7 @@
 		}
 		
 		.singleModel{
-			width:100%;
+			width:49%;
 			margin-left:0;
 		}
 		
@@ -545,6 +555,14 @@
 		#btn_search{
 			display:none;
 		}
+	}
+	
+	@media screen and ( max-width:480px ){
+		
+		.singleModel{
+			width:100%;
+		}
+		
 		
 	}
 	</style>
@@ -622,6 +640,39 @@
 			width:24%;
 		}
 	}
+	
+	@media screen and ( max-width:480px ){
+		#mc_streetsnap #mc_3d_container{
+			width:100%;
+			margin-left:0; 
+			margin-right:0;
+			left:0;
+		}
+		
+		#mc_streetsnap #mc_detailAndImages{
+			position:relative; 
+			margin-top:-27%;
+			right:initial; 
+			bottom:0; 
+			width:100%;
+			left:0;
+		}
+		
+		#mc_streetsnap #mc_pro{
+			position:relative;
+			right:initial; 
+			top:0; 
+			left:0;
+			margin-top:2%;
+			width:100%; 
+			height:20%;
+		}
+		
+		.img_refModel{
+			width:24%;
+		}
+	}
+	
 	</style>
 	<!-- big photo -->
 	<style>
@@ -662,22 +713,6 @@
 						</a>
 					</div>
 				</div>
-				
-				
-				<!--
-				<div id="mc_3dIframeBorder" class='absolute'>
-					<div id="mc_3d_container" class="relative f_left fake3Dregion">
-						<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} class='absolute top left' width='323px' height='379px'></iframe>
-						<img class="relative" src="images/streetSnap/3d_frame_01.png"/>
-						<img class="relative disable" src="images/streetSnap/3d_frame_02_fat.png"/>
-						<img class="relative" src="images/streetSnap/3d_frame_03.png"/>
-						<img id="mc_3dmask" style="top:0px; left:0px;" src="images/streetSnap/3d_mask.jpg" class="absolute"></img>
-						<a href=${ moreUrl }>
-						<img class='absolute right bottom btn' src='images/index/More.png'/>
-						</a>
-					</div>
-				</div>
-				-->
 			</div>
 		</script>
 							

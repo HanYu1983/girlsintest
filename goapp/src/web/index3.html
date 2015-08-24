@@ -277,6 +277,13 @@
 		right:5px;
 	}
 	
+	#mc_3d_container{
+		position:relative; 
+		width:400px; 
+		display:inline-block;
+	}
+	
+	
 	@media screen and ( max-width:768px ){
 		#mc_bigLogo{
 			display:none;
@@ -291,16 +298,12 @@
 		
 		#mc_3d_container{
 			width:100%;
-			margin-bottom:
 		}
 		
 		#mc_mainContainer{
 			margin-bottom:100px; 
 		}
 		
-		#btn_more{
-			width:30%;
-		}
 	}
 	</style>
 	
@@ -373,7 +376,6 @@
 		left:50%;
 		margin-left:-400px;
 		margin-top:60px;
-		margin-bottom:60px;
 	}
 	
 	#txt_title{
@@ -515,8 +517,6 @@
 			width:100%;
 			left:0;
 			margin-left:0;
-			margin-top:100px;
-			margin-bottom:100px;
 		}
 		
 		#btn_prevnextGrouop,
@@ -676,7 +676,7 @@
 				<img id="mc_backLine" src='images/index/backgroundBigLine.png'/>
 				<div id='mc_mainContainer' >
 					<img id="mc_bigLogo" src='images/index/big_LOGO.png'/>
-					<div id="mc_3d_container" style='position:relative; width:400px; display:inline-block;'>
+					<div id="mc_3d_container">
 						<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 						<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
 						<img style="position:absolute; width:100%; top:0; left:0; pointer-events:none;" src="images/streetSnap/3d_frame_all.png"/>

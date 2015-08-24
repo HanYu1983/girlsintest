@@ -139,17 +139,23 @@
 		top:40%;
 	}
 	
+	#mc_menubar > #btn_nav_bemodel,
+	#mc_menubar > #btn_nav_contactus,
+	#mc_menubar > #btn_nav_facebook{
+		display:none;
+	}
+	
 	#mc_menubar > .navbarBtnHeight{
 		position:relative;
 		left:0;
 		top:0;
+		margin-bottom:5px;
 	}
 	
 	#mc_menubar > .navbarBtnHeight > .btn_nav_normal{
 		position:relative;
 		left:0;
 		top:0;
-		margin-bottom:5px;
 		cursor:pointer;
 	}
 	
@@ -161,6 +167,7 @@
 		overflow:hidden;
 		pointer-events:none;
 	}
+	
 	
 	#mc_header_right{
 		position:absolute; 
@@ -187,6 +194,10 @@
 		height:50px;
 	}
 	
+	#btn_menu{
+		display:none;
+	}
+	
 	.btn_foot{
 		position:relative;
 		float:left;
@@ -195,13 +206,24 @@
 	
 	@media screen and ( max-width:1024px ){
 		#mc_menubar{
-			left:0;
-			top:0;
-			display:none;
+			right:0;
+			top:50px;
+			display:;
 		}
 		
 		#mc_header_right{
 			position:relative;
+			display:none;
+		}
+		
+		#mc_menubar > #btn_nav_bemodel,
+		#mc_menubar > #btn_nav_contactus,
+		#mc_menubar > #btn_nav_facebook{
+			display:block;
+		}
+		
+		#btn_menu{
+			display:block;
 		}
 		
 		.textBase {
@@ -784,6 +806,7 @@
 			<!-- header -->
 			<div id="mc_header" style="position:fixed; left:0; top:0; width:100%; height:50px; ">
 				<div id="mc_head_background" style="position:relative; width:100%; height:100%; background-color:black; opacity:.3; outline:white 1px solid; left:0; top:0;"></div>
+				<img id="btn_menu" style='position:absolute; top:0; right:0; width:50px; ' src='images/navbar/menu.png'/>
 				<div id="mc_header_right" >
 					<a href="https://www.youtube.com/channel/UCKcij0EBO8ydDAOYDinxTnw/playlists" target="_blank">
 						<img style="position:relative; float:right; top:-10px; " src='images/index/topBtn_05.png'/>
@@ -811,6 +834,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<!-- menubar -->
 			<div id="mc_menubar">
 				<div id='btn_nav_news' class='navbarBtnHeight'>
@@ -836,6 +860,21 @@
 				<div id='btn_nav_product' class='btn navbarBtnHeight'>
 					<img class="btn_nav_normal" src='images/navbar/PRODUCTS.png'></img>
 					<div class="btn_nav_over"><img src='images/navbar/PRODUCTS_over.jpg'/></div>
+				</div>
+				<div id='btn_nav_bemodel' class='btn navbarBtnHeight'>
+					<a href="mailto:sdyle.net@gmail.com">
+						<img class="btn_nav_normal" src='images/navbar/BE-MODEL.png'></img>
+					</a>
+				</div>
+				<div id='btn_nav_contactus' class='btn navbarBtnHeight'>
+					<a href="mailto:sdyle.net@gmail.com">
+						<img class="btn_nav_normal" src='images/navbar/CONTACT-US.png'></img>
+					</a>
+				</div>
+				<div id='btn_nav_facebook' class='btn navbarBtnHeight'>
+					<a href="https://www.facebook.com/sdyle.net" target="_blank">
+						<img class="btn_nav_normal" src='images/navbar/FACEBOOK.png'></img>
+					</a>
 				</div>
 				<div style="opacity:0" class='navbarBtnHeight'>
 					<img src='images/navbar/advertise.png'></img>

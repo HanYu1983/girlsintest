@@ -85,9 +85,15 @@
   
   
 (defn ToggleMenu [{root :root :as ctx} args]
-  (let [menu-elem (.find root "#mc_menubar")
+  (let [media-query-info (js/$ "#media-query-info")
+        should-apply-this 
+        (or
+          (= "1px" (.css media-query-info "left"))
+          (= "2px" (.css media-query-info "left")))
+        menu-elem (.find root "#mc_menubar")
         isHide (= "none" (.css menu-elem "display"))]
-    (if isHide
-      (.show menu-elem)
-      (.hide menu-elem)))
+    (when should-apply-this
+      (if isHide
+        (.show menu-elem)
+        (.hide menu-elem))))
   ctx)

@@ -41,6 +41,12 @@
 	</head>
 	<!-- framework -->
 	<style>
+	// left (0px, 1px, 2px) = (PC, IPAD, IPHONE)
+	#media-query-info{
+		left:0px;	
+		position: absolute;
+	}
+	
 	.navover{
 		position:relative;
 		top:0;
@@ -205,6 +211,11 @@
 	}
 	
 	@media screen and ( max-width:768px ){
+		
+		#media-query-info{
+			left:1px;	
+		}
+		
 		#mc_menubar{
 			right:0;
 			top:50px;
@@ -238,6 +249,10 @@
 	}
 	
 	@media screen and ( max-width:480px ){
+		#media-query-info{
+			left:2px;	
+		}
+		
 		.btn_foot{
 			margin-left:-13px;
 		}
@@ -664,7 +679,6 @@
 	
 	</style>
 	<body>
-		
 		<script type='x-jquery-tmpl' id='tmpl_home'>
 			<div id="mc_index" class='page'>
 				<img id="mc_backLine" src='images/index/backgroundBigLine.png'/>
@@ -674,9 +688,6 @@
 						<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 						<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
 						<img style="position:absolute; width:100%; top:0; left:0; pointer-events:none;" src="images/streetSnap/3d_frame_all.png"/>
-						{{if visibleFullscreen}}
-						<img style="position:absolute; right:20px; bottom:20px;" id='btn_fullscreen' src="images/streetSnap/full.png"/>
-						{{/if}}
 						<img id="mc_3dmask" style="position:absolute; width:100%; height:100%; top:0; left:0;" src="images/streetSnap/3d_mask.jpg"></img>
 						<a href=${ moreUrl }>
 							<img id='btn_more' src='images/index/More.png'/>
@@ -703,7 +714,7 @@
 							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
 							<img style="position:absolute; width:100%; top:0; left:0; pointer-events:none;" src="images/streetSnap/3d_frame_all.png"/>
 							{{if visibleFullscreen}}
-							<img style="position:absolute; right:20px; bottom:20px;" id='btn_fullscreen' src="images/streetSnap/full.png"/>
+							<img style="position:absolute; right:20px; bottom:20px; cursor:pointer;" id='btn_fullscreen' src="images/streetSnap/full.png"/>
 							{{/if}}
 							<img id="mc_3dmask" style="position:absolute; width:100%; height:100%; top:0; left:0;" src="images/streetSnap/3d_mask.jpg"></img>
 						</div>
@@ -978,7 +989,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<div id='media-query-info'></div>
 	</body>
 	<script>
 	waitForImages = function(){

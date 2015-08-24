@@ -238,14 +238,11 @@
 	}
 	
 	@media screen and ( max-width:480px ){
-		
-	}
-	
-	@media screen and ( max-width:460px ){
-		#mc_footer{
-			height:100px;
+		.btn_foot{
+			margin-left:-13px;
 		}
 	}
+	
 	</style>
 	
 	<!-- index -->
@@ -280,6 +277,13 @@
 		right:5px;
 	}
 	
+	#mc_3d_container{
+		position:relative; 
+		width:400px; 
+		display:inline-block;
+	}
+	
+	
 	@media screen and ( max-width:768px ){
 		#mc_bigLogo{
 			display:none;
@@ -294,16 +298,12 @@
 		
 		#mc_3d_container{
 			width:100%;
-			margin-bottom:
 		}
 		
 		#mc_mainContainer{
 			margin-bottom:100px; 
 		}
 		
-		#btn_more{
-			width:30%;
-		}
 	}
 	</style>
 	
@@ -376,7 +376,6 @@
 		left:50%;
 		margin-left:-400px;
 		margin-top:60px;
-		margin-bottom:60px;
 	}
 	
 	#txt_title{
@@ -500,6 +499,11 @@
 		display:none;
 	}
 	
+	#input_search{
+		position:relative;
+		top:-5px;
+	}
+	
 	@media screen and ( max-width:768px ){
 		#mc_streetsnap > .background,
 		#mc_streetsnap_list > .background{
@@ -513,8 +517,6 @@
 			width:100%;
 			left:0;
 			margin-left:0;
-			margin-top:100px;
-			margin-bottom:100px;
 		}
 		
 		#btn_prevnextGrouop,
@@ -550,6 +552,7 @@
 			width:100%;
 			height:100%;
 			text-font:28px;
+			top:10px;
 		}
 		
 		#btn_search{
@@ -651,18 +654,23 @@
 	<style>
 	#img_photo{
 		position:absolute; 
-		left:0; 
-		top:0; 
-		width:100%; 
-		height:100%;
+		left:50%;
+		top:50%;
+		width:800px; 
+		height:600px; 
+		margin-left:-400px;
+		margin-top:-300px;
 	}
 	
 	@media screen and ( max-width:768px ){
 		#img_photo{
-			width:480px; 
-			height:360px; 
-			margin-left:-240px;
-			margin-top:-180px;
+			position:absolute; 
+			left:0; 
+			top:0; 
+			width:100%; 
+			height:100%;
+			margin-left:0;
+			margin-top:0;
 		}
 	}
 	</style>
@@ -673,7 +681,7 @@
 				<img id="mc_backLine" src='images/index/backgroundBigLine.png'/>
 				<div id='mc_mainContainer' >
 					<img id="mc_bigLogo" src='images/index/big_LOGO.png'/>
-					<div id="mc_3d_container" style='position:relative; width:400px; display:inline-block;'>
+					<div id="mc_3d_container">
 						<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 						<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
 						<img style="position:absolute; width:100%; top:0; left:0; pointer-events:none;" src="images/streetSnap/3d_frame_all.png"/>
@@ -924,11 +932,11 @@
 			
 			<!-- menubar -->
 			<div id="mc_menubar">
-				<div id='btn_nav_news' class='navbarBtnHeight'>
+				<div id='btn_nav_news' style='display:none' class='navbarBtnHeight'>
 					<img class="btn_nav_normal" src='images/navbar/NEWS.png'></img>
 					<div class="btn_nav_over"><img src='images/navbar/NEWS_over.jpg'/></div>
 				</div>
-				<div id='btn_nav_celebrity' class='hide btn navbarBtnHeight'>
+				<div id='btn_nav_celebrity' style='display:none'  class='hide btn navbarBtnHeight'>
 					<img class="btn_nav_normal" src='images/navbar/CELEBRITY.png'></img>
 					<div class="btn_nav_over"><img src='images/navbar/CELEBRITY_over.jpg'/></div>
 				</div>
@@ -936,7 +944,7 @@
 					<img class="btn_nav_normal" src='images/navbar/MODELS.png'></img>
 					<div class="btn_nav_over"><img src='images/navbar/MODELS_over.jpg'/></div>
 				</div>
-				<div id='btn_nav_event' class='hide btn navbarBtnHeight'>
+				<div id='btn_nav_event' style='display:none' class='hide btn navbarBtnHeight'>
 					<img class="btn_nav_normal" src='images/navbar/EVENT.png'></img>
 					<div class="btn_nav_over"><img src='images/navbar/EVENT_over.jpg'/></div>
 				</div>
@@ -951,7 +959,9 @@
 				<div id='btn_nav_bemodel' class='btn navbarBtnHeight'>
 					<a href="mailto:sdyle.net@gmail.com">
 						<img class="btn_nav_normal" src='images/navbar/BE-MODEL.png'></img>
+						<img style='position:absolute; left:-115px; top:-5px; ' src='images/navbar/joinMD_text2.png'/>
 					</a>
+					
 				</div>
 				<div id='btn_nav_contactus' class='btn navbarBtnHeight'>
 					<a href="mailto:sdyle.net@gmail.com">

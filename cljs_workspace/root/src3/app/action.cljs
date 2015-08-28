@@ -84,12 +84,11 @@
   ctx)
   
   
-(defn ToggleMenu [{root :root :as ctx} args]
-  (let [media-query-info (js/$ "#media-query-info")
-        should-apply-this 
-        (or
-          (= "1px" (.css media-query-info "left"))
-          (= "2px" (.css media-query-info "left")))
+(defn ToggleMenu [{root :root media-type :media-type :as ctx} args]
+  (let [should-apply-this
+        (or 
+          (= :iphone media-type)
+          (= :ipad media-type))
         menu-elem (.find root "#mc_menubar")
         isHide (= "none" (.css menu-elem "display"))]
     (when should-apply-this

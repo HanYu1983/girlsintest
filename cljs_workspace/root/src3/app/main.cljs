@@ -97,12 +97,21 @@
         
         menubarElem (.find root "#mc_menubar")
         
+        media-query-info (js/$ "#media-query-info")
+        media-type
+        (condp = (.css media-query-info "left")
+          "0px" :pc
+          "1px" :ipad
+          "2px" :iphone
+          :iphone)
+                  
         ctx {:root root
              :router urlRouter
              :views {}
              :container (.find root "#mc_pageContainer")
              :popupContainer (.find root "#mc_popupContainer")
-             :tmpl-item tmpl-item}]
+             :tmpl-item tmpl-item
+             :media-type media-type}]
     (menubar menubarElem)
     (header urlRouter root)
     (go (async/reduce (partial react/React route) ctx react/OnReact))

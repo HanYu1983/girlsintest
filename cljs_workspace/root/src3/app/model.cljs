@@ -50,42 +50,61 @@
     details))
 
 (defn defcommonlistmodel [name]
-  (defmethod react/model-ch name [ctx key {:keys [searchKey page] :as args}]
+  (defmethod react/model-ch name [{media-type :media-type :as ctx} key {:keys [searchKey page] :as args}]
     (let [configType (configType name)
           ret (chan)]
       (doto (fn/GetAllModelOnce "config.json" configType)
         (.done 
           (fn [config details] 
-            (let [modelCountPerPage (if (> (.height (js/$ js/window)) 768) 9 6)
-                  filtered (->> details  ;注意！本來為map，被轉為seq
-                             (AvaliableIs true)
-                             SortByDate
-                             (FilterBySearch searchKey)
-                             (drop (* page modelCountPerPage))
-                             (take modelCountPerPage))
-                  totalPage (int (/ (count filtered) modelCountPerPage))
-                  ConvertDTO (fn [[model detail]]
-                              (js-obj
-                                "visibleDate" false;(not (= :ProductList name))
-                                "id" model
-                                "name" (.-Caption detail)
-                                "date" (.-Date detail)
-                                "brand" (.-Brand detail)
-                                "imgStylePath" (fn/ServeImagePath (str (aget config configType) "/" model "/image_2.jpg"))
-                                "imgSideAPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_3.jpg"))
-                                "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))
-                                "imgSideCPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_5.jpg"))))
-                  dto (js-obj 
-                        "prev_href" 
-                        (if (not (<= page 0))
-                          (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (> page 0) (dec page) page))
-                          nil)
-                        "next_href" 
-                        (if (not (>= page totalPage))
-                          (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (< page totalPage) (inc page) page))
-                          nil)
-                        "searchWord" (if (some? searchKey) searchKey "")
-                        "streetsnapList" (->> (map ConvertDTO filtered) (apply array)))]
+            (let [modelCountPerPage 
+                  (if (> (.height (js/$ js/window)) 768) 9 6)
+                  
+                  filtered 
+                  (->> details  ;注意！本來為map，被轉為seq
+                    (AvaliableIs true)
+                    SortByDate
+                    (FilterBySearch searchKey)
+                    (drop (* page modelCountPerPage))
+                    (take modelCountPerPage))
+                  
+                  totalPage 
+                  (int (/ (count filtered) modelCountPerPage))
+                  
+                  ConvertDTO 
+                  (fn [[model detail]]
+                    (let [[w h]
+                          (condp = media-type
+                            :pc [242 363]
+                            :ipad [268 402]
+                            :iphone [268 402]
+                            [268 402])]
+                      (js-obj
+                        "visibleDate" false;(not (= :ProductList name))
+                        "id" model
+                        "name" (.-Caption detail)
+                        "date" (.-Date detail)
+                        "brand" (.-Brand detail)
+                        "imgStylePath" (fn/ServeImagePathWH (str (aget config configType) "/" model "/image_2.jpg") w h)
+                        "imgSideAPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_3.jpg"))
+                        "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))
+                        "imgSideCPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_5.jpg")))))
+                  dto 
+                  (js-obj 
+                    "prev_href" 
+                    (if (not (<= page 0))
+                      (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (> page 0) (dec page) page))
+                      nil)
+                    
+                    "next_href" 
+                    (if (not (>= page totalPage))
+                      (str "#" (cljs.core/name key) "/" (if (some? searchKey) (str searchKey "/") "") (if (< page totalPage) (inc page) page))
+                      nil)
+                    
+                    "searchWord" 
+                    (if (some? searchKey) searchKey "")
+                    
+                    "streetsnapList" 
+                    (->> (map ConvertDTO filtered) (apply array)))]
               (go 
                 (>! ret [nil dto])
                 (close! ret)))))

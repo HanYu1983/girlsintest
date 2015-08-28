@@ -127,11 +127,17 @@
     (.off back "click")
     (.fadeOut elem 400 #(react/AnimateClose ctx :default view))))
 
-(defmethod react/view-ch :Big [{:keys [tmpl-item] :as ctx} key modelChan]
+(defmethod react/view-ch :Big [{:keys [tmpl-item media-type] :as ctx} key modelChan]
   (go
     (let [[err model] (<! modelChan)
           root-elem (js/$ "body")
-          _ (set! (.-url model) (str (.-url model) "?Width=" (.width root-elem) "&Height=" (.height root-elem)))
+          [pw ph]
+          (condp = media-type
+            :pc [800 600]
+            :iphone [(.width root-elem) (.height root-elem)]
+            :ipad [(.width root-elem) (.height root-elem)]
+            [(.width root-elem) (.height root-elem)])
+          _ (set! (.-url model) (str (.-url model) "?Width=" pw "&Height=" ph))
           tmpl (js/$ "#tmpl_bigPhoto")
           elem (.tmpl tmpl model tmpl-item)
           back elem]

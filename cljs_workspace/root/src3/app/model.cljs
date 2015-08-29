@@ -48,6 +48,20 @@
       (filter (fn [[model detail]]
         (some? (re-find (re-pattern (str ".?" searchKey ".?")) (.-Tag detail))))))
     details))
+    
+(defn SearchRelative [tags details]
+  (->>
+    (cljstr/split tags #",")
+    (map cljstr/trim)
+    (map 
+      (fn [tag]
+        (filter 
+          (fn [[model detail]]
+            (re-find (re-pattern (str ".?" tag ".?")) (.-Tag detail)))
+          details)))
+    (apply concat)
+    distinct
+    shuffle))
 
 (defn defcommonlistmodel [name]
   (defmethod react/model-ch name [{media-type :media-type :as ctx} key {:keys [searchKey page] :as args}]
@@ -122,34 +136,47 @@
       (doto (fn/GetAllModelOnce "config.json" configType)
         (.done
           (fn [config details] 
-            (let [dir (aget config configType)
-                  detail (get details id)
-                  filtered (->> details  ;注意！本來為map，被轉為seq
-                             (AvaliableIs true)
-                             SortByDate
-                             (take 6))
-                  ConvertHeadDTO (fn [[key, detail]]
-                                   (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg?Width=200&Height=200"))))
-                  CreateImageDTO (fn [ServeFn idxs]
-                                   (let [urls (for [idx idxs] (str dir "/" id "/image_" idx ".jpg"))
-                                         dtos (for [url urls] (js-obj "id" url "url" (ServeFn url)))]
-                                     (apply array dtos)))
-                  dto (js-obj 
-                        "visibleFullscreen" (or (true? (.-Fullscreen detail)) false)
-                        "visibleFBComment" (or (true? (.-FBComment detail)) false)
-                        "historyList" (->> (map ConvertHeadDTO filtered) (apply array))
-                        "name" (.-Caption detail)
-                        "date" (.-Date detail)
-                        "styleUrl" (fn/ServeImagePath (str dir "/" id "/image_2.jpg"))
-                        "sideList" (CreateImageDTO fn/ServeImagePath100 (range 3 6)) 
-                        "bottomList" (CreateImageDTO fn/ServeImagePath100 (range 6 (inc (.-ImageCount detail)))) 
-                        "modelDetail" (.-Description detail)
-                        "talk" (.-Talk detail)
-                        "protalk" (.-Comment detail)
-                        "modelKey" (.-ModelKey detail)
-                        "key" id
-                        "bottomTab1" (bottomTab1 name)
-                        "bottomTab2" (bottomTab2 name))]
+            (let [dir 
+                  (aget config configType)
+                  
+                  detail 
+                  (get details id)
+                  
+                  relativeDetails 
+                  (->> details  ;注意！本來為map，被轉為seq
+                    (AvaliableIs true)
+                    SortByDate
+                    (SearchRelative (.-Tag detail))
+                    (filter (fn [[model detail]] (not= model id)))
+                    (take 10))
+                    
+                  ConvertHeadDTO 
+                  (fn [[key, detail]]
+                    (js-obj "id" key "url" (fn/ServeImagePath (str dir "/" key "/image_1.jpg?Width=200&Height=200"))))
+                  
+                  CreateImageDTO 
+                  (fn [ServeFn idxs]
+                    (let [urls (for [idx idxs] (str dir "/" id "/image_" idx ".jpg"))
+                          dtos (for [url urls] (js-obj "id" url "url" (ServeFn url)))]
+                       (apply array dtos)))
+                       
+                  dto 
+                  (js-obj 
+                    "visibleFullscreen" (or (true? (.-Fullscreen detail)) false)
+                    "visibleFBComment" (or (true? (.-FBComment detail)) false)
+                    "historyList" (->> (map ConvertHeadDTO relativeDetails) (apply array))
+                    "name" (.-Caption detail)
+                    "date" (.-Date detail)
+                    "styleUrl" (fn/ServeImagePath (str dir "/" id "/image_2.jpg"))
+                    "sideList" (CreateImageDTO fn/ServeImagePath100 (range 3 6)) 
+                    "bottomList" (CreateImageDTO fn/ServeImagePath100 (range 6 (inc (.-ImageCount detail)))) 
+                    "modelDetail" (.-Description detail)
+                    "talk" (.-Talk detail)
+                    "protalk" (.-Comment detail)
+                    "modelKey" (.-ModelKey detail)
+                    "key" id
+                    "bottomTab1" (bottomTab1 name)
+                    "bottomTab2" (bottomTab2 name))]
               (go 
                 (>! ret [nil dto])
                 (close! ret)))))

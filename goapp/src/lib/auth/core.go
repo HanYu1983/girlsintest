@@ -32,6 +32,7 @@ func IsNeedAuth(r *http.Request, realm, opaque string) (bool, map[string]string)
   return false, DigestAuthParams( authorization )
 }
 
+// 將realm傳給前端
 func RequireAuth(w http.ResponseWriter, config Config){
   nonce := RandomKey()
   content := fmt.Sprintf(`Digest realm="%s", nonce="%s", opaque="%s", algorithm="MD5", qop="auth"`, config.Realm, nonce, config.Opaque)
@@ -89,12 +90,14 @@ func Factory(config Config) func(http.HandlerFunc) http.HandlerFunc {
       
       isNeedAuth, authInfo := IsNeedAuth(r, config.Realm, config.Opaque)
       if isNeedAuth {
+        // 將realm傳給前端
         RequireAuth( w, config )
       } else {
         isPass := Auth( r, config, authInfo )
         if isPass {
           handler( w, r )
         } else {
+          // 將realm傳給前端
           RequireAuth( w, config )
         }
       }

@@ -13,12 +13,7 @@ import (
 
 
 func Secret(user, realm string) string {
-  // use js console > CryptoJS.MD5("hanvic:sdyle.net:gaNGangAnfInAlstEve").toString()
-  if user == "john" {
-    // md5("john:sdyle.net:hello")
-    return "d7369489e93473a54cff9f7df4de5227"
-
-  } else if user == "hanvic" {
+  if user == "hanvic" {
     // md5("hanvic:sdyle.net:gaNGangAnfInAlstEve")
     return "0c9c73c7af08ea47a7c65c5ed310e4da"
   }
@@ -50,15 +45,16 @@ func init(){
 
   AuthWrap := auth.Factory( auth.Config{
     Realm: "sdyle.net",
-    Opaque: "ad33asf",
+    Opaque: "test1",  // 這個值可以任意換，換了可以強迫前端重新認證
     Secrets: Secret,
     WhiteList: []string{""},
   })
   
   http.HandleFunc("/auth", AuthWrap( responseHello )) // 認證不能被快取，所以獨立出來
 
+  // 前台cache就行了，不必使用後台的validator(ETag)
   restFn := rest.RestWithConfig("./package", etagValidator, handlers)
-  restFn = WrapCacheControl( cacheMaxAge, restFn ) // 前台cache就行了，不必使用後台的validator(ETag)
+  restFn = WrapCacheControl( cacheMaxAge, restFn ) 
   http.HandleFunc("/",  restFn)
 
 
@@ -68,66 +64,3 @@ func init(){
     fmt.Fprintf(w, "addr:[%s]", r.RemoteAddr)
   })
 }
-
-// ============== legacy code ===============//
-/*
-func init() {
-	actions := tool.ActionMap{
-		"RegisterUser":handler.RegisterUser,
-		"QueryUser":handler.QueryUser,
-		"Login":handler.Login,
-		"Logout":handler.Logout,
-
-		"UpdateStreetModel": handler.UpdateStreetModel,
-		"QueryStreetModel": handler.QueryStreetModel,
-    "DeleteStreetModel": handler.DeleteStreetModel,
-		"AddPhotoToStreetModel": handler.AddPhotoToStreetModel,
-		"QueryPhotoWithStreetModel": handler.QueryPhotoWithStreetModel,
-		"DeletePhotoWithStreetModel": handler.DeletePhotoWithStreetModel,
-		"UpdatePhotoWithStreetModel": handler.UpdatePhotoWithStreetModel,
-
-    "ServeFile": handler.ServeFile,
-    "RefreshCache": handler.RefreshCache,
-	}
-	testActions := tool.ActionMap{
-		"TestShowImage": test.TestShowImage,
-		"TestBase64": test.TestBase64,
-		"TestRandomModel": test.TestRandomModel,
-		"TestSearchRegular": test.TestSearchRegular,
-    "TestReadFile": test.TestReadFile,
-    "TestPackageImage": test.TestPackageImage,
-	}
-	pageActions := tool.ActionMap{
-		"Admin": AdminPage,
-		"QueryStreetModelPage": handler.QueryStreetModelPage,
-		"EditStreetModelPage": handler.EditStreetModelPage,
-	}
-
-  // rest style setting
-  cmdhandlers := map[string]func(sys tool.ISystem)interface{}{
-    "RefreshCache": handler.RefreshCache,
-  }
-
-	handlers := map[string]func(string, *os.File, http.ResponseWriter,*http.Request){
-		"png": rest.HandleImage(),
-		"jpg": rest.HandleImage(),
-		"jpeg": rest.HandleImage(),
-		"json": rest.HandleJson(),
-		"cmd": rest.HandleCmd(tool.AppEngineContextFactory, cmdhandlers),
-	}
-
-  http.HandleFunc("/", rest.RestWithConfig("./package", cacheVersion, handlers) )
-
-	http.HandleFunc("/goapp/Func", tool.FrontControllerWith(actions, tool.AppEngineContextFactory))
-	http.HandleFunc("/goapp/Page", tool.FrontControllerWith(pageActions, tool.AppEngineContextFactory))
-	http.HandleFunc("/goapp/Test", tool.FrontControllerWith(testActions, tool.AppEngineContextFactory))
-}
-
-func AdminPage(sys tool.ISystem)interface{}{
-	w := sys.GetResponse()
-	w.Header().Set("Content-Type", "text/html")
-		tool.TemplateWithFile("EditStreetModel", "app/tmpl/Admin.html").Execute(w, nil)
-	return tool.CustomView
-}
-
-*/

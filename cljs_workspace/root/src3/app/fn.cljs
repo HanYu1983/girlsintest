@@ -28,6 +28,9 @@
 (defn ServeImagePath100 [path]
   (str "//" window.location.host "/" path "?Width=" 100 "&Height=" 100))
 
+(defn ServeImagePathWH [path w h]
+  (str "//" window.location.host "/" path "?Width=" w "&Height=" h))
+
 (defn FetchFile [path]
   (.getJSON js/$ (str "//" window.location.host "/" path)))
   

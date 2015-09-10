@@ -14,7 +14,8 @@
   startapp
   menubar
   header
-  create-router)
+  create-router
+  detectOrientation)
 
 (defn main []
   (doto (auth/auth "/auth")
@@ -33,14 +34,29 @@
                                  :toProduct         [:Product react/ChangeView]
                                  :toEvent           [:Event react/ChangeView]
                                  :toNews            [:News react/ChangeView]}
-                :Event          {:onOpen            [:nil (act/ComposeAction
-                                                            act/ShowLoadingImage
-                                                            act/ChangeLogo
-                                                            (act/Unuse act/ShowFooterOrNot))]}
+                :Event          {:orientationchange [:nil 
+                                                     (act/ComposeAction
+                                                       act/DetectMediaQuery
+                                                       act/OpenMenuIfPcMode)]
+                                 :onOpen            [:nil 
+                                                     (act/ComposeAction
+                                                        act/CloseMenu
+                                                        act/ShowLoadingImage
+                                                        act/ChangeLogo
+                                                       (act/Unuse act/ShowFooterOrNot))]}
                 :Home           {:nothing           [:nil identity]
-                                 :reset             [:Home act/Navigate]
-                                 :toNews            [:News act/Navigate]
-                                 :toEvent           [:Event act/Navigate]
+                                 :reset             [:Home
+                                                     (act/ComposeAction
+                                                        act/ToggleMenu
+                                                        act/Navigate)]
+                                 :toNews            [:News
+                                                     (act/ComposeAction
+                                                        act/ToggleMenu
+                                                        act/Navigate)]
+                                 :toEvent           [:Event
+                                                     (act/ComposeAction
+                                                        act/ToggleMenu
+                                                        act/Navigate)]
                                  :toModelList       [:ModelList 
                                                      (act/ComposeAction
                                                         act/ToggleMenu
@@ -112,10 +128,17 @@
              :popupContainer (.find root "#mc_popupContainer")
              :tmpl-item tmpl-item
              :media-type media-type}]
+    (detectOrientation)
     (menubar menubarElem)
     (header urlRouter root)
     (go (async/reduce (partial react/React route) ctx react/OnReact))
     (.start js/Backbone.history)))
+
+(defn detectOrientation []
+  (.on (js/$ js/window)
+    "orientationchange"
+    (fn [e]
+      (go (>! react/OnReact [:Event :orientationchange (.-orientation e)])))))
 
 (defn menubar [elem]
   (let [handleBtnMouseOut (fn [evt]

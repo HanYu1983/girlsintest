@@ -96,3 +96,30 @@
         (.show menu-elem)
         (.hide menu-elem))))
   ctx)
+  
+(defn OpenMenuIfPcMode [{root :root media-type :media-type :as ctx} args]
+  (let [should-apply-this (= :pc media-type)
+        menu-elem (.find root "#mc_menubar")]
+    (when should-apply-this
+      (.show menu-elem)))
+  ctx)
+  
+(defn CloseMenu [{root :root media-type :media-type :as ctx} args]
+  (let [should-apply-this
+        (or 
+          (= :iphone media-type)
+          (= :ipad media-type))
+        menu-elem (.find root "#mc_menubar")]
+    (when should-apply-this
+      (.hide menu-elem)))
+  ctx)
+
+(defn DetectMediaQuery [ctx _]
+  (let [media-query-info (js/$ "#media-query-info")
+        media-type
+        (condp = (.css media-query-info "left")
+          "0px" :pc
+          "1px" :ipad
+          "2px" :iphone
+          :iphone)]
+    (assoc ctx :media-type media-type)))

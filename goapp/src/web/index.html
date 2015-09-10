@@ -240,7 +240,7 @@
 		}
 		
 		.textBase {
-			font-size:16px;
+			font-size:12px;
 		}
 		
 		.txt_content {
@@ -271,9 +271,6 @@
 			margin-left:5px;
 		}
 		
-		.txt_content {
-			margin-left:5px;
-		}
 	}
 	
 	</style>
@@ -671,6 +668,20 @@
 		width:10%;
 	}
 	
+	.iframe_bottom_black{
+		position:absolute; 
+		top:85%; 
+		left:0; 
+		width:100%;
+		height:15%; 
+	}
+	
+	#txt_proContent{
+		position:absolute; 
+		top:5px; 
+		left:5px;
+	}
+	
 	@media screen and ( max-width:768px ){
 		#mc_streetsnap #mc_3d_container{
 			width:49%;
@@ -688,12 +699,25 @@
 			left:0;
 		}
 		
-		.img_refModel{
-			width:24%;
-		}
+		
 	}
 	
 	@media screen and ( max-width:480px ){
+		.iframe_bottom_black{
+			top:78%;
+			height:22%;
+		}
+		
+		#txt_proContent{
+			position:absolute; 
+			top:0; 
+			left:0;
+		}
+		
+		.img_refModel{
+			width:24%;
+		}
+		
 	/*
 		#mc_streetsnap #mc_3d_container{
 			width:96%;
@@ -747,7 +771,9 @@
 					<div id="mc_3d_container">
 						<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 						<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
-						<img style="position:absolute; width:100%; top:0; left:0; pointer-events:none;" src="images/streetSnap/3d_frame_all.png"/>
+						<img style='position:absolute; top:0; left:0; width:100%; height:15%;' src='images/streetSnap/3d_frame_03.png'/>
+						<img style='position:absolute; top:0%; left:0; width:100%; height:100%; pointer-events:none;' src='images/streetSnap/3d_frame_02.png'/>
+						<img style='position:absolute; top:85%; left:0; width:100%; height:15%;' src='images/streetSnap/3d_frame_03.png'/>
 						<img id="mc_3dmask" style="position:absolute; width:100%; height:100%; top:0; left:0;" src="images/streetSnap/3d_mask.jpg"></img>
 						<a href=${ moreUrl }>
 							<img id='btn_more' src='images/index/More.png'/>
@@ -761,28 +787,33 @@
 			<div id="mc_streetsnap" class="page">
 				<div class="background"></div>
 				<div class="content">
+					<!--
 					<div id="txt_name" class="textBase" >${name}</div>
 					<div style="position:absolute; right:0; top:0; ">
 						<img id="btn_share" src="images/index/topBtn_04.png" style="position:relative; float:right; top:-29px; cursor:pointer;" />
 						<div id="txt_date" style="position:relative; float:right;"  class="textBase">${date}</div>
 					</div>
-					
 					<img class="line" src="images/streetSnap/line.png"/>
+					-->
 					<div class="group">
 						<div id="mc_3d_container">
 							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 							<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='99%' height='99%' style="position:absolute; top:0; left:0; "></iframe>
-							<img style="position:absolute; width:100%; top:0; left:0; pointer-events:none;" src="images/streetSnap/3d_frame_all.png"/>
+							<img style='position:absolute; top:0; left:0; width:100%; height:15%;' src='images/streetSnap/3d_frame_03.png'/>
+							<img style='position:absolute; top:0%; left:0; width:100%; height:100%; pointer-events:none;' src='images/streetSnap/3d_frame_02.png'/>
+							<img class='iframe_bottom_black' src='images/streetSnap/3d_frame_03.png'/>
 							{{if visibleFullscreen}}
 							<img style="position:absolute; right:20px; bottom:20px; cursor:pointer;" id='btn_fullscreen' src="images/streetSnap/full.png"/>
 							{{/if}}
+							<div id="txt_name" style='position:absolute; left:5px; top:5px;' class="textBase" >${name}</div>
+							<img id="btn_share" src="images/index/topBtn_04.png" style="position:absolute; right:-3px; top:-18px; cursor:pointer;" />
 							<img id="mc_3dmask" style="position:absolute; width:100%; height:100%; top:0; left:0;" src="images/streetSnap/3d_mask.jpg"></img>
 						</div>
 						<div id='mc_detailAndImages'>
 							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 							<div id="mc_pro">
 								<div style="position:relative; width:100%; height:100%; background-color:white; opacity:.3"></div>
-								<div id="txt_proContent" style="position:absolute; top:5px; left:5px;" class="textBase">{{html protalk}}</div>
+								<div id="txt_proContent" class="textBase">{{html protalk}}</div>
 								<img style="position:absolute; right:0; bottom:0; height:100%;" src=${signUrl}></img>
 							</div>
 							<img id="img_stylePicture" src=${styleUrl + "?Width=247&Height=370"} />

@@ -65,6 +65,7 @@
 		line-height: 23px;
 		letter-spacing: 1px;
 		opacity: .5;
+		padding-left:10px;
 	}
 	
 	.line{
@@ -128,7 +129,7 @@
 		width:100%;
 		left:0;
 		top:0;
-		margin-bottom:50px;
+		margin-bottom:10px;
 	}
 	
 	.group_full{
@@ -250,6 +251,10 @@
 		
 		#img_join{
 			display:none;
+		}
+		
+		.group{
+			margin-bottom:0px;
 		}
 	}
 	
@@ -608,6 +613,7 @@
 		
 		#mc_streetsnap_list .content #mc_title{
 			text-align:center;
+			margin-bottom:20px;
 		}
 	}
 	
@@ -688,6 +694,7 @@
 	}
 	
 	@media screen and ( max-width:480px ){
+	/*
 		#mc_streetsnap #mc_3d_container{
 			width:96%;
 			margin-left:2%;
@@ -703,6 +710,7 @@
 			margin-left:2%;
 			left:0;
 		}
+		*/
 	}
 	
 	</style>
@@ -785,28 +793,28 @@
 							</div>
 						</div>
 					</div>
-					<div class="textBase">MODEL相片</div>
+					<div class="textBase" style='margin-left:5px;'>MODEL相片</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div id="mc_bottomContainer" class="group">
 						{{each bottomList}}
 							<img id=${id} class='btn relative f_left bottomPicture' src=${url} />
 						{{/each}}
 					</div>
-					<div class="textBase">${bottomTab1}</div>
+					<div class="textBase" style='margin-left:5px;'>${bottomTab1}</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
 						<div style="width:100%" class="textBase txt_content">
 							{{html modelDetail }}
 						</div>
 					</div>
-					<div id="txt_name2" class="textBase">${bottomTab2}</div>
+					<div id="txt_name2" class="textBase" style='margin-left:5px;'>${bottomTab2}</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
 						<div id="txt_modelMeeting" style="width:100%; margin-bottom:100px;" class="textBase txt_content">
 							{{html talk}}
 						</div>
 					</div>
-					<div class="textBase">相關MODEL</div>
+					<div class="textBase" style='margin-left:5px;'>相關MODEL</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div id="mc_historyContainer" class="group">
 						{{each historyList}}

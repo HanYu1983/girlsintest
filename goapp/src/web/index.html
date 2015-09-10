@@ -198,6 +198,7 @@
 		bottom:0; 
 		width:100%; 
 		height:50px;
+		display:none;
 	}
 	
 	#btn_menu{
@@ -245,6 +246,10 @@
 			line-height: 20px;
 			letter-spacing: 1px;
 			opacity: .5;
+		}
+		
+		#img_join{
+			display:none;
 		}
 	}
 	
@@ -553,7 +558,7 @@
 		}
 		
 		.singleModel{
-			width:49%;
+			width:32.7%;
 			margin-left:0;
 		}
 		
@@ -566,9 +571,10 @@
 		#mc_search{
 			position:relative;
 			float:none;
-			width:100%;
-			height:10%;
-			margin-right:0;
+			width:50%;
+			left:50%;
+			height:30px;
+			margin-left: -25%;
 		}
 		
 		#input_search{
@@ -579,14 +585,26 @@
 		}
 		
 		#btn_search{
-			display:none;
+			position:relative;
+			width:auto;
+			height:90%;
+			left:58%;
+			top:-18px;
+		}
+		
+		#txt_search{
+			display
+		}
+		
+		#mc_streetsnap_list .content #mc_title{
+			text-align:center;
 		}
 	}
 	
 	@media screen and ( max-width:480px ){
 		
 		.singleModel{
-			width:100%;
+			width:49%;
 		}
 		
 		
@@ -808,8 +826,8 @@
 					<div id="mc_title" class="group">
 						<div id="txt_title" class="textBase">精選</div>
 						{{if searchWord.length > 0}}
-							<div class="textBase f_left">搜尋:${searchWord}</div>
-							<button id="btn_return">return</button>
+							<div id='txt_search' class="textBase f_left">搜尋:${searchWord}</div>
+							<button id="btn_return">返回</button>
 						{{else}}
 						<div id="mc_search">
 							<input id='input_search' placeholder='搜尋。例:東區,碎花洋裝' />
@@ -972,7 +990,7 @@
 				<div id='btn_nav_bemodel' class='btn navbarBtnHeight'>
 					<a href="mailto:sdyle.net@gmail.com">
 						<img class="btn_nav_normal" src='images/navbar/BE-MODEL.png'></img>
-						<img style='position:absolute; left:-115px; top:-5px; ' src='images/navbar/joinMD_text2.png'/>
+						<img id='img_join' style='position:absolute; left:-115px; top:-5px; ' src='images/navbar/joinMD_text2.png'/>
 					</a>
 					
 				</div>

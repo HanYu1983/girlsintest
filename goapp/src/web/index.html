@@ -829,6 +829,7 @@
 							</div>
 						</div>
 					</div>
+					{{if bottomList.length > 0 }}
 					<div class="textBase" style='margin-left:5px;'>MODEL相片</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div id="mc_bottomContainer" class="group">
@@ -836,6 +837,7 @@
 							<img id=${id} class='btn relative f_left bottomPicture' src=${url} />
 						{{/each}}
 					</div>
+					{{/if}}
 					<div class="textBase" style='margin-left:5px;'>${bottomTab1}</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div class="group">
@@ -850,6 +852,7 @@
 							{{html talk}}
 						</div>
 					</div>
+					{{if historyList.length > 0 }}
 					<div class="textBase" style='margin-left:5px;'>相關MODEL</div>
 					<img class="line" src="images/streetSnap/line.png"/>
 					<div id="mc_historyContainer" class="group">
@@ -860,6 +863,7 @@
 						<img id='btn_more' class="btn relative" src='images/streetSnap/downArrow.png'/>
 						-->
 					</div>
+					{{/if}}
 					{{if visibleFBComment}}
 					<div class="textBase">FB留言</div>
 					<img class="line" src="images/streetSnap/line.png"/>

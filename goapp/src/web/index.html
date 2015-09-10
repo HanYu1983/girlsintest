@@ -508,22 +508,22 @@
 		top:50%;
 	}
 	
-	#btn_prevnextGroup .btn_prev_2{
+	.btn_prevnextGroup .btn_prev_2{
 		position:relative;
 		float:left;
 		margin-left:10px;
 		margin-bottom:10px;
 	}
 	
-	#btn_prevnextGroup .btn_next_2{
+	.btn_prevnextGroup .btn_next_2{
 		position:relative;
 		float:right;
 		margin-right:10px;
 		margin-bottom:10px;
 	}
 	
-	#btn_prevnextGroup,
-	#line_prevnextGroup{
+	.btn_prevnextGroup,
+	.line_prevnextGroup{
 		display:none;
 	}
 	
@@ -547,8 +547,8 @@
 			margin-left:0;
 		}
 		
-		#btn_prevnextGroup,
-		#line_prevnextGroup{
+		.btn_prevnextGroup,
+		.line_prevnextGroup{
 			display:block;
 		}
 		
@@ -846,7 +846,7 @@
 						{{/if}}
 					</div>
 					<img class="line" src="images/streetSnap/line.png"/>
-					<div id="btn_prevnextGroup" class="group">
+					<div class="group btn_prevnextGroup">
 						{{if prev_href != null}}
 						<a href=${prev_href}><div class='btn_prev_2 img_prev'></div></a>
 						{{/if}}
@@ -854,7 +854,7 @@
 						<a href=${next_href}><div class='btn_next_2 img_next'></div></a>
 						{{/if}}
 					</div>
-					<img id="line_prevnextGroup" class="line" src="images/streetSnap/line.png"/>
+					<img class="line line_prevnextGroup" src="images/streetSnap/line.png"/>
 					<div id="mc_modelContainer" class="group">
 						{{each streetsnapList}}
 						<div id=${id} class="singleModel" modelFrame>
@@ -877,6 +877,16 @@
 						</div>
 						{{/each}}
 					</div>
+					<img class="line line_prevnextGroup" src="images/streetSnap/line.png"/>
+					<div class="group btn_prevnextGroup">
+						{{if prev_href != null}}
+						<a href=${prev_href}><div class='btn_prev_2 img_prev'></div></a>
+						{{/if}}
+						{{if next_href != null}}
+						<a href=${next_href}><div class='btn_next_2 img_next'></div></a>
+						{{/if}}
+					</div>
+					<img class="line line_prevnextGroup" src="images/streetSnap/line.png"/>
 					{{if prev_href != null}}
 					<a href=${prev_href}><div class='btn_prev img_prev'></div></a>
 					{{/if}}

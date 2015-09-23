@@ -14,6 +14,13 @@
     (some #(= view %) [:Product :ProductList]) "product"
     :else (throw (new js/Error (str "no configType with " view)))))
     
+(defn bottomTab0 [view]
+  (cond
+    (some #(= view %) [:StreetSnap :StreetSnapList]) "MODEL照片"
+    (some #(= view %) [:Model :ModelList]) "MODEL照片"
+    (some #(= view %) [:Product :ProductList]) "產品照片"
+    :else (throw (new js/Error (str "no bottomTab0 with " view)))))
+    
 (defn bottomTab1 [view]
   (cond
     (some #(= view %) [:StreetSnap :StreetSnapList]) "MODEL資料"
@@ -28,6 +35,14 @@
     (some #(= view %) [:Product :ProductList]) "產品特色"
     :else (throw (new js/Error (str "no bottomTab2 with " view)))))
 
+
+(defn bottomTab3 [view]
+  (cond
+    (some #(= view %) [:StreetSnap :StreetSnapList]) "相關MODEL"
+    (some #(= view %) [:Model :ModelList]) "相關MODEL"
+    (some #(= view %) [:Product :ProductList]) "相關產品"
+    :else (throw (new js/Error (str "no bottomTab2 with " view)))))
+    
 (defn SortByDate [details]
   (->> details
     (sort-by
@@ -88,7 +103,7 @@
                   (fn [[model detail]]
                     (let [[w h]
                           (condp = media-type
-                            :pc [242 363]
+                            :pc [254 256];[242 363]
                             :ipad [268 402]
                             :iphone [268 402]
                             [268 402])]
@@ -175,8 +190,10 @@
                     "protalk" (.-Comment detail)
                     "modelKey" (.-ModelKey detail)
                     "key" id
+                    "bottomTab0" (bottomTab0 name)
                     "bottomTab1" (bottomTab1 name)
-                    "bottomTab2" (bottomTab2 name))]
+                    "bottomTab2" (bottomTab2 name)
+                    "bottomTab3" (bottomTab3 name))]
               (go 
                 (>! ret [nil dto])
                 (close! ret)))))

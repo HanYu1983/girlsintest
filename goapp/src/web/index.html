@@ -532,6 +532,14 @@
 		top:-5px;
 	}
 	
+	#txt_search{
+		float:right;
+	}
+	
+	#btn_return{
+		float:right;
+	}
+	
 	@media screen and ( max-width:768px ){
 		#mc_streetsnap > .background,
 		#mc_streetsnap_list > .background{
@@ -605,7 +613,11 @@
 		}
 		
 		#txt_search{
-			display
+			float:none;
+		}
+		
+		#btn_return{
+			float:none;
 		}
 		
 		#mc_streetsnap_list .content #mc_title{
@@ -888,7 +900,7 @@
 						<div id="txt_title" class="textBase">精選</div>
 						{{if searchWord.length > 0}}
 							<div id='txt_search' class="textBase f_left">搜尋:${searchWord}</div>
-							<button id="btn_return">返回</button>
+							<button id="btn_return">back</button>
 						{{else}}
 						<div id="mc_search">
 							<input id='input_search' placeholder='搜尋。例:東區,碎花洋裝' />

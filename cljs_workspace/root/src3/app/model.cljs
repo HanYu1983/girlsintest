@@ -103,7 +103,7 @@
                   (fn [[model detail]]
                     (let [[w h]
                           (condp = media-type
-                            :pc [254 256];[242 363]
+                            :pc [242 363]
                             :ipad [268 402]
                             :iphone [268 402]
                             [268 402])]

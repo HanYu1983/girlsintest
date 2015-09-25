@@ -37,7 +37,7 @@
                 :Event          {:orientationchange [:nil 
                                                      (act/ComposeAction
                                                        act/DetectMediaQuery
-                                                       act/OpenMenuIfPcMode)]
+                                                       (act/Unuse act/OpenMenuIfPcMode))]
                                  :onOpen            [:nil 
                                                      (act/ComposeAction
                                                         act/CloseMenu

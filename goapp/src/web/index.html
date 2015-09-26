@@ -314,7 +314,8 @@
 	
 	@media screen and ( max-width:768px ){
 		#mc_mainContainer{
-			top:36%; 
+			top:50%; 
+			display:;
 		}
 	}
 	
@@ -790,9 +791,11 @@
 	<body>
 		<script type='x-jquery-tmpl' id='tmpl_home'>
 			<div id="mc_index" class='page'>
-				<img id="mc_backLine" src='images/index/backgroundBigLine.png'/>
+				<img id="mc_backLine" src='images/index/backgroundBigLine1.png'/>
 				<div id='mc_mainContainer' >
+				<!--
 					<img id="mc_bigLogo" src='images/index/big_LOGO.png'/>
+					-->
 					<div id="mc_3d_container">
 						<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 						<iframe id="iframe_3dIframe" src=${"//sketchfab.com/embed/" + modelKey + "?preload=1&autospin=0.3&ui_controls=0&ui_infos=0&nocamera=1&autostart=0&transparent=0&controls=0&watermark=0&desc_button=0&stop_button=0"} width='98%' height='98%' style="position:absolute; top:0; left:0; "></iframe>

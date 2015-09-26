@@ -103,7 +103,7 @@
                   (fn [[model detail]]
                     (let [[w h]
                           (condp = media-type
-                            :pc [242 363]
+                            :pc [400 600]
                             :ipad [268 402]
                             :iphone [268 402]
                             [268 402])]
@@ -183,6 +183,9 @@
                     "name" (.-Caption detail)
                     "date" (.-Date detail)
                     "styleUrl" (fn/ServeImagePath (str dir "/" id "/image_2.jpg"))
+                    "signUrl" 
+                    (when (.-Sign detail)
+                      (fn/ServeImagePath (str dir "/" id "/sign.png")))
                     "sideList" (CreateImageDTO fn/ServeImagePath100 (range 3 6)) 
                     "bottomList" (CreateImageDTO fn/ServeImagePath100 (range 6 (inc (.-ImageCount detail)))) 
                     "modelDetail" (.-Description detail)

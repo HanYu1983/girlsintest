@@ -44,7 +44,7 @@
                                                         act/ShowLoadingImage
                                                         act/ChangeLogo
                                                         act/AlertInfomationIfModelPageAtMobileDevice
-                                                       (act/Unuse act/ShowFooterOrNot))]}
+                                                        act/ShowFooterOrNot)]}
                 :Home           {:nothing           [:nil identity]
                                  :reset             [:Home
                                                      (act/ComposeAction
@@ -70,7 +70,7 @@
                                                      (act/ComposeAction
                                                         act/ToggleMenu
                                                         act/Navigate)]
-                                 :menuClick        [:nil act/ToggleMenu]}
+                                 :menuClick        [:nil act/ToggleMenuForce]}
                 :StreetSnapList {:toDetail [:StreetSnap act/Navigate]
                                  :search   [:StreetSnapList act/Navigate]
                                  :reset    [:StreetSnapList act/Navigate]}
@@ -181,7 +181,8 @@
     (.click btn_home
       #(go (>! react/OnReact [:Home :reset nil])))
     (.click btn_menu
-      #(go (>! react/OnReact [:Home :menuClick nil])))))
+      #(go 
+        (>! react/OnReact [:Home :menuClick nil])))))
 
 (defn create-router []
   (let [Router (->>

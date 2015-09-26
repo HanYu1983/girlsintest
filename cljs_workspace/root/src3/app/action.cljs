@@ -85,11 +85,23 @@
   ctx)
   
   
+;點非menu展開按鈕必須關閉menu
 (defn ToggleMenu [{root :root media-type :media-type :as ctx} args]
   (let [should-apply-this
         (or 
           (= :iphone media-type)
           (= :ipad media-type))
+        menu-elem (.find root "#mc_menubar")
+        isHide (= "none" (.css menu-elem "display"))]
+    (when should-apply-this
+      (if isHide
+        (.show menu-elem)
+        (.hide menu-elem))))
+  ctx)
+  
+;點選menu展開按鈕必須都有作用，不管是pc版還是mobile版。反正pc版根本沒有menu展開按鈕，這樣可以避開一些問題
+(defn ToggleMenuForce [{root :root media-type :media-type :as ctx} args]
+  (let [should-apply-this true
         menu-elem (.find root "#mc_menubar")
         isHide (= "none" (.css menu-elem "display"))]
     (when should-apply-this

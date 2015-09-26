@@ -43,6 +43,7 @@
                                                         act/CloseMenu
                                                         act/ShowLoadingImage
                                                         act/ChangeLogo
+                                                        act/AlertInfomationIfModelPageAtMobileDevice
                                                        (act/Unuse act/ShowFooterOrNot))]}
                 :Home           {:nothing           [:nil identity]
                                  :reset             [:Home
@@ -121,13 +122,19 @@
           "2px" :iphone
           :iphone)
                   
-        ctx {:root root
-             :router urlRouter
-             :views {}
-             :container (.find root "#mc_pageContainer")
-             :popupContainer (.find root "#mc_popupContainer")
-             :tmpl-item tmpl-item
-             :media-type media-type}]
+        ctx {
+          :root root
+          :router urlRouter
+          :views {}
+          :container (.find root "#mc_pageContainer")
+          :popupContainer (.find root "#mc_popupContainer")
+          :tmpl-item tmpl-item
+          :media-type media-type
+          :flag {
+            ; 讓行動版本解析度不足資訊只show一次
+            :mobileInformation false 
+          }
+        }]
     (detectOrientation)
     (menubar menubarElem)
     (header urlRouter root)

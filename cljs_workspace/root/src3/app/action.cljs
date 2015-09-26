@@ -73,8 +73,9 @@
       "picture" (str "https" (aget model "styleUrl"))
       "caption" (str (aget model "name") " in sdyle")
       "description" (aget model "modelDetail")
-      "callback" (fn [res]
-                   (when res (js/alert "分享成功！")))
+      "callback" 
+      (fn [res]
+        (when res (js/alert "分享成功！")))
       "err" #(js/alert %))
     (.postMessageToMyboard js/vic.facebook))
   ctx)
@@ -123,3 +124,14 @@
           "2px" :iphone
           :iphone)]
     (assoc ctx :media-type media-type)))
+    
+(defn AlertInfomationIfModelPageAtMobileDevice [ctx {:keys [curr-view] :as args}]
+  (if
+    (and
+      (some #(= % curr-view) [:Model :StreetSnap])
+      (js/mobileAndTabletcheck)
+      (not (get-in ctx [:flag :mobileInformation])))
+    (do
+      (js/alert js/constant.modelInformation)
+      (assoc-in ctx [:flag :mobileInformation] true))
+    ctx))

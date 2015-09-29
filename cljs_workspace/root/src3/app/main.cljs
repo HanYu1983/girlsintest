@@ -44,7 +44,7 @@
                                                         act/ShowLoadingImage
                                                         act/ChangeLogo
                                                         act/AlertInfomationIfModelPageAtMobileDevice
-                                                        act/ShowFooterOrNot)]}
+                                                        (act/Unuse act/ShowFooterOrNot))]}
                 :Home           {:nothing           [:nil identity]
                                  :reset             [:Home
                                                      (act/ComposeAction

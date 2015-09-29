@@ -177,7 +177,10 @@
                        
                   dto 
                   (js-obj 
-                    "visibleFullscreen" (or (true? (.-Fullscreen detail)) false)
+                    "visibleFullscreen" 
+                    (if (js/mobileAndTabletcheck)
+                      true
+                      (.-Fullscreen detail))
                     "visibleFBComment" (or (true? (.-FBComment detail)) false)
                     "historyList" (->> (map ConvertHeadDTO relativeDetails) (apply array))
                     "name" (.-Caption detail)

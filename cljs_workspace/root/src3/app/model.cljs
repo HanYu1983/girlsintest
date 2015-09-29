@@ -113,6 +113,9 @@
                         "name" (.-Caption detail)
                         "date" (.-Date detail)
                         "brand" (.-Brand detail)
+                        "signUrl" 
+                        (when (.-Sign detail)
+                          (fn/ServeImagePath (str (aget config configType) "/" model "/sign.png")))
                         "imgStylePath" (fn/ServeImagePathWH (str (aget config configType) "/" model "/image_2.jpg") w h)
                         "imgSideAPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_3.jpg"))
                         "imgSideBPath" (fn/ServeImagePath100 (str (aget config configType) "/" model "/image_4.jpg"))

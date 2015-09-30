@@ -104,9 +104,9 @@
                     (let [[w h]
                           (condp = media-type
                             :pc [400 600]
-                            :ipad [268 402]
-                            :iphone [268 402]
-                            [268 402])]
+                            :ipad [300 450]
+                            :iphone [300 450]
+                            [300 450])]
                       (js-obj
                         "visibleDate" false;(not (= :ProductList name))
                         "id" model

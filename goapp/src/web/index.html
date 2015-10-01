@@ -893,10 +893,15 @@
 							<img class="ext_singleModel" src="images/forExtend.png"/><!-- for extend container -->
 							<div id="mc_pro">
 								<div style="position:relative; width:100%; height:100%; background-color:white; opacity:.3"></div>
-								<div id="txt_proContent" class="textBase">{{html protalk}}</div>
+								<!-- for test -->
+								<!--
+								<img style="position:absolute; right:0; bottom:0; height:100%;" src='images/ALICE_test.png'></img>
+								-->
+								<!-- for test -->
 								{{if signUrl }}
 								<img style="position:absolute; right:0; bottom:0; height:100%;" src=${signUrl}></img>
 								{{/if}}
+								<div id="txt_proContent" class="textBase">{{html protalk}}</div>
 							</div>
 							<img id="img_stylePicture" src=${styleUrl + "?Width=247&Height=370"} />
 							<div id="mc_sideContainer" >
@@ -990,12 +995,17 @@
 							<img class="ext_singleModel" src="images/forExtend2.png"/><!-- for extend container -->
 							<div id="mc_modelTitle" class="">
 								<div style=${'background-color:'+ $item.brandToColor(brand)} class='background'>
+									<!-- for test -->
+									<!--
+									<img style="position:absolute; right:0; bottom:0; height:100%;" src='images/ALICE_test.png'></img>
+									-->
+									<!-- for test -->
+									{{if signUrl}}
+									<img style="position:absolute; right:0; bottom:0; height:100%;" src=${signUrl}></img>
+									{{/if}}
 									<div id='txt_name' class='textBase'>${name}</div>
 									{{if visibleDate}}
 									<div id='txt_date' class='textBase'>${date}</div>
-									{{/if}}
-									{{if signUrl}}
-									<img style="position:absolute; right:0; bottom:0; height:100%;" src=${signUrl}></img>
 									{{/if}}
 								</div>
 								{{if $item.checkHot(date) }}

@@ -144,6 +144,14 @@
       (js/mobileAndTabletcheck)
       (not (get-in ctx [:flag :mobileInformation])))
     (do
-      (js/alert js/constant.modelInformation)
+      (js/setTimeout
+        #(js/alert js/constant.modelInformation)
+        1000)
       (assoc-in ctx [:flag :mobileInformation] true))
     ctx))
+  
+(defn Tracking [ctx {where :react-where where2 :react-where2 act :react-action :as args}]
+  (condp = where
+    :Router ((.-page js/googleTracking) "send" "pageview" act)
+    ((.-page js/googleTracking) "send" "event" "btn" (str (name where) "-" (name where2))))
+  ctx)

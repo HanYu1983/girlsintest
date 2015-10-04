@@ -152,6 +152,6 @@
   
 (defn Tracking [ctx {where :react-where where2 :react-where2 act :react-action :as args}]
   (condp = where
-    :Router ((.-page js/googleTracking) "send" "pageview" act)
-    ((.-page js/googleTracking) "send" "event" "btn" (str (name where) "-" (name where2))))
+    :Router ((.-page js/googleTracking) (name act))
+    ((.-click js/googleTracking) (str (name where) "-" (name where2))))
   ctx)

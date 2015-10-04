@@ -4,6 +4,19 @@
 		<link href='css/normalize.min.css' rel='stylesheet' type='text/css'/>
 		<script src='js/lib/jquery/jquery-1.9.min.js'></script>
 		<script src='js/lib/purl.js'></script>
+		<script src='js/lib/google/ga.js'></script>
+		<title>Sdyle</title>
+		<!--page information for search engine-->
+		<meta name="title" content="Sdyle" />
+		<meta name="keyword" content="3d時尚,時尚,3d,sdyle,style,3d看穿搭" />
+		<meta name="description" content="我們想要讓人，用不一樣的角度去看穿搭.用3D, 讓你可以仔仔細細的看到fashion 的所有細節" />
+		<link rel="image_src" href=""/>
+
+		<!--share information for fb-->
+		<meta property="og:description" content="3d時尚,時尚,3d,sdyle,style,3d看穿搭" />
+		<meta property="og:title" content="Sdyle" />
+		<meta property="og:url" content="http://academic-actor-87312.appspot.com/sdyle/index.html"/>
+		<meta property="og:image" content=""/>
 	</head>
 	<body style="margin:0">
 		<div class="full">
@@ -14,7 +27,7 @@
 			<img style="top:3px; left:50%; margin-left:-59px; height:44px;" class="absolute" src="images/index/bigLogo.png"/>
 		</div>
 		<script>
-		
+		googleTracking.init( 'UA-68426745-1' );
 		function getJson(url, cb){
 			$.ajax({
 				url: url,

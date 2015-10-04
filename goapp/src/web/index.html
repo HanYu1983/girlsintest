@@ -2,8 +2,20 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width , user-scalable=no">
-
 		<title>Sdyle</title>
+		<!--page information for search engine-->
+		<meta name="title" content="Sdyle" />
+		<meta name="keyword" content="3d時尚,時尚,3d,sdyle,style,3d看穿搭" />
+		<meta name="description" content="我們想要讓人，用不一樣的角度去看穿搭.用3D, 讓你可以仔仔細細的看到fashion 的所有細節" />
+		<link rel="image_src" href=""/>
+
+		<!--share information for fb-->
+		<meta property="og:description" content="3d時尚,時尚,3d,sdyle,style,3d看穿搭" />
+		<meta property="og:title" content="Sdyle" />
+		<meta property="og:url" content="http://academic-actor-87312.appspot.com/sdyle/index.html"/>
+		<meta property="og:image" content=""/>
+
+		
 		<link rel="stylesheet" type="text/css" href="css/normalize.min.css">
 			
 		<script src="js/lib/jquery/jquery-1.9.min.js"></script>
@@ -18,6 +30,7 @@
 		<script src='js/lib/async/async.js'></script>
 		<script src='js/lib/vic/vic.facebook.js'></script>
 		<script src='js/lib/vic/vic.mvc.js'></script>
+		<script src='js/lib/google/ga.js'></script>
 		<script src='js/lib/date.js'></script>
 		<script src='//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js'></script>
 		<script>
@@ -305,6 +318,11 @@
 		right:5px;
 	}
 	
+	#btn_more2{
+		position:absolute;
+		display:none;
+	}
+	
 	#mc_index #mc_3d_container{
 		position:relative; 
 		width:400px; 
@@ -322,6 +340,13 @@
 			top:50%; 
 			display:none;
 		}
+		
+		#btn_more2{
+			top:55%;
+			left:61%;
+			display:block;
+		}
+		
 	}
 	
 	@media screen and ( max-width:480px ){
@@ -342,6 +367,9 @@
 			margin-bottom:100px; 
 		}
 		
+		#btn_more2{
+			top:57%;
+		}
 	}
 	</style>
 	
@@ -778,6 +806,7 @@
 			position:absolute; 
 			top:0; 
 			left:0;
+			line-height:12px;
 		}
 		
 		.img_refModel{
@@ -841,8 +870,9 @@
 		<script type='x-jquery-tmpl' id='tmpl_home'>
 			<div id="mc_index" class='page'>
 				<img id="mc_backLine" src='images/index/logo_in_the_middle.png'/>
+				<img id='btn_more2' src='images/index/More.png'/>
 				<div id='mc_mainContainer' >
-				<!--
+					<!--
 					<img id="mc_bigLogo" src='images/index/big_LOGO.png'/>
 					-->
 					<div id="mc_3d_container">
@@ -1206,6 +1236,21 @@
 	</body>
   <script src='js/constant.js'></script>
 	<script>
+	googleTracking.init( 'UA-68426745-1' );
+	
+	//tracking example
+	/*
+	googleTracking.page = function( inv ){
+		ga('send', 'pageview', inv);
+	}
+	googleTracking.click = function( inv ){
+		ga('send', 'event','btn', inv );
+	}
+	googleTracking.event = function( inv ){
+		ga('send', 'event','eventTag', inv );
+	}
+	*/
+	
 	waitForImages = function(){
 		$("#mc_loading").fadeIn(400)
 		$('#mc_pageContainer').waitForImages({ waitForAll : true, finished : function() {

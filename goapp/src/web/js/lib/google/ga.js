@@ -10,11 +10,14 @@ googleTracking.init = function( gacode ){
 }
 
 googleTracking.page = function( inv ){
+	console.log('tracking pageview', inv)
 	ga('send', 'pageview', inv);
 }
 googleTracking.click = function( inv ){
+	console.log('tracking event ', inv)
 	ga('send', 'event','btn', inv );
 }
 googleTracking.event = function( inv ){
+	console.log('tracking event ', inv)
 	ga('send', 'event','eventTag', inv );
 }

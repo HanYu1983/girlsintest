@@ -51,6 +51,6 @@
       (do
         (.log js/console (str "from " key " operator " whichRoute " isn't exist!!"))
         ctx)
-      (Operation ctx (merge args {:react-where key :react-action curr})))))
+      (Operation ctx (merge args {:react-where key :react-action curr :react-where2 whichRoute})))))
 
 (def OnReact (chan))

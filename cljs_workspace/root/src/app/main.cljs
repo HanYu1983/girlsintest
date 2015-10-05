@@ -2,7 +2,7 @@
   (:require-macros
     [cljs.core.async.macros :refer [go]])
   (:require
-    [cljs.core.async :as async :refer [chan <!]]
+    [cljs.core.async :as async :refer [chan <! timeout]]
     [tool.react :as react]
     [app.fn :as fn]
     [app.model :as model]
@@ -25,19 +25,46 @@
   ; goappengine 不支援中文檔案名稱，所以不能使用中文檔名
 (defn startapp []
   (let [urlRouter (create-router)
-        route { :Router         {:toHome            [:Home react/ChangeView]
-                                 :toModelList       [:ModelList react/ChangeView]
-                                 :toStreetSnapList  [:StreetSnapList react/ChangeView]
-                                 :toProductList     [:ProductList react/ChangeView]
-                                 :toStreetSnap      [:StreetSnap react/ChangeView]
-                                 :toModel           [:Model react/ChangeView]
-                                 :toProduct         [:Product react/ChangeView]
-                                 :toEvent           [:Event react/ChangeView]
-                                 :toNews            [:News react/ChangeView]}
+        route { :Router         {:toHome            [:Home 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toModelList       [:ModelList 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toStreetSnapList  [:StreetSnapList
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toProductList     [:ProductList 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toStreetSnap      [:StreetSnap 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toModel           [:Model 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toProduct         [:Product 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toEvent           [:Event 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]
+                                 :toNews            [:News 
+                                                    (act/ComposeAction
+                                                      act/Tracking
+                                                      react/ChangeView)]}
                 :Event          {:orientationchange [:nil 
                                                      (act/ComposeAction
                                                        act/DetectMediaQuery
-                                                       (act/Unuse act/OpenMenuIfPcMode))]
+                                                       act/OpenMenuIfPcMode)]
                                  :onOpen            [:nil 
                                                      (act/ComposeAction
                                                         act/CloseMenu
@@ -48,54 +75,110 @@
                 :Home           {:nothing           [:nil identity]
                                  :reset             [:Home
                                                      (act/ComposeAction
-                                                        act/ToggleMenu
-                                                        act/Navigate)]
+                                                       act/Tracking
+                                                       act/ToggleMenu
+                                                       act/Navigate)]
                                  :toNews            [:News
                                                      (act/ComposeAction
-                                                        act/ToggleMenu
-                                                        act/Navigate)]
+                                                       act/Tracking
+                                                       act/ToggleMenu
+                                                       act/Navigate)]
                                  :toEvent           [:Event
                                                      (act/ComposeAction
-                                                        act/ToggleMenu
-                                                        act/Navigate)]
+                                                       act/Tracking
+                                                       act/ToggleMenu
+                                                       act/Navigate)]
                                  :toModelList       [:ModelList 
                                                      (act/ComposeAction
-                                                        act/ToggleMenu
-                                                        act/Navigate)]
+                                                       act/Tracking
+                                                       act/ToggleMenu
+                                                       act/Navigate)]
                                  :toStreetSnapList  [:StreetSnapList 
                                                      (act/ComposeAction
-                                                        act/ToggleMenu
-                                                        act/Navigate)]
+                                                       act/Tracking
+                                                       act/ToggleMenu
+                                                       act/Navigate)]
                                  :toProductList     [:ProductList 
                                                      (act/ComposeAction
-                                                        act/ToggleMenu
-                                                        act/Navigate)]
+                                                       act/Tracking
+                                                       act/ToggleMenu
+                                                       act/Navigate)]
                                  :menuClick        [:nil act/ToggleMenuForce]}
-                :StreetSnapList {:toDetail [:StreetSnap act/Navigate]
-                                 :search   [:StreetSnapList act/Navigate]
-                                 :reset    [:StreetSnapList act/Navigate]}
-                :ModelList      {:toDetail [:Model act/Navigate]
-                                 :search   [:ModelList act/Navigate]
-                                 :reset    [:ModelList act/Navigate]}
-                :ProductList    {:toDetail [:Product act/Navigate]
-                                 :search   [:ProductList act/Navigate]
-                                 :reset    [:ProductList act/Navigate]}
-                :StreetSnap     {:toList   [:StreetSnapList act/Navigate]
-                                 :fullscreen [:nil act/OpenFullScreen]
-                                 :toDetail [:StreetSnap act/Navigate]
-                                 :toBig    [:Big react/OpenView]
-                                 :shareFB  [:Model act/ShareFB]}
-                :Model          {:toList   [:ModelList act/Navigate]
-                                 :fullscreen [:nil act/OpenFullScreen]
-                                 :toDetail [:Model act/Navigate]
-                                 :toBig    [:Big react/OpenView]
-                                 :shareFB  [:Model act/ShareFB]}
-                :Product        {:toList   [:ProductList act/Navigate]
-                                 :fullscreen [:nil act/OpenFullScreen]
-                                 :toDetail [:Product act/Navigate]
-                                 :toBig    [:Big react/OpenView]
-                                 :shareFB  [:Model act/ShareFB]}
-                :Big            {:close    [:Big react/CloseView]}}
+                :StreetSnapList {:toDetail [:StreetSnap (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :search   [:StreetSnapList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :reset    [:StreetSnapList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]}
+                :ModelList      {:toDetail [:Model (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :search   [:ModelList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :reset    [:ModelList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]}
+                :ProductList    {:toDetail [:Product (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :search   [:ProductList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :reset    [:ProductList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]}
+                :StreetSnap     {:toList   [:StreetSnapList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :fullscreen [:nil (act/ComposeAction
+                                             act/Tracking
+                                             act/OpenFullScreen)]
+                                 :toDetail [:StreetSnap (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :toBig    [:Big (act/ComposeAction
+                                             act/Tracking
+                                             react/OpenView)]
+                                 :shareFB  [:Model (act/ComposeAction
+                                             act/Tracking
+                                             act/ShareFB)]}
+                :Model          {:toList   [:ModelList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :fullscreen [:nil (act/ComposeAction
+                                             act/Tracking
+                                             act/OpenFullScreen)]
+                                 :toDetail [:Model (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :toBig    [:Big (act/ComposeAction
+                                             act/Tracking
+                                             react/OpenView)]
+                                 :shareFB  [:Model (act/ComposeAction
+                                             act/Tracking
+                                             act/ShareFB)]}
+                :Product        {:toList   [:ProductList (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :fullscreen [:nil (act/ComposeAction
+                                             act/Tracking
+                                             act/OpenFullScreen)]
+                                 :toDetail [:Product (act/ComposeAction
+                                             act/Tracking
+                                             act/Navigate)]
+                                 :toBig    [:Big (act/ComposeAction
+                                             act/Tracking
+                                             react/OpenView)]
+                                 :shareFB  [:Model (act/ComposeAction
+                                             act/Tracking
+                                             act/ShareFB)]}
+                :Big            {:close    [:Big (act/ComposeAction
+                                             act/Tracking
+                                             react/CloseView)]}}
         sdyleColor "rgb(185,71,132)"
         root (js/$ ".root")
         tmpl-item (js-obj
@@ -145,7 +228,9 @@
   (.on (js/$ js/window)
     "orientationchange"
     (fn [e]
-      (go (>! react/OnReact [:Event :orientationchange (.-orientation e)])))))
+      (go
+        (<! (timeout 1000)) ; 延遲後才能正確query到
+        (>! react/OnReact [:Event :orientationchange (.-orientation e)])))))
 
 (defn menubar [elem]
   (let [handleBtnMouseOut (fn [evt]

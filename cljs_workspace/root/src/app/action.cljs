@@ -155,3 +155,7 @@
     :Router ((.-page js/googleTracking) (name act))
     ((.-click js/googleTracking) (str (name where) "-" (name where2))))
   ctx)
+  
+(defn WindowScrollToZero [ctx _]
+  (.scrollTo js/window 0 0)
+  ctx)

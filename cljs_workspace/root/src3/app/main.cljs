@@ -2,7 +2,7 @@
   (:require-macros
     [cljs.core.async.macros :refer [go]])
   (:require
-    [cljs.core.async :as async :refer [chan <!]]
+    [cljs.core.async :as async :refer [chan <! timeout]]
     [tool.react :as react]
     [app.fn :as fn]
     [app.model :as model]
@@ -64,7 +64,7 @@
                 :Event          {:orientationchange [:nil 
                                                      (act/ComposeAction
                                                        act/DetectMediaQuery
-                                                       (act/Unuse act/OpenMenuIfPcMode))]
+                                                       act/OpenMenuIfPcMode)]
                                  :onOpen            [:nil 
                                                      (act/ComposeAction
                                                         act/CloseMenu
@@ -228,7 +228,9 @@
   (.on (js/$ js/window)
     "orientationchange"
     (fn [e]
-      (go (>! react/OnReact [:Event :orientationchange (.-orientation e)])))))
+      (go
+        (<! (timeout 1000)) ; 延遲後才能正確query到
+        (>! react/OnReact [:Event :orientationchange (.-orientation e)])))))
 
 (defn menubar [elem]
   (let [handleBtnMouseOut (fn [evt]

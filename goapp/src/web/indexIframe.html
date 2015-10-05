@@ -5,8 +5,11 @@
 		<script src='js/lib/jquery/jquery-1.9.min.js'></script>
 		<script src='js/lib/purl.js'></script>
 		<script src='js/lib/google/ga.js'></script>
+		<script src='js/lib/leo.utils.js'></script>
 		<title>Sdyle</title>
 		<!--page information for search engine-->
+		
+		<meta charset='utf-8'/>
 		<meta name="title" content="Sdyle" />
 		<meta name="keyword" content="3d時尚,時尚,3d,sdyle,style,3d看穿搭" />
 		<meta name="description" content="我們想要讓人，用不一樣的角度去看穿搭.用3D, 讓你可以仔仔細細的看到fashion 的所有細節" />
@@ -20,14 +23,32 @@
 	</head>
 	<body style="margin:0">
 		<div class="full">
+			<div id="txt_alert" style="position:absolute; width:100%; height:100%; background-color:#1a1a1a; text-align:center; display:none;">
+				<div style="position:relative; display:inline-block; top:50%; color:gray;">NOTICE: IE目前不支援此功能，建議使用chrome,safari瀏覽器開啟；不便之處，敬請見諒。</div>
+			</div>
+			
 			<iframe id="iframe_3dIframe" src="" width="99%" height="99%" class="absolute top left"></iframe>
+			
 			<img class="absolute full left top disable" src="images/streetSnap/3d_frame_02_fat.png"/>
 			<img style="height:50px;" class="absolute w_full top" src="images/streetSnap/3d_frame_03.png"/>
 			<img style="height:60px;" class="absolute w_full bottom" src="images/streetSnap/3d_frame_03.png"/>
-			<img style="top:3px; left:50%; margin-left:-59px; height:44px;" class="absolute" src="images/index/bigLogo.png"/>
+			<img id="img_logo" style="top:3px; left:50%; margin-left:-59px; height:44px;" class="absolute" src="images/index/bigLogo.png"/>
 		</div>
 		<script>
 		googleTracking.init( 'UA-68426745-1' );
+		
+		var detectBrowser = leo.utils.detectBrowser();
+		if( detectBrowser.isChrome || detectBrowser.isSafari ){
+			//good!
+			$( '#txt_alert' ).hide();
+			
+		}else{
+			$( '#iframe_3dIframe' ).hide();
+			$( '#txt_alert' ).show();
+			$( '#img_logo' ).css( 'top', '42%' );
+		}
+		
+		
 		function getJson(url, cb){
 			$.ajax({
 				url: url,

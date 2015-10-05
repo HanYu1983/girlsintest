@@ -204,7 +204,7 @@
           "1px" :ipad
           "2px" :iphone
           :iphone)
-                  
+        browser (.detectBrowser js/leo.utils)
         ctx {
           :root root
           :router urlRouter
@@ -217,12 +217,21 @@
             ; 讓行動版本解析度不足資訊只show一次
             :mobileInformation false 
           }
+          :browser browser
         }]
+        
+    (when-not 
+      (or 
+        (.-isChrome browser)
+        (.-isSafari browser))
+      (js/alert js/constant.browserInformation))
+    (.log js/console (.stringify js/JSON browser))
     (detectOrientation)
     (menubar menubarElem)
     (header urlRouter root)
     (go (async/reduce (partial react/React route) ctx react/OnReact))
     (.start js/Backbone.history)))
+
 
 (defn detectOrientation []
   (.on (js/$ js/window)

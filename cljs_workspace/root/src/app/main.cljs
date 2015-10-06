@@ -44,14 +44,17 @@
                                  :toStreetSnap      [:StreetSnap 
                                                     (act/ComposeAction
                                                       act/Tracking
+                                                      act/WindowScrollToZero
                                                       react/ChangeView)]
                                  :toModel           [:Model 
                                                     (act/ComposeAction
                                                       act/Tracking
+                                                      act/WindowScrollToZero
                                                       react/ChangeView)]
                                  :toProduct         [:Product 
                                                     (act/ComposeAction
                                                       act/Tracking
+                                                      act/WindowScrollToZero
                                                       react/ChangeView)]
                                  :toEvent           [:Event 
                                                     (act/ComposeAction

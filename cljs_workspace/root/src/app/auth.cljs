@@ -24,13 +24,13 @@
     "cnonce=\"" cnonce "\""))
     
 (defn digestAuthParams [authorization]
-  (let [formated (str/replace authorization #"Digest " "")
+  (let [formated (.replace authorization #"Digest " "")
         params
         (into {}
           (->>
             (str/split formated #", ")
             (map (fn [pair] (str/split pair #"=")))
-            (map (fn [[k v]] [(keyword k) (str/replace v #"\"" "")]))))]
+            (map (fn [[k v]] [(keyword k) (.replace v "\"" "")]))))]
     params))
     
 (defn auth [url]

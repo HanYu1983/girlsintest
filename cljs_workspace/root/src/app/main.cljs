@@ -222,7 +222,6 @@
           }
           :browser browser
         }]
-        
     (when-not 
       (or 
         (.-isChrome browser)

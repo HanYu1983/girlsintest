@@ -18,7 +18,7 @@
   detectOrientation)
 
 (defn main []
-  (doto (auth/auth "/auth")
+  (doto (auth/auth "/goapp/auth")
     (.done startapp)
     (.fail #(.log js/console "fail!"))))
 

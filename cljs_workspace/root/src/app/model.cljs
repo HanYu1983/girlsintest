@@ -142,6 +142,7 @@
                 (close! ret)))))
         (.fail
           (fn [err]
+            (.log js/console "package裡可能有不該存在的檔案(ex. zip, ...)，請檢查！！")
             (go
               (>! ret [err nil])
               (close! ret)))))

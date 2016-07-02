@@ -23,16 +23,16 @@
   (-> (.map js/_ (.split path "/") js/encodeURIComponent) (.join "/")))
 
 (defn ServeImagePath [path]
-  (str "//" window.location.host "/" path))
+  (str "//" window.location.host "/goapp/" path))
   
 (defn ServeImagePath100 [path]
-  (str "//" window.location.host "/" path "?Width=" 100 "&Height=" 100))
+  (str "//" window.location.host "/goapp/" path "?Width=" 100 "&Height=" 100))
 
 (defn ServeImagePathWH [path w h]
-  (str "//" window.location.host "/" path "?Width=" w "&Height=" h))
+  (str "//" window.location.host "/goapp/" path "?Width=" w "&Height=" h))
 
 (defn FetchFile [path]
-  (.getJSON js/$ (str "//" window.location.host "/" path)))
+  (.getJSON js/$ (str "//" window.location.host "/goapp/" path)))
   
   ;只在取得keylist的時候將key編碼，以支援中文的key(appengine不支援中文檔名)
 (defn FetchModelKeyList [path]

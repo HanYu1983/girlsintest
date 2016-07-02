@@ -8,7 +8,7 @@ import (
 	"lib/tool"
 	"net/http"
 	"os"
-	_ "strings"
+	"strings"
 )
 
 func Secret(user, realm string) string {
@@ -49,16 +49,18 @@ func init() {
 		WhiteList: []string{""},
 	})
 
-	http.HandleFunc("/auth", AuthWrap(responseHello)) // 認證不能被快取，所以獨立出來
+	http.HandleFunc("/goapp/auth", AuthWrap(responseHello)) // 認證不能被快取，所以獨立出來
 
 	// 前台cache就行了，不必使用後台的validator(ETag)
-	restFn := rest.RestWithConfig("./package", etagValidator, handlers)
+	restFn := rest.RestWithConfig("./package", func(url string) string {
+		return strings.Replace(url, "goapp/", "", 1)
+	}, etagValidator, handlers)
 	restFn = WrapCacheControl(cacheMaxAge, restFn)
-	http.HandleFunc("/", restFn)
+	http.HandleFunc("/goapp/", restFn)
 
 	// test code
 	http.HandleFunc("/auth3", AuthWrap(responseHello))
-	http.HandleFunc("/whereami", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/goapp/whereami", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "addr:[%s]", r.RemoteAddr)
 	})
 }

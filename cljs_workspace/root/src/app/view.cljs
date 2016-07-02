@@ -93,10 +93,10 @@
           #(go (>! react/OnReact [name :shareFB {:model model}])))
         (.delegate mc_sideContainer "img" "click"
           #(this-as that
-            (go (>! react/OnReact [name :toBig {:basicUrl (str "//" window.location.host "/" (.-id that))}]))))
+            (go (>! react/OnReact [name :toBig {:basicUrl (str "//" window.location.host "/goapp/" (.-id that))}]))))
         (.delegate mc_bottomContainer "img" "click"
           #(this-as that
-            (go (>! react/OnReact [name :toBig {:basicUrl (str "//" window.location.host "/" (.-id that))}]))))
+            (go (>! react/OnReact [name :toBig {:basicUrl (str "//" window.location.host "/goapp/" (.-id that))}]))))
         (.delegate mc_historyContainer "img" "click"
           #(this-as that
             (go (>! react/OnReact [name :toDetail {:id (.-id that)}]))))

@@ -23,15 +23,15 @@
     
 (defn bottomTab1 [view]
   (cond
-    (some #(= view %) [:StreetSnap :StreetSnapList]) "MODEL資料"
-    (some #(= view %) [:Model :ModelList]) "MODEL資料"
+    (some #(= view %) [:StreetSnap :StreetSnapList]) "Basic Information"
+    (some #(= view %) [:Model :ModelList]) "Basic Information"
     (some #(= view %) [:Product :ProductList]) "產品資料"
     :else (throw (new js/Error (str "no bottomTab1 with " view)))))
     
 (defn bottomTab2 [view]
   (cond
-    (some #(= view %) [:StreetSnap :StreetSnapList]) "MODEL訪談"
-    (some #(= view %) [:Model :ModelList]) "MODEL訪談"
+    (some #(= view %) [:StreetSnap :StreetSnapList]) "Interview"
+    (some #(= view %) [:Model :ModelList]) "Interview"
     (some #(= view %) [:Product :ProductList]) "產品特色"
     :else (throw (new js/Error (str "no bottomTab2 with " view)))))
 
